@@ -89,20 +89,29 @@
                     <span>Dashboard</span>
                 </a>
 
-                <!-- Modules placeholder: new modules requested will be added here -->
+                <a href="{{ route('admin.tickers.index') }}" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all {{ request()->routeIs('admin.tickers.*') ? 'bg-jrs-red text-white shadow-lg shadow-red-600/30 font-semibold' : 'text-slate-300 hover:bg-white/10 hover:text-white' }}">
+                    <svg class="w-5 h-5 opacity-90" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"/></svg>
+                    <span>News Ticker</span>
+                </a>
             </div>
 
-            <!-- User Footer Info -->
+            <!-- User Footer Info & Logout -->
             <div class="p-4 border-t border-white/10 bg-jrs-navy-dark flex items-center justify-between">
                 <div class="flex items-center gap-3 overflow-hidden">
                     <div class="w-9 h-9 rounded-full bg-jrs-red text-white flex items-center justify-center font-bold text-sm shrink-0">
-                        A
+                        {{ strtoupper(substr(Auth::user()->name ?? 'A', 0, 1)) }}
                     </div>
                     <div class="truncate">
-                        <div class="text-sm font-medium text-white truncate">Administrator</div>
-                        <div class="text-xs text-slate-400 truncate">admin@jrsschool.com</div>
+                        <div class="text-sm font-medium text-white truncate">{{ Auth::user()->name ?? 'Administrator' }}</div>
+                        <div class="text-xs text-slate-400 truncate">{{ Auth::user()->email ?? 'admin@jrsschool.com' }}</div>
                     </div>
                 </div>
+                <form action="{{ route('admin.logout') }}" method="POST" class="shrink-0">
+                    @csrf
+                    <button type="submit" title="Sign Out" class="p-2 text-slate-400 hover:text-red-400 hover:bg-white/5 rounded-lg transition-colors">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+                    </button>
+                </form>
             </div>
         </aside>
 
@@ -133,6 +142,14 @@
                         <span>View React Site</span>
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
                     </a>
+
+                    <form action="{{ route('admin.logout') }}" method="POST" class="inline">
+                        @csrf
+                        <button type="submit" class="inline-flex items-center gap-1 px-3 py-2 rounded-xl text-xs font-semibold text-red-600 hover:bg-red-50 transition-colors" title="Sign Out">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+                            <span class="hidden sm:inline">Logout</span>
+                        </button>
+                    </form>
                 </div>
             </header>
 

@@ -13,36 +13,6 @@ use Illuminate\Support\Facades\Artisan;
 class NewsTickerApiController extends Controller
 {
     /**
-     * @OA\Get(
-     *     path="/api/news-ticker",
-     *     operationId="getActiveTickers",
-     *     tags={"News Ticker (Frontend)"},
-     *     summary="Get active marquee ticker announcements for React site",
-     *     description="Returns all active announcements sorted by sort_order for the homepage top red marquee banner.",
-     *     @OA\Response(
-     *         response=200,
-     *         description="List of active news tickers",
-     *         @OA\JsonContent(
-     *             type="object",
-     *             @OA\Property(property="success", type="boolean", example=true),
-     *             @OA\Property(property="count", type="integer", example=2),
-     *             @OA\Property(
-     *                 property="data",
-     *                 type="array",
-     *                 @OA\Items(
-     *                     type="object",
-     *                     @OA\Property(property="id", type="integer", example=1),
-     *                     @OA\Property(property="title", type="string", example="Admissions Open for Academic Year 2026–2027"),
-     *                     @OA\Property(property="badge_text", type="string", example="NEWS"),
-     *                     @OA\Property(property="link_url", type="string", nullable=true, example="https://jrs-school.vercel.app/admissions"),
-     *                     @OA\Property(property="sort_order", type="integer", example=1),
-     *                     @OA\Property(property="is_active", type="boolean", example=true)
-     *                 )
-     *             )
-     *         )
-     *     )
-     * )
-     *
      * Public endpoint for React frontend ticker: GET /api/news-ticker
      */
     public function getActiveTickers(): JsonResponse

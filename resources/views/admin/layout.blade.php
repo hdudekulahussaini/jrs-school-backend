@@ -106,19 +106,33 @@
                     <span>Facilities</span>
                 </a>
 
-                <div class="pt-4 px-3 pb-2 text-[11px] font-semibold uppercase tracking-wider text-slate-400">Developer</div>
-                <a href="{{ route('admin.swagger') }}" class="flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors text-slate-400 hover:text-slate-100 hover:bg-slate-900">
-                    <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
-                    <span>Swagger API Docs</span>
-                <a href="{{ route('admin.about.index') }}" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all {{ request()->routeIs('admin.about.*') ? 'bg-jrs-red text-white shadow-lg shadow-red-600/30 font-semibold' : 'text-slate-300 hover:bg-white/10 hover:text-white' }}">
-                    <svg class="w-5 h-5 opacity-90" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
-                    <span>About JRS</span>
-                </a>
+                @php
+                    $isAboutActive = request()->routeIs('admin.about.*') || request()->routeIs('admin.vision-mission.*');
+                @endphp
+                <div class="space-y-1">
+                    <button type="button" 
+                            id="aboutDropdownBtn"
+                            onclick="toggleAboutDropdown()" 
+                            class="w-full flex items-center justify-between px-3 py-2 rounded-md text-sm font-medium transition-colors {{ $isAboutActive ? 'bg-slate-800 text-white font-semibold' : 'text-slate-400 hover:text-slate-100 hover:bg-slate-900' }}">
+                        <div class="flex items-center gap-3">
+                            <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                            <span>About Page</span>
+                        </div>
+                        <svg id="aboutDropdownArrow" class="w-4 h-4 shrink-0 transition-transform duration-200 {{ $isAboutActive ? 'rotate-180 text-white' : 'text-slate-400' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </button>
 
-                <a href="{{ route('admin.vision-mission.index') }}" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all {{ request()->routeIs('admin.vision-mission.*') ? 'bg-jrs-red text-white shadow-lg shadow-red-600/30 font-semibold' : 'text-slate-300 hover:bg-white/10 hover:text-white' }}">
-                    <svg class="w-5 h-5 opacity-90" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
-                    <span>Vision & Mission</span>
-                </a>
+                    <div id="aboutDropdownMenu" class="{{ $isAboutActive ? '' : 'hidden' }} pl-4 pr-1 py-1 space-y-1 border-l border-slate-800 ml-5">
+                        <a href="{{ route('admin.about.index') }}" class="flex items-center gap-2.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors {{ request()->routeIs('admin.about.*') ? 'bg-slate-800 text-white font-semibold' : 'text-slate-400 hover:text-slate-100 hover:bg-slate-900' }}">
+                            <span class="w-1.5 h-1.5 rounded-full {{ request()->routeIs('admin.about.*') ? 'bg-emerald-400 ring-2 ring-emerald-400/30' : 'bg-slate-600' }}"></span>
+                            <span>About JRS</span>
+                        </a>
+
+                        <a href="{{ route('admin.vision-mission.index') }}" class="flex items-center gap-2.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors {{ request()->routeIs('admin.vision-mission.*') ? 'bg-slate-800 text-white font-semibold' : 'text-slate-400 hover:text-slate-100 hover:bg-slate-900' }}">
+                            <span class="w-1.5 h-1.5 rounded-full {{ request()->routeIs('admin.vision-mission.*') ? 'bg-emerald-400 ring-2 ring-emerald-400/30' : 'bg-slate-600' }}"></span>
+                            <span>Vision & Mission</span>
+                        </a>
+                    </div>
+                </div>
             </div>
 
             <!-- User Footer Info & Logout -->
@@ -215,6 +229,17 @@
         if (openBtn) openBtn.addEventListener('click', toggleSidebar);
         if (closeBtn) closeBtn.addEventListener('click', toggleSidebar);
         if (backdrop) backdrop.addEventListener('click', toggleSidebar);
+
+        function toggleAboutDropdown() {
+            const menu = document.getElementById('aboutDropdownMenu');
+            const arrow = document.getElementById('aboutDropdownArrow');
+            if (menu) {
+                menu.classList.toggle('hidden');
+            }
+            if (arrow) {
+                arrow.classList.toggle('rotate-180');
+            }
+        }
     </script>
     @stack('scripts')
 </body>

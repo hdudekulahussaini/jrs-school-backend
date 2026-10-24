@@ -6,6 +6,9 @@ use App\Http\Controllers\Api\HeroSliderApiController;
 use App\Http\Controllers\Api\FacilityApiController;
 use App\Http\Controllers\Api\AboutApiController;
 use App\Http\Controllers\Api\VisionMissionApiController;
+use App\Http\Controllers\Api\CampusLifeApiController;
+use App\Http\Controllers\Api\WhyChooseApiController;
+use App\Http\Controllers\Api\PtaMemberApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,4 +53,14 @@ Route::get('/about', [AboutApiController::class, 'getAbout']);
 
 // Vision & Mission Cards
 Route::get('/vision-mission', [VisionMissionApiController::class, 'index']);
+
+// Campus Tour & Life At JRS
+Route::get('/campus-tour', [CampusLifeApiController::class, 'index']);
+
+// Why Choose JRS ("What Makes JRS Different?")
+Route::get('/why-choose', [WhyChooseApiController::class, 'index']);
+
+// Parent Teacher Association (PTA)
+Route::get('/pta-members', [PtaMemberApiController::class, 'index']);
+
 

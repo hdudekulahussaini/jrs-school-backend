@@ -138,15 +138,12 @@
                                 @endif
                             </td>
 
-                            <!-- Status Toggle -->
+                            <!-- Status -->
                             <td class="p-4 align-middle text-center">
-                                <form action="{{ route('admin.facilities.toggle', $facility->id) }}" method="POST" class="inline">
-                                    @csrf
-                                    <button type="submit" title="Click to toggle status" class="inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-xs font-medium transition-colors cursor-pointer {{ $facility->is_active ? 'border-emerald-200 bg-emerald-50 text-emerald-700 hover:bg-emerald-100' : 'border-slate-200 bg-slate-100 text-slate-600 hover:bg-slate-200' }}">
-                                        <span class="w-1.5 h-1.5 rounded-full {{ $facility->is_active ? 'bg-emerald-500' : 'bg-slate-400' }}"></span>
-                                        <span>{{ $facility->is_active ? 'Active' : 'Disabled' }}</span>
-                                    </button>
-                                </form>
+                                <span class="inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-xs font-medium {{ $facility->is_active ? 'border-emerald-200 bg-emerald-50 text-emerald-700' : 'border-slate-200 bg-slate-100 text-slate-600' }}">
+                                    <span class="w-1.5 h-1.5 rounded-full {{ $facility->is_active ? 'bg-emerald-500' : 'bg-slate-400' }}"></span>
+                                    <span>{{ $facility->is_active ? 'Active' : 'Disabled' }}</span>
+                                </span>
                             </td>
 
                             <!-- Actions -->

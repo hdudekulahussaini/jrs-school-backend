@@ -13,6 +13,9 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             AdminUserSeeder::class,
+            CampusLifeSeeder::class,
+            WhyChooseFeatureSeeder::class,
+            PtaMemberSeeder::class,
         ]);
     }
 }

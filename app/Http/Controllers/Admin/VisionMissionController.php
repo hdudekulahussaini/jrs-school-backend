@@ -114,17 +114,4 @@ class VisionMissionController extends Controller
         return redirect()->route('admin.vision-mission.index')
             ->with('success', 'Vision & Mission card deleted successfully.');
     }
-
-    /**
-     * Toggle active status.
-     */
-    public function toggle($id)
-    {
-        $item = VisionMission::findOrFail($id);
-        $item->is_active = !$item->is_active;
-        $item->save();
-
-        return redirect()->route('admin.vision-mission.index')
-            ->with('success', 'Status updated successfully.');
-    }
 }

@@ -45,7 +45,6 @@
                             <th class="py-3 px-4">Heading & Content</th>
                             <th class="py-3 px-4">Background Image</th>
                             <th class="py-3 px-4">Order</th>
-                            <th class="py-3 px-4">Status</th>
                             <th class="py-3 px-4 text-right">Actions</th>
                         </tr>
                     </thead>
@@ -92,16 +91,6 @@
                                 <!-- Order -->
                                 <td class="py-4 px-4 align-top font-semibold text-xs text-slate-700">
                                     {{ $item->sort_order }}
-                                </td>
-
-                                <!-- Status -->
-                                <td class="py-4 px-4 align-top">
-                                    <form action="{{ route('admin.vision-mission.toggle', $item->id) }}" method="POST">
-                                        @csrf
-                                        <button type="submit" class="px-2.5 py-1 rounded-full text-xs font-semibold cursor-pointer transition-colors {{ $item->is_active ? 'bg-emerald-50 text-emerald-700 border border-emerald-200 hover:bg-emerald-100' : 'bg-slate-100 text-slate-500 hover:bg-slate-200' }}">
-                                            {{ $item->is_active ? '● Active' : '○ Inactive' }}
-                                        </button>
-                                    </form>
                                 </td>
 
                                 <!-- Actions -->

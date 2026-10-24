@@ -8,6 +8,9 @@ use App\Http\Controllers\Admin\HeroSliderController;
 use App\Http\Controllers\Admin\FacilityController;
 use App\Http\Controllers\Admin\AboutSectionController;
 use App\Http\Controllers\Admin\VisionMissionController;
+use App\Http\Controllers\Admin\CampusLifeController;
+use App\Http\Controllers\Admin\WhyChooseController;
+use App\Http\Controllers\Admin\PtaMemberController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,24 +39,31 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
 
     // News Tickers Full CRUD Resource
     Route::resource('/tickers', NewsTickerController::class)->names('admin.tickers');
-    Route::post('/tickers/{id}/toggle', [NewsTickerController::class, 'toggle'])->name('admin.tickers.toggle');
 
     // Hero Sliders Full CRUD Resource
     Route::resource('/sliders', HeroSliderController::class)->names('admin.sliders');
-    Route::post('/sliders/{id}/toggle', [HeroSliderController::class, 'toggle'])->name('admin.sliders.toggle');
 
     // Facilities Full CRUD Resource
     Route::resource('/facilities', FacilityController::class)->names('admin.facilities');
-    Route::post('/facilities/{id}/toggle', [FacilityController::class, 'toggle'])->name('admin.facilities.toggle');
+
     // About JRS Section Full CRUD Resource
     Route::resource('/about', AboutSectionController::class)->names('admin.about');
 
     // Vision & Mission Full CRUD Resource
     Route::resource('/vision-mission', VisionMissionController::class)->names('admin.vision-mission');
-    Route::post('/vision-mission/{id}/toggle', [VisionMissionController::class, 'toggle'])->name('admin.vision-mission.toggle');
+
+    // Campus Tour & Life Full CRUD Resource
+    Route::resource('/campus-life', CampusLifeController::class)->names('admin.campus-life');
+
+    // Why Choose JRS Full CRUD Resource
+    Route::resource('/why-choose', WhyChooseController::class)->names('admin.why-choose');
+
+    // Parent Teacher Association (PTA) Full CRUD Resource
+    Route::resource('/pta-members', PtaMemberController::class)->names('admin.pta-members');
 
     // Admin Swagger Documentation
     Route::get('/swagger', function () {
         return view('admin.swagger');
     })->name('admin.swagger');
 });
+

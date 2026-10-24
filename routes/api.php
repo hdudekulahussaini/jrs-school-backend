@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AboutApiController;
 use App\Http\Controllers\Api\AcademicProgramApiController;
+use App\Http\Controllers\Api\BeyondClassroomApiController;
 use App\Http\Controllers\Api\FacilityApiController;
 use App\Http\Controllers\Api\HeroSliderApiController;
 use App\Http\Controllers\Api\NewsTickerApiController;
@@ -47,3 +48,9 @@ Route::get('/about', [AboutApiController::class, 'getAbout']);
 
 // Vision & Mission Cards GET Endpoint
 Route::get('/vision-mission', [VisionMissionApiController::class, 'index']);
+
+// Beyond Classroom GET Endpoints (for React Homepage)
+Route::get('/beyond-classrooms', [BeyondClassroomApiController::class, 'getActiveActivities']);
+Route::get('/beyond', [BeyondClassroomApiController::class, 'getActiveActivities']);
+Route::get('/beyond-classrooms/{id}', [BeyondClassroomApiController::class, 'show']);
+

@@ -91,7 +91,8 @@
                     $isHomeActive = request()->routeIs('admin.tickers.*') || 
                                     request()->routeIs('admin.sliders.*') || 
                                     request()->routeIs('admin.facilities.*') || 
-                                    request()->routeIs('admin.programs.*');
+                                    request()->routeIs('admin.programs.*') || 
+                                    request()->routeIs('admin.beyond-classrooms.*');
                 @endphp
                 <div class="space-y-1">
                     <button type="button" 
@@ -124,6 +125,11 @@
                         <a href="{{ route('admin.programs.index') }}" class="flex items-center gap-2.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors {{ request()->routeIs('admin.programs.*') ? 'bg-jrs-red text-white font-semibold shadow-xs' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
                             <span class="w-1.5 h-1.5 rounded-full {{ request()->routeIs('admin.programs.*') ? 'bg-white ring-2 ring-white/30' : 'bg-white/40' }}"></span>
                             <span>Academic Programs</span>
+                        </a>
+
+                        <a href="{{ route('admin.beyond-classrooms.index') }}" class="flex items-center gap-2.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors {{ request()->routeIs('admin.beyond-classrooms.*') ? 'bg-jrs-red text-white font-semibold shadow-xs' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
+                            <span class="w-1.5 h-1.5 rounded-full {{ request()->routeIs('admin.beyond-classrooms.*') ? 'bg-white ring-2 ring-white/30' : 'bg-white/40' }}"></span>
+                            <span>Beyond Classroom</span>
                         </a>
                     </div>
                 </div>

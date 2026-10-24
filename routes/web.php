@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AboutSectionController;
 use App\Http\Controllers\Admin\AcademicProgramController;
 use App\Http\Controllers\Admin\AdminAuthController;
+use App\Http\Controllers\Admin\BeyondClassroomController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\FacilityController;
 use App\Http\Controllers\Admin\HeroSliderController;
@@ -56,6 +57,10 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     // Academic Programs Full CRUD Resource
     Route::resource('/programs', AcademicProgramController::class)->names('admin.programs');
     Route::post('/programs/{id}/toggle', [AcademicProgramController::class, 'toggle'])->name('admin.programs.toggle');
+
+    // Beyond Classroom Full CRUD Resource
+    Route::resource('/beyond-classrooms', BeyondClassroomController::class)->names('admin.beyond-classrooms');
+    Route::post('/beyond-classrooms/{id}/toggle', [BeyondClassroomController::class, 'toggle'])->name('admin.beyond-classrooms.toggle');
 
     // Admin Swagger Documentation
     Route::get('/swagger', function () {

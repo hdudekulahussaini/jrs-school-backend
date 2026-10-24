@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             HeroSliderSeeder::class,
             FacilitySeeder::class,
             AcademicProgramSeeder::class,
+            BeyondClassroomSeeder::class,
         ]);
     }
 }

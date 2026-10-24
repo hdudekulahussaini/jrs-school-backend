@@ -485,12 +485,46 @@
                             responses: { "200": { description: "Programme deleted successfully" } }
                         }
                     },
-                    "/admin/programs/{id}/toggle": {
-                        patch: {
-                            tags: ["Academic Programs (REST CRUD)"],
-                            summary: "Toggle active status of an academic programme",
+                    "/beyond-classrooms": {
+                        get: {
+                            tags: ["Beyond Classroom (Frontend)"],
+                            summary: "Get active Beyond Classroom talent activities for homepage",
+                            description: "Returns all 6 published activities (Sports, Music, Dance, Karate, Science & Activities, Skating) sorted by sort_order with category tags, badges, and colors.",
+                            responses: {
+                                "200": {
+                                    description: "List of active Beyond Classroom activities",
+                                    content: {
+                                        "application/json": {
+                                            example: {
+                                                success: true,
+                                                count: 6,
+                                                data: [
+                                                    {
+                                                        id: 1,
+                                                        title: "Sports",
+                                                        category: "Fitness & Teamwork",
+                                                        description: "Developing physical stamina, athletic discipline, teamwork, and sportsmanship across diverse track, court, and field games.",
+                                                        icon: "trophy",
+                                                        color: "#15803d",
+                                                        image_path: "/images/beyond/sports.jpg",
+                                                        image_full_url: "http://localhost:8000/images/beyond/sports.jpg",
+                                                        sort_order: 1,
+                                                        is_active: true
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "/beyond-classrooms/{id}": {
+                        get: {
+                            tags: ["Beyond Classroom (Frontend)"],
+                            summary: "Get specific Beyond Classroom activity details by ID",
                             parameters: [{ name: "id", in: "path", required: true, schema: { type: "integer" } }],
-                            responses: { "200": { description: "Status toggled" } }
+                            responses: { "200": { description: "Beyond Classroom activity details" } }
                         }
                     }
                 }

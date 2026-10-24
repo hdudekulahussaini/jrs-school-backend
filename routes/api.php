@@ -10,6 +10,9 @@ use App\Http\Controllers\Api\NewsTickerApiController;
 use App\Http\Controllers\Api\SchoolEventApiController;
 use App\Http\Controllers\Api\VisionMissionApiController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\CampusLifeApiController;
+use App\Http\Controllers\Api\WhyChooseApiController;
+use App\Http\Controllers\Api\PtaMemberApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -66,5 +69,13 @@ Route::get('/features', [HomeFeatureApiController::class, 'getActiveFeatures']);
 Route::get('/home-features', [HomeFeatureApiController::class, 'getActiveFeatures']);
 Route::get('/features/{id}', [HomeFeatureApiController::class, 'show']);
 
+// Campus Tour & Life At JRS
+Route::get('/campus-tour', [CampusLifeApiController::class, 'index']);
+
+// Why Choose JRS ("What Makes JRS Different?")
+Route::get('/why-choose', [WhyChooseApiController::class, 'index']);
+
+// Parent Teacher Association (PTA)
+Route::get('/pta-members', [PtaMemberApiController::class, 'index']);
 
 

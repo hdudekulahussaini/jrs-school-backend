@@ -21,6 +21,9 @@ class DatabaseSeeder extends Seeder
             BeyondClassroomSeeder::class,
             SchoolEventSeeder::class,
             HomeFeatureSeeder::class,
+            CampusLifeSeeder::class,
+            WhyChooseFeatureSeeder::class,
+            PtaMemberSeeder::class,
         ]);
     }
 }

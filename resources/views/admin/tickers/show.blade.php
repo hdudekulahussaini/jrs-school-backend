@@ -31,12 +31,9 @@
     <div class="bg-white rounded-2xl border border-slate-200/80 shadow-xs overflow-hidden">
         <div class="p-6 border-b border-slate-100 flex items-center justify-between">
             <h3 class="font-bold text-slate-900 font-heading text-base">Announcement Information</h3>
-            <form action="{{ route('admin.tickers.toggle', $ticker->id) }}" method="POST">
-                @csrf
-                <button type="submit" class="px-3 py-1 rounded-full text-xs font-semibold cursor-pointer transition-colors {{ $ticker->is_active ? 'bg-emerald-100 text-emerald-800 hover:bg-emerald-200' : 'bg-slate-100 text-slate-600 hover:bg-slate-200' }}">
-                    {{ $ticker->is_active ? '● Active (Click to Disable)' : '○ Disabled (Click to Enable)' }}
-                </button>
-            </form>
+            <span class="px-3 py-1 rounded-full text-xs font-semibold {{ $ticker->is_active ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-100 text-slate-600' }}">
+                {{ $ticker->is_active ? '● Active' : '○ Disabled' }}
+            </span>
         </div>
 
         <div class="divide-y divide-slate-100">

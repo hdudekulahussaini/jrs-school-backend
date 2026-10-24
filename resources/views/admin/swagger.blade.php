@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist@5/swagger-ui.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
     <style>
         body {
             margin: 0;
@@ -27,7 +27,7 @@
         }
         .header-bar h1 {
             margin: 0;
-            font-family: 'Outfit', sans-serif;
+            font-family: 'Manrope', sans-serif;
             font-size: 20px;
             font-weight: 700;
             letter-spacing: -0.02em;
@@ -108,13 +108,42 @@
                                                         link_url: "https://jrs-school.vercel.app/admissions",
                                                         sort_order: 1,
                                                         is_active: true
-                                                    },
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "/hero-slider": {
+                        get: {
+                            tags: ["Hero Slider (Frontend)"],
+                            summary: "Get active hero slider slides for React homepage banner",
+                            description: "Returns all published hero banner slides sorted by sort_order including titles, gold highlights, button links, and background photos.",
+                            responses: {
+                                "200": {
+                                    description: "List of active hero slides",
+                                    content: {
+                                        "application/json": {
+                                            example: {
+                                                success: true,
+                                                count: 2,
+                                                data: [
                                                     {
-                                                        id: 2,
-                                                        title: "CBSE Curriculum with State-of-the-Art STEM, Robotics & AI Labs",
-                                                        badge_text: "NEWS",
-                                                        link_url: null,
-                                                        sort_order: 2,
+                                                        id: 1,
+                                                        badge_title: "NURTURING BRIGHT MINDS • BUILDING A BETTER TOMORROW",
+                                                        title: "Empowering",
+                                                        highlight_text: "Future Leaders",
+                                                        description: "At JRS International School, we inspire curiosity, creativity and compassion. A place where every child discovers their potential and shines in their own unique way.",
+                                                        primary_button_text: "Admissions 2026-27",
+                                                        secondary_button_text: "Take a Virtual Tour",
+                                                        secondary_button_url: "https://jrs-school.vercel.app/#tour",
+                                                        image_path: "https://images.unsplash.com/photo-1580582932707-520aed937b7b",
+                                                        image_full_url: "https://images.unsplash.com/photo-1580582932707-520aed937b7b",
+                                                        contact_phone: "+91 91574 04321",
+                                                        sort_order: 1,
                                                         is_active: true
                                                     }
                                                 ]
@@ -123,6 +152,180 @@
                                     }
                                 }
                             }
+                        }
+                    },
+                    "/sliders": {
+                        get: {
+                            tags: ["Hero Slider (REST CRUD)"],
+                            summary: "List all hero slides",
+                            parameters: [
+                                {
+                                    name: "active",
+                                    in: "query",
+                                    description: "Filter by status (true or false)",
+                                    required: false,
+                                    schema: { type: "boolean" }
+                                }
+                            ],
+                            responses: {
+                                "200": { description: "Full list of slides" }
+                            }
+                        },
+                        post: {
+                            tags: ["Hero Slider (REST CRUD)"],
+                            summary: "Create a new hero slide",
+                            requestBody: {
+                                required: true,
+                                content: {
+                                    "multipart/form-data": {
+                                        schema: {
+                                            type: "object",
+                                            properties: {
+                                                title: { type: "string", example: "Empowering" },
+                                                highlight_text: { type: "string", example: "Future Leaders" },
+                                                badge_title: { type: "string", example: "NURTURING BRIGHT MINDS" },
+                                                description: { type: "string" },
+                                                primary_button_text: { type: "string", example: "Admissions 2026-27" },
+                                                secondary_button_text: { type: "string", example: "Take a Virtual Tour" },
+                                                secondary_button_url: { type: "string" },
+                                                image: { type: "string", format: "binary" },
+                                                image_url: { type: "string" },
+                                                contact_phone: { type: "string", example: "+91 91574 04321" },
+                                                sort_order: { type: "integer", example: 1 },
+                                                is_active: { type: "boolean", example: true }
+                                            },
+                                            required: ["title"]
+                                        }
+                                    }
+                                }
+                            },
+                            responses: {
+                                "201": { description: "Hero slide created successfully" }
+                            }
+                        }
+                    },
+                    "/sliders/{id}": {
+                        get: {
+                            tags: ["Hero Slider (REST CRUD)"],
+                            summary: "Get specific slide by ID",
+                            parameters: [{ name: "id", in: "path", required: true, schema: { type: "integer" } }],
+                            responses: { "200": { description: "Slide details" } }
+                        },
+                        delete: {
+                            tags: ["Hero Slider (REST CRUD)"],
+                            summary: "Delete a slide by ID",
+                            parameters: [{ name: "id", in: "path", required: true, schema: { type: "integer" } }],
+                            responses: { "200": { description: "Slide deleted successfully" } }
+                        }
+                    },
+                    "/sliders/{id}/toggle": {
+                        patch: {
+                            tags: ["Hero Slider (REST CRUD)"],
+                            summary: "Toggle active status of a slide",
+                            parameters: [{ name: "id", in: "path", required: true, schema: { type: "integer" } }],
+                            responses: { "200": { description: "Status toggled" } }
+                        }
+                    },
+                    "/facilities": {
+                        get: {
+                            tags: ["Facilities (Public Frontend)"],
+                            summary: "Get active school facilities / infrastructure cards",
+                            description: "Returns all active facilities sorted by sort_order for the 'World-Class Infrastructure' section on the frontend.",
+                            responses: {
+                                "200": {
+                                    description: "List of active facilities",
+                                    content: {
+                                        "application/json": {
+                                            example: {
+                                                success: true,
+                                                message: "Active facilities fetched successfully",
+                                                total: 5,
+                                                data: [
+                                                    {
+                                                        id: 1,
+                                                        title: "Smart Classrooms",
+                                                        description: "Modern and interactive learning spaces",
+                                                        image_path: "uploads/facilities/smart_classrooms.jpg",
+                                                        image_url: "http://127.0.0.1:8000/uploads/facilities/smart_classrooms.jpg",
+                                                        icon: "monitor",
+                                                        theme_color: "navy",
+                                                        sort_order: 1,
+                                                        is_active: true
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "/admin/facilities": {
+                        get: {
+                            tags: ["Facilities (REST CRUD)"],
+                            summary: "List all facilities with optional status filter",
+                            parameters: [
+                                {
+                                    name: "active",
+                                    in: "query",
+                                    description: "Filter by status (true or false)",
+                                    required: false,
+                                    schema: { type: "boolean" }
+                                }
+                            ],
+                            responses: {
+                                "200": { description: "Full list of facilities" }
+                            }
+                        },
+                        post: {
+                            tags: ["Facilities (REST CRUD)"],
+                            summary: "Create a new facility / infrastructure card",
+                            requestBody: {
+                                required: true,
+                                content: {
+                                    "multipart/form-data": {
+                                        schema: {
+                                            type: "object",
+                                            properties: {
+                                                title: { type: "string", example: "Smart Classrooms" },
+                                                description: { type: "string", example: "Modern and interactive learning spaces" },
+                                                icon: { type: "string", enum: ["monitor", "flask", "book", "trophy", "bus"], example: "monitor" },
+                                                theme_color: { type: "string", enum: ["navy", "red"], example: "navy" },
+                                                sort_order: { type: "integer", example: 1 },
+                                                is_active: { type: "boolean", example: true },
+                                                image: { type: "string", format: "binary" },
+                                                image_url: { type: "string" }
+                                            },
+                                            required: ["title"]
+                                        }
+                                    }
+                                }
+                            },
+                            responses: {
+                                "201": { description: "Facility created successfully" }
+                            }
+                        }
+                    },
+                    "/admin/facilities/{id}": {
+                        get: {
+                            tags: ["Facilities (REST CRUD)"],
+                            summary: "Get specific facility details by ID",
+                            parameters: [{ name: "id", in: "path", required: true, schema: { type: "integer" } }],
+                            responses: { "200": { description: "Facility details" } }
+                        },
+                        delete: {
+                            tags: ["Facilities (REST CRUD)"],
+                            summary: "Delete a facility by ID",
+                            parameters: [{ name: "id", in: "path", required: true, schema: { type: "integer" } }],
+                            responses: { "200": { description: "Facility deleted successfully" } }
+                        }
+                    },
+                    "/admin/facilities/{id}/toggle": {
+                        patch: {
+                            tags: ["Facilities (REST CRUD)"],
+                            summary: "Toggle active status of a facility",
+                            parameters: [{ name: "id", in: "path", required: true, schema: { type: "integer" } }],
+                            responses: { "200": { description: "Status toggled" } }
                         }
                     }
                 }

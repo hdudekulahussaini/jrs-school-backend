@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Login | JRS International School</title>
-    <!-- Google Fonts: Inter & Outfit -->
+    <!-- Google Fonts: Inter & Manrope -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
     <!-- Tailwind via CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -28,7 +28,7 @@
                     },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
-                        heading: ['Outfit', 'sans-serif'],
+                        heading: ['Manrope', 'sans-serif'],
                     }
                 }
             }
@@ -39,8 +39,8 @@
             font-family: 'Inter', sans-serif;
             background: linear-gradient(135deg, #01122a 0%, #031c3f 50%, #0a2a5a 100%);
         }
-        h1, h2, h3, h4, .font-heading {
-            font-family: 'Outfit', sans-serif;
+        h1, h2, h3, h4, h5, h6, .font-heading {
+            font-family: 'Manrope', sans-serif;
         }
     </style>
 </head>

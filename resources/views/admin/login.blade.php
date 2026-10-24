@@ -101,7 +101,7 @@
                         <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.206"/></svg>
                         </div>
-                        <input type="email" name="email" id="email" value="{{ old('email', 'admin@jrsschool.com') }}" required placeholder="admin@jrsschool.com" class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-jrs-red/20 focus:border-jrs-red transition-all">
+                        <input type="email" name="email" id="email" value="{{ old('email') }}" required placeholder="admin@jrsschool.com" class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-jrs-red/20 focus:border-jrs-red transition-all">
                     </div>
                 </div>
 
@@ -114,7 +114,7 @@
                         <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
                         </div>
-                        <input type="password" name="password" id="password" value="admin123" required placeholder="••••••••" class="w-full pl-10 pr-10 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-jrs-red/20 focus:border-jrs-red transition-all">
+                        <input type="password" name="password" id="password" required placeholder="••••••••" class="w-full pl-10 pr-10 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-jrs-red/20 focus:border-jrs-red transition-all">
                         <button type="button" onclick="togglePasswordVisibility()" class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600">
                             <svg id="eyeIcon" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
                         </button>
@@ -137,24 +137,6 @@
                 </button>
             </form>
 
-            <!-- Quick Demo Credentials Box -->
-            <div class="mt-6 p-3.5 rounded-2xl bg-slate-50 border border-slate-200/80 text-xs text-slate-600">
-                <div class="flex items-center justify-between mb-2">
-                    <span class="font-bold text-slate-800 uppercase tracking-wider text-[10px]">Default Credentials</span>
-                    <button type="button" onclick="fillCredentials()" class="text-jrs-red font-bold hover:underline text-[11px]">Fill Form</button>
-                </div>
-                <div class="grid grid-cols-2 gap-2 text-slate-600">
-                    <div>
-                        <span class="text-[10px] text-slate-400 block">Email:</span>
-                        <code class="font-bold text-slate-800 select-all">admin@jrsschool.com</code>
-                    </div>
-                    <div>
-                        <span class="text-[10px] text-slate-400 block">Password:</span>
-                        <code class="font-bold text-slate-800 select-all">admin123</code>
-                    </div>
-                </div>
-            </div>
-
         </div>
 
         <!-- Footer link back to website -->
@@ -174,11 +156,6 @@
             } else {
                 passInput.type = 'password';
             }
-        }
-
-        function fillCredentials() {
-            document.getElementById('email').value = 'admin@jrsschool.com';
-            document.getElementById('password').value = 'admin123';
         }
     </script>
 </body>

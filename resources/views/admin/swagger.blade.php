@@ -260,72 +260,118 @@
                             }
                         }
                     },
-                    "/admin/facilities": {
+                    "/vision-mission": {
                         get: {
-                            tags: ["Facilities (REST CRUD)"],
-                            summary: "List all facilities with optional status filter",
-                            parameters: [
-                                {
-                                    name: "active",
-                                    in: "query",
-                                    description: "Filter by status (true or false)",
-                                    required: false,
-                                    schema: { type: "boolean" }
-                                }
-                            ],
+                            tags: ["Vision & Mission (Frontend)"],
+                            summary: "Get active Vision & Mission cards for React site",
+                            description: "Returns all active Vision, Mission, and Core Values cards sorted by sort_order for the JRS International School React frontend.",
                             responses: {
-                                "200": { description: "Full list of facilities" }
-                            }
-                        },
-                        post: {
-                            tags: ["Facilities (REST CRUD)"],
-                            summary: "Create a new facility / infrastructure card",
-                            requestBody: {
-                                required: true,
-                                content: {
-                                    "multipart/form-data": {
-                                        schema: {
-                                            type: "object",
-                                            properties: {
-                                                title: { type: "string", example: "Smart Classrooms" },
-                                                description: { type: "string", example: "Modern and interactive learning spaces" },
-                                                icon: { type: "string", enum: ["monitor", "flask", "book", "trophy", "bus"], example: "monitor" },
-                                                theme_color: { type: "string", enum: ["navy", "red"], example: "navy" },
-                                                sort_order: { type: "integer", example: 1 },
-                                                is_active: { type: "boolean", example: true },
-                                                image: { type: "string", format: "binary" },
-                                                image_url: { type: "string" }
+                                "200": {
+                                    description: "List of active Vision & Mission cards retrieved successfully",
+                                    content: {
+                                        "application/json": {
+                                            schema: {
+                                                type: "object",
+                                                properties: {
+                                                    success: { type: "boolean", example: true },
+                                                    count: { type: "integer", example: 2 },
+                                                    data: {
+                                                        type: "array",
+                                                        items: {
+                                                            type: "object",
+                                                            properties: {
+                                                                id: { type: "integer", example: 1 },
+                                                                type: { type: "string", enum: ["vision", "mission", "values"], example: "vision" },
+                                                                eyebrow: { type: "string", example: "OUR GUIDING STAR" },
+                                                                title: { type: "string", example: "Vision for Global Excellence" },
+                                                                description: { type: "string", example: "To be a premier institution inspiring students to achieve academic brilliance, ethical integrity, and global citizenship." },
+                                                                icon: { type: "string", nullable: true, example: "sparkles" },
+                                                                image_url: { type: "string", nullable: true, example: "http://127.0.0.1:8000/uploads/vision/vision_1.jpg" },
+                                                                sort_order: { type: "integer", example: 1 },
+                                                                is_active: { type: "boolean", example: true }
+                                                            }
+                                                        }
+                                                    }
+                                                }
                                             },
-                                            required: ["title"]
+                                            example: {
+                                                success: true,
+                                                count: 2,
+                                                data: [
+                                                    {
+                                                        id: 1,
+                                                        type: "vision",
+                                                        eyebrow: "OUR GUIDING STAR",
+                                                        title: "Vision for Global Excellence",
+                                                        description: "To be a premier institution inspiring students to achieve academic brilliance, ethical integrity, and global citizenship.",
+                                                        icon: "sparkles",
+                                                        image_url: "http://127.0.0.1:8000/uploads/vision/vision_1.jpg",
+                                                        sort_order: 1,
+                                                        is_active: true
+                                                    },
+                                                    {
+                                                        id: 2,
+                                                        type: "mission",
+                                                        eyebrow: "OUR CORE MISSION",
+                                                        title: "Mission to Empower Leaders",
+                                                        description: "Nurturing intellectual curiosity, character, and lifelong learning through an innovative CBSE & international curriculum.",
+                                                        icon: "target",
+                                                        image_url: "http://127.0.0.1:8000/uploads/vision/mission_1.jpg",
+                                                        sort_order: 2,
+                                                        is_active: true
+                                                    }
+                                                ]
+                                            }
                                         }
                                     }
                                 }
-                            },
-                            responses: {
-                                "201": { description: "Facility created successfully" }
                             }
                         }
                     },
-                    "/admin/facilities/{id}": {
+                    "/about": {
                         get: {
-                            tags: ["Facilities (REST CRUD)"],
-                            summary: "Get specific facility details by ID",
-                            parameters: [{ name: "id", in: "path", required: true, schema: { type: "integer" } }],
-                            responses: { "200": { description: "Facility details" } }
-                        },
-                        delete: {
-                            tags: ["Facilities (REST CRUD)"],
-                            summary: "Delete a facility by ID",
-                            parameters: [{ name: "id", in: "path", required: true, schema: { type: "integer" } }],
-                            responses: { "200": { description: "Facility deleted successfully" } }
-                        }
-                    },
-                    "/admin/facilities/{id}/toggle": {
-                        patch: {
-                            tags: ["Facilities (REST CRUD)"],
-                            summary: "Toggle active status of a facility",
-                            parameters: [{ name: "id", in: "path", required: true, schema: { type: "integer" } }],
-                            responses: { "200": { description: "Status toggled" } }
+                            tags: ["About JRS (Frontend)"],
+                            summary: "Get active About JRS School section content",
+                            description: "Returns the active About section including tagline, headline, descriptions, badges, image URLs, and campus video tour link.",
+                            responses: {
+                                "200": {
+                                    description: "Active About section retrieved successfully",
+                                    content: {
+                                        "application/json": {
+                                            example: {
+                                                success: true,
+                                                data: {
+                                                    id: 1,
+                                                    tagline: "NURTURING FUTURE LEADERS SINCE 2010",
+                                                    title: "Welcome to JRS International School",
+                                                    title_highlight: "Where Excellence Meets Character",
+                                                    description_p1: "JRS International School is committed to delivering world-class holistic education...",
+                                                    description_p2: "Our campus features modern smart classrooms, specialized science and computer laboratories...",
+                                                    button_text: "Discover Campus Life",
+                                                    button_link: "https://jrs-school.vercel.app/about",
+                                                    image_1_url: "http://127.0.0.1:8000/uploads/about/campus_1.jpg",
+                                                    image_2_url: "http://127.0.0.1:8000/uploads/about/students_1.jpg",
+                                                    video_title: "Campus Tour & Life at JRS",
+                                                    video_url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+                                                    is_active: true
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "404": {
+                                    description: "No active About section found",
+                                    content: {
+                                        "application/json": {
+                                            example: {
+                                                success: false,
+                                                message: "No active About section content found",
+                                                data: null
+                                            }
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                 }

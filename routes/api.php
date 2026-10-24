@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\NewsTickerApiController;
 use App\Http\Controllers\Api\HeroSliderApiController;
 use App\Http\Controllers\Api\FacilityApiController;
+use App\Http\Controllers\Api\AboutApiController;
+use App\Http\Controllers\Api\VisionMissionApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,3 +44,13 @@ Route::get('/admin/facilities/{id}', [FacilityApiController::class, 'show']);
 Route::match(['put', 'patch', 'post'], '/admin/facilities/{id}', [FacilityApiController::class, 'update']);
 Route::patch('/admin/facilities/{id}/toggle', [FacilityApiController::class, 'toggle']);
 Route::delete('/admin/facilities/{id}', [FacilityApiController::class, 'destroy']);
+*/
+
+// News Ticker Marquee
+Route::get('/news-ticker', [NewsTickerApiController::class, 'getActiveTickers']);
+
+// About JRS Homepage Section
+Route::get('/about', [AboutApiController::class, 'getAbout']);
+
+// Vision & Mission Cards
+Route::get('/vision-mission', [VisionMissionApiController::class, 'index']);

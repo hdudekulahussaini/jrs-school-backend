@@ -27,37 +27,6 @@
         </div>
     </div>
 
-    <!-- Live Preview Display -->
-    <div class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-xs space-y-3">
-        <div class="flex items-center justify-between">
-            <span class="text-xs font-bold text-slate-500 uppercase tracking-wider flex items-center gap-2">
-                <span class="w-2 h-2 rounded-full {{ $ticker->is_active ? 'bg-emerald-500 animate-ping' : 'bg-slate-400' }}"></span>
-                <span>Live Rendering Preview</span>
-            </span>
-            <span class="text-xs {{ $ticker->is_active ? 'text-emerald-600 font-semibold' : 'text-slate-400' }}">
-                {{ $ticker->is_active ? '● Currently Active on Website' : '○ Disabled (Not Visible)' }}
-            </span>
-        </div>
-
-        <div class="flex items-stretch rounded-xl overflow-hidden shadow-md border border-slate-900/10">
-            <div class="bg-jrs-red text-white px-4 py-3 flex items-center gap-2 shrink-0 font-bold text-xs uppercase tracking-wider">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"/></svg>
-                <span>{{ $ticker->badge_text ?? 'NEWS' }}</span>
-            </div>
-            <div class="flex-1 bg-jrs-navy text-white flex items-center px-4 overflow-hidden text-xs sm:text-sm">
-                <marquee behavior="scroll" direction="left" scrollamount="6" class="py-1">
-                    <span class="inline-flex items-center gap-2">
-                        <span class="text-amber-400 font-bold">★</span>
-                        <span class="font-medium text-slate-100">{{ $ticker->title }}</span>
-                        @if($ticker->link_url)
-                            <a href="{{ $ticker->link_url }}" target="_blank" class="underline text-amber-300 hover:text-white font-semibold ml-1">Open Link &rarr;</a>
-                        @endif
-                    </span>
-                </marquee>
-            </div>
-        </div>
-    </div>
-
     <!-- Metadata Details Card -->
     <div class="bg-white rounded-2xl border border-slate-200/80 shadow-xs overflow-hidden">
         <div class="p-6 border-b border-slate-100 flex items-center justify-between">

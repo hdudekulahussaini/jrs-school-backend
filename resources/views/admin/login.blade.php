@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Login | JRS International School</title>
+    <link rel="icon" type="image/png" href="{{ asset('images/logo.png') }}">
     <!-- Google Fonts: Inter & Manrope -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,14 +17,8 @@
                 extend: {
                     colors: {
                         jrs: {
-                            navy: '#031c3f',
-                            'navy-dark': '#01122a',
-                            'navy-light': '#0a2a5a',
-                            red: '#e31e24',
-                            'red-dark': '#b91c1c',
-                            gold: '#f59e0b',
-                            amber: '#ffbe1a',
-                            accent: '#013aa3',
+                            navy: 'rgb(3 28 63 / <alpha-value>)',
+                            red: 'rgb(227 30 36 / <alpha-value>)',
                         }
                     },
                     fontFamily: {
@@ -37,7 +32,7 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #01122a 0%, #031c3f 50%, #0a2a5a 100%);
+            background: rgb(3 28 63);
         }
         h1, h2, h3, h4, h5, h6, .font-heading {
             font-family: 'Manrope', sans-serif;
@@ -47,41 +42,41 @@
 <body class="min-h-screen flex items-center justify-center p-4 antialiased text-slate-800 relative overflow-hidden">
 
     <!-- Decorative background glow spheres -->
-    <div class="absolute -top-32 -left-32 w-96 h-96 bg-jrs-red/15 rounded-full blur-3xl pointer-events-none"></div>
-    <div class="absolute -bottom-32 -right-32 w-96 h-96 bg-amber-500/15 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute -top-32 -left-32 w-96 h-96 bg-jrs-red/20 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute -bottom-32 -right-32 w-96 h-96 bg-jrs-red/15 rounded-full blur-3xl pointer-events-none"></div>
 
     <div class="w-full max-w-md relative z-10">
 
         <!-- Brand Header -->
         <div class="text-center mb-6">
-            <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-white shadow-xl shadow-black/20 p-2 mb-3">
-                <span class="font-extrabold text-jrs-navy text-2xl tracking-tighter">JRS</span>
+            <div class="inline-flex items-center justify-center bg-white rounded-2xl shadow-xl shadow-black/30 px-6 py-3 mb-4 border border-white">
+                <img src="{{ asset('images/logo.png') }}" alt="JRS International School" class="h-12 sm:h-14 w-auto object-contain">
             </div>
             <h1 class="text-2xl font-extrabold text-white font-heading tracking-tight">JRS International School</h1>
-            <p class="text-xs text-amber-300 font-medium tracking-wide mt-1 uppercase">Admin Portal & Management System</p>
+            <p class="text-xs text-white/70 font-medium tracking-wide mt-1 uppercase">Admin Portal & Management System</p>
         </div>
 
         <!-- Login Card -->
         <div class="bg-white rounded-3xl shadow-2xl shadow-black/40 p-7 sm:p-9 border border-white/20">
 
             <div class="mb-6">
-                <h2 class="text-xl font-bold text-slate-900 font-heading">Sign In to Dashboard</h2>
+                <h2 class="text-xl font-bold text-jrs-navy font-heading">Sign In to Dashboard</h2>
                 <p class="text-xs text-slate-500 mt-1">Enter your administrator credentials to continue</p>
             </div>
 
             <!-- Alerts -->
             @if(session('success'))
-                <div class="mb-5 p-3.5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs flex items-center gap-2">
-                    <svg class="w-4 h-4 text-emerald-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                <div class="mb-5 p-3.5 rounded-xl bg-jrs-navy/5 border border-jrs-navy/20 text-jrs-navy text-xs flex items-center gap-2">
+                    <svg class="w-4 h-4 text-jrs-navy shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                     <span>{{ session('success') }}</span>
                 </div>
             @endif
 
             @if($errors->any())
-                <div class="mb-5 p-3.5 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs space-y-1">
+                <div class="mb-5 p-3.5 rounded-xl bg-jrs-red/5 border border-jrs-red/20 text-jrs-red text-xs space-y-1">
                     @foreach($errors->all() as $error)
                         <div class="flex items-center gap-2">
-                            <svg class="w-3.5 h-3.5 text-red-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            <svg class="w-3.5 h-3.5 text-jrs-red shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                             <span>{{ $error }}</span>
                         </div>
                     @endforeach
@@ -131,7 +126,7 @@
                 </div>
 
                 <!-- Submit Button -->
-                <button type="submit" class="w-full mt-4 py-3 rounded-xl bg-jrs-red hover:bg-jrs-red-dark text-white font-bold text-sm shadow-lg shadow-red-600/30 transition-all flex items-center justify-center gap-2">
+                <button type="submit" class="w-full mt-4 py-3 rounded-xl bg-jrs-red hover:opacity-95 text-white font-bold text-sm shadow-lg shadow-jrs-red/30 transition-all flex items-center justify-center gap-2">
                     <span>Sign In to Dashboard</span>
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                 </button>

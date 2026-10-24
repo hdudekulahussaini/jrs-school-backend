@@ -1,58 +1,73 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\NewsTickerApiController;
-use App\Http\Controllers\Api\HeroSliderApiController;
-use App\Http\Controllers\Api\FacilityApiController;
 use App\Http\Controllers\Api\AboutApiController;
+use App\Http\Controllers\Api\AcademicProgramApiController;
+use App\Http\Controllers\Api\BeyondClassroomApiController;
+use App\Http\Controllers\Api\FacilityApiController;
+use App\Http\Controllers\Api\HeroSliderApiController;
+use App\Http\Controllers\Api\HomeFeatureApiController;
+use App\Http\Controllers\Api\NewsTickerApiController;
+use App\Http\Controllers\Api\SchoolEventApiController;
 use App\Http\Controllers\Api\VisionMissionApiController;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\CampusLifeApiController;
 use App\Http\Controllers\Api\WhyChooseApiController;
 use App\Http\Controllers\Api\PtaMemberApiController;
 
 /*
 |--------------------------------------------------------------------------
-| API Routes for JRS International School
+| API Routes for JRS International School (Read-Only GET Endpoints)
 |--------------------------------------------------------------------------
 |
-| Public endpoints used by the React frontend (https://jrs-school.vercel.app/)
-| and external consumers to fetch active announcements, hero sliders, and facilities.
+| Public GET endpoints used by the React frontend (https://jrs-school.vercel.app/)
+| to fetch active announcements, hero sliders, facilities, academic programs,
+| about section, and vision & mission cards. All mutations are managed via
+| the authenticated admin web dashboard.
 |
 */
 
-// News Ticker Public & REST Endpoints
+// News Ticker GET Endpoints
 Route::get('/news-ticker', [NewsTickerApiController::class, 'getActiveTickers']);
 Route::get('/news-tickers', [NewsTickerApiController::class, 'index']);
-Route::post('/news-tickers', [NewsTickerApiController::class, 'store']);
 Route::get('/news-tickers/{id}', [NewsTickerApiController::class, 'show']);
-Route::match(['put', 'patch', 'post'], '/news-tickers/{id}', [NewsTickerApiController::class, 'update']);
-Route::patch('/news-tickers/{id}/toggle', [NewsTickerApiController::class, 'toggle']);
-Route::delete('/news-tickers/{id}', [NewsTickerApiController::class, 'destroy']);
 
-// Hero Slider Public & REST Endpoints
+// Hero Slider GET Endpoints
 Route::get('/hero-slider', [HeroSliderApiController::class, 'getActiveSliders']);
 Route::get('/hero-sliders', [HeroSliderApiController::class, 'getActiveSliders']);
 Route::get('/sliders', [HeroSliderApiController::class, 'index']);
-Route::post('/sliders', [HeroSliderApiController::class, 'store']);
 Route::get('/sliders/{id}', [HeroSliderApiController::class, 'show']);
-Route::match(['put', 'patch', 'post'], '/sliders/{id}', [HeroSliderApiController::class, 'update']);
-Route::patch('/sliders/{id}/toggle', [HeroSliderApiController::class, 'toggle']);
-Route::delete('/sliders/{id}', [HeroSliderApiController::class, 'destroy']);
 
-// Facilities Public & REST Endpoints
+// Facilities GET Endpoints
 Route::get('/facilities', [FacilityApiController::class, 'getActiveFacilities']);
 Route::get('/admin/facilities', [FacilityApiController::class, 'index']);
-Route::post('/admin/facilities', [FacilityApiController::class, 'store']);
 Route::get('/admin/facilities/{id}', [FacilityApiController::class, 'show']);
-Route::match(['put', 'patch', 'post'], '/admin/facilities/{id}', [FacilityApiController::class, 'update']);
-Route::patch('/admin/facilities/{id}/toggle', [FacilityApiController::class, 'toggle']);
-Route::delete('/admin/facilities/{id}', [FacilityApiController::class, 'destroy']);
 
-// About JRS Homepage Section
+// Academic Programs GET Endpoints (for React Homepage)
+Route::get('/academic-programs', [AcademicProgramApiController::class, 'getActivePrograms']);
+Route::get('/academics', [AcademicProgramApiController::class, 'getActivePrograms']);
+Route::get('/admin/programs', [AcademicProgramApiController::class, 'index']);
+Route::get('/admin/programs/{id}', [AcademicProgramApiController::class, 'show']);
+
+// About JRS Homepage Section GET Endpoint
 Route::get('/about', [AboutApiController::class, 'getAbout']);
 
-// Vision & Mission Cards
+// Vision & Mission Cards GET Endpoint
 Route::get('/vision-mission', [VisionMissionApiController::class, 'index']);
+
+// Beyond Classroom GET Endpoints (for React Homepage)
+Route::get('/beyond-classrooms', [BeyondClassroomApiController::class, 'getActiveActivities']);
+Route::get('/beyond', [BeyondClassroomApiController::class, 'getActiveActivities']);
+Route::get('/beyond-classrooms/{id}', [BeyondClassroomApiController::class, 'show']);
+
+// Latest Events GET Endpoints (for React Homepage)
+Route::get('/events', [SchoolEventApiController::class, 'getActiveEvents']);
+Route::get('/latest-events', [SchoolEventApiController::class, 'getActiveEvents']);
+Route::get('/events/{id}', [SchoolEventApiController::class, 'show']);
+
+// Key Features GET Endpoints (for React Homepage)
+Route::get('/features', [HomeFeatureApiController::class, 'getActiveFeatures']);
+Route::get('/home-features', [HomeFeatureApiController::class, 'getActiveFeatures']);
+Route::get('/features/{id}', [HomeFeatureApiController::class, 'show']);
 
 // Campus Tour & Life At JRS
 Route::get('/campus-tour', [CampusLifeApiController::class, 'index']);

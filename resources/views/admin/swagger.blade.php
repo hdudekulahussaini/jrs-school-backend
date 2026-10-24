@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Swagger API Documentation | JRS International School</title>
+    <link rel="icon" type="image/png" href="{{ asset('images/logo.png') }}">
     <!-- Swagger UI CSS -->
     <link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist@5/swagger-ui.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -48,16 +49,21 @@
             transition: background 0.2s;
         }
         .back-link:hover {
-            background: #b91c1c;
+            opacity: 0.9;
         }
         .swagger-ui .topbar { display: none; }
     </style>
 </head>
 <body>
     <div class="header-bar">
-        <div>
-            <h1>JRS International School — Swagger API Docs</h1>
-            <p>Interactive OpenAPI 3.0 Documentation for Public Web Services & React Frontend</p>
+        <div style="display: flex; align-items: center; gap: 16px;">
+            <div style="background: white; border-radius: 8px; padding: 4px 10px; display: flex; align-items: center;">
+                <img src="{{ asset('images/logo.png') }}" alt="JRS Logo" style="height: 32px; width: auto; object-fit: contain;">
+            </div>
+            <div>
+                <h1>JRS International School — Swagger API Docs</h1>
+                <p>Interactive OpenAPI 3.0 Documentation for News Ticker & Web Services</p>
+            </div>
         </div>
         <a href="{{ route('admin.dashboard') }}" class="back-link">&larr; Back to Admin Panel</a>
     </div>
@@ -226,6 +232,61 @@
                             responses: { "200": { description: "Status toggled" } }
                         }
                     },
+                    "/features": {
+                        get: {
+                            tags: ["Key Features (Frontend)"],
+                            summary: "Get active homepage Key Features / value cards",
+                            description: "Returns the 5 value cards appearing right under the Hero Slider on the homepage (CBSE Curriculum, Holistic Development, Experienced Faculty, Safe & Inclusive, Modern Infrastructure). Also accessible via /home-features.",
+                            responses: {
+                                "200": {
+                                    description: "List of active key features",
+                                    content: {
+                                        "application/json": {
+                                            example: {
+                                                success: true,
+                                                message: "Active home features fetched successfully",
+                                                total: 5,
+                                                data: [
+                                                    {
+                                                        id: 1,
+                                                        title: "CBSE Curriculum",
+                                                        subtitle: "Strong academic foundation",
+                                                        icon: "graduation-cap",
+                                                        icon_svg: null,
+                                                        bg_color: "#e31e24",
+                                                        text_color: "#ffffff",
+                                                        link_url: null,
+                                                        sort_order: 1,
+                                                        is_active: true
+                                                    },
+                                                    {
+                                                        id: 2,
+                                                        title: "Holistic Development",
+                                                        subtitle: "Academic, co-curricular & life skills",
+                                                        icon: "sparkles",
+                                                        icon_svg: null,
+                                                        bg_color: "#059669",
+                                                        text_color: "#ffffff",
+                                                        link_url: null,
+                                                        sort_order: 2,
+                                                        is_active: true
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "/features/{id}": {
+                        get: {
+                            tags: ["Key Features (Frontend)"],
+                            summary: "Get specific Key Feature details by ID",
+                            parameters: [{ name: "id", in: "path", required: true, schema: { type: "integer" } }],
+                            responses: { "200": { description: "Feature details" } }
+                        }
+                    },
                     "/facilities": {
                         get: {
                             tags: ["Facilities (Public Frontend)"],
@@ -374,6 +435,198 @@
                             }
                         }
                     },
+                    "/academic-programs": {
+                        get: {
+                            tags: ["Academic Programs (Frontend)"],
+                            summary: "Get active academic stage cards for React homepage",
+                            description: "Returns all active academic programmes (Pre-Primary, Primary School, Middle School, etc.) sorted by sort_order. Matches the exact curriculum cards on the homepage with stage badges, titles, subtitles, checklists, and images.",
+                            responses: {
+                                "200": {
+                                    description: "List of active academic programmes",
+                                    content: {
+                                        "application/json": {
+                                            example: {
+                                                success: true,
+                                                message: "Active academic programs fetched successfully",
+                                                total: 3,
+                                                data: [
+                                                    {
+                                                        id: 1,
+                                                        stage_badge: "STAGE 01 • EARLY YEARS",
+                                                        title: "Pre-Primary",
+                                                        slug: "pre-primary",
+                                                        subtitle: "NURSERY, LKG & UKG",
+                                                        description: "Feel grounded and supported in an environment where early learners are encouraged to participate, share ideas, explore phonics, and build confidence through play.",
+                                                        highlights: [
+                                                            "Phonics-based English language & early communication",
+                                                            "Montessori-inspired sensorial and tactile activities",
+                                                            "Early numeracy, number sense and playful logical thinking"
+                                                        ],
+                                                        image: "images/programs/pre-primary.jpg",
+                                                        image_url: "http://127.0.0.1:8000/images/programs/pre-primary.jpg",
+                                                        button_text: "Explore More",
+                                                        button_link: "https://jrs-school.vercel.app/academics/pre-primary",
+                                                        sort_order: 1,
+                                                        is_active: true
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "/admin/programs": {
+                        get: {
+                            tags: ["Academic Programs (REST CRUD)"],
+                            summary: "List all academic programmes with optional active filter",
+                            parameters: [
+                                {
+                                    name: "active",
+                                    in: "query",
+                                    description: "Filter by status (true or false)",
+                                    required: false,
+                                    schema: { type: "boolean" }
+                                }
+                            ],
+                            responses: { "200": { description: "Full list of academic programmes" } }
+                        },
+                        post: {
+                            tags: ["Academic Programs (REST CRUD)"],
+                            summary: "Create a new academic stage programme",
+                            requestBody: {
+                                required: true,
+                                content: {
+                                    "multipart/form-data": {
+                                        schema: {
+                                            type: "object",
+                                            properties: {
+                                                stage_badge: { type: "string", example: "STAGE 01 • EARLY YEARS" },
+                                                title: { type: "string", example: "Pre-Primary" },
+                                                subtitle: { type: "string", example: "NURSERY, LKG & UKG" },
+                                                description: { type: "string" },
+                                                highlights: {
+                                                    type: "array",
+                                                    items: { type: "string" },
+                                                    example: ["Phonics-based English language", "Montessori activities"]
+                                                },
+                                                image: { type: "string", format: "binary" },
+                                                image_url: { type: "string" },
+                                                button_text: { type: "string", example: "Explore More" },
+                                                button_link: { type: "string" },
+                                                sort_order: { type: "integer", example: 1 },
+                                                is_active: { type: "boolean", example: true }
+                                            },
+                                            required: ["title"]
+                                        }
+                                    }
+                                }
+                            },
+                            responses: { "201": { description: "Programme created successfully" } }
+                        }
+                    },
+                    "/admin/programs/{id}": {
+                        get: {
+                            tags: ["Academic Programs (REST CRUD)"],
+                            summary: "Get specific academic programme details by ID",
+                            parameters: [{ name: "id", in: "path", required: true, schema: { type: "integer" } }],
+                            responses: { "200": { description: "Academic programme details" } }
+                        },
+                        delete: {
+                            tags: ["Academic Programs (REST CRUD)"],
+                            summary: "Delete an academic programme by ID",
+                            parameters: [{ name: "id", in: "path", required: true, schema: { type: "integer" } }],
+                            responses: { "200": { description: "Programme deleted successfully" } }
+                        }
+                    },
+                    "/beyond-classrooms": {
+                        get: {
+                            tags: ["Beyond Classroom (Frontend)"],
+                            summary: "Get active Beyond Classroom talent activities for homepage",
+                            description: "Returns all 6 published activities (Sports, Music, Dance, Karate, Science & Activities, Skating) sorted by sort_order with category tags, badges, and colors.",
+                            responses: {
+                                "200": {
+                                    description: "List of active Beyond Classroom activities",
+                                    content: {
+                                        "application/json": {
+                                            example: {
+                                                success: true,
+                                                count: 6,
+                                                data: [
+                                                    {
+                                                        id: 1,
+                                                        title: "Sports",
+                                                        category: "Fitness & Teamwork",
+                                                        description: "Developing physical stamina, athletic discipline, teamwork, and sportsmanship across diverse track, court, and field games.",
+                                                        icon: "trophy",
+                                                        color: "#15803d",
+                                                        image_path: "/images/beyond/sports.jpg",
+                                                        image_full_url: "http://localhost:8000/images/beyond/sports.jpg",
+                                                        sort_order: 1,
+                                                        is_active: true
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "/beyond-classrooms/{id}": {
+                        get: {
+                            tags: ["Beyond Classroom (Frontend)"],
+                            summary: "Get specific Beyond Classroom activity details by ID",
+                            parameters: [{ name: "id", in: "path", required: true, schema: { type: "integer" } }],
+                            responses: { "200": { description: "Beyond Classroom activity details" } }
+                        }
+                    },
+                    "/events": {
+                        get: {
+                            tags: ["Latest Events (Frontend)"],
+                            summary: "Get active Latest Events for homepage What's Happening section",
+                            description: "Returns all published school event cards (Republic Day, Annual Day, Sports Day) with date badges (e.g. 26 JAN), description, and photos.",
+                            responses: {
+                                "200": {
+                                    description: "List of active events",
+                                    content: {
+                                        "application/json": {
+                                            example: {
+                                                success: true,
+                                                count: 3,
+                                                data: [
+                                                    {
+                                                        id: 1,
+                                                        title: "Republic Day Celebrations",
+                                                        event_date: "2026-01-26",
+                                                        badge_day: "26",
+                                                        badge_month: "JAN",
+                                                        display_day: "26",
+                                                        display_month: "JAN",
+                                                        description: "Students showcased patriotic fervor in traditional costumes, march past and cultural performances.",
+                                                        image_path: "/images/events/republic-day.jpg",
+                                                        image_full_url: "http://localhost:8000/images/events/republic-day.jpg",
+                                                        link_url: "/gallery",
+                                                        link_text: "Explore event",
+                                                        sort_order: 1,
+                                                        is_active: true
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "/events/{id}": {
+                        get: {
+                            tags: ["Latest Events (Frontend)"],
+                            summary: "Get specific school event details by ID",
+                            parameters: [{ name: "id", in: "path", required: true, schema: { type: "integer" } }],
+                            responses: { "200": { description: "Event details" } }
+                        }
                     "/campus-tour": {
                         get: {
                             tags: ["Campus Tour & Life (Frontend)"],

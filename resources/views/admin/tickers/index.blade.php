@@ -20,46 +20,10 @@
             </p>
         </div>
         <div class="flex items-center gap-2">
-            <a href="{{ route('admin.tickers.create') }}" class="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-950 bg-slate-900 text-white shadow-xs hover:bg-slate-800 h-9 px-4 py-2 gap-2">
+            <a href="{{ route('admin.tickers.create') }}" class="inline-flex items-center justify-center rounded-md text-sm font-semibold transition-opacity bg-jrs-red hover:opacity-95 text-white shadow-xs h-9 px-4 py-2 gap-2">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
                 <span>Add Announcement</span>
             </a>
-        </div>
-    </div>
-
-    <!-- Live Preview (shadcn/ui Card style) -->
-    <div class="rounded-xl border border-slate-200 bg-white p-4 shadow-xs space-y-2.5">
-        <div class="flex items-center justify-between">
-            <span class="text-xs font-medium text-slate-500 flex items-center gap-2">
-                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                <span>Live Homepage Marquee Preview</span>
-            </span>
-            <span class="text-xs text-slate-400">Updates dynamically</span>
-        </div>
-
-        <!-- Marquee Bar Preview -->
-        <div class="flex items-stretch rounded-lg overflow-hidden border border-slate-200 shadow-2xs">
-            <!-- Red Badge -->
-            <div class="bg-jrs-red text-white px-3.5 py-2 flex items-center gap-2 shrink-0 font-bold text-xs uppercase tracking-wider font-heading">
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"/></svg>
-                <span>NEWS</span>
-            </div>
-            <!-- Dark Navy Scrolling Area -->
-            <div class="flex-1 bg-jrs-navy text-white flex items-center px-4 overflow-hidden text-xs sm:text-sm">
-                <marquee behavior="scroll" direction="left" scrollamount="6" class="py-1">
-                    @forelse($tickers->where('is_active', true) as $ticker)
-                        <span class="inline-flex items-center gap-2 mr-10">
-                            <span class="text-amber-400 font-bold">★</span>
-                            <span class="font-medium text-slate-100">{{ $ticker->title }}</span>
-                            @if($ticker->link_url)
-                                <a href="{{ $ticker->link_url }}" target="_blank" class="underline text-amber-300 hover:text-white font-medium ml-1">Open Link &rarr;</a>
-                            @endif
-                        </span>
-                    @empty
-                        <span class="text-slate-400 italic">No active ticker announcements. Click "+ Add Announcement" to publish news.</span>
-                    @endforelse
-                </marquee>
-            </div>
         </div>
     </div>
 

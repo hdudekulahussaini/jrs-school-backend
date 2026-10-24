@@ -86,21 +86,49 @@
                     <span>Dashboard</span>
                 </a>
 
-                <a href="{{ route('admin.tickers.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors {{ request()->routeIs('admin.tickers.*') ? 'bg-jrs-red text-white font-semibold shadow-xs' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
-                    <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"/></svg>
-                    <span>News Ticker</span>
-                </a>
+                <!-- Home Page Dropdown -->
+                @php
+                    $isHomeActive = request()->routeIs('admin.tickers.*') || 
+                                    request()->routeIs('admin.sliders.*') || 
+                                    request()->routeIs('admin.facilities.*') || 
+                                    request()->routeIs('admin.programs.*');
+                @endphp
+                <div class="space-y-1">
+                    <button type="button" 
+                            id="homeDropdownBtn"
+                            onclick="toggleHomeDropdown()" 
+                            class="w-full flex items-center justify-between px-3 py-2 rounded-md text-sm font-medium transition-colors {{ $isHomeActive ? 'bg-white/15 text-white font-semibold' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
+                        <div class="flex items-center gap-3">
+                            <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                            <span>Home Page</span>
+                        </div>
+                        <svg id="homeDropdownArrow" class="w-4 h-4 shrink-0 transition-transform duration-200 {{ $isHomeActive ? 'rotate-180 text-white' : 'text-white/60' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </button>
 
-                <a href="{{ route('admin.sliders.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors {{ request()->routeIs('admin.sliders.*') ? 'bg-jrs-red text-white font-semibold shadow-xs' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
-                    <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                    <span>Hero Sliders</span>
-                </a>
+                    <div id="homeDropdownMenu" class="{{ $isHomeActive ? '' : 'hidden' }} pl-4 pr-1 py-1 space-y-1 border-l border-white/10 ml-5">
+                        <a href="{{ route('admin.tickers.index') }}" class="flex items-center gap-2.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors {{ request()->routeIs('admin.tickers.*') ? 'bg-jrs-red text-white font-semibold shadow-xs' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
+                            <span class="w-1.5 h-1.5 rounded-full {{ request()->routeIs('admin.tickers.*') ? 'bg-white ring-2 ring-white/30' : 'bg-white/40' }}"></span>
+                            <span>News Ticker</span>
+                        </a>
 
-                <a href="{{ route('admin.facilities.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors {{ request()->routeIs('admin.facilities.*') ? 'bg-jrs-red text-white font-semibold shadow-xs' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
-                    <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
-                    <span>Facilities</span>
-                </a>
+                        <a href="{{ route('admin.sliders.index') }}" class="flex items-center gap-2.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors {{ request()->routeIs('admin.sliders.*') ? 'bg-jrs-red text-white font-semibold shadow-xs' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
+                            <span class="w-1.5 h-1.5 rounded-full {{ request()->routeIs('admin.sliders.*') ? 'bg-white ring-2 ring-white/30' : 'bg-white/40' }}"></span>
+                            <span>Hero Sliders</span>
+                        </a>
 
+                        <a href="{{ route('admin.facilities.index') }}" class="flex items-center gap-2.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors {{ request()->routeIs('admin.facilities.*') ? 'bg-jrs-red text-white font-semibold shadow-xs' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
+                            <span class="w-1.5 h-1.5 rounded-full {{ request()->routeIs('admin.facilities.*') ? 'bg-white ring-2 ring-white/30' : 'bg-white/40' }}"></span>
+                            <span>Facilities</span>
+                        </a>
+
+                        <a href="{{ route('admin.programs.index') }}" class="flex items-center gap-2.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors {{ request()->routeIs('admin.programs.*') ? 'bg-jrs-red text-white font-semibold shadow-xs' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
+                            <span class="w-1.5 h-1.5 rounded-full {{ request()->routeIs('admin.programs.*') ? 'bg-white ring-2 ring-white/30' : 'bg-white/40' }}"></span>
+                            <span>Academic Programs</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- About Page Dropdown -->
                 @php
                     $isAboutActive = request()->routeIs('admin.about.*') || request()->routeIs('admin.vision-mission.*');
                 @endphp
@@ -128,11 +156,6 @@
                         </a>
                     </div>
                 </div>
-
-                <a href="{{ route('admin.programs.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors {{ request()->routeIs('admin.programs.*') ? 'bg-jrs-red text-white font-semibold shadow-xs' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
-                    <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/></svg>
-                    <span>Academic Programs</span>
-                </a>
 
                 <div class="pt-4 px-3 pb-2 text-[11px] font-semibold uppercase tracking-wider text-white/40">Developer</div>
                 <a href="{{ route('admin.swagger') }}" class="flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors text-white/70 hover:text-white hover:bg-white/10">
@@ -229,6 +252,17 @@
         if (openBtn) openBtn.addEventListener('click', toggleSidebar);
         if (closeBtn) closeBtn.addEventListener('click', toggleSidebar);
         if (backdrop) backdrop.addEventListener('click', toggleSidebar);
+
+        function toggleHomeDropdown() {
+            const menu = document.getElementById('homeDropdownMenu');
+            const arrow = document.getElementById('homeDropdownArrow');
+            if (menu) {
+                menu.classList.toggle('hidden');
+            }
+            if (arrow) {
+                arrow.classList.toggle('rotate-180');
+            }
+        }
 
         function toggleAboutDropdown() {
             const menu = document.getElementById('aboutDropdownMenu');

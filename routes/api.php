@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\BeyondClassroomApiController;
 use App\Http\Controllers\Api\FacilityApiController;
 use App\Http\Controllers\Api\HeroSliderApiController;
 use App\Http\Controllers\Api\NewsTickerApiController;
+use App\Http\Controllers\Api\SchoolEventApiController;
 use App\Http\Controllers\Api\VisionMissionApiController;
 use Illuminate\Support\Facades\Route;
 
@@ -53,4 +54,10 @@ Route::get('/vision-mission', [VisionMissionApiController::class, 'index']);
 Route::get('/beyond-classrooms', [BeyondClassroomApiController::class, 'getActiveActivities']);
 Route::get('/beyond', [BeyondClassroomApiController::class, 'getActiveActivities']);
 Route::get('/beyond-classrooms/{id}', [BeyondClassroomApiController::class, 'show']);
+
+// Latest Events GET Endpoints (for React Homepage)
+Route::get('/events', [SchoolEventApiController::class, 'getActiveEvents']);
+Route::get('/latest-events', [SchoolEventApiController::class, 'getActiveEvents']);
+Route::get('/events/{id}', [SchoolEventApiController::class, 'show']);
+
 

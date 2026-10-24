@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\FacilityController;
 use App\Http\Controllers\Admin\HeroSliderController;
 use App\Http\Controllers\Admin\NewsTickerController;
+use App\Http\Controllers\Admin\SchoolEventController;
 use App\Http\Controllers\Admin\VisionMissionController;
 use Illuminate\Support\Facades\Route;
 
@@ -61,6 +62,10 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     // Beyond Classroom Full CRUD Resource
     Route::resource('/beyond-classrooms', BeyondClassroomController::class)->names('admin.beyond-classrooms');
     Route::post('/beyond-classrooms/{id}/toggle', [BeyondClassroomController::class, 'toggle'])->name('admin.beyond-classrooms.toggle');
+
+    // Latest Events Full CRUD Resource
+    Route::resource('/events', SchoolEventController::class)->names('admin.events');
+    Route::post('/events/{id}/toggle', [SchoolEventController::class, 'toggle'])->name('admin.events.toggle');
 
     // Admin Swagger Documentation
     Route::get('/swagger', function () {

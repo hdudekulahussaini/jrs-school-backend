@@ -526,6 +526,52 @@
                             parameters: [{ name: "id", in: "path", required: true, schema: { type: "integer" } }],
                             responses: { "200": { description: "Beyond Classroom activity details" } }
                         }
+                    },
+                    "/events": {
+                        get: {
+                            tags: ["Latest Events (Frontend)"],
+                            summary: "Get active Latest Events for homepage What's Happening section",
+                            description: "Returns all published school event cards (Republic Day, Annual Day, Sports Day) with date badges (e.g. 26 JAN), description, and photos.",
+                            responses: {
+                                "200": {
+                                    description: "List of active events",
+                                    content: {
+                                        "application/json": {
+                                            example: {
+                                                success: true,
+                                                count: 3,
+                                                data: [
+                                                    {
+                                                        id: 1,
+                                                        title: "Republic Day Celebrations",
+                                                        event_date: "2026-01-26",
+                                                        badge_day: "26",
+                                                        badge_month: "JAN",
+                                                        display_day: "26",
+                                                        display_month: "JAN",
+                                                        description: "Students showcased patriotic fervor in traditional costumes, march past and cultural performances.",
+                                                        image_path: "/images/events/republic-day.jpg",
+                                                        image_full_url: "http://localhost:8000/images/events/republic-day.jpg",
+                                                        link_url: "/gallery",
+                                                        link_text: "Explore event",
+                                                        sort_order: 1,
+                                                        is_active: true
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "/events/{id}": {
+                        get: {
+                            tags: ["Latest Events (Frontend)"],
+                            summary: "Get specific school event details by ID",
+                            parameters: [{ name: "id", in: "path", required: true, schema: { type: "integer" } }],
+                            responses: { "200": { description: "Event details" } }
+                        }
                     }
                 }
             };

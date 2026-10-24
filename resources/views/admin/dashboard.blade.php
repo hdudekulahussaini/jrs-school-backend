@@ -40,6 +40,10 @@
                     <span>Beyond Classroom</span>
                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
                 </a>
+                <a href="{{ route('admin.events.index') }}" class="px-3.5 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-xs font-medium backdrop-blur-sm transition-colors border border-white/20 inline-flex items-center gap-1.5 text-white">
+                    <span>Latest Events</span>
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                </a>
             </div>
         </div>
         <div class="shrink-0 bg-white rounded-2xl p-4 shadow-xl shadow-black/30 flex items-center justify-center border border-white z-10">
@@ -160,6 +164,29 @@
             <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
                 <span class="text-xs text-slate-400 font-medium">Co-Curricular</span>
                 <a href="{{ route('admin.beyond-classrooms.index') }}" class="inline-flex items-center justify-center rounded-md text-xs font-semibold transition-colors bg-jrs-navy hover:bg-jrs-red text-white h-8 px-3 gap-1 shadow-2xs">
+                    <span>Manage</span>
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+                </a>
+            </div>
+        </div>
+
+        <!-- Module 6: Latest Events -->
+        <div class="rounded-xl border border-slate-200 bg-white p-5 sm:p-6 shadow-xs flex flex-col justify-between hover:border-jrs-navy/40 transition-colors">
+            <div>
+                <div class="w-10 h-10 rounded-lg bg-jrs-navy/5 text-jrs-navy flex items-center justify-center mb-4 border border-jrs-navy/15">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                </div>
+                <div class="flex items-center justify-between gap-2">
+                    <h3 class="text-base font-bold text-jrs-navy font-heading tracking-tight">Latest Events</h3>
+                    <span class="inline-flex items-center rounded-full border border-jrs-red/20 bg-jrs-red/10 px-2 py-0.5 text-[11px] font-semibold text-jrs-red">Active</span>
+                </div>
+                <p class="text-xs text-slate-500 mt-2 leading-relaxed">
+                    Manage the homepage "What's Happening At JRS" showcase cards (Republic Day, Annual Day, Sports Day) with date badges.
+                </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
+                <span class="text-xs text-slate-400 font-medium">Happenings</span>
+                <a href="{{ route('admin.events.index') }}" class="inline-flex items-center justify-center rounded-md text-xs font-semibold transition-colors bg-jrs-navy hover:bg-jrs-red text-white h-8 px-3 gap-1 shadow-2xs">
                     <span>Manage</span>
                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
                 </a>

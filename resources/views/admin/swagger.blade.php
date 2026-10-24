@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Swagger API Documentation | JRS International School</title>
+    <link rel="icon" type="image/png" href="{{ asset('images/logo.png') }}">
     <!-- Swagger UI CSS -->
     <link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist@5/swagger-ui.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -48,18 +49,23 @@
             transition: background 0.2s;
         }
         .back-link:hover {
-            background: #b91c1c;
+            opacity: 0.9;
         }
         .swagger-ui .topbar { display: none; }
     </style>
 </head>
 <body>
     <div class="header-bar">
-        <div>
-            <h1>JRS International School — Swagger API Docs</h1>
-            <p>Interactive OpenAPI 3.0 Documentation for News Ticker & Web Services</p>
+        <div style="display: flex; align-items: center; gap: 16px;">
+            <div style="background: white; border-radius: 8px; padding: 4px 10px; display: flex; align-items: center;">
+                <img src="{{ asset('images/logo.png') }}" alt="JRS Logo" style="height: 32px; width: auto; object-fit: contain;">
+            </div>
+            <div>
+                <h1>JRS International School — Swagger API Docs</h1>
+                <p>Interactive OpenAPI 3.0 Documentation for News Ticker & Web Services</p>
+            </div>
         </div>
-        <a href="{{ route('admin.tickers.index') }}" class="back-link">&larr; Back to Admin Panel</a>
+        <a href="{{ route('admin.dashboard') }}" class="back-link">&larr; Back to Admin Panel</a>
     </div>
 
     <div id="swagger-ui"></div>
@@ -324,6 +330,119 @@
                         patch: {
                             tags: ["Facilities (REST CRUD)"],
                             summary: "Toggle active status of a facility",
+                            parameters: [{ name: "id", in: "path", required: true, schema: { type: "integer" } }],
+                            responses: { "200": { description: "Status toggled" } }
+                        }
+                    },
+                    "/academic-programs": {
+                        get: {
+                            tags: ["Academic Programs (Frontend)"],
+                            summary: "Get active academic stage cards for React homepage",
+                            description: "Returns all active academic programmes (Pre-Primary, Primary School, Middle School, etc.) sorted by sort_order. Matches the exact curriculum cards on the homepage with stage badges, titles, subtitles, checklists, and images.",
+                            responses: {
+                                "200": {
+                                    description: "List of active academic programmes",
+                                    content: {
+                                        "application/json": {
+                                            example: {
+                                                success: true,
+                                                message: "Active academic programs fetched successfully",
+                                                total: 3,
+                                                data: [
+                                                    {
+                                                        id: 1,
+                                                        stage_badge: "STAGE 01 • EARLY YEARS",
+                                                        title: "Pre-Primary",
+                                                        slug: "pre-primary",
+                                                        subtitle: "NURSERY, LKG & UKG",
+                                                        description: "Feel grounded and supported in an environment where early learners are encouraged to participate, share ideas, explore phonics, and build confidence through play.",
+                                                        highlights: [
+                                                            "Phonics-based English language & early communication",
+                                                            "Montessori-inspired sensorial and tactile activities",
+                                                            "Early numeracy, number sense and playful logical thinking"
+                                                        ],
+                                                        image: "images/programs/pre-primary.jpg",
+                                                        image_url: "http://127.0.0.1:8000/images/programs/pre-primary.jpg",
+                                                        button_text: "Explore More",
+                                                        button_link: "https://jrs-school.vercel.app/academics/pre-primary",
+                                                        sort_order: 1,
+                                                        is_active: true
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "/admin/programs": {
+                        get: {
+                            tags: ["Academic Programs (REST CRUD)"],
+                            summary: "List all academic programmes with optional active filter",
+                            parameters: [
+                                {
+                                    name: "active",
+                                    in: "query",
+                                    description: "Filter by status (true or false)",
+                                    required: false,
+                                    schema: { type: "boolean" }
+                                }
+                            ],
+                            responses: { "200": { description: "Full list of academic programmes" } }
+                        },
+                        post: {
+                            tags: ["Academic Programs (REST CRUD)"],
+                            summary: "Create a new academic stage programme",
+                            requestBody: {
+                                required: true,
+                                content: {
+                                    "multipart/form-data": {
+                                        schema: {
+                                            type: "object",
+                                            properties: {
+                                                stage_badge: { type: "string", example: "STAGE 01 • EARLY YEARS" },
+                                                title: { type: "string", example: "Pre-Primary" },
+                                                subtitle: { type: "string", example: "NURSERY, LKG & UKG" },
+                                                description: { type: "string" },
+                                                highlights: {
+                                                    type: "array",
+                                                    items: { type: "string" },
+                                                    example: ["Phonics-based English language", "Montessori activities"]
+                                                },
+                                                image: { type: "string", format: "binary" },
+                                                image_url: { type: "string" },
+                                                button_text: { type: "string", example: "Explore More" },
+                                                button_link: { type: "string" },
+                                                sort_order: { type: "integer", example: 1 },
+                                                is_active: { type: "boolean", example: true }
+                                            },
+                                            required: ["title"]
+                                        }
+                                    }
+                                }
+                            },
+                            responses: { "201": { description: "Programme created successfully" } }
+                        }
+                    },
+                    "/admin/programs/{id}": {
+                        get: {
+                            tags: ["Academic Programs (REST CRUD)"],
+                            summary: "Get specific academic programme details by ID",
+                            parameters: [{ name: "id", in: "path", required: true, schema: { type: "integer" } }],
+                            responses: { "200": { description: "Academic programme details" } }
+                        },
+                        delete: {
+                            tags: ["Academic Programs (REST CRUD)"],
+                            summary: "Delete an academic programme by ID",
+                            parameters: [{ name: "id", in: "path", required: true, schema: { type: "integer" } }],
+                            responses: { "200": { description: "Programme deleted successfully" } }
+                        }
+                    },
+                    "/admin/programs/{id}/toggle": {
+                        patch: {
+                            tags: ["Academic Programs (REST CRUD)"],
+                            summary: "Toggle active status of an academic programme",
                             parameters: [{ name: "id", in: "path", required: true, schema: { type: "integer" } }],
                             responses: { "200": { description: "Status toggled" } }
                         }

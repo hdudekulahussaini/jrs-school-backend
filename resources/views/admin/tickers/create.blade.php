@@ -21,35 +21,6 @@
         </a>
     </div>
 
-    <!-- Live Preview Box (shadcn/ui style) -->
-    <div class="rounded-xl border border-slate-200 bg-white p-4 shadow-xs space-y-2.5">
-        <div class="flex items-center justify-between">
-            <span class="text-xs font-medium text-slate-500 flex items-center gap-2">
-                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                <span>Live Interactive Preview</span>
-            </span>
-            <span class="text-xs text-slate-400">Updates dynamically as you type below</span>
-        </div>
-
-        <div class="flex items-stretch rounded-lg overflow-hidden border border-slate-200 shadow-2xs">
-            <div id="previewBadge" class="bg-jrs-red text-white px-3.5 py-2 flex items-center gap-2 shrink-0 font-bold text-xs uppercase tracking-wider font-heading">
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"/></svg>
-                <span id="previewBadgeText">NEWS</span>
-            </div>
-            <div class="flex-1 bg-jrs-navy text-white flex items-center px-4 overflow-hidden text-xs sm:text-sm">
-                <marquee behavior="scroll" direction="left" scrollamount="6" class="py-1">
-                    <span class="inline-flex items-center gap-2">
-                        <span class="text-amber-400 font-bold">★</span>
-                        <span id="previewTitle" class="font-medium text-slate-100">Type announcement text in the form below...</span>
-                        <span id="previewLinkWrap" class="hidden">
-                            <span class="underline text-amber-300 font-medium ml-1">Open Link &rarr;</span>
-                        </span>
-                    </span>
-                </marquee>
-            </div>
-        </div>
-    </div>
-
     <!-- Form Card (shadcn/ui style) -->
     <div class="rounded-xl border border-slate-200 bg-white shadow-xs p-6 sm:p-8">
         <div class="mb-6 pb-4 border-b border-slate-100">
@@ -148,41 +119,24 @@
 <script>
     const titleInput = document.getElementById('title');
     const badgeInput = document.getElementById('badge_text');
-    const linkInput = document.getElementById('link_url');
     const charCount = document.getElementById('charCount');
 
-    const previewTitle = document.getElementById('previewTitle');
-    const previewBadgeText = document.getElementById('previewBadgeText');
-    const previewLinkWrap = document.getElementById('previewLinkWrap');
-
-    function updatePreview() {
-        if (titleInput.value.trim().length > 0) {
-            previewTitle.textContent = titleInput.value;
-        } else {
-            previewTitle.textContent = 'Type announcement text in the form below...';
-        }
-
-        previewBadgeText.textContent = badgeInput.value.trim().length > 0 ? badgeInput.value.toUpperCase() : 'NEWS';
-        charCount.textContent = titleInput.value.length;
-
-        if (linkInput.value.trim().length > 0) {
-            previewLinkWrap.classList.remove('hidden');
-        } else {
-            previewLinkWrap.classList.add('hidden');
+    function updateCharCount() {
+        if (charCount && titleInput) {
+            charCount.textContent = titleInput.value.length;
         }
     }
 
     function setPresetBadge(text) {
-        badgeInput.value = text;
-        updatePreview();
+        if (badgeInput) {
+            badgeInput.value = text;
+        }
     }
 
-    titleInput.addEventListener('input', updatePreview);
-    badgeInput.addEventListener('input', updatePreview);
-    linkInput.addEventListener('input', updatePreview);
-
-    // Initial run
-    updatePreview();
+    if (titleInput) {
+        titleInput.addEventListener('input', updateCharCount);
+        updateCharCount();
+    }
 </script>
 @endpush
 @endsection

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\NewsTickerApiController;
 use App\Http\Controllers\Api\HeroSliderApiController;
 use App\Http\Controllers\Api\FacilityApiController;
+use App\Http\Controllers\Api\AcademicProgramApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,3 +43,13 @@ Route::get('/admin/facilities/{id}', [FacilityApiController::class, 'show']);
 Route::match(['put', 'patch', 'post'], '/admin/facilities/{id}', [FacilityApiController::class, 'update']);
 Route::patch('/admin/facilities/{id}/toggle', [FacilityApiController::class, 'toggle']);
 Route::delete('/admin/facilities/{id}', [FacilityApiController::class, 'destroy']);
+
+// Academic Programs Public & REST Endpoints (for React Homepage)
+Route::get('/academic-programs', [AcademicProgramApiController::class, 'getActivePrograms']);
+Route::get('/academics', [AcademicProgramApiController::class, 'getActivePrograms']);
+Route::get('/admin/programs', [AcademicProgramApiController::class, 'index']);
+Route::post('/admin/programs', [AcademicProgramApiController::class, 'store']);
+Route::get('/admin/programs/{id}', [AcademicProgramApiController::class, 'show']);
+Route::match(['put', 'patch', 'post'], '/admin/programs/{id}', [AcademicProgramApiController::class, 'update']);
+Route::patch('/admin/programs/{id}/toggle', [AcademicProgramApiController::class, 'toggle']);
+Route::delete('/admin/programs/{id}', [AcademicProgramApiController::class, 'destroy']);

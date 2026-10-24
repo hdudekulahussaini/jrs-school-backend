@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\NewsTickerController;
 use App\Http\Controllers\Admin\HeroSliderController;
 use App\Http\Controllers\Admin\FacilityController;
+use App\Http\Controllers\Admin\AcademicProgramController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,6 +44,10 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     // Facilities Full CRUD Resource
     Route::resource('/facilities', FacilityController::class)->names('admin.facilities');
     Route::post('/facilities/{id}/toggle', [FacilityController::class, 'toggle'])->name('admin.facilities.toggle');
+
+    // Academic Programs Full CRUD Resource
+    Route::resource('/programs', AcademicProgramController::class)->names('admin.programs');
+    Route::post('/programs/{id}/toggle', [AcademicProgramController::class, 'toggle'])->name('admin.programs.toggle');
 
     // Admin Swagger Documentation
     Route::get('/swagger', function () {

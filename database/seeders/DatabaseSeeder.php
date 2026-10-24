@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             AcademicProgramSeeder::class,
             BeyondClassroomSeeder::class,
             SchoolEventSeeder::class,
+            HomeFeatureSeeder::class,
         ]);
     }
 }

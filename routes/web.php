@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\BeyondClassroomController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\FacilityController;
 use App\Http\Controllers\Admin\HeroSliderController;
+use App\Http\Controllers\Admin\HomeFeatureController;
 use App\Http\Controllers\Admin\NewsTickerController;
 use App\Http\Controllers\Admin\SchoolEventController;
 use App\Http\Controllers\Admin\VisionMissionController;
@@ -44,6 +45,10 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     // Hero Sliders Full CRUD Resource
     Route::resource('/sliders', HeroSliderController::class)->names('admin.sliders');
     Route::post('/sliders/{id}/toggle', [HeroSliderController::class, 'toggle'])->name('admin.sliders.toggle');
+
+    // Key Features Full CRUD Resource
+    Route::resource('/features', HomeFeatureController::class)->names('admin.features');
+    Route::post('/features/{id}/toggle', [HomeFeatureController::class, 'toggle'])->name('admin.features.toggle');
 
     // Facilities Full CRUD Resource
     Route::resource('/facilities', FacilityController::class)->names('admin.facilities');

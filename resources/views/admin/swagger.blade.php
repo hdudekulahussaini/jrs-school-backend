@@ -232,6 +232,61 @@
                             responses: { "200": { description: "Status toggled" } }
                         }
                     },
+                    "/features": {
+                        get: {
+                            tags: ["Key Features (Frontend)"],
+                            summary: "Get active homepage Key Features / value cards",
+                            description: "Returns the 5 value cards appearing right under the Hero Slider on the homepage (CBSE Curriculum, Holistic Development, Experienced Faculty, Safe & Inclusive, Modern Infrastructure). Also accessible via /home-features.",
+                            responses: {
+                                "200": {
+                                    description: "List of active key features",
+                                    content: {
+                                        "application/json": {
+                                            example: {
+                                                success: true,
+                                                message: "Active home features fetched successfully",
+                                                total: 5,
+                                                data: [
+                                                    {
+                                                        id: 1,
+                                                        title: "CBSE Curriculum",
+                                                        subtitle: "Strong academic foundation",
+                                                        icon: "graduation-cap",
+                                                        icon_svg: null,
+                                                        bg_color: "#e31e24",
+                                                        text_color: "#ffffff",
+                                                        link_url: null,
+                                                        sort_order: 1,
+                                                        is_active: true
+                                                    },
+                                                    {
+                                                        id: 2,
+                                                        title: "Holistic Development",
+                                                        subtitle: "Academic, co-curricular & life skills",
+                                                        icon: "sparkles",
+                                                        icon_svg: null,
+                                                        bg_color: "#059669",
+                                                        text_color: "#ffffff",
+                                                        link_url: null,
+                                                        sort_order: 2,
+                                                        is_active: true
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "/features/{id}": {
+                        get: {
+                            tags: ["Key Features (Frontend)"],
+                            summary: "Get specific Key Feature details by ID",
+                            parameters: [{ name: "id", in: "path", required: true, schema: { type: "integer" } }],
+                            responses: { "200": { description: "Feature details" } }
+                        }
+                    },
                     "/facilities": {
                         get: {
                             tags: ["Facilities (Public Frontend)"],

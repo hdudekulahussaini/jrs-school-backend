@@ -90,6 +90,7 @@
                 @php
                     $isHomeActive = request()->routeIs('admin.tickers.*') || 
                                     request()->routeIs('admin.sliders.*') || 
+                                    request()->routeIs('admin.features.*') || 
                                     request()->routeIs('admin.facilities.*') || 
                                     request()->routeIs('admin.programs.*') || 
                                     request()->routeIs('admin.beyond-classrooms.*') || 
@@ -116,6 +117,11 @@
                         <a href="{{ route('admin.sliders.index') }}" class="flex items-center gap-2.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors {{ request()->routeIs('admin.sliders.*') ? 'bg-jrs-red text-white font-semibold shadow-xs' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
                             <span class="w-1.5 h-1.5 rounded-full {{ request()->routeIs('admin.sliders.*') ? 'bg-white ring-2 ring-white/30' : 'bg-white/40' }}"></span>
                             <span>Hero Sliders</span>
+                        </a>
+
+                        <a href="{{ route('admin.features.index') }}" class="flex items-center gap-2.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors {{ request()->routeIs('admin.features.*') ? 'bg-jrs-red text-white font-semibold shadow-xs' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
+                            <span class="w-1.5 h-1.5 rounded-full {{ request()->routeIs('admin.features.*') ? 'bg-white ring-2 ring-white/30' : 'bg-white/40' }}"></span>
+                            <span>Key Features</span>
                         </a>
 
                         <a href="{{ route('admin.facilities.index') }}" class="flex items-center gap-2.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors {{ request()->routeIs('admin.facilities.*') ? 'bg-jrs-red text-white font-semibold shadow-xs' : 'text-white/70 hover:text-white hover:bg-white/10' }}">

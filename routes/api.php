@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\AcademicProgramApiController;
 use App\Http\Controllers\Api\BeyondClassroomApiController;
 use App\Http\Controllers\Api\FacilityApiController;
 use App\Http\Controllers\Api\HeroSliderApiController;
+use App\Http\Controllers\Api\HomeFeatureApiController;
 use App\Http\Controllers\Api\NewsTickerApiController;
 use App\Http\Controllers\Api\SchoolEventApiController;
 use App\Http\Controllers\Api\VisionMissionApiController;
@@ -59,5 +60,11 @@ Route::get('/beyond-classrooms/{id}', [BeyondClassroomApiController::class, 'sho
 Route::get('/events', [SchoolEventApiController::class, 'getActiveEvents']);
 Route::get('/latest-events', [SchoolEventApiController::class, 'getActiveEvents']);
 Route::get('/events/{id}', [SchoolEventApiController::class, 'show']);
+
+// Key Features GET Endpoints (for React Homepage)
+Route::get('/features', [HomeFeatureApiController::class, 'getActiveFeatures']);
+Route::get('/home-features', [HomeFeatureApiController::class, 'getActiveFeatures']);
+Route::get('/features/{id}', [HomeFeatureApiController::class, 'show']);
+
 
 

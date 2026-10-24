@@ -10,54 +10,40 @@ use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
-| API Routes for JRS International School
+| API Routes for JRS International School (Read-Only GET Endpoints)
 |--------------------------------------------------------------------------
 |
-| Public endpoints used by the React frontend (https://jrs-school.vercel.app/)
-| and external consumers to fetch active announcements, hero sliders, and facilities.
+| Public GET endpoints used by the React frontend (https://jrs-school.vercel.app/)
+| to fetch active announcements, hero sliders, facilities, academic programs,
+| about section, and vision & mission cards. All mutations are managed via
+| the authenticated admin web dashboard.
 |
 */
 
-// News Ticker Public & REST Endpoints
+// News Ticker GET Endpoints
 Route::get('/news-ticker', [NewsTickerApiController::class, 'getActiveTickers']);
 Route::get('/news-tickers', [NewsTickerApiController::class, 'index']);
-Route::post('/news-tickers', [NewsTickerApiController::class, 'store']);
 Route::get('/news-tickers/{id}', [NewsTickerApiController::class, 'show']);
-Route::match(['put', 'patch', 'post'], '/news-tickers/{id}', [NewsTickerApiController::class, 'update']);
-Route::patch('/news-tickers/{id}/toggle', [NewsTickerApiController::class, 'toggle']);
-Route::delete('/news-tickers/{id}', [NewsTickerApiController::class, 'destroy']);
 
-// Hero Slider Public & REST Endpoints
+// Hero Slider GET Endpoints
 Route::get('/hero-slider', [HeroSliderApiController::class, 'getActiveSliders']);
 Route::get('/hero-sliders', [HeroSliderApiController::class, 'getActiveSliders']);
 Route::get('/sliders', [HeroSliderApiController::class, 'index']);
-Route::post('/sliders', [HeroSliderApiController::class, 'store']);
 Route::get('/sliders/{id}', [HeroSliderApiController::class, 'show']);
-Route::match(['put', 'patch', 'post'], '/sliders/{id}', [HeroSliderApiController::class, 'update']);
-Route::patch('/sliders/{id}/toggle', [HeroSliderApiController::class, 'toggle']);
-Route::delete('/sliders/{id}', [HeroSliderApiController::class, 'destroy']);
 
-// Facilities Public & REST Endpoints
+// Facilities GET Endpoints
 Route::get('/facilities', [FacilityApiController::class, 'getActiveFacilities']);
 Route::get('/admin/facilities', [FacilityApiController::class, 'index']);
-Route::post('/admin/facilities', [FacilityApiController::class, 'store']);
 Route::get('/admin/facilities/{id}', [FacilityApiController::class, 'show']);
-Route::match(['put', 'patch', 'post'], '/admin/facilities/{id}', [FacilityApiController::class, 'update']);
-Route::patch('/admin/facilities/{id}/toggle', [FacilityApiController::class, 'toggle']);
-Route::delete('/admin/facilities/{id}', [FacilityApiController::class, 'destroy']);
 
-// Academic Programs Public & REST Endpoints (for React Homepage)
+// Academic Programs GET Endpoints (for React Homepage)
 Route::get('/academic-programs', [AcademicProgramApiController::class, 'getActivePrograms']);
 Route::get('/academics', [AcademicProgramApiController::class, 'getActivePrograms']);
 Route::get('/admin/programs', [AcademicProgramApiController::class, 'index']);
-Route::post('/admin/programs', [AcademicProgramApiController::class, 'store']);
 Route::get('/admin/programs/{id}', [AcademicProgramApiController::class, 'show']);
-Route::match(['put', 'patch', 'post'], '/admin/programs/{id}', [AcademicProgramApiController::class, 'update']);
-Route::patch('/admin/programs/{id}/toggle', [AcademicProgramApiController::class, 'toggle']);
-Route::delete('/admin/programs/{id}', [AcademicProgramApiController::class, 'destroy']);
 
-// About JRS Homepage Section
+// About JRS Homepage Section GET Endpoint
 Route::get('/about', [AboutApiController::class, 'getAbout']);
 
-// Vision & Mission Cards
+// Vision & Mission Cards GET Endpoint
 Route::get('/vision-mission', [VisionMissionApiController::class, 'index']);

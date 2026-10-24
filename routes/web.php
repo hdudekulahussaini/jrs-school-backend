@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\NewsTickerController;
+use App\Http\Controllers\Admin\HeroSliderController;
+use App\Http\Controllers\Admin\FacilityController;
 use App\Http\Controllers\Admin\AboutSectionController;
 use App\Http\Controllers\Admin\VisionMissionController;
 
@@ -36,6 +38,13 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::resource('/tickers', NewsTickerController::class)->names('admin.tickers');
     Route::post('/tickers/{id}/toggle', [NewsTickerController::class, 'toggle'])->name('admin.tickers.toggle');
 
+    // Hero Sliders Full CRUD Resource
+    Route::resource('/sliders', HeroSliderController::class)->names('admin.sliders');
+    Route::post('/sliders/{id}/toggle', [HeroSliderController::class, 'toggle'])->name('admin.sliders.toggle');
+
+    // Facilities Full CRUD Resource
+    Route::resource('/facilities', FacilityController::class)->names('admin.facilities');
+    Route::post('/facilities/{id}/toggle', [FacilityController::class, 'toggle'])->name('admin.facilities.toggle');
     // About JRS Section Full CRUD Resource
     Route::resource('/about', AboutSectionController::class)->names('admin.about');
 

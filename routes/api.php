@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AboutApiController;
+use App\Http\Controllers\Api\AcademicProgramApiController;
 use App\Http\Controllers\Api\FacilityApiController;
 use App\Http\Controllers\Api\HeroSliderApiController;
 use App\Http\Controllers\Api\NewsTickerApiController;

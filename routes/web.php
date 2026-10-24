@@ -1,11 +1,13 @@
 <?php
 
+use App\Http\Controllers\Admin\AboutSectionController;
 use App\Http\Controllers\Admin\AcademicProgramController;
 use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\FacilityController;
 use App\Http\Controllers\Admin\HeroSliderController;
 use App\Http\Controllers\Admin\NewsTickerController;
+use App\Http\Controllers\Admin\VisionMissionController;
 use Illuminate\Support\Facades\Route;
 
 /*

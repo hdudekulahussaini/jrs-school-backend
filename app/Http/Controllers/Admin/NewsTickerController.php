@@ -11,19 +11,11 @@ use Illuminate\Support\Facades\Artisan;
 
 class NewsTickerController extends Controller
 {
-    private function ensureTableExists()
-    {
-        if (!Schema::hasTable('news_tickers')) {
-            Artisan::call('migrate', ['--force' => true]);
-        }
-    }
-
     /**
      * [READ - Index] Listing of all news tickers.
      */
     public function index(Request $request)
     {
-        $this->ensureTableExists();
 
         $query = NewsTicker::query();
 

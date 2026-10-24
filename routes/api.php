@@ -1,10 +1,11 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\NewsTickerApiController;
-use App\Http\Controllers\Api\HeroSliderApiController;
+use App\Http\Controllers\Api\AboutApiController;
 use App\Http\Controllers\Api\FacilityApiController;
-use App\Http\Controllers\Api\AcademicProgramApiController;
+use App\Http\Controllers\Api\HeroSliderApiController;
+use App\Http\Controllers\Api\NewsTickerApiController;
+use App\Http\Controllers\Api\VisionMissionApiController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,3 +54,9 @@ Route::get('/admin/programs/{id}', [AcademicProgramApiController::class, 'show']
 Route::match(['put', 'patch', 'post'], '/admin/programs/{id}', [AcademicProgramApiController::class, 'update']);
 Route::patch('/admin/programs/{id}/toggle', [AcademicProgramApiController::class, 'toggle']);
 Route::delete('/admin/programs/{id}', [AcademicProgramApiController::class, 'destroy']);
+
+// About JRS Homepage Section
+Route::get('/about', [AboutApiController::class, 'getAbout']);
+
+// Vision & Mission Cards
+Route::get('/vision-mission', [VisionMissionApiController::class, 'index']);

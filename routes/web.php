@@ -1,12 +1,12 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\AcademicProgramController;
 use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\NewsTickerController;
-use App\Http\Controllers\Admin\HeroSliderController;
 use App\Http\Controllers\Admin\FacilityController;
-use App\Http\Controllers\Admin\AcademicProgramController;
+use App\Http\Controllers\Admin\HeroSliderController;
+use App\Http\Controllers\Admin\NewsTickerController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,6 +44,12 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     // Facilities Full CRUD Resource
     Route::resource('/facilities', FacilityController::class)->names('admin.facilities');
     Route::post('/facilities/{id}/toggle', [FacilityController::class, 'toggle'])->name('admin.facilities.toggle');
+    // About JRS Section Full CRUD Resource
+    Route::resource('/about', AboutSectionController::class)->names('admin.about');
+
+    // Vision & Mission Full CRUD Resource
+    Route::resource('/vision-mission', VisionMissionController::class)->names('admin.vision-mission');
+    Route::post('/vision-mission/{id}/toggle', [VisionMissionController::class, 'toggle'])->name('admin.vision-mission.toggle');
 
     // Academic Programs Full CRUD Resource
     Route::resource('/programs', AcademicProgramController::class)->names('admin.programs');

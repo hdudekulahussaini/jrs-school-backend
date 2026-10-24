@@ -5,25 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use App\Models\User;
 
 class AdminAuthController extends Controller
 {
-    /**
-     * Ensure the default admin account exists.
-     */
-    private function ensureAdminUserExists()
-    {
-        if (User::where('email', 'admin@jrsschool.com')->doesntExist()) {
-            User::create([
-                'name' => 'Administrator',
-                'email' => 'admin@jrsschool.com',
-                'password' => Hash::make('admin123'),
-            ]);
-        }
-    }
-
     /**
      * Show the admin login form.
      */
@@ -33,8 +17,6 @@ class AdminAuthController extends Controller
             return redirect()->route('admin.dashboard');
         }
 
-        $this->ensureAdminUserExists();
-
         return view('admin.login');
     }
 
@@ -43,8 +25,6 @@ class AdminAuthController extends Controller
      */
     public function login(Request $request)
     {
-        $this->ensureAdminUserExists();
-
         $credentials = $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required', 'string'],

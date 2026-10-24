@@ -101,6 +101,34 @@
                     <span>Facilities</span>
                 </a>
 
+                @php
+                    $isAboutActive = request()->routeIs('admin.about.*') || request()->routeIs('admin.vision-mission.*');
+                @endphp
+                <div class="space-y-1">
+                    <button type="button" 
+                            id="aboutDropdownBtn"
+                            onclick="toggleAboutDropdown()" 
+                            class="w-full flex items-center justify-between px-3 py-2 rounded-md text-sm font-medium transition-colors {{ $isAboutActive ? 'bg-white/15 text-white font-semibold' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
+                        <div class="flex items-center gap-3">
+                            <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                            <span>About Page</span>
+                        </div>
+                        <svg id="aboutDropdownArrow" class="w-4 h-4 shrink-0 transition-transform duration-200 {{ $isAboutActive ? 'rotate-180 text-white' : 'text-white/60' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </button>
+
+                    <div id="aboutDropdownMenu" class="{{ $isAboutActive ? '' : 'hidden' }} pl-4 pr-1 py-1 space-y-1 border-l border-white/10 ml-5">
+                        <a href="{{ route('admin.about.index') }}" class="flex items-center gap-2.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors {{ request()->routeIs('admin.about.*') ? 'bg-jrs-red text-white font-semibold shadow-xs' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
+                            <span class="w-1.5 h-1.5 rounded-full {{ request()->routeIs('admin.about.*') ? 'bg-white ring-2 ring-white/30' : 'bg-white/40' }}"></span>
+                            <span>About JRS</span>
+                        </a>
+
+                        <a href="{{ route('admin.vision-mission.index') }}" class="flex items-center gap-2.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors {{ request()->routeIs('admin.vision-mission.*') ? 'bg-jrs-red text-white font-semibold shadow-xs' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
+                            <span class="w-1.5 h-1.5 rounded-full {{ request()->routeIs('admin.vision-mission.*') ? 'bg-white ring-2 ring-white/30' : 'bg-white/40' }}"></span>
+                            <span>Vision & Mission</span>
+                        </a>
+                    </div>
+                </div>
+
                 <a href="{{ route('admin.programs.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors {{ request()->routeIs('admin.programs.*') ? 'bg-jrs-red text-white font-semibold shadow-xs' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
                     <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/></svg>
                     <span>Academic Programs</span>
@@ -201,6 +229,17 @@
         if (openBtn) openBtn.addEventListener('click', toggleSidebar);
         if (closeBtn) closeBtn.addEventListener('click', toggleSidebar);
         if (backdrop) backdrop.addEventListener('click', toggleSidebar);
+
+        function toggleAboutDropdown() {
+            const menu = document.getElementById('aboutDropdownMenu');
+            const arrow = document.getElementById('aboutDropdownArrow');
+            if (menu) {
+                menu.classList.toggle('hidden');
+            }
+            if (arrow) {
+                arrow.classList.toggle('rotate-180');
+            }
+        }
     </script>
     @stack('scripts')
 </body>

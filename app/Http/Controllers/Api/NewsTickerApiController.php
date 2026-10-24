@@ -12,19 +12,11 @@ use Illuminate\Support\Facades\Artisan;
 
 class NewsTickerApiController extends Controller
 {
-    private function ensureTableExists()
-    {
-        if (!Schema::hasTable('news_tickers')) {
-            Artisan::call('migrate', ['--force' => true]);
-        }
-    }
-
     /**
      * Public endpoint for React frontend ticker: GET /api/news-ticker
      */
     public function getActiveTickers(): JsonResponse
     {
-        $this->ensureTableExists();
 
         $tickers = NewsTicker::where('is_active', true)
             ->orderBy('sort_order', 'asc')

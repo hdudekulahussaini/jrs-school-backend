@@ -325,6 +325,98 @@
                 </a>
             </div>
         </div>
+
+        <!-- Module 7: Chairman of JRS (Leadership) -->
+        <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-xs flex flex-col justify-between hover:border-slate-300 transition-colors">
+            <div>
+                <div class="w-10 h-10 rounded-lg bg-red-50 text-red-600 flex items-center justify-center mb-4 border border-red-200/60">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+                </div>
+                <div class="flex items-center justify-between gap-2">
+                    <h3 class="text-base font-semibold text-slate-900 font-heading tracking-tight">Chairman of JRS</h3>
+                    <span class="inline-flex items-center rounded-full border border-emerald-200 bg-emerald-50 px-2 py-0.5 text-[11px] font-medium text-emerald-700">Active</span>
+                </div>
+                <p class="text-xs text-slate-500 mt-2 leading-relaxed">
+                    Manage Chairman's Address, portrait profile card, inspiring message, and Strategic Commitment banner.
+                </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
+                <span class="text-xs text-slate-400">Leadership</span>
+                <a href="{{ route('admin.chairman.index') }}" class="inline-flex items-center justify-center rounded-md text-xs font-medium transition-colors bg-jrs-red text-white hover:bg-red-700 h-8 px-3 gap-1 shadow-2xs">
+                    <span>Manage</span>
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+                </a>
+            </div>
+        </div>
+
+        <!-- Principal of JRS Module Card -->
+        <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-xs flex flex-col justify-between hover:border-slate-300 transition-colors">
+            <div>
+                <div class="w-10 h-10 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center mb-4 border border-amber-200/60">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/></svg>
+                </div>
+                <div class="flex items-center justify-between gap-2">
+                    <h3 class="text-base font-semibold text-slate-900 font-heading tracking-tight">Principal of JRS</h3>
+                    <span class="inline-flex items-center rounded-full border border-emerald-200 bg-emerald-50 px-2 py-0.5 text-[11px] font-medium text-emerald-700">Active</span>
+                </div>
+                <p class="text-xs text-slate-500 mt-2 leading-relaxed">
+                    Manage Principal's Message, Academic Leadership portrait card, salutation, address, and official seal.
+                </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
+                <span class="text-xs text-slate-400">Leadership</span>
+                <a href="{{ route('admin.principal.index') }}" class="inline-flex items-center justify-center rounded-md text-xs font-medium transition-colors bg-jrs-red text-white hover:bg-red-700 h-8 px-3 gap-1 shadow-2xs">
+                    <span>Manage</span>
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+                </a>
+            </div>
+        </div>
+
+        <!-- Educational Society (Managing Committee) Card -->
+        <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-xs flex flex-col justify-between hover:border-slate-300 transition-colors">
+            <div>
+                <div class="w-10 h-10 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center mb-4 border border-emerald-200/60">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+                </div>
+                <div class="flex items-center justify-between gap-2">
+                    <h3 class="text-base font-semibold text-slate-900 font-heading tracking-tight">Educational Society</h3>
+                    <span class="inline-flex items-center rounded-full border border-emerald-200 bg-emerald-50 px-2 py-0.5 text-[11px] font-medium text-emerald-700">Active</span>
+                </div>
+                <p class="text-xs text-slate-500 mt-2 leading-relaxed">
+                    Manage Managing Committee members, President & Secretary designations, addresses, and phone numbers.
+                </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
+                <span class="text-xs text-slate-400">Committee</span>
+                <a href="{{ route('admin.educational-society.index') }}" class="inline-flex items-center justify-center rounded-md text-xs font-medium transition-colors bg-jrs-red text-white hover:bg-red-700 h-8 px-3 gap-1 shadow-2xs">
+                    <span>Manage</span>
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+                </a>
+            </div>
+        </div>
+
+        <!-- School Management Committee Card -->
+        <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-xs flex flex-col justify-between hover:border-slate-300 transition-colors">
+            <div>
+                <div class="w-10 h-10 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center mb-4 border border-blue-200/60">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                </div>
+                <div class="flex items-center justify-between gap-2">
+                    <h3 class="text-base font-semibold text-slate-900 font-heading tracking-tight">School Management Committee</h3>
+                    <span class="inline-flex items-center rounded-full border border-emerald-200 bg-emerald-50 px-2 py-0.5 text-[11px] font-medium text-emerald-700">Active</span>
+                </div>
+                <p class="text-xs text-slate-500 mt-2 leading-relaxed">
+                    Manage SMC members (Chairman & Members), addresses, phone numbers, and profile photos.
+                </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
+                <span class="text-xs text-slate-400">Governance</span>
+                <a href="{{ route('admin.school-management-committee.index') }}" class="inline-flex items-center justify-center rounded-md text-xs font-medium transition-colors bg-jrs-red text-white hover:bg-red-700 h-8 px-3 gap-1 shadow-2xs">
+                    <span>Manage</span>
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+                </a>
+            </div>
+        </div>
     </div>
     </div>
 

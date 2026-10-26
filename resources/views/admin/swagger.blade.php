@@ -6,7 +6,7 @@
     <title>Swagger API Documentation | JRS International School</title>
     <link rel="icon" type="image/png" href="{{ asset('images/logo.png') }}">
     <!-- Swagger UI CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist@5/swagger-ui.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.11.0/swagger-ui.min.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
@@ -71,8 +71,8 @@
     <div id="swagger-ui"></div>
 
     <!-- Swagger UI JS -->
-    <script src="https://unpkg.com/swagger-ui-dist@5/swagger-ui-bundle.js"></script>
-    <script src="https://unpkg.com/swagger-ui-dist@5/swagger-ui-standalone-preset.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.11.0/swagger-ui-bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.11.0/swagger-ui-standalone-preset.min.js"></script>
     <script>
         window.onload = function() {
             const spec = {
@@ -627,6 +627,7 @@
                             parameters: [{ name: "id", in: "path", required: true, schema: { type: "integer" } }],
                             responses: { "200": { description: "Event details" } }
                         }
+                    },
                     "/campus-tour": {
                         get: {
                             tags: ["Campus Tour & Life (Frontend)"],
@@ -1074,6 +1075,656 @@
                                                         phone: "+91 91770 12340",
                                                         image_url: null,
                                                         sort_order: 11
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "/admission-banner": {
+                        get: {
+                            tags: ["Admission CTA Banner (About Page)"],
+                            summary: "Get active Admission & Campus Tour CTA banner for React frontend",
+                            description: "Returns the configured headline ('Give Your Child A Strong Foundation For Tomorrow'), description, primary & secondary action buttons, and background image URL for the About Page CTA banner.",
+                            responses: {
+                                "200": {
+                                    description: "Active admission banner content retrieved successfully",
+                                    content: {
+                                        "application/json": {
+                                            schema: {
+                                                type: "object",
+                                                properties: {
+                                                    success: { type: "boolean", example: true },
+                                                    data: {
+                                                        type: "object",
+                                                        properties: {
+                                                            id: { type: "integer", example: 1 },
+                                                            title: { type: "string", example: "Give Your Child A Strong Foundation" },
+                                                            title_highlight: { type: "string", example: "For Tomorrow" },
+                                                            description: { type: "string", example: "Join JRS International School and be a part of a nurturing environment that shapes confident, responsible and future-ready individuals." },
+                                                            primary_button: {
+                                                                type: "object",
+                                                                properties: {
+                                                                    text: { type: "string", example: "Enquire for Admission" },
+                                                                    url: { type: "string", nullable: true, example: null }
+                                                                }
+                                                            },
+                                                            secondary_button: {
+                                                                type: "object",
+                                                                properties: {
+                                                                    text: { type: "string", example: "Take a Campus Tour" },
+                                                                    url: { type: "string", example: "https://jrs-school.vercel.app/#tour" }
+                                                                }
+                                                            },
+                                                            image_url: { type: "string", example: "http://127.0.0.1:8000/images/beyond/science-lab.jpg" },
+                                                            updated_at: { type: "string", example: "2026-10-24T07:45:00.000000Z" }
+                                                        }
+                                                    }
+                                                }
+                                            },
+                                            example: {
+                                                success: true,
+                                                data: {
+                                                    id: 1,
+                                                    title: "Give Your Child A Strong Foundation",
+                                                    title_highlight: "For Tomorrow",
+                                                    description: "Join JRS International School and be a part of a nurturing environment that shapes confident, responsible and future-ready individuals.",
+                                                    primary_button: {
+                                                        text: "Enquire for Admission",
+                                                        url: null
+                                                    },
+                                                    secondary_button: {
+                                                        text: "Take a Campus Tour",
+                                                        url: "https://jrs-school.vercel.app/#tour"
+                                                    },
+                                                    image_url: "http://127.0.0.1:8000/images/beyond/science-lab.jpg",
+                                                    updated_at: "2026-10-24T07:45:00.000000Z"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "404": {
+                                    description: "No active admission banner configured"
+                                }
+                            }
+                        }
+                    },
+                    "/chairman": {
+                        get: {
+                            tags: ["Leadership (Chairman of JRS)"],
+                            summary: "Get Chairman of JRS Address & Strategic Commitment sections",
+                            description: "Returns the complete data for the Chairman Leadership page on the React website (https://jrs-school.vercel.app/): Section 1 (Chairman's Address, Founding Leadership Profile card, Motto Quote, Portrait Photo, Address Paragraph, Sign-off) and Section 2 (Our Strategic Commitment navy card).",
+                            responses: {
+                                "200": {
+                                    description: "Chairman leadership page data retrieved successfully",
+                                    content: {
+                                        "application/json": {
+                                            schema: {
+                                                type: "object",
+                                                properties: {
+                                                    success: { type: "boolean", example: true },
+                                                    data: {
+                                                        type: "object",
+                                                        properties: {
+                                                            id: { type: "integer", example: 1 },
+                                                            is_active: { type: "boolean", example: true },
+                                                            chairman_address: {
+                                                                type: "object",
+                                                                properties: {
+                                                                    badge: { type: "string", example: "CHAIRMAN'S ADDRESS" },
+                                                                    heading: { type: "string", example: "Empowering Young Minds For A Changing World" },
+                                                                    profile: {
+                                                                        type: "object",
+                                                                        properties: {
+                                                                            badge: { type: "string", example: "FOUNDING LEADERSHIP" },
+                                                                            name: { type: "string", example: "Chairman Of JRS" },
+                                                                            sub_title: { type: "string", example: "JRS International School • Hyderabad" },
+                                                                            quote: { type: "string", example: "“Nurturing Tomorrow's Leaders with Global Competence & Indian Values”" },
+                                                                            image_url: { type: "string", nullable: true, example: "http://127.0.0.1:8000/uploads/chairman/chairman_sample.jpg" },
+                                                                            image_path: { type: "string", nullable: true, example: "uploads/chairman/chairman_sample.jpg" }
+                                                                        }
+                                                                    },
+                                                                    paragraph: {
+                                                                        type: "string",
+                                                                        example: "Welcome to JRS International School. It gives me immense pride to introduce our institution as a place where education transcends the boundaries of textbooks and rote memorization, becoming an exhilarating voyage of curiosity, character formation, and discovery.\n\nIn today's dynamic global landscape, the role of schooling is not merely to prepare students for examinations, but to equip them with the resilience, creativity, critical thinking, and ethical depth necessary to solve real-world problems.\n\nAt JRS, we have seamlessly woven the timeless values of Indian ethos—respect, empathy, integrity, and humility—with cutting-edge international pedagogical practices. Our campus is envisioned not just as a center of academic excellence, but as a vibrant incubator of leadership, innovation, and global citizenship.\n\nWe invite you to partner with us in shaping a generation of compassionate thinkers and visionary trailblazers who will illuminate the world."
+                                                                    },
+                                                                    paragraphs: {
+                                                                        type: "array",
+                                                                        items: { type: "string" }
+                                                                    },
+                                                                    signoff: {
+                                                                        type: "object",
+                                                                        properties: {
+                                                                            note: { type: "string", example: "WITH WARM WISHES & COMMITMENT," },
+                                                                            name: { type: "string", example: "Chairman" },
+                                                                            sub_title: { type: "string", example: "JRS International School, Hyderabad" }
+                                                                        }
+                                                                    }
+                                                                }
+                                                            },
+                                                            strategic_commitment: {
+                                                                type: "object",
+                                                                properties: {
+                                                                    badge: { type: "string", example: "OUR STRATEGIC COMMITMENT" },
+                                                                    heading: { type: "string", example: "Building An Empowered Generation For Tomorrow" },
+                                                                    description: { type: "string", example: "Under the chairman's visionary stewardship, JRS International School continues to upgrade educational infrastructure, introduce emerging digital technologies, and ensure every child receives the finest learning foundation in Hyderabad." }
+                                                                }
+                                                            },
+                                                            section_badge: { type: "string", example: "CHAIRMAN'S ADDRESS" },
+                                                            title: { type: "string", example: "Empowering Young Minds For A Changing World" },
+                                                            profile_badge: { type: "string", example: "FOUNDING LEADERSHIP" },
+                                                            name: { type: "string", example: "Chairman Of JRS" },
+                                                            sub_title: { type: "string", example: "JRS International School • Hyderabad" },
+                                                            quote: { type: "string", example: "“Nurturing Tomorrow's Leaders with Global Competence & Indian Values”" },
+                                                            image_url: { type: "string", nullable: true, example: "http://127.0.0.1:8000/uploads/chairman/chairman_sample.jpg" },
+                                                            paragraph: { type: "string", example: "Welcome to JRS International School..." },
+                                                            signoff_note: { type: "string", example: "WITH WARM WISHES & COMMITMENT," },
+                                                            signoff_name: { type: "string", example: "Chairman" },
+                                                            signoff_sub: { type: "string", example: "JRS International School, Hyderabad" },
+                                                            commitment_badge: { type: "string", example: "OUR STRATEGIC COMMITMENT" },
+                                                            commitment_title: { type: "string", example: "Building An Empowered Generation For Tomorrow" },
+                                                            commitment_description: { type: "string", example: "Under the chairman's visionary stewardship..." },
+                                                            updated_at: { type: "string", example: "2026-10-25T06:30:00.000000Z" }
+                                                        }
+                                                    }
+                                                }
+                                            },
+                                            example: {
+                                                success: true,
+                                                data: {
+                                                    id: 1,
+                                                    is_active: true,
+                                                    chairman_address: {
+                                                        badge: "CHAIRMAN'S ADDRESS",
+                                                        heading: "Empowering Young Minds For A Changing World",
+                                                        profile: {
+                                                            badge: "FOUNDING LEADERSHIP",
+                                                            name: "Chairman Of JRS",
+                                                            sub_title: "JRS International School • Hyderabad",
+                                                            quote: "“Nurturing Tomorrow's Leaders with Global Competence & Indian Values”",
+                                                            image_url: "http://127.0.0.1:8000/uploads/chairman/chairman_sample.jpg",
+                                                            image_path: "uploads/chairman/chairman_sample.jpg"
+                                                        },
+                                                        paragraph: "Welcome to JRS International School. It gives me immense pride to introduce our institution as a place where education transcends the boundaries of textbooks and rote memorization, becoming an exhilarating voyage of curiosity, character formation, and discovery.\n\nIn today's dynamic global landscape, the role of schooling is not merely to prepare students for examinations, but to equip them with the resilience, creativity, critical thinking, and ethical depth necessary to solve real-world problems.\n\nAt JRS, we have seamlessly woven the timeless values of Indian ethos—respect, empathy, integrity, and humility—with cutting-edge international pedagogical practices. Our campus is envisioned not just as a center of academic excellence, but as a vibrant incubator of leadership, innovation, and global citizenship.\n\nWe invite you to partner with us in shaping a generation of compassionate thinkers and visionary trailblazers who will illuminate the world.",
+                                                        paragraphs: [
+                                                            "Welcome to JRS International School. It gives me immense pride to introduce our institution as a place where education transcends the boundaries of textbooks and rote memorization, becoming an exhilarating voyage of curiosity, character formation, and discovery.",
+                                                            "In today's dynamic global landscape, the role of schooling is not merely to prepare students for examinations, but to equip them with the resilience, creativity, critical thinking, and ethical depth necessary to solve real-world problems.",
+                                                            "At JRS, we have seamlessly woven the timeless values of Indian ethos—respect, empathy, integrity, and humility—with cutting-edge international pedagogical practices. Our campus is envisioned not just as a center of academic excellence, but as a vibrant incubator of leadership, innovation, and global citizenship.",
+                                                            "We invite you to partner with us in shaping a generation of compassionate thinkers and visionary trailblazers who will illuminate the world."
+                                                        ],
+                                                        signoff: {
+                                                            note: "WITH WARM WISHES & COMMITMENT,",
+                                                            name: "Chairman",
+                                                            sub_title: "JRS International School, Hyderabad"
+                                                        }
+                                                    },
+                                                    strategic_commitment: {
+                                                        badge: "OUR STRATEGIC COMMITMENT",
+                                                        heading: "Building An Empowered Generation For Tomorrow",
+                                                        description: "Under the chairman's visionary stewardship, JRS International School continues to upgrade educational infrastructure, introduce emerging digital technologies, and ensure every child receives the finest learning foundation in Hyderabad."
+                                                    },
+                                                    section_badge: "CHAIRMAN'S ADDRESS",
+                                                    title: "Empowering Young Minds For A Changing World",
+                                                    profile_badge: "FOUNDING LEADERSHIP",
+                                                    name: "Chairman Of JRS",
+                                                    sub_title: "JRS International School • Hyderabad",
+                                                    quote: "“Nurturing Tomorrow's Leaders with Global Competence & Indian Values”",
+                                                    image_url: "http://127.0.0.1:8000/uploads/chairman/chairman_sample.jpg",
+                                                    paragraph: "Welcome to JRS International School. It gives me immense pride to introduce our institution as a place where education transcends the boundaries of textbooks and rote memorization, becoming an exhilarating voyage of curiosity, character formation, and discovery.\n\nIn today's dynamic global landscape, the role of schooling is not merely to prepare students for examinations, but to equip them with the resilience, creativity, critical thinking, and ethical depth necessary to solve real-world problems.\n\nAt JRS, we have seamlessly woven the timeless values of Indian ethos—respect, empathy, integrity, and humility—with cutting-edge international pedagogical practices. Our campus is envisioned not just as a center of academic excellence, but as a vibrant incubator of leadership, innovation, and global citizenship.\n\nWe invite you to partner with us in shaping a generation of compassionate thinkers and visionary trailblazers who will illuminate the world.",
+                                                    signoff_note: "WITH WARM WISHES & COMMITMENT,",
+                                                    signoff_name: "Chairman",
+                                                    signoff_sub: "JRS International School, Hyderabad",
+                                                    commitment_badge: "OUR STRATEGIC COMMITMENT",
+                                                    commitment_title: "Building An Empowered Generation For Tomorrow",
+                                                    commitment_description: "Under the chairman's visionary stewardship, JRS International School continues to upgrade educational infrastructure, introduce emerging digital technologies, and ensure every child receives the finest learning foundation in Hyderabad.",
+                                                    updated_at: "2026-10-25T06:30:00.000000Z"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "404": {
+                                    description: "No active Chairman section content found",
+                                    content: {
+                                        "application/json": {
+                                            example: {
+                                                success: false,
+                                                message: "No active Chairman section content found",
+                                                data: null
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "/principal": {
+                        get: {
+                            tags: ["Leadership (Principal of JRS)"],
+                            summary: "Get Principal of JRS Message & Academic Leadership sections",
+                            description: "Returns the complete data for the Principal Leadership page on the React website (https://jrs-school.vercel.app/): Document Header (From the Desk of, Academic Year), Academic Leadership Profile card (Portrait, Badges, Name, Designation), Principal's Address (Heading, Salutation, Paragraphs, Highlight Quote), and Official Sign-off & Seal.",
+                            responses: {
+                                "200": {
+                                    description: "Principal leadership page data retrieved successfully",
+                                    content: {
+                                        "application/json": {
+                                            schema: {
+                                                type: "object",
+                                                properties: {
+                                                    success: { type: "boolean", example: true },
+                                                    data: {
+                                                        type: "object",
+                                                        properties: {
+                                                            id: { type: "integer", example: 1 },
+                                                            is_active: { type: "boolean", example: true },
+                                                            document_header: {
+                                                                type: "object",
+                                                                properties: {
+                                                                    desk_title: { type: "string", example: "FROM THE DESK OF" },
+                                                                    desk_subtitle: { type: "string", example: "The Principal, JRS International School" },
+                                                                    official_address_badge: { type: "string", example: "OFFICIAL ADDRESS" },
+                                                                    academic_year: { type: "string", example: "Academic Year 2026 – 2027" }
+                                                                }
+                                                            },
+                                                            profile: {
+                                                                type: "object",
+                                                                properties: {
+                                                                    card_badge: { type: "string", example: "PRINCIPAL" },
+                                                                    profile_badge: { type: "string", example: "ACADEMIC LEADERSHIP" },
+                                                                    name: { type: "string", example: "Mrs. Marlene Mannas" },
+                                                                    sub_title: { type: "string", example: "Principal, JRS International School" },
+                                                                    image_url: { type: "string", nullable: true, example: "http://127.0.0.1:8000/uploads/principal/principal_sample.jpg" },
+                                                                    image_path: { type: "string", nullable: true, example: "uploads/principal/principal_sample.jpg" }
+                                                                }
+                                                            },
+                                                            message: {
+                                                                type: "object",
+                                                                properties: {
+                                                                    section_badge: { type: "string", example: "PRINCIPAL'S MESSAGE" },
+                                                                    title: { type: "string", example: "Empowering Minds And Enriching Lives" },
+                                                                    salutation: { type: "string", example: "Dear Parents, Students And Well-Wishers," },
+                                                                    paragraph: { type: "string", example: "Welcome to JRS International School..." },
+                                                                    paragraphs: {
+                                                                        type: "array",
+                                                                        items: { type: "string" }
+                                                                    },
+                                                                    quote: { type: "string", example: "“At JRS, we don't just prepare students for the future—we empower them to shape it.”" }
+                                                                }
+                                                            },
+                                                            signoff: {
+                                                                type: "object",
+                                                                properties: {
+                                                                    note: { type: "string", example: "WARM REGARDS," },
+                                                                    signature: { type: "string", example: "Marlene Mannas" },
+                                                                    name: { type: "string", example: "Mrs. Marlene Mannas" },
+                                                                    sub_title: { type: "string", example: "Principal, JRS International School" }
+                                                                }
+                                                            },
+                                                            desk_title: { type: "string", example: "FROM THE DESK OF" },
+                                                            desk_subtitle: { type: "string", example: "The Principal, JRS International School" },
+                                                            official_address_badge: { type: "string", example: "OFFICIAL ADDRESS" },
+                                                            academic_year: { type: "string", example: "Academic Year 2026 – 2027" },
+                                                            section_badge: { type: "string", example: "PRINCIPAL'S MESSAGE" },
+                                                            title: { type: "string", example: "Empowering Minds And Enriching Lives" },
+                                                            salutation: { type: "string", example: "Dear Parents, Students And Well-Wishers," },
+                                                            card_badge: { type: "string", example: "PRINCIPAL" },
+                                                            profile_badge: { type: "string", example: "ACADEMIC LEADERSHIP" },
+                                                            name: { type: "string", example: "Mrs. Marlene Mannas" },
+                                                            sub_title: { type: "string", example: "Principal, JRS International School" },
+                                                            image_url: { type: "string", nullable: true, example: "http://127.0.0.1:8000/uploads/principal/principal_sample.jpg" },
+                                                            paragraph: { type: "string", example: "Welcome to JRS International School..." },
+                                                            quote: { type: "string", example: "“At JRS, we don't just prepare students for the future—we empower them to shape it.”" },
+                                                            signoff_note: { type: "string", example: "WARM REGARDS," },
+                                                            signoff_signature: { type: "string", example: "Marlene Mannas" },
+                                                            signoff_name: { type: "string", example: "Mrs. Marlene Mannas" },
+                                                            signoff_sub: { type: "string", example: "Principal, JRS International School" },
+                                                            updated_at: { type: "string", example: "2026-10-25T07:00:00.000000Z" }
+                                                        }
+                                                    }
+                                                }
+                                            },
+                                            example: {
+                                                success: true,
+                                                data: {
+                                                    id: 1,
+                                                    is_active: true,
+                                                    document_header: {
+                                                        desk_title: "FROM THE DESK OF",
+                                                        desk_subtitle: "The Principal, JRS International School",
+                                                        official_address_badge: "OFFICIAL ADDRESS",
+                                                        academic_year: "Academic Year 2026 – 2027"
+                                                    },
+                                                    profile: {
+                                                        card_badge: "PRINCIPAL",
+                                                        profile_badge: "ACADEMIC LEADERSHIP",
+                                                        name: "Mrs. Marlene Mannas",
+                                                        sub_title: "Principal, JRS International School",
+                                                        image_url: "http://127.0.0.1:8000/uploads/principal/principal_sample.jpg",
+                                                        image_path: "uploads/principal/principal_sample.jpg"
+                                                    },
+                                                    message: {
+                                                        section_badge: "PRINCIPAL'S MESSAGE",
+                                                        title: "Empowering Minds And Enriching Lives",
+                                                        salutation: "Dear Parents, Students And Well-Wishers,",
+                                                        paragraph: "Welcome to JRS International School, where we are committed to “Empowering Minds and Enriching Lives.” We believe that every child has unique potential, and meaningful education is about discovering, nurturing and transforming that potential into purpose.\n\nAt JRS, we go beyond academic excellence to develop curious thinkers, confident communicators, compassionate individuals and responsible global citizens. Through strong academics, innovative pedagogy, technology-enabled learning, AI, robotics and experiential opportunities, we create an environment where students are encouraged to question, explore, create and lead.\n\nOur focus extends beyond the classroom. We nurture character, values, leadership, creativity, collaboration and resilience, preparing our students not simply for examinations, but for life.\n\nWith the partnership of our dedicated teachers and supportive parents, we strive to provide every learner with the confidence, knowledge and values needed to embrace the opportunities of tomorrow.",
+                                                        paragraphs: [
+                                                            "Welcome to JRS International School, where we are committed to “Empowering Minds and Enriching Lives.” We believe that every child has unique potential, and meaningful education is about discovering, nurturing and transforming that potential into purpose.",
+                                                            "At JRS, we go beyond academic excellence to develop curious thinkers, confident communicators, compassionate individuals and responsible global citizens. Through strong academics, innovative pedagogy, technology-enabled learning, AI, robotics and experiential opportunities, we create an environment where students are encouraged to question, explore, create and lead.",
+                                                            "Our focus extends beyond the classroom. We nurture character, values, leadership, creativity, collaboration and resilience, preparing our students not simply for examinations, but for life.",
+                                                            "With the partnership of our dedicated teachers and supportive parents, we strive to provide every learner with the confidence, knowledge and values needed to embrace the opportunities of tomorrow."
+                                                        ],
+                                                        quote: "“At JRS, we don't just prepare students for the future—we empower them to shape it.”"
+                                                    },
+                                                    signoff: {
+                                                        note: "WARM REGARDS,",
+                                                        signature: "Marlene Mannas",
+                                                        name: "Mrs. Marlene Mannas",
+                                                        sub_title: "Principal, JRS International School"
+                                                    },
+                                                    desk_title: "FROM THE DESK OF",
+                                                    desk_subtitle: "The Principal, JRS International School",
+                                                    official_address_badge: "OFFICIAL ADDRESS",
+                                                    academic_year: "Academic Year 2026 – 2027",
+                                                    section_badge: "PRINCIPAL'S MESSAGE",
+                                                    title: "Empowering Minds And Enriching Lives",
+                                                    salutation: "Dear Parents, Students And Well-Wishers,",
+                                                    card_badge: "PRINCIPAL",
+                                                    profile_badge: "ACADEMIC LEADERSHIP",
+                                                    name: "Mrs. Marlene Mannas",
+                                                    sub_title: "Principal, JRS International School",
+                                                    image_url: "http://127.0.0.1:8000/uploads/principal/principal_sample.jpg",
+                                                    paragraph: "Welcome to JRS International School, where we are committed to “Empowering Minds and Enriching Lives.” We believe that every child has unique potential, and meaningful education is about discovering, nurturing and transforming that potential into purpose.\n\nAt JRS, we go beyond academic excellence to develop curious thinkers, confident communicators, compassionate individuals and responsible global citizens. Through strong academics, innovative pedagogy, technology-enabled learning, AI, robotics and experiential opportunities, we create an environment where students are encouraged to question, explore, create and lead.\n\nOur focus extends beyond the classroom. We nurture character, values, leadership, creativity, collaboration and resilience, preparing our students not simply for examinations, but for life.\n\nWith the partnership of our dedicated teachers and supportive parents, we strive to provide every learner with the confidence, knowledge and values needed to embrace the opportunities of tomorrow.",
+                                                    quote: "“At JRS, we don't just prepare students for the future—we empower them to shape it.”",
+                                                    signoff_note: "WARM REGARDS,",
+                                                    signoff_signature: "Marlene Mannas",
+                                                    signoff_name: "Mrs. Marlene Mannas",
+                                                    signoff_sub: "Principal, JRS International School",
+                                                    updated_at: "2026-10-25T07:00:00.000000Z"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "404": {
+                                    description: "No active Principal section content found",
+                                    content: {
+                                        "application/json": {
+                                            example: {
+                                                success: false,
+                                                message: "No active Principal section content found",
+                                                data: null
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "/educational-society": {
+                        get: {
+                            tags: ["Committee (Educational Society)"],
+                            summary: "Get Educational Society Managing Committee members and page header",
+                            description: "Returns the Educational Society Managing Committee header metadata and all members (Photo, Name, Designation/Role badge, Address, Phone) for the About Pages -> Committee -> Educational Society section.",
+                            responses: {
+                                "200": {
+                                    description: "Educational Society Managing Committee members retrieved successfully",
+                                    content: {
+                                        "application/json": {
+                                            schema: {
+                                                type: "object",
+                                                properties: {
+                                                    success: { type: "boolean", example: true },
+                                                    section: {
+                                                        type: "object",
+                                                        properties: {
+                                                            eyebrow: { type: "string", example: "GOVERNING BODY & LEADERSHIP" },
+                                                            title: { type: "string", example: "Managing Committee" },
+                                                            title_highlight: { type: "string", example: "Committee" },
+                                                            description: { type: "string", example: "Distinguished governing body steering the vision, academic excellence, statutory compliance, and strategic growth of JRS International School." }
+                                                        }
+                                                    },
+                                                    count: { type: "integer", example: 8 },
+                                                    data: {
+                                                        type: "array",
+                                                        items: {
+                                                            type: "object",
+                                                            properties: {
+                                                                id: { type: "integer", example: 1 },
+                                                                name: { type: "string", example: "Mr. C. R. Jagadish" },
+                                                                designation: { type: "string", example: "PRESIDENT" },
+                                                                address: { type: "string", example: "Karthikeya Nagar, Nacharam, Hyderabad" },
+                                                                phone: { type: "string", example: "9542664980" },
+                                                                image_url: { type: "string", nullable: true, example: null }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            },
+                                            example: {
+                                                success: true,
+                                                section: {
+                                                    eyebrow: "GOVERNING BODY & LEADERSHIP",
+                                                    title: "Managing Committee",
+                                                    title_highlight: "Committee",
+                                                    description: "Distinguished governing body steering the vision, academic excellence, statutory compliance, and strategic growth of JRS International School."
+                                                },
+                                                count: 8,
+                                                data: [
+                                                    {
+                                                        id: 1,
+                                                        name: "Mr. C. R. Jagadish",
+                                                        designation: "PRESIDENT",
+                                                        address: "Karthikeya Nagar, Nacharam, Hyderabad",
+                                                        phone: "9542664980",
+                                                        image_url: null
+                                                    },
+                                                    {
+                                                        id: 2,
+                                                        name: "Ms. V. Jyothi",
+                                                        designation: "VICE-PRESIDENT",
+                                                        address: "12-13-415/3 Tarnaka, Secunderabad",
+                                                        phone: "9666312947",
+                                                        image_url: null
+                                                    },
+                                                    {
+                                                        id: 3,
+                                                        name: "Ms. C. Amaravathi",
+                                                        designation: "GENERAL SECRETARY",
+                                                        address: "Karthikeya Nagar, Nacharam, Hyderabad",
+                                                        phone: "9346065525",
+                                                        image_url: null
+                                                    },
+                                                    {
+                                                        id: 4,
+                                                        name: "Dr. C. Suman Kumar",
+                                                        designation: "JOINT-SECRETARY",
+                                                        address: "Boduppal, Hyderabad",
+                                                        phone: "9926811371",
+                                                        image_url: null
+                                                    },
+                                                    {
+                                                        id: 5,
+                                                        name: "Ms. V. Vedavathi",
+                                                        designation: "TREASURER",
+                                                        address: "Divya Enclave Vijaypuri, Tarnaka, Hyderabad",
+                                                        phone: "9160300046",
+                                                        image_url: null
+                                                    },
+                                                    {
+                                                        id: 6,
+                                                        name: "Mr. Sreepathi Rao",
+                                                        designation: "EXECUTIVE-MEMBER",
+                                                        address: "Uppal, Hyderabad",
+                                                        phone: "9963701615",
+                                                        image_url: null
+                                                    },
+                                                    {
+                                                        id: 7,
+                                                        name: "Mr. Sudharshan Rao",
+                                                        designation: "EXE-MEMBER",
+                                                        address: "L.B Nagar, Hyderabad",
+                                                        phone: "8520047067",
+                                                        image_url: null
+                                                    },
+                                                    {
+                                                        id: 8,
+                                                        name: "Mr. Baskar Reddy",
+                                                        designation: "EXE-MEMBER",
+                                                        address: "Venkatadri Township, Chowdarguda, Hyderabad",
+                                                        phone: "9908330490",
+                                                        image_url: null
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "/school-management-committee": {
+                        get: {
+                            tags: ["Committee (School Management Committee)"],
+                            summary: "Get School Management Committee (SMC) members & section header",
+                            description: "Returns the 11 School Management Committee members (Mrs. Jagadishwari Devi as CHAIRMAN and 10 MEMBERS) along with statutory governance & compliance section header.",
+                            responses: {
+                                "200": {
+                                    description: "SMC members list and section details fetched successfully",
+                                    content: {
+                                        "application/json": {
+                                            schema: {
+                                                type: "object",
+                                                properties: {
+                                                    success: { type: "boolean", example: true },
+                                                    section: {
+                                                        type: "object",
+                                                        properties: {
+                                                            eyebrow: { type: "string", example: "STATUTORY GOVERNANCE & COMPLIANCE" },
+                                                            title: { type: "string", example: "School Management Committee" },
+                                                            title_prefix: { type: "string", example: "School Management" },
+                                                            title_highlight: { type: "string", example: "Committee" },
+                                                            description: { type: "string", example: "The School Management Committee (SMC) ensures academic integrity, statutory compliance, student welfare, and continuous institutional growth at JRS International School." }
+                                                        }
+                                                    },
+                                                    count: { type: "integer", example: 11 },
+                                                    data: {
+                                                        type: "array",
+                                                        items: {
+                                                            type: "object",
+                                                            properties: {
+                                                                id: { type: "integer", example: 1 },
+                                                                name: { type: "string", example: "Mrs. Jagadishwari Devi" },
+                                                                designation: { type: "string", example: "CHAIRMAN" },
+                                                                address: { type: "string", example: "Divya Enclave Vijaypuri Tarnaka, Hyderabad" },
+                                                                phone: { type: "string", example: "9160300046" },
+                                                                image_url: { type: "string", nullable: true, example: null }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            },
+                                            example: {
+                                                success: true,
+                                                section: {
+                                                    eyebrow: "STATUTORY GOVERNANCE & COMPLIANCE",
+                                                    title: "School Management Committee",
+                                                    title_prefix: "School Management",
+                                                    title_highlight: "Committee",
+                                                    description: "The School Management Committee (SMC) ensures academic integrity, statutory compliance, student welfare, and continuous institutional growth at JRS International School."
+                                                },
+                                                count: 11,
+                                                data: [
+                                                    {
+                                                        id: 1,
+                                                        name: "Mrs. Jagadishwari Devi",
+                                                        designation: "CHAIRMAN",
+                                                        address: "Divya Enclave Vijaypuri Tarnaka, Hyderabad",
+                                                        phone: "9160300046",
+                                                        image_url: null
+                                                    },
+                                                    {
+                                                        id: 2,
+                                                        name: "Mr. C. R. Jagadish",
+                                                        designation: "MEMBER",
+                                                        address: "Karthikeya Nagar Nacharam, Hyderabad",
+                                                        phone: "9542664980",
+                                                        image_url: null
+                                                    },
+                                                    {
+                                                        id: 3,
+                                                        name: "Mrs. Jyothi",
+                                                        designation: "MEMBER",
+                                                        address: "12-13-415/3 Tarnaka, Secunderabad",
+                                                        phone: "9666312947",
+                                                        image_url: null
+                                                    },
+                                                    {
+                                                        id: 4,
+                                                        name: "Mr. Vijay Bhaskar",
+                                                        designation: "MEMBER",
+                                                        address: "Venkatadri Township Chowdarguda, Hyderabad",
+                                                        phone: "9908330490",
+                                                        image_url: null
+                                                    },
+                                                    {
+                                                        id: 5,
+                                                        name: "Mr. Ashok",
+                                                        designation: "MEMBER",
+                                                        address: "Sai Enclave, Narapally, Hyderabad",
+                                                        phone: "9949845482",
+                                                        image_url: null
+                                                    },
+                                                    {
+                                                        id: 6,
+                                                        name: "Mrs B. Sheetal",
+                                                        designation: "MEMBER",
+                                                        address: "Venkatadri Township Chowdarguda, Hyderabad",
+                                                        phone: "8309981778",
+                                                        image_url: null
+                                                    },
+                                                    {
+                                                        id: 7,
+                                                        name: "Mrs Nagasunitha",
+                                                        designation: "MEMBER",
+                                                        address: "Muthvelliguda, Hyderabad",
+                                                        phone: "8897503215",
+                                                        image_url: null
+                                                    },
+                                                    {
+                                                        id: 8,
+                                                        name: "Dr. VinayShree",
+                                                        designation: "MEMBER",
+                                                        address: "Siddhartha School Boduppal, Hyderabad",
+                                                        phone: "9502499979",
+                                                        image_url: null
+                                                    },
+                                                    {
+                                                        id: 9,
+                                                        name: "Mr. Narsing Rao",
+                                                        designation: "MEMBER",
+                                                        address: "Sivaji Vidya Peeth School, Hyderabad",
+                                                        phone: "9963701615",
+                                                        image_url: null
+                                                    },
+                                                    {
+                                                        id: 10,
+                                                        name: "Dr Srinivas",
+                                                        designation: "MEMBER",
+                                                        address: "Venkatadri Township Chowdarguda, Hyderabad",
+                                                        phone: "9912712798",
+                                                        image_url: null
+                                                    },
+                                                    {
+                                                        id: 11,
+                                                        name: "Dr. Anil Kumar",
+                                                        designation: "MEMBER",
+                                                        address: "Boduppal, Hyderabad",
+                                                        phone: "9926811371",
+                                                        image_url: null
                                                     }
                                                 ]
                                             }

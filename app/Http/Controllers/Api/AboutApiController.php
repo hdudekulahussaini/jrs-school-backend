@@ -5,8 +5,6 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\AboutSection;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Facades\Artisan;
 
 class AboutApiController extends Controller
 {

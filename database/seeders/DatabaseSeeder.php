@@ -24,6 +24,11 @@ class DatabaseSeeder extends Seeder
             CampusLifeSeeder::class,
             WhyChooseFeatureSeeder::class,
             PtaMemberSeeder::class,
+            AdmissionBannerSeeder::class,
+            ChairmanMessageSeeder::class,
+            PrincipalMessageSeeder::class,
+            EducationalSocietyMemberSeeder::class,
+            SchoolManagementMemberSeeder::class,
         ]);
     }
 }

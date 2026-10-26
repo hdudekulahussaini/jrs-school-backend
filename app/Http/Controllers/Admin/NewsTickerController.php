@@ -6,8 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\NewsTicker;
 use App\Http\Requests\NewsTickerRequest;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Facades\Artisan;
 
 class NewsTickerController extends Controller
 {

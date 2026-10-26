@@ -13,6 +13,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\CampusLifeApiController;
 use App\Http\Controllers\Api\WhyChooseApiController;
 use App\Http\Controllers\Api\PtaMemberApiController;
+use App\Http\Controllers\Api\AdmissionBannerApiController;
+use App\Http\Controllers\Api\ChairmanMessageApiController;
+use App\Http\Controllers\Api\PrincipalMessageApiController;
+use App\Http\Controllers\Api\EducationalSocietyApiController;
+use App\Http\Controllers\Api\SchoolManagementCommitteeApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -78,4 +83,17 @@ Route::get('/why-choose', [WhyChooseApiController::class, 'index']);
 // Parent Teacher Association (PTA)
 Route::get('/pta-members', [PtaMemberApiController::class, 'index']);
 
+// Educational Society Managing Committee
+Route::get('/educational-society', [EducationalSocietyApiController::class, 'index']);
 
+// School Management Committee (SMC)
+Route::get('/school-management-committee', [SchoolManagementCommitteeApiController::class, 'index']);
+
+// Admission & Campus Tour CTA Banner (About Page)
+Route::get('/admission-banner', [AdmissionBannerApiController::class, 'index']);
+
+// Chairman of JRS - Leadership Page
+Route::get('/chairman', [ChairmanMessageApiController::class, 'index']);
+
+// Principal of JRS - Leadership Page
+Route::get('/principal', [PrincipalMessageApiController::class, 'index']);

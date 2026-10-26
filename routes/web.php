@@ -26,6 +26,11 @@ use App\Http\Controllers\Admin\GalleryAlbumController;
 use App\Http\Controllers\Admin\GalleryItemController;
 use App\Http\Controllers\Admin\NewsMediaController;
 use App\Http\Controllers\Admin\TopBarController;
+use App\Http\Controllers\Admin\AdmissionBannerController;
+use App\Http\Controllers\Admin\ChairmanMessageController;
+use App\Http\Controllers\Admin\PrincipalMessageController;
+use App\Http\Controllers\Admin\EducationalSocietyController;
+use App\Http\Controllers\Admin\SchoolManagementCommitteeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -90,6 +95,27 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
 
     // Parent Teacher Association (PTA) Full CRUD Resource
     Route::resource('/pta-members', PtaMemberController::class)->names('admin.pta-members');
+
+    // Educational Society Managing Committee Full CRUD Resource
+    Route::resource('/educational-society', EducationalSocietyController::class)->names('admin.educational-society');
+
+    // School Management Committee (SMC) Full CRUD Resource
+    Route::resource('/school-management-committee', SchoolManagementCommitteeController::class)->names('admin.school-management-committee');
+
+    // Admission & Campus Tour CTA Banner (About Page)
+    Route::resource('/admission-banner', AdmissionBannerController::class)->names('admin.admission-banner');
+
+    // Chairman of JRS - Leadership Page Sections
+    Route::get('/chairman', [ChairmanMessageController::class, 'index'])->name('admin.chairman.index');
+    Route::get('/chairman/{id}/edit', [ChairmanMessageController::class, 'edit'])->name('admin.chairman.edit');
+    Route::put('/chairman/{id}', [ChairmanMessageController::class, 'update'])->name('admin.chairman.update');
+    Route::post('/chairman/{id}/toggle', [ChairmanMessageController::class, 'toggle'])->name('admin.chairman.toggle');
+
+    // Principal of JRS - Leadership Page Sections
+    Route::get('/principal', [PrincipalMessageController::class, 'index'])->name('admin.principal.index');
+    Route::get('/principal/{id}/edit', [PrincipalMessageController::class, 'edit'])->name('admin.principal.edit');
+    Route::put('/principal/{id}', [PrincipalMessageController::class, 'update'])->name('admin.principal.update');
+    Route::post('/principal/{id}/toggle', [PrincipalMessageController::class, 'toggle'])->name('admin.principal.toggle');
 
     // Academic Programs Full CRUD Resource
     Route::resource('/programs', AcademicProgramController::class)->names('admin.programs');

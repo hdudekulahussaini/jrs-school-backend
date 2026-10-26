@@ -19,6 +19,11 @@ use App\Http\Controllers\Api\PtaMemberApiController;
 use App\Http\Controllers\Api\GalleryApiController;
 use App\Http\Controllers\Api\NewsMediaApiController;
 use App\Http\Controllers\Api\TopBarApiController;
+use App\Http\Controllers\Api\AdmissionBannerApiController;
+use App\Http\Controllers\Api\ChairmanMessageApiController;
+use App\Http\Controllers\Api\PrincipalMessageApiController;
+use App\Http\Controllers\Api\EducationalSocietyApiController;
+use App\Http\Controllers\Api\SchoolManagementCommitteeApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -140,4 +145,17 @@ Route::get('/news-media/{id}', [NewsMediaApiController::class, 'show']);
 
 
 
+// Educational Society Managing Committee
+Route::get('/educational-society', [EducationalSocietyApiController::class, 'index']);
 
+// School Management Committee (SMC)
+Route::get('/school-management-committee', [SchoolManagementCommitteeApiController::class, 'index']);
+
+// Admission & Campus Tour CTA Banner (About Page)
+Route::get('/admission-banner', [AdmissionBannerApiController::class, 'index']);
+
+// Chairman of JRS - Leadership Page
+Route::get('/chairman', [ChairmanMessageApiController::class, 'index']);
+
+// Principal of JRS - Leadership Page
+Route::get('/principal', [PrincipalMessageApiController::class, 'index']);

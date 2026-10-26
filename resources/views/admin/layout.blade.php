@@ -226,9 +226,13 @@
                 @php
                     $isAboutActive = request()->routeIs('admin.about.*') 
                         || request()->routeIs('admin.vision-mission.*')
+                        || request()->routeIs('admin.chairman.*')
+                        || request()->routeIs('admin.principal.*')
                         || request()->routeIs('admin.campus-life.*')
                         || request()->routeIs('admin.why-choose.*')
-                        || request()->routeIs('admin.pta-members.*');
+                        || request()->routeIs('admin.educational-society.*')
+                        || request()->routeIs('admin.pta-members.*')
+                        || request()->routeIs('admin.admission-banner.*');
                 @endphp
                 <div class="space-y-1">
                     <button type="button" 
@@ -253,24 +257,86 @@
                             <span>Vision & Mission</span>
                         </a>
 
-                        <a href="{{ route('admin.campus-life.index') }}" class="flex items-center gap-2.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors {{ request()->routeIs('admin.campus-life.*') ? 'bg-slate-800 text-white font-semibold' : 'text-slate-400 hover:text-slate-100 hover:bg-slate-900' }}">
-                            <span class="w-1.5 h-1.5 rounded-full {{ request()->routeIs('admin.campus-life.*') ? 'bg-emerald-400 ring-2 ring-emerald-400/30' : 'bg-slate-600' }}"></span>
+                        <!-- Leadership Sub-Dropdown -->
+                        @php
+                            $isLeadershipActive = request()->routeIs('admin.chairman.*') || request()->routeIs('admin.principal.*');
+                        @endphp
+                        <div class="space-y-1">
+                            <button type="button" 
+                                    id="leadershipDropdownBtn"
+                                    onclick="toggleLeadershipDropdown(event)" 
+                                    class="w-full flex items-center justify-between px-3 py-1.5 rounded-md text-xs font-medium transition-colors {{ $isLeadershipActive ? 'bg-white/15 text-white font-semibold' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
+                                <div class="flex items-center gap-2">
+                                    <svg class="w-3.5 h-3.5 shrink-0 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                                    <span>Leadership</span>
+                                </div>
+                                <svg id="leadershipDropdownArrow" class="w-3 h-3 shrink-0 transition-transform duration-200 {{ $isLeadershipActive ? 'rotate-180 text-white' : 'text-white/60' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                            </button>
+
+                            <div id="leadershipDropdownMenu" class="{{ $isLeadershipActive ? '' : 'hidden' }} pl-3 pr-1 py-1 space-y-1 border-l border-white/10 ml-3">
+                                <a href="{{ route('admin.chairman.index') }}" class="flex items-center gap-2 px-2.5 py-1.5 rounded-md text-[11px] font-medium transition-colors {{ request()->routeIs('admin.chairman.*') ? 'bg-jrs-red text-white font-semibold shadow-xs' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
+                                    <span class="w-1.5 h-1.5 rounded-full {{ request()->routeIs('admin.chairman.*') ? 'bg-white ring-2 ring-white/30' : 'bg-white/40' }}"></span>
+                                    <span>Chairman of JRS</span>
+                                </a>
+
+                                <a href="{{ route('admin.principal.index') }}" class="flex items-center gap-2 px-2.5 py-1.5 rounded-md text-[11px] font-medium transition-colors {{ request()->routeIs('admin.principal.*') ? 'bg-jrs-red text-white font-semibold shadow-xs' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
+                                    <span class="w-1.5 h-1.5 rounded-full {{ request()->routeIs('admin.principal.*') ? 'bg-white ring-2 ring-white/30' : 'bg-white/40' }}"></span>
+                                    <span>Principal of JRS</span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <a href="{{ route('admin.campus-life.index') }}" class="flex items-center gap-2.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors {{ request()->routeIs('admin.campus-life.*') ? 'bg-jrs-red text-white font-semibold shadow-xs' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
+                            <span class="w-1.5 h-1.5 rounded-full {{ request()->routeIs('admin.campus-life.*') ? 'bg-white ring-2 ring-white/30' : 'bg-white/40' }}"></span>
                             <span>Campus Tour & Life</span>
                         </a>
 
-                        <a href="{{ route('admin.why-choose.index') }}" class="flex items-center gap-2.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors {{ request()->routeIs('admin.why-choose.*') ? 'bg-slate-800 text-white font-semibold' : 'text-slate-400 hover:text-slate-100 hover:bg-slate-900' }}">
-                            <span class="w-1.5 h-1.5 rounded-full {{ request()->routeIs('admin.why-choose.*') ? 'bg-emerald-400 ring-2 ring-emerald-400/30' : 'bg-slate-600' }}"></span>
+                        <a href="{{ route('admin.why-choose.index') }}" class="flex items-center gap-2.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors {{ request()->routeIs('admin.why-choose.*') ? 'bg-jrs-red text-white font-semibold shadow-xs' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
+                            <span class="w-1.5 h-1.5 rounded-full {{ request()->routeIs('admin.why-choose.*') ? 'bg-white ring-2 ring-white/30' : 'bg-white/40' }}"></span>
                             <span>Why Choose JRS</span>
                         </a>
 
-                        <a href="{{ route('admin.pta-members.index') }}" class="flex items-center gap-2.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors {{ request()->routeIs('admin.pta-members.*') ? 'bg-slate-800 text-white font-semibold' : 'text-slate-400 hover:text-slate-100 hover:bg-slate-900' }}">
-                            <span class="w-1.5 h-1.5 rounded-full {{ request()->routeIs('admin.pta-members.*') ? 'bg-emerald-400 ring-2 ring-emerald-400/30' : 'bg-slate-600' }}"></span>
-                            <span>PTA Committee</span>
+                        <!-- Committee Sub-Dropdown -->
+                        @php
+                            $isCommitteeActive = request()->routeIs('admin.educational-society.*') || request()->routeIs('admin.school-management-committee.*') || request()->routeIs('admin.pta-members.*');
+                        @endphp
+                        <div class="space-y-1">
+                            <button type="button" 
+                                    id="committeeDropdownBtn"
+                                    onclick="toggleCommitteeDropdown(event)" 
+                                    class="w-full flex items-center justify-between px-3 py-1.5 rounded-md text-xs font-medium transition-colors {{ $isCommitteeActive ? 'bg-white/15 text-white font-semibold' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
+                                <div class="flex items-center gap-2">
+                                    <svg class="w-3.5 h-3.5 shrink-0 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+                                    <span>Committee</span>
+                                </div>
+                                <svg id="committeeDropdownArrow" class="w-3 h-3 shrink-0 transition-transform duration-200 {{ $isCommitteeActive ? 'rotate-180 text-white' : 'text-white/60' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                            </button>
+
+                            <div id="committeeDropdownMenu" class="{{ $isCommitteeActive ? '' : 'hidden' }} pl-3 pr-1 py-1 space-y-1 border-l border-white/10 ml-3">
+                                <a href="{{ route('admin.educational-society.index') }}" class="flex items-center gap-2 px-2.5 py-1.5 rounded-md text-[11px] font-medium transition-colors {{ request()->routeIs('admin.educational-society.*') ? 'bg-jrs-red text-white font-semibold shadow-xs' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
+                                    <span class="w-1.5 h-1.5 rounded-full {{ request()->routeIs('admin.educational-society.*') ? 'bg-white ring-2 ring-white/30' : 'bg-white/40' }}"></span>
+                                    <span>Educational Society</span>
+                                </a>
+
+                                <a href="{{ route('admin.school-management-committee.index') }}" class="flex items-center gap-2 px-2.5 py-1.5 rounded-md text-[11px] font-medium transition-colors {{ request()->routeIs('admin.school-management-committee.*') ? 'bg-jrs-red text-white font-semibold shadow-xs' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
+                                    <span class="w-1.5 h-1.5 rounded-full {{ request()->routeIs('admin.school-management-committee.*') ? 'bg-white ring-2 ring-white/30' : 'bg-white/40' }}"></span>
+                                    <span>School Management Committee</span>
+                                </a>
+
+                                <a href="{{ route('admin.pta-members.index') }}" class="flex items-center gap-2 px-2.5 py-1.5 rounded-md text-[11px] font-medium transition-colors {{ request()->routeIs('admin.pta-members.*') ? 'bg-jrs-red text-white font-semibold shadow-xs' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
+                                    <span class="w-1.5 h-1.5 rounded-full {{ request()->routeIs('admin.pta-members.*') ? 'bg-white ring-2 ring-white/30' : 'bg-white/40' }}"></span>
+                                    <span>PTA Committee</span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <a href="{{ route('admin.admission-banner.index') }}" class="flex items-center gap-2.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors {{ request()->routeIs('admin.admission-banner.*') ? 'bg-jrs-red text-white font-semibold shadow-xs' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
+                            <span class="w-1.5 h-1.5 rounded-full {{ request()->routeIs('admin.admission-banner.*') ? 'bg-white ring-2 ring-white/30' : 'bg-white/40' }}"></span>
+                            <span>Admission Banner</span>
                         </a>
                     </div>
                 </div>
 
-<<<<<<< HEAD
                 <!-- Careers Page Dropdown -->
                 @php
                     $isCareersActive = request()->routeIs('admin.careers-teaching.*') || request()->routeIs('admin.careers-benefits.*') || request()->routeIs('admin.careers-opportunities.*') || request()->routeIs('admin.job-openings.*');
@@ -315,8 +381,6 @@
                     <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
                     <span>Swagger API Docs</span>
                 </a>
-=======
->>>>>>> 04ab64343de79bd33c3d967ec6538c01b8d40678
             </div>
 
             <!-- User Footer Info & Logout -->
@@ -466,6 +530,26 @@
         function toggleCareersDropdown() {
             const menu = document.getElementById('careersDropdownMenu');
             const arrow = document.getElementById('careersDropdownArrow');
+        function toggleLeadershipDropdown(e) {
+            if (e) {
+                e.stopPropagation();
+            }
+            const menu = document.getElementById('leadershipDropdownMenu');
+            const arrow = document.getElementById('leadershipDropdownArrow');
+            if (menu) {
+                menu.classList.toggle('hidden');
+            }
+            if (arrow) {
+                arrow.classList.toggle('rotate-180');
+            }
+        }
+
+        function toggleCommitteeDropdown(e) {
+            if (e) {
+                e.stopPropagation();
+            }
+            const menu = document.getElementById('committeeDropdownMenu');
+            const arrow = document.getElementById('committeeDropdownArrow');
             if (menu) {
                 menu.classList.toggle('hidden');
             }

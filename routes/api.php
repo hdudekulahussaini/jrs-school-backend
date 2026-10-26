@@ -25,6 +25,12 @@ use App\Http\Controllers\Api\PrincipalMessageApiController;
 use App\Http\Controllers\Api\EducationalSocietyApiController;
 use App\Http\Controllers\Api\SchoolManagementCommitteeApiController;
 use App\Http\Controllers\Api\MandatoryDisclosureApiController;
+use App\Http\Controllers\Api\AdmissionStepApiController;
+use App\Http\Controllers\Api\AdmissionCriterionApiController;
+use App\Http\Controllers\Api\AdmissionFaqApiController;
+use App\Http\Controllers\Api\AdmissionHeroApiController;
+use App\Http\Controllers\Api\AdmissionEnquiryApiController;
+use App\Http\Controllers\Api\ContactApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -164,3 +170,28 @@ Route::get('/principal', [PrincipalMessageApiController::class, 'index']);
 // Mandatory Public Disclosure (CBSE Compliance & Statutory Certificates)
 Route::get('/mandatory-disclosure', [MandatoryDisclosureApiController::class, 'index']);
 Route::get('/mandatory-disclosures', [MandatoryDisclosureApiController::class, 'index']);
+// Admission Open Hero Section (Header) - Admission Page
+Route::get('/admission-hero', [AdmissionHeroApiController::class, 'index']);
+
+// Admission Process (6 Steps) - Admission Page
+Route::get('/admission-process', [AdmissionStepApiController::class, 'index']);
+
+// Admission Criteria & Guidelines - Admission Page
+Route::get('/admission-criteria', [AdmissionCriterionApiController::class, 'index']);
+
+// Admission FAQs - Admission Page
+Route::get('/admission-faqs', [AdmissionFaqApiController::class, 'index']);
+
+// Contact Us & Campus Location
+Route::get('/contact', [ContactApiController::class, 'index']);
+Route::get('/contact-us', [ContactApiController::class, 'index']);
+Route::post('/contact/inquiry', [ContactApiController::class, 'storeInquiry']);
+Route::post('/contact-inquiries', [ContactApiController::class, 'storeInquiry']);
+Route::get('/contact/grades', [ContactApiController::class, 'grades']);
+
+// Admission Form Enquiries (Submission & Options)
+Route::post('/admission-enquiries', [AdmissionEnquiryApiController::class, 'store']);
+Route::get('/admission-enquiries/options', [AdmissionEnquiryApiController::class, 'options']);
+
+
+

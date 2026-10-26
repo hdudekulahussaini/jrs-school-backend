@@ -27,6 +27,13 @@ use App\Http\Controllers\Admin\GalleryItemController;
 use App\Http\Controllers\Admin\NewsMediaController;
 use App\Http\Controllers\Admin\TopBarController;
 use App\Http\Controllers\Admin\AdmissionBannerController;
+use App\Http\Controllers\Admin\AdmissionHeroController;
+use App\Http\Controllers\Admin\AdmissionStepController;
+use App\Http\Controllers\Admin\AdmissionCriterionController;
+use App\Http\Controllers\Admin\AdmissionFaqController;
+use App\Http\Controllers\Admin\AdmissionEnquiryController;
+use App\Http\Controllers\Admin\ContactSettingController;
+use App\Http\Controllers\Admin\ContactInquiryController;
 use App\Http\Controllers\Admin\ChairmanMessageController;
 use App\Http\Controllers\Admin\PrincipalMessageController;
 use App\Http\Controllers\Admin\EducationalSocietyController;
@@ -109,6 +116,21 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     // Mandatory Disclosure (About Page) Full CRUD Resource
     Route::resource('/mandatory-disclosure', MandatoryDisclosureController::class)->names('admin.mandatory-disclosure');
     Route::post('/mandatory-disclosure/{id}/toggle', [MandatoryDisclosureController::class, 'toggle'])->name('admin.mandatory-disclosure.toggle');
+    // Admission Open Hero Section (Header)
+    Route::get('/admission-hero', [AdmissionHeroController::class, 'index'])->name('admin.admission-hero.index');
+    Route::put('/admission-hero', [AdmissionHeroController::class, 'update'])->name('admin.admission-hero.update');
+
+    // Admission Process (6 Steps) Full CRUD Resource
+    Route::resource('/admission-steps', AdmissionStepController::class)->names('admin.admission-steps');
+
+    // Admission Criteria & Guidelines Full CRUD Resource
+    Route::resource('/admission-criteria', AdmissionCriterionController::class)->names('admin.admission-criteria');
+
+    // Admission FAQs Full CRUD Resource
+    Route::resource('/admission-faqs', AdmissionFaqController::class)->names('admin.admission-faqs');
+
+    // Admission Form Enquiries CRM
+    Route::resource('/admission-enquiries', AdmissionEnquiryController::class)->only(['index', 'update', 'destroy'])->names('admin.admission-enquiries');
 
     // Chairman of JRS - Leadership Page Sections
     Route::get('/chairman', [ChairmanMessageController::class, 'index'])->name('admin.chairman.index');
@@ -161,6 +183,13 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::post('/gallery-items/{id}/toggle', [GalleryItemController::class, 'toggle'])->name('admin.gallery-items.toggle');
     Route::resource('/news-media', NewsMediaController::class)->names('admin.news-media');
     Route::post('/news-media/{id}/toggle', [NewsMediaController::class, 'toggle'])->name('admin.news-media.toggle');
+
+    // Contact Us Settings
+    Route::get('/contact-settings', [ContactSettingController::class, 'index'])->name('admin.contact-settings.index');
+    Route::put('/contact-settings', [ContactSettingController::class, 'update'])->name('admin.contact-settings.update');
+
+    // Contact Us Online Inquiries CRM
+    Route::resource('/contact-inquiries', ContactInquiryController::class)->only(['index', 'show', 'update', 'destroy'])->names('admin.contact-inquiries');
 
     // Admin Swagger Documentation
     Route::get('/swagger', function () {

@@ -37,6 +37,13 @@ class DatabaseSeeder extends Seeder
             GallerySeeder::class,
             NewsMediaSeeder::class,
             TopBarSeeder::class,
+            AdmissionStepSeeder::class,
+            AdmissionCriterionSeeder::class,
+            AdmissionFaqSeeder::class,
+            ContactSettingSeeder::class,
+            AdmissionHeroSeeder::class,
+            AdmissionEnquirySeeder::class,
+            ContactInquirySeeder::class,
         ]);
     }
 }

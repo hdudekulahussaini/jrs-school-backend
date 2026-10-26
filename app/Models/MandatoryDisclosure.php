@@ -50,7 +50,7 @@ class MandatoryDisclosure extends Model
     public static function validationRules(): array
     {
         return [
-            'category' => 'required|in:general_info,document',
+            'category' => 'required|in:general_info,document,infrastructure,smc',
             's_no' => 'nullable|string|max:50',
             'title' => 'required|string|max:255',
             'value' => 'nullable|string',

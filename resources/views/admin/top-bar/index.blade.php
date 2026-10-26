@@ -21,72 +21,7 @@
         </div>
     </div>
 
-    <!-- Live Top Bar Preview Card -->
-    <div class="space-y-2">
-        <div class="flex items-center justify-between">
-            <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Live Website Header Preview</span>
-            <span class="text-xs text-slate-400">Updates live when saved</span>
-        </div>
-        
-        <div class="rounded-2xl border border-slate-200/80 bg-white p-3 shadow-xs overflow-hidden">
-            <!-- Actual Top Bar Representation -->
-            <div class="w-full bg-[#f1f5f9] text-[#1e293b] py-2.5 px-4 sm:px-6 rounded-xl border border-slate-200/60 flex flex-col lg:flex-row items-center justify-between gap-3 text-xs font-medium">
-                
-                <!-- Left: Phone • Email • CBSE Affiliation -->
-                <div class="flex flex-wrap items-center justify-center lg:justify-start gap-x-3 gap-y-1.5">
-                    <!-- Phone -->
-                    <div class="flex items-center gap-1.5">
-                        <span class="w-5 h-5 rounded-full bg-[#031c3f] text-white flex items-center justify-center shrink-0">
-                            <svg class="w-2.5 h-2.5 fill-current" viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/></svg>
-                        </span>
-                        <span class="font-bold text-[#e31e24] tracking-wide">{{ $topBar->phone }}</span>
-                    </div>
 
-                    <span class="text-slate-300 font-bold">•</span>
-
-                    <!-- Email -->
-                    <div class="flex items-center gap-1.5">
-                        <span class="w-5 h-5 rounded-full bg-[#031c3f] text-white flex items-center justify-center shrink-0">
-                            <svg class="w-2.5 h-2.5 fill-current" viewBox="0 0 20 20"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/></svg>
-                        </span>
-                        <span class="text-slate-700 hover:text-[#031c3f] transition-colors">{{ $topBar->email }}</span>
-                    </div>
-
-                    <span class="text-slate-300 font-bold">•</span>
-
-                    <!-- CBSE Affiliation -->
-                    <div class="flex items-center gap-1.5">
-                        <span class="w-5 h-5 rounded-full bg-[#031c3f] text-white flex items-center justify-center shrink-0">
-                            <svg class="w-2.5 h-2.5 fill-current" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1.323l3.954 1.582 1.599-.8a1 1 0 01.894 1.79l-1.233.616 1.738 5.42a1 1 0 01-.285 1.05A3.989 3.989 0 0115 15a3.989 3.989 0 01-2.667-1.019 1 1 0 01-.285-1.05l1.715-5.349L11 6.477V16h2a1 1 0 110 2H7a1 1 0 110-2h2V6.477L6.237 7.582l1.715 5.349a1 1 0 01-.285 1.05A3.989 3.989 0 015 15a3.989 3.989 0 01-2.667-1.019 1 1 0 01-.285-1.05l1.738-5.42-1.233-.617a1 1 0 01.894-1.788l1.599.799L9 4.323V3a1 1 0 011-1z" clip-rule="evenodd"/></svg>
-                        </span>
-                        <span class="text-slate-700 font-medium">{{ $topBar->cbse_affiliation_text }}</span>
-                    </div>
-                </div>
-
-                <!-- Right: Mandatory Disclosure • School Prospectus -->
-                <div class="flex flex-wrap items-center justify-center lg:justify-end gap-x-3 gap-y-1.5">
-                    <!-- Mandatory Disclosure -->
-                    <a href="{{ $topBar->mandatory_disclosure_link }}" target="_blank" class="flex items-center gap-1.5 text-slate-700 hover:text-jrs-navy transition-colors">
-                        <span class="w-5 h-5 rounded-full bg-[#031c3f] text-white flex items-center justify-center shrink-0">
-                            <svg class="w-2.5 h-2.5 fill-current" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clip-rule="evenodd"/></svg>
-                        </span>
-                        <span>{{ $topBar->mandatory_disclosure_title }}</span>
-                    </a>
-
-                    <span class="text-slate-300 font-bold">•</span>
-
-                    <!-- School Prospectus -->
-                    <a href="{{ $topBar->prospectus_link }}" target="_blank" class="flex items-center gap-1.5 text-slate-700 hover:text-jrs-navy transition-colors">
-                        <span class="w-5 h-5 rounded-full bg-[#031c3f] text-white flex items-center justify-center shrink-0">
-                            <svg class="w-2.5 h-2.5 fill-current" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
-                        </span>
-                        <span>{{ $topBar->prospectus_title }}</span>
-                    </a>
-                </div>
-
-            </div>
-        </div>
-    </div>
 
     @if(session('success'))
         <div class="p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-sm flex items-center gap-2">

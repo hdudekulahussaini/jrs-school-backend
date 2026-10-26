@@ -701,6 +701,29 @@
                     </a>
                 </div>
             </div>
+
+            <!-- Mandatory Public Disclosure -->
+            <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-xs flex flex-col justify-between hover:border-slate-300 transition-colors">
+                <div>
+                    <div class="w-10 h-10 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center mb-4 border border-indigo-200/60">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                    </div>
+                    <div class="flex items-center justify-between gap-2">
+                        <h3 class="text-base font-semibold text-slate-900 font-heading tracking-tight">Mandatory Disclosure</h3>
+                        <span class="inline-flex items-center rounded-full border border-indigo-200 bg-indigo-50 px-2 py-0.5 text-[11px] font-medium text-indigo-700">CBSE</span>
+                    </div>
+                    <p class="text-xs text-slate-500 mt-2 leading-relaxed">
+                        Manage CBSE statutory public disclosures, General Information records, and mandatory affiliation / safety certificate documents.
+                    </p>
+                </div>
+                <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
+                    <span class="text-xs text-slate-400">About JRS</span>
+                    <a href="{{ route('admin.mandatory-disclosure.index') }}" class="inline-flex items-center justify-center rounded-md text-xs font-medium transition-colors bg-jrs-red text-white hover:bg-red-700 h-8 px-3 gap-1 shadow-2xs">
+                        <span>Manage</span>
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 @endsection

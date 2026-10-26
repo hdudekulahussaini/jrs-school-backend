@@ -24,6 +24,7 @@ use App\Http\Controllers\Api\ChairmanMessageApiController;
 use App\Http\Controllers\Api\PrincipalMessageApiController;
 use App\Http\Controllers\Api\EducationalSocietyApiController;
 use App\Http\Controllers\Api\SchoolManagementCommitteeApiController;
+use App\Http\Controllers\Api\MandatoryDisclosureApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -159,3 +160,7 @@ Route::get('/chairman', [ChairmanMessageApiController::class, 'index']);
 
 // Principal of JRS - Leadership Page
 Route::get('/principal', [PrincipalMessageApiController::class, 'index']);
+
+// Mandatory Public Disclosure (CBSE Compliance & Statutory Certificates)
+Route::get('/mandatory-disclosure', [MandatoryDisclosureApiController::class, 'index']);
+Route::get('/mandatory-disclosures', [MandatoryDisclosureApiController::class, 'index']);

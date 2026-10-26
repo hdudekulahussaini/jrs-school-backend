@@ -31,6 +31,7 @@ use App\Http\Controllers\Admin\ChairmanMessageController;
 use App\Http\Controllers\Admin\PrincipalMessageController;
 use App\Http\Controllers\Admin\EducationalSocietyController;
 use App\Http\Controllers\Admin\SchoolManagementCommitteeController;
+use App\Http\Controllers\Admin\MandatoryDisclosureController;
 
 /*
 |--------------------------------------------------------------------------
@@ -104,6 +105,10 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
 
     // Admission & Campus Tour CTA Banner (About Page)
     Route::resource('/admission-banner', AdmissionBannerController::class)->names('admin.admission-banner');
+
+    // Mandatory Disclosure (About Page) Full CRUD Resource
+    Route::resource('/mandatory-disclosure', MandatoryDisclosureController::class)->names('admin.mandatory-disclosure');
+    Route::post('/mandatory-disclosure/{id}/toggle', [MandatoryDisclosureController::class, 'toggle'])->name('admin.mandatory-disclosure.toggle');
 
     // Chairman of JRS - Leadership Page Sections
     Route::get('/chairman', [ChairmanMessageController::class, 'index'])->name('admin.chairman.index');

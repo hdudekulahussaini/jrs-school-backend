@@ -2055,6 +2055,60 @@
                             parameters: [{ name: "type", in: "query", required: false, schema: { type: "string", enum: ["featured", "latest"] } }],
                             responses: { "200": { description: "List of press coverage articles" } }
                         }
+                    },
+                    "/mandatory-disclosure": {
+                        get: {
+                            tags: ["Mandatory Disclosure (CBSE Compliance)"],
+                            summary: "Get CBSE Mandatory Public Disclosure details and statutory documents",
+                            description: "Returns the header metadata, General Information (Table 1), and Documents & Information (Table 2 with document file download links) for the public Mandatory Disclosure page.",
+                            responses: {
+                                "200": {
+                                    description: "Mandatory Disclosure payload retrieved successfully",
+                                    content: {
+                                        "application/json": {
+                                            schema: {
+                                                type: "object",
+                                                properties: {
+                                                    success: { type: "boolean", example: true },
+                                                    message: { type: "string", example: "Mandatory Disclosure data retrieved successfully" },
+                                                    data: {
+                                                        type: "object",
+                                                        properties: {
+                                                            header: {
+                                                                type: "object",
+                                                                properties: {
+                                                                    breadcrumb: { type: "string", example: "Home > Mandatory Disclosure" },
+                                                                    eyebrow: { type: "string", example: "STATUTORY COMPLIANCE & PUBLIC DISCLOSURE" },
+                                                                    title: { type: "string", example: "Mandatory Public Disclosure" },
+                                                                    subtitle: { type: "string", example: "CBSE Public Disclosure & Statutory Compliance" },
+                                                                    description: { type: "string", example: "In compliance with CBSE regulations, here are the mandatory public disclosures, statutory certificates, infrastructure details, and academic records for JRS International School." }
+                                                                }
+                                                            },
+                                                            general_information: {
+                                                                type: "object",
+                                                                properties: {
+                                                                    title: { type: "string", example: "General Information" },
+                                                                    count: { type: "integer", example: 0 },
+                                                                    items: { type: "array", items: { type: "object" } }
+                                                                }
+                                                            },
+                                                            documents_and_information: {
+                                                                type: "object",
+                                                                properties: {
+                                                                    title: { type: "string", example: "Documents And Information" },
+                                                                    count: { type: "integer", example: 0 },
+                                                                    items: { type: "array", items: { type: "object" } }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             };

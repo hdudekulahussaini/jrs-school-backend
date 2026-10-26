@@ -243,7 +243,8 @@
                         || request()->routeIs('admin.why-choose.*')
                         || request()->routeIs('admin.educational-society.*')
                         || request()->routeIs('admin.pta-members.*')
-                        || request()->routeIs('admin.admission-banner.*');
+                        || request()->routeIs('admin.admission-banner.*')
+                        || request()->routeIs('admin.mandatory-disclosure.*');
                 @endphp
                 <div class="space-y-1">
                     <button type="button" 
@@ -344,6 +345,11 @@
                         <a href="{{ route('admin.admission-banner.index') }}" class="flex items-center gap-2.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors {{ request()->routeIs('admin.admission-banner.*') ? 'bg-jrs-red text-white font-semibold shadow-xs' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
                             <span class="w-1.5 h-1.5 rounded-full {{ request()->routeIs('admin.admission-banner.*') ? 'bg-white ring-2 ring-white/30' : 'bg-white/40' }}"></span>
                             <span>Admission Banner</span>
+                        </a>
+
+                        <a href="{{ route('admin.mandatory-disclosure.index') }}" class="flex items-center gap-2.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors {{ request()->routeIs('admin.mandatory-disclosure.*') ? 'bg-jrs-red text-white font-semibold shadow-xs' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
+                            <span class="w-1.5 h-1.5 rounded-full {{ request()->routeIs('admin.mandatory-disclosure.*') ? 'bg-white ring-2 ring-white/30' : 'bg-white/40' }}"></span>
+                            <span>Mandatory Disclosure</span>
                         </a>
                     </div>
                 </div>

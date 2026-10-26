@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Facility;
+use App\Models\AmenityCta;
 use App\Http\Requests\FacilityRequest;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
@@ -41,6 +42,8 @@ class FacilityApiController extends Controller
             ->orderBy('id', 'asc')
             ->get();
 
+        $cta = AmenityCta::where('is_active', true)->first();
+
         return response()->json([
             'success' => true,
             'message' => 'Campus amenities page data retrieved successfully',
@@ -52,7 +55,30 @@ class FacilityApiController extends Controller
             ],
             'count' => $amenities->count(),
             'total' => $amenities->count(),
-            'data' => $amenities
+            'data' => $amenities,
+            'cta' => $cta,
+        ], 200);
+    }
+
+    /**
+     * Public endpoint for dedicated Amenities CTA banner: GET /api/amenities-cta, /api/amenities/cta
+     */
+    public function getCta(): JsonResponse
+    {
+        $cta = AmenityCta::where('is_active', true)->first();
+
+        if (!$cta) {
+            return response()->json([
+                'success' => false,
+                'message' => 'No active Amenities CTA banner found',
+                'data' => null
+            ], 404);
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Amenities CTA banner retrieved successfully',
+            'data' => $cta
         ], 200);
     }
 

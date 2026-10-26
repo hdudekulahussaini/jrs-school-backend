@@ -2025,6 +2025,14 @@
                             }
                         }
                     },
+                    "/top-bar": {
+                        get: {
+                            tags: ["Header Top Bar (Frontend)"],
+                            summary: "Get global header Top Bar settings and documents",
+                            description: "Returns contact telephone number, email, CBSE Affiliation badge, Mandatory Disclosure document link, and School Prospectus link for the global site header.",
+                            responses: {
+                                "200": {
+                                    description: "Top Bar details retrieved successfully",
                     "/admission-hero": {
                         get: {
                             tags: ["Admissions (Frontend)"],
@@ -2038,6 +2046,119 @@
                                             example: {
                                                 success: true,
                                                 data: {
+
+                                                    phone: { label: "+91 915740 43210", href: "tel:+9191574043210", highlight_color: "#e31e24" },
+                                                    email: { label: "info@jrsinternationalschool.com", href: "mailto:info@jrsinternationalschool.com" },
+                                                    affiliation: { label: "CBSE Affiliated School", code: "Affiliation No. 3630372" },
+                                                    mandatory_disclosure: { label: "Mandatory Disclosure", url: "https://jrsinternationalschool.com/mandatory-disclosure.pdf", is_file: false },
+                                                    school_prospectus: { label: "School Prospectus", url: "https://jrsinternationalschool.com/school-prospectus.pdf", is_file: false },
+                                                    is_active: true
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "/gallery-page": {
+                        get: {
+                            tags: ["Gallery Page (Frontend)"],
+                            summary: "Get complete Gallery page bundle (albums with active media)",
+                            description: "Returns all active albums (Amphitheatre, Annual Days, Science Experiments, Life Skills, Republic Day) with their image/video items for the React frontend.",
+                            responses: {
+                                "200": {
+                                    description: "Gallery albums with items retrieved successfully"
+                                }
+                            }
+                        }
+                    },
+                    "/gallery-albums": {
+                        get: {
+                            tags: ["Gallery Page (Frontend)"],
+                            summary: "Get list of active gallery albums",
+                            responses: { "200": { description: "Active albums" } }
+                        }
+                    },
+                    "/gallery-items": {
+                        get: {
+                            tags: ["Gallery Page (Frontend)"],
+                            summary: "Get gallery photo/video items (filterable by ?album_id=)",
+                            parameters: [{ name: "album_id", in: "query", required: false, schema: { type: "integer" } }],
+                            responses: { "200": { description: "Gallery items" } }
+                        }
+                    },
+                    "/media-page": {
+                        get: {
+                            tags: ["News & Media (Frontend)"],
+                            summary: "Get complete News & Media page bundle",
+                            description: "Returns header, achievements_section (featured press cards with Telugu headlines and yellow badges), campus_news_section (latest press clippings), and CTA banner.",
+                            responses: {
+                                "200": {
+                                    description: "News & Media page payload"
+                                }
+                            }
+                        }
+                    },
+                    "/news-media": {
+                        get: {
+                            tags: ["News & Media (Frontend)"],
+                            summary: "Get press coverage clippings (filterable by ?type=featured or ?type=latest)",
+                            parameters: [{ name: "type", in: "query", required: false, schema: { type: "string", enum: ["featured", "latest"] } }],
+                            responses: { "200": { description: "List of press coverage articles" } }
+                        }
+                    },
+                    "/mandatory-disclosure": {
+                        get: {
+                            tags: ["Mandatory Disclosure (CBSE Compliance)"],
+                            summary: "Get CBSE Mandatory Public Disclosure details and statutory documents",
+                            description: "Returns the header metadata, General Information (Table 1), and Documents & Information (Table 2 with document file download links) for the public Mandatory Disclosure page.",
+                            responses: {
+                                "200": {
+                                    description: "Mandatory Disclosure payload retrieved successfully",
+                                    content: {
+                                        "application/json": {
+                                            schema: {
+                                                type: "object",
+                                                properties: {
+                                                    success: { type: "boolean", example: true },
+                                                    message: { type: "string", example: "Mandatory Disclosure data retrieved successfully" },
+                                                    data: {
+                                                        type: "object",
+                                                        properties: {
+                                                            header: {
+                                                                type: "object",
+                                                                properties: {
+                                                                    breadcrumb: { type: "string", example: "Home > Mandatory Disclosure" },
+                                                                    eyebrow: { type: "string", example: "STATUTORY COMPLIANCE & PUBLIC DISCLOSURE" },
+                                                                    title: { type: "string", example: "Mandatory Public Disclosure" },
+                                                                    subtitle: { type: "string", example: "CBSE Public Disclosure & Statutory Compliance" },
+                                                                    description: { type: "string", example: "In compliance with CBSE regulations, here are the mandatory public disclosures, statutory certificates, infrastructure details, and academic records for JRS International School." }
+                                                                }
+                                                            },
+                                                            general_information: {
+                                                                type: "object",
+                                                                properties: {
+                                                                    title: { type: "string", example: "General Information" },
+                                                                    count: { type: "integer", example: 0 },
+                                                                    items: { type: "array", items: { type: "object" } }
+                                                                }
+                                                            },
+                                                            documents_and_information: {
+                                                                type: "object",
+                                                                properties: {
+                                                                    title: { type: "string", example: "Documents And Information" },
+                                                                    count: { type: "integer", example: 0 },
+                                                                    items: { type: "array", items: { type: "object" } }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+
                                                     id: 1,
                                                     location_tag: "NARAPALLY, HYDERABAD",
                                                     title: "Admission Open For",

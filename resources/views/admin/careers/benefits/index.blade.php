@@ -154,36 +154,6 @@
         </div>
     </div>
 
-    <!-- API Info Card (Read-Only GET) -->
-    <div class="rounded-xl border border-slate-200 bg-white p-5 shadow-xs">
-        <div class="flex items-start justify-between gap-4">
-            <div class="space-y-1">
-                <div class="flex items-center gap-2">
-                    <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold tracking-wider uppercase bg-emerald-100 text-emerald-800">
-                        GET ONLY
-                    </span>
-                    <h4 class="text-sm font-bold text-jrs-navy font-heading">Frontend Public Endpoints</h4>
-                </div>
-                <p class="text-xs text-slate-500">
-                    Your React frontend can fetch these cards directly via public read-only JSON endpoints:
-                </p>
-            </div>
-            <a href="{{ route('admin.swagger') }}" class="text-xs font-semibold text-jrs-navy hover:text-jrs-red hover:underline">
-                View Swagger Docs &rarr;
-            </a>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-4 text-xs font-mono">
-            <div class="p-2.5 rounded-lg bg-slate-50 border border-slate-200 text-slate-700 flex items-center justify-between">
-                <div><span class="text-emerald-700 font-bold">GET</span> /api/careers/benefits</div>
-                <span class="text-[10px] text-slate-400 font-sans">Returns cards list & metadata</span>
-            </div>
-            <div class="p-2.5 rounded-lg bg-slate-50 border border-slate-200 text-slate-700 flex items-center justify-between">
-                <div><span class="text-emerald-700 font-bold">GET</span> /api/careers-page</div>
-                <span class="text-[10px] text-slate-400 font-sans">Full page bundle (Teaching + Benefits + Openings)</span>
-            </div>
-        </div>
-    </div>
-
 </div>
 
 <!-- Delete Confirmation Modal -->

@@ -16,11 +16,15 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\CampusLifeApiController;
 use App\Http\Controllers\Api\WhyChooseApiController;
 use App\Http\Controllers\Api\PtaMemberApiController;
+use App\Http\Controllers\Api\GalleryApiController;
+use App\Http\Controllers\Api\NewsMediaApiController;
+use App\Http\Controllers\Api\TopBarApiController;
 use App\Http\Controllers\Api\AdmissionBannerApiController;
 use App\Http\Controllers\Api\ChairmanMessageApiController;
 use App\Http\Controllers\Api\PrincipalMessageApiController;
 use App\Http\Controllers\Api\EducationalSocietyApiController;
 use App\Http\Controllers\Api\SchoolManagementCommitteeApiController;
+use App\Http\Controllers\Api\MandatoryDisclosureApiController;
 use App\Http\Controllers\Api\AdmissionStepApiController;
 use App\Http\Controllers\Api\AdmissionCriterionApiController;
 use App\Http\Controllers\Api\AdmissionFaqApiController;
@@ -40,6 +44,9 @@ use App\Http\Controllers\Api\ContactApiController;
 |
 */
 
+// Header Top Bar GET Endpoint (Global Phone, Email, CBSE Affiliation & Documents)
+Route::get('/top-bar', [TopBarApiController::class, 'getTopBar']);
+
 // News Ticker GET Endpoints
 Route::get('/news-ticker', [NewsTickerApiController::class, 'getActiveTickers']);
 Route::get('/news-tickers', [NewsTickerApiController::class, 'index']);
@@ -53,6 +60,8 @@ Route::get('/sliders/{id}', [HeroSliderApiController::class, 'show']);
 
 // Campus Amenities / Facilities GET Endpoints (Read-Only GET for React site & Amenities page)
 Route::get('/amenities-page', [FacilityApiController::class, 'getPageData']);
+Route::get('/amenities-cta', [FacilityApiController::class, 'getCta']);
+Route::get('/amenities/cta', [FacilityApiController::class, 'getCta']);
 Route::get('/amenities', [FacilityApiController::class, 'getActiveFacilities']);
 Route::get('/amenities/{id}', [FacilityApiController::class, 'show']);
 Route::get('/facilities', [FacilityApiController::class, 'getActiveFacilities']);
@@ -129,6 +138,20 @@ Route::get('/why-choose', [WhyChooseApiController::class, 'index']);
 // Parent Teacher Association (PTA)
 Route::get('/pta-members', [PtaMemberApiController::class, 'index']);
 
+// Gallery Page Endpoints (Albums & Media for React Frontend)
+Route::get('/gallery-page', [GalleryApiController::class, 'getPageData']);
+Route::get('/gallery', [GalleryApiController::class, 'getPageData']);
+Route::get('/gallery-albums', [GalleryApiController::class, 'getAlbums']);
+Route::get('/gallery-albums/{idOrSlug}', [GalleryApiController::class, 'getAlbum']);
+Route::get('/gallery-items', [GalleryApiController::class, 'getItems']);
+
+// News & Media Endpoints (Press Coverage & Achievements for React Frontend)
+Route::get('/media-page', [NewsMediaApiController::class, 'getPageData']);
+Route::get('/news-media', [NewsMediaApiController::class, 'getItems']);
+Route::get('/news-media/{id}', [NewsMediaApiController::class, 'show']);
+
+
+
 // Educational Society Managing Committee
 Route::get('/educational-society', [EducationalSocietyApiController::class, 'index']);
 
@@ -144,6 +167,9 @@ Route::get('/chairman', [ChairmanMessageApiController::class, 'index']);
 // Principal of JRS - Leadership Page
 Route::get('/principal', [PrincipalMessageApiController::class, 'index']);
 
+// Mandatory Public Disclosure (CBSE Compliance & Statutory Certificates)
+Route::get('/mandatory-disclosure', [MandatoryDisclosureApiController::class, 'index']);
+Route::get('/mandatory-disclosures', [MandatoryDisclosureApiController::class, 'index']);
 // Admission Open Hero Section (Header) - Admission Page
 Route::get('/admission-hero', [AdmissionHeroApiController::class, 'index']);
 

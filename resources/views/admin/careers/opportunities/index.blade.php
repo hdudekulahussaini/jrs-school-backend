@@ -262,23 +262,12 @@
 
         </div>
 
-        <!-- Sticky Save & Info Footer -->
-        <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-            <div class="flex items-center gap-2.5">
-                <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-emerald-100 text-emerald-800">
-                    GET ONLY
-                </span>
-                <span class="text-xs font-mono text-slate-600">
-                    <span class="text-emerald-700 font-bold">GET</span> /api/careers/how-to-apply
-                </span>
-            </div>
-
-            <div class="flex items-center gap-3">
-                <button type="submit" class="inline-flex items-center justify-center rounded-xl text-xs sm:text-sm font-semibold transition-all bg-jrs-red hover:opacity-95 text-white shadow-xs h-9 px-5 py-2 gap-2 cursor-pointer">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
-                    <span>Save All Changes</span>
-                </button>
-            </div>
+        <!-- Sticky Save Footer -->
+        <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs flex items-center justify-end">
+            <button type="submit" class="inline-flex items-center justify-center rounded-xl text-xs sm:text-sm font-semibold transition-all bg-jrs-red hover:opacity-95 text-white shadow-xs h-9 px-5 py-2 gap-2 cursor-pointer">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                <span>Save All Changes</span>
+            </button>
         </div>
 
     </form>

@@ -47,7 +47,7 @@ class TopBarController extends Controller
         }
 
         $validated = $request->validate(TopBar::validationRules());
-        $validated['is_active'] = $request->has('is_active');
+        $validated['is_active'] = true;
 
         // Automatic phone_href and email_href if not filled
         if (empty($validated['phone_href'])) {

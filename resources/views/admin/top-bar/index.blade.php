@@ -11,8 +11,8 @@
         <div class="space-y-1">
             <div class="flex items-center gap-2.5">
                 <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 font-heading">Header Top Bar</h2>
-                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold {{ $topBar->is_active ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-100 text-slate-600' }}">
-                    {{ $topBar->is_active ? 'Active on Website' : 'Hidden' }}
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800">
+                    Active on Website
                 </span>
             </div>
             <p class="text-sm text-slate-500">
@@ -259,21 +259,6 @@
                         @endif
                     </div>
                     <p class="text-[11px] text-slate-400">Max size 20MB. Uploading a new PDF overrides the external URL.</p>
-                </div>
-            </div>
-
-            <hr class="border-slate-100">
-
-            <!-- Section 4: Display Status -->
-            <div class="p-4 rounded-xl border border-slate-200 bg-slate-50/50 flex items-start gap-3">
-                <input type="checkbox" id="is_active" name="is_active" value="1" {{ old('is_active', $topBar->is_active) ? 'checked' : '' }} class="mt-1 w-4 h-4 rounded text-emerald-600 border-slate-300 focus:ring-emerald-500">
-                <div>
-                    <label for="is_active" class="text-sm font-bold text-slate-800 cursor-pointer">
-                        Enable Header Top Bar on Website
-                    </label>
-                    <p class="text-xs text-slate-500 mt-0.5">
-                        When enabled, this bar appears at the very top of all pages across the website.
-                    </p>
                 </div>
             </div>
 

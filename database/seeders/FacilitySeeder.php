@@ -8,60 +8,89 @@ use App\Models\Facility;
 class FacilitySeeder extends Seeder
 {
     /**
-     * Run the database seeds.
+     * Run the database seeds for Amenities / State-of-the-Art Facilities.
      */
     public function run(): void
     {
         Facility::truncate();
 
-        Facility::create([
-            'title' => 'Smart Classrooms',
-            'description' => 'Modern and interactive learning spaces',
-            'icon' => 'monitor',
-            'theme_color' => 'navy',
-            'image_path' => 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?q=80&w=800&auto=format&fit=crop',
-            'sort_order' => 1,
-            'is_active' => true,
-        ]);
+        $amenities = [
+            [
+                'title' => 'Athletics Track, Swimming Pool and Meditation Hall',
+                'description' => 'State-of-the-art synthetic running track, international-standard swimming pool, and serene meditation hall for student physical and mental wellness.',
+                'icon' => 'waves',
+                'theme_color' => 'navy',
+                'image_path' => '/images/beyond/sports.jpg',
+                'sort_order' => 1,
+                'is_active' => true,
+            ],
+            [
+                'title' => 'Spacious playgrounds for football, cricket, basketball and volleyball',
+                'description' => 'Expansive manicured sporting arenas, multi-sport courts, and professional training grounds for major athletic pursuits.',
+                'icon' => 'trophy',
+                'theme_color' => 'navy',
+                'image_path' => '/images/beyond/sports.jpg',
+                'sort_order' => 2,
+                'is_active' => true,
+            ],
+            [
+                'title' => 'Canteen for the use of day scholars and staff',
+                'description' => 'Hygienic dining facility serving wholesome, nutritious meals and fresh refreshments daily under strict food safety norms.',
+                'icon' => 'utensils',
+                'theme_color' => 'navy',
+                'image_path' => '/images/journey/butterflies-programme.jpg',
+                'sort_order' => 3,
+                'is_active' => true,
+            ],
+            [
+                'title' => 'Transport facilities for students and staff',
+                'description' => 'Extensive fleet of modern buses equipped with GPS tracking, CCTV surveillance, and certified conductors.',
+                'icon' => 'bus',
+                'theme_color' => 'navy',
+                'image_path' => '/images/journey/primary.png',
+                'sort_order' => 4,
+                'is_active' => true,
+            ],
+            [
+                'title' => 'Secure campus with widespread CCTV coverage',
+                'description' => '24/7 security monitoring with high-definition CCTV coverage across all gates, corridors, playgrounds, and common zones.',
+                'icon' => 'shield',
+                'theme_color' => 'navy',
+                'image_path' => '/images/beyond/karate.webp',
+                'sort_order' => 5,
+                'is_active' => true,
+            ],
+            [
+                'title' => 'Medical facilities and First aid',
+                'description' => 'Dedicated on-campus infirmary staffed with a qualified full-time nurse, emergency first-aid equipment, and immediate doctor-on-call support.',
+                'icon' => 'heart-pulse',
+                'theme_color' => 'navy',
+                'image_path' => '/images/journey/butterflies-programme.jpg',
+                'sort_order' => 6,
+                'is_active' => true,
+            ],
+            [
+                'title' => 'World Class Infrastructure with elegant Ambience',
+                'description' => 'Aesthetically designed campus with spacious sunlit corridors, modern architectural acoustics, and lush green campus environments.',
+                'icon' => 'building',
+                'theme_color' => 'navy',
+                'image_path' => '/images/journey/primary.png',
+                'sort_order' => 7,
+                'is_active' => true,
+            ],
+            [
+                'title' => 'Excellent computing facilities with Internet and Wi-Fi',
+                'description' => 'High-speed fiber optic Wi-Fi network and cutting-edge computer stations with filtered educational browsing for digital empowerment.',
+                'icon' => 'wifi',
+                'theme_color' => 'navy',
+                'image_path' => '/images/beyond/science-lab.jpg',
+                'sort_order' => 8,
+                'is_active' => true,
+            ],
+        ];
 
-        Facility::create([
-            'title' => 'Science & Computer Labs',
-            'description' => 'Well-equipped labs for hands-on learning',
-            'icon' => 'flask',
-            'theme_color' => 'red',
-            'image_path' => 'https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=800&auto=format&fit=crop',
-            'sort_order' => 2,
-            'is_active' => true,
-        ]);
-
-        Facility::create([
-            'title' => 'Library',
-            'description' => 'A world of knowledge and imagination',
-            'icon' => 'book',
-            'theme_color' => 'navy',
-            'image_path' => 'https://images.unsplash.com/photo-1521587760476-6c12a4b040da?q=80&w=800&auto=format&fit=crop',
-            'sort_order' => 3,
-            'is_active' => true,
-        ]);
-
-        Facility::create([
-            'title' => 'Sports Facilities',
-            'description' => 'Indoor & outdoor sports for all-round growth',
-            'icon' => 'trophy',
-            'theme_color' => 'red',
-            'image_path' => 'https://images.unsplash.com/photo-1526676037777-05a232554f77?q=80&w=800&auto=format&fit=crop',
-            'sort_order' => 4,
-            'is_active' => true,
-        ]);
-
-        Facility::create([
-            'title' => 'Transport',
-            'description' => 'Safe, reliable and secure transport',
-            'icon' => 'bus',
-            'theme_color' => 'navy',
-            'image_path' => 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?q=80&w=800&auto=format&fit=crop',
-            'sort_order' => 5,
-            'is_active' => true,
-        ]);
+        foreach ($amenities as $item) {
+            Facility::create($item);
+        }
     }
 }

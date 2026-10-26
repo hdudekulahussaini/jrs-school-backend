@@ -1,0 +1,71 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class BeyondClassroomCta extends Model
+{
+    use HasFactory;
+
+    protected $table = 'beyond_classroom_ctas';
+
+    protected $fillable = [
+        'badge',
+        'title',
+        'highlight_text',
+        'description',
+        'primary_button_text',
+        'primary_button_url',
+        'secondary_button_text',
+        'secondary_button_url',
+        'image_path',
+        'bg_color',
+        'is_active',
+    ];
+
+    protected $casts = [
+        'is_active' => 'boolean',
+    ];
+
+    protected $appends = [
+        'image_full_url',
+    ];
+
+    /**
+     * Absolute URL accessor for the CTA artwork/banner
+     */
+    public function getImageFullUrlAttribute(): ?string
+    {
+        if (empty($this->image_path)) {
+            return asset('images/beyond/cta-banner.png');
+        }
+
+        if (str_starts_with($this->image_path, 'http://') || str_starts_with($this->image_path, 'https://')) {
+            return $this->image_path;
+        }
+
+        return asset(ltrim($this->image_path, '/'));
+    }
+
+    /**
+     * Validation rules for store & update
+     */
+    public static function validationRules(): array
+    {
+        return [
+            'badge' => 'nullable|string|max:100',
+            'title' => 'required|string|max:255',
+            'highlight_text' => 'nullable|string|max:100',
+            'description' => 'nullable|string|max:1000',
+            'primary_button_text' => 'required|string|max:100',
+            'primary_button_url' => 'required|string|max:255',
+            'secondary_button_text' => 'nullable|string|max:100',
+            'secondary_button_url' => 'nullable|string|max:255',
+            'image_file' => 'nullable|image|mimes:jpeg,png,jpg,webp,svg|max:5120',
+            'bg_color' => 'nullable|string|max:30',
+            'is_active' => 'nullable|boolean',
+        ];
+    }
+}

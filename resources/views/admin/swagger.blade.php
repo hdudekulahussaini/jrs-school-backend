@@ -628,6 +628,19 @@
                             responses: { "200": { description: "Event details" } }
                         }
                     },
+                    "/stats": {
+                        get: {
+                            tags: ["Stats Section (Frontend)"],
+                            summary: "Get active homepage statistics & milestones (e.g. 2021 Establishment, 1000+ Students, 50+ Faculty, 100+ Activities)",
+                            description: "Returns all published homepage counter stats cards sorted by sort_order for the glassmorphic stats bar.",
+                            responses: {
+                                "200": {
+                                    description: "List of active statistics",
+                                    content: {
+                                        "application/json": {
+                                            example: {
+                                                success: true,
+                    },
                     "/campus-tour": {
                         get: {
                             tags: ["Campus Tour & Life (Frontend)"],
@@ -699,10 +712,16 @@
                                                         url: "https://jrs-school.vercel.app/admissions"
                                                     }
                                                 },
+
                                                 count: 4,
                                                 data: [
                                                     {
                                                         id: 1,
+                                                        title: "Year of Establishment",
+                                                        value: "2021",
+                                                        icon: "graduation-cap",
+                                                        color: "#eab308",
+                                                        description: "Founded with a vision for world-class holistic education.",
                                                         title: "Beyond Classroom",
                                                         subtitle: "Holistic student development programs",
                                                         icon: "fa-solid fa-graduation-cap",
@@ -712,6 +731,11 @@
                                                     },
                                                     {
                                                         id: 2,
+                                                        title: "Happy Students",
+                                                        value: "1000+",
+                                                        icon: "users",
+                                                        color: "#eab308",
+                                                        description: "Nurturing bright young minds across all grade levels.",
                                                         title: "Sports Excellence",
                                                         subtitle: "Olympic standard athletic facilities",
                                                         icon: "fa-solid fa-trophy",
@@ -721,6 +745,11 @@
                                                     },
                                                     {
                                                         id: 3,
+                                                        title: "Experienced Faculty",
+                                                        value: "50+",
+                                                        icon: "award",
+                                                        color: "#eab308",
+                                                        description: "Dedicated and passionate educators shaping tomorrow.",
                                                         title: "Visual & Performing Arts",
                                                         subtitle: "Creative studios & music theatre",
                                                         icon: "fa-solid fa-palette",
@@ -730,6 +759,11 @@
                                                     },
                                                     {
                                                         id: 4,
+                                                        title: "Co-curricular Activities",
+                                                        value: "100+",
+                                                        icon: "trophy",
+                                                        color: "#eab308",
+                                                        description: "Wide array of sports, arts, robotics, and clubs.",
                                                         title: "Campus Infrastructure",
                                                         subtitle: "Eco-friendly, digital-first learning environment",
                                                         icon: "fa-solid fa-building-columns",
@@ -745,6 +779,106 @@
                             }
                         }
                     },
+                    "/home-stats": {
+                        get: {
+                            tags: ["Stats Section (Frontend)"],
+                            summary: "Alias endpoint for /stats",
+                            responses: { "200": { description: "List of active stats" } }
+                        }
+                    },
+                    "/stats/{id}": {
+                        get: {
+                            tags: ["Stats Section (Frontend)"],
+                            summary: "Get specific stat item by ID",
+                            parameters: [{ name: "id", in: "path", required: true, schema: { type: "integer" } }],
+                            responses: { "200": { description: "Stat details" } }
+                        }
+                    },
+                    "/academic-journeys": {
+                        get: {
+                            tags: ["Academics Page (Frontend)"],
+                            summary: "Get active academic journeys for Academics page",
+                            description: "Returns all published early developmental stages (Pre-Primary, Young Buddies, Butterflies, Honey Bees) sorted by sort_order.",
+                            responses: {
+                                "200": {
+                                    description: "List of active academic journeys",
+                                    content: {
+                                        "application/json": {
+                                            example: {
+                                                success: true,
+                                                message: "Active academic journeys fetched successfully",
+                                                count: 4,
+                                                total: 4,
+                                                data: [
+                                                    {
+                                                        id: 1,
+                                                        title: "Pre-Primary Programme",
+                                                        age_group: "Early Years",
+                                                        slug: "pre-primary-programme",
+                                                        description: "We have adopted the inquiry and self-research-based Pre-primary program of international quality for the first few and most critical learning years of your child.",
+                                                        icon: "baby",
+                                                        image_path: "images/journey/pre-primary-learning.jpg",
+                                                        image_full_url: "http://127.0.0.1:8000/images/journey/pre-primary-learning.jpg",
+                                                        link_url: "/academics/pre-primary-programme",
+                                                        sort_order: 1,
+                                                        is_active: true
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "/academic-journeys/{idOrSlug}": {
+                        get: {
+                            tags: ["Academics Page (Frontend)"],
+                            summary: "Get specific academic journey by ID or slug",
+                            parameters: [{ name: "idOrSlug", in: "path", required: true, schema: { type: "string" } }],
+                            responses: { "200": { description: "Academic journey details" } }
+                        }
+                    },
+                    "/beyond-classroom-page": {
+                        get: {
+                            tags: ["Beyond Classroom Page (Frontend)"],
+                            summary: "Get dedicated Beyond Classroom page metadata, activities and CTA banner",
+                            description: "Returns page title, badge, description, all 10 co-curricular activities, and the active CTA banner for the standalone Beyond Classroom page.",
+                            responses: {
+                                "200": {
+                                    description: "Beyond Classroom page payload with activities and CTA banner"
+                                }
+                            }
+                        }
+                    },
+                    "/beyond-classroom-cta": {
+                        get: {
+                            tags: ["Beyond Classroom Page (Frontend)"],
+                            summary: "Get active Beyond Classroom Call-To-Action (CTA) banner",
+                            description: "Returns the active admission CTA banner headline (e.g. 'Give Your Child A Strong Foundation For Tomorrow'), description, red enquiry button, campus tour button, and student montage artwork.",
+                            responses: {
+                                "200": {
+                                    description: "Active CTA banner data",
+                                    content: {
+                                        "application/json": {
+                                            example: {
+                                                success: true,
+                                                message: "Beyond Classroom CTA retrieved successfully",
+                                                data: {
+                                                    id: 1,
+                                                    badge: "Admissions Open 2026-27",
+                                                    title: "Give Your Child A Strong Foundation",
+                                                    highlight_text: "For Tomorrow",
+                                                    description: "Join JRS International School and be a part of a nurturing environment that shapes confident, responsible and future-ready individuals.",
+                                                    primary_button_text: "Enquire for Admission",
+                                                    primary_button_url: "/admissions",
+                                                    secondary_button_text: "Take a Campus Tour",
+                                                    secondary_button_url: "/campus-tour",
+                                                    image_path: "/images/beyond/cta-banner.png",
+                                                    image_full_url: "http://127.0.0.1:8000/images/beyond/cta-banner.png",
+                                                    bg_color: "#031c3f",
+                                                    is_active: true
+                                                }
                     "/why-choose": {
                         get: {
                             tags: ["Why Choose JRS (Frontend)"],
@@ -926,6 +1060,33 @@
                             }
                         }
                     },
+                    "/beyond-classrooms": {
+                        get: {
+                            tags: ["Beyond Classroom Page (Frontend)"],
+                            summary: "Get active co-curricular activities for Beyond Classroom page",
+                            description: "Returns all 10 published Beyond Classroom activities (Art & Painting, Music, Dance, Karate, Yoga, Skating, Games & Sports, Project Work, Excursions, Clubs) sorted by sort_order.",
+                            responses: {
+                                "200": {
+                                    description: "List of active activities",
+                                    content: {
+                                        "application/json": {
+                                            example: {
+                                                success: true,
+                                                message: "Active Beyond Classroom activities fetched successfully",
+                                                count: 10,
+                                                total: 10,
+                                                data: [
+                                                    {
+                                                        id: 1,
+                                                        title: "Art & Painting",
+                                                        category: "Creative Expression",
+                                                        description: "Nurturing aesthetic imagination, visual storytelling, and self-expression through color, sketching, and canvas painting.",
+                                                        icon: "palette",
+                                                        color: "#e11d48",
+                                                        image_path: "/images/journey/butterflies-programme.jpg",
+                                                        image_full_url: "http://127.0.0.1:8000/images/journey/butterflies-programme.jpg",
+                                                        sort_order: 1,
+                                                        is_active: true
                     "/pta-members": {
                         get: {
                             tags: ["Parent Teacher Association - PTA (Frontend)"],
@@ -1083,6 +1244,93 @@
                                 }
                             }
                         }
+                    },
+                    "/beyond": {
+                        get: {
+                            tags: ["Beyond Classroom (Frontend)"],
+                            summary: "Alias endpoint for /beyond-classrooms",
+                            responses: { "200": { description: "List of active activities" } }
+                        }
+                    },
+                    "/beyond-classrooms/{id}": {
+                        get: {
+                            tags: ["Beyond Classroom (Frontend)"],
+                            summary: "Get specific Beyond Classroom activity details by ID",
+                            parameters: [{ name: "id", in: "path", required: true, schema: { type: "string" } }],
+                            responses: { "200": { description: "Activity details" } }
+                        }
+                    },
+                    "/amenities-page": {
+                        get: {
+                            tags: ["Amenities & Facilities (Frontend)"],
+                            summary: "Get campus amenities page metadata and all 8 state-of-the-art facilities",
+                            description: "Returns 'OUR CAMPUS' badge, 'State-Of-The-Art Facilities' headline, and 8 facility cards (Athletics Track & Pool, Playgrounds, Canteen, Transport, CCTV Security, Medical, Infrastructure, Computing Wi-Fi).",
+                            responses: {
+                                "200": {
+                                    description: "Amenities page payload with 8 facility cards"
+                                }
+                            }
+                        }
+                    },
+                    "/amenities": {
+                        get: {
+                            tags: ["Amenities & Facilities (Frontend)"],
+                            summary: "Get active campus amenities array",
+                            description: "Returns all active campus facilities sorted by sort_order for the React website.",
+                            responses: { "200": { description: "List of active amenities" } }
+                        }
+                    },
+                    "/facilities": {
+                        get: {
+                            tags: ["Amenities & Facilities (Frontend)"],
+                            summary: "Alias endpoint for /amenities",
+                            responses: { "200": { description: "List of active facilities" } }
+                        }
+                    },
+                    "/careers-page": {
+                        get: {
+                            tags: ["Careers Page (Frontend)"],
+                            summary: "Get complete Careers page payload (Teaching at JRS overview + Job Openings)",
+                            description: "Returns the Teaching at JRS section (headline: 'Grow. Teach. Inspire. Make A Difference.', description, campus photo) along with active job openings array.",
+                            responses: {
+                                "200": {
+                                    description: "Careers page payload"
+                                }
+                            }
+                        }
+                    },
+                    "/careers/teaching": {
+                        get: {
+                            tags: ["Careers Page (Frontend)"],
+                            summary: "Get 'Teaching at JRS' culture & overview section",
+                            description: "Returns badge, headline, red highlights, description, campus photo, and resume submission email.",
+                            responses: { "200": { description: "Teaching overview data" } }
+                        }
+                    },
+                    "/careers/benefits": {
+                        get: {
+                            tags: ["Careers Page (Frontend)"],
+                            summary: "Get 'Why Join JRS? / Work Culture & Benefits' cards",
+                            description: "Returns the 4 key culture cards (Collaborative Community, Continuous Growth, Innovative Teaching, Make A Difference) with icons and text.",
+                            responses: { "200": { description: "Work culture & benefits cards array and metadata" } }
+                        }
+                    },
+                    "/careers/how-to-apply": {
+                        get: {
+                            tags: ["Careers Page (Frontend)"],
+                            summary: "Get 'Career Opportunities & How To Apply' section",
+                            description: "Returns the career opportunity pitch ('Who Are Passionate About Their Field...'), application process instructions, HR resume email, and checklist items.",
+                            responses: { "200": { description: "How to apply data" } }
+                        }
+                    },
+                    "/careers/openings": {
+                        get: {
+                            tags: ["Careers Page (Frontend)"],
+                            summary: "Get list of active job openings",
+                            description: "Returns all active teaching and administrative vacancies sorted by order.",
+                            responses: { "200": { description: "List of job openings" } }
+                        }
+=======
                     },
                     "/admission-banner": {
                         get: {

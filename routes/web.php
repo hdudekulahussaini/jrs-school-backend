@@ -1,13 +1,20 @@
 <?php
 
 use App\Http\Controllers\Admin\AboutSectionController;
+use App\Http\Controllers\Admin\AcademicJourneyController;
 use App\Http\Controllers\Admin\AcademicProgramController;
 use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\BeyondClassroomController;
+use App\Http\Controllers\Admin\BeyondClassroomCtaController;
+use App\Http\Controllers\Admin\CareerBenefitController;
+use App\Http\Controllers\Admin\CareerOpportunityController;
+use App\Http\Controllers\Admin\CareerSectionController;
+use App\Http\Controllers\Admin\JobOpeningController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\FacilityController;
 use App\Http\Controllers\Admin\HeroSliderController;
 use App\Http\Controllers\Admin\HomeFeatureController;
+use App\Http\Controllers\Admin\HomeStatController;
 use App\Http\Controllers\Admin\NewsTickerController;
 use App\Http\Controllers\Admin\SchoolEventController;
 use App\Http\Controllers\Admin\VisionMissionController;
@@ -56,9 +63,19 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::resource('/features', HomeFeatureController::class)->names('admin.features');
     Route::post('/features/{id}/toggle', [HomeFeatureController::class, 'toggle'])->name('admin.features.toggle');
 
-    // Facilities Full CRUD Resource
-    Route::resource('/facilities', FacilityController::class)->names('admin.facilities');
+    // Stats Section Full CRUD Resource (Homepage Impact Numbers)
+    Route::resource('/stats', HomeStatController::class)->names('admin.stats');
+    Route::post('/stats/{id}/toggle', [HomeStatController::class, 'toggle'])->name('admin.stats.toggle');
 
+    // Campus Amenities / Facilities Full CRUD Resource
+    Route::resource('/facilities', FacilityController::class)->names('admin.facilities');
+<<<<<<< HEAD
+    Route::post('/facilities/{id}/toggle', [FacilityController::class, 'toggle'])->name('admin.facilities.toggle');
+    Route::resource('/amenities', FacilityController::class)->names('admin.amenities');
+    Route::post('/amenities/{id}/toggle', [FacilityController::class, 'toggle'])->name('admin.amenities.toggle');
+=======
+
+>>>>>>> 04ab64343de79bd33c3d967ec6538c01b8d40678
     // About JRS Section Full CRUD Resource
     Route::resource('/about', AboutSectionController::class)->names('admin.about');
 
@@ -99,13 +116,37 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::resource('/programs', AcademicProgramController::class)->names('admin.programs');
     Route::post('/programs/{id}/toggle', [AcademicProgramController::class, 'toggle'])->name('admin.programs.toggle');
 
+    // Academics Page (Academic Journeys) Full CRUD Resource
+    Route::resource('/academic-journeys', AcademicJourneyController::class)->names('admin.academic-journeys');
+    Route::post('/academic-journeys/{id}/toggle', [AcademicJourneyController::class, 'toggle'])->name('admin.academic-journeys.toggle');
+
     // Beyond Classroom Full CRUD Resource
     Route::resource('/beyond-classrooms', BeyondClassroomController::class)->names('admin.beyond-classrooms');
     Route::post('/beyond-classrooms/{id}/toggle', [BeyondClassroomController::class, 'toggle'])->name('admin.beyond-classrooms.toggle');
 
+    // Beyond Classroom CTA Banner Full CRUD Resource
+    Route::resource('/beyond-classroom-cta', BeyondClassroomCtaController::class)->names('admin.beyond-classroom-cta');
+    Route::post('/beyond-classroom-cta/{id}/toggle', [BeyondClassroomCtaController::class, 'toggle'])->name('admin.beyond-classroom-cta.toggle');
+
     // Latest Events Full CRUD Resource
     Route::resource('/events', SchoolEventController::class)->names('admin.events');
     Route::post('/events/{id}/toggle', [SchoolEventController::class, 'toggle'])->name('admin.events.toggle');
+
+    // Careers Page - Teaching at JRS Overview Full CRUD Resource
+    Route::resource('/careers-teaching', CareerSectionController::class)->names('admin.careers-teaching');
+    Route::post('/careers-teaching/{id}/toggle', [CareerSectionController::class, 'toggle'])->name('admin.careers-teaching.toggle');
+
+    // Careers Page - Work Culture & Benefits Full CRUD Resource
+    Route::resource('/careers-benefits', CareerBenefitController::class)->names('admin.careers-benefits');
+    Route::post('/careers-benefits/{id}/toggle', [CareerBenefitController::class, 'toggle'])->name('admin.careers-benefits.toggle');
+
+    // Careers Page - Career Opportunities & How To Apply Full CRUD Resource
+    Route::resource('/careers-opportunities', CareerOpportunityController::class)->names('admin.careers-opportunities');
+    Route::post('/careers-opportunities/{id}/toggle', [CareerOpportunityController::class, 'toggle'])->name('admin.careers-opportunities.toggle');
+
+    // Careers Page - Job Openings Full CRUD Resource
+    Route::resource('/job-openings', JobOpeningController::class)->names('admin.job-openings');
+    Route::post('/job-openings/{id}/toggle', [JobOpeningController::class, 'toggle'])->name('admin.job-openings.toggle');
 
     // Admin Swagger Documentation
     Route::get('/swagger', function () {

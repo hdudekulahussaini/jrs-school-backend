@@ -32,12 +32,20 @@
                     <span>Key Features</span>
                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
                 </a>
+                <a href="{{ route('admin.stats.index') }}" class="px-3.5 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-xs font-medium backdrop-blur-sm transition-colors border border-white/20 inline-flex items-center gap-1.5 text-white">
+                    <span>Stats Section</span>
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                </a>
                 <a href="{{ route('admin.facilities.index') }}" class="px-3.5 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-xs font-medium backdrop-blur-sm transition-colors border border-white/20 inline-flex items-center gap-1.5 text-white">
                     <span>Facilities</span>
                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
                 </a>
                 <a href="{{ route('admin.programs.index') }}" class="px-3.5 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-xs font-medium backdrop-blur-sm transition-colors border border-white/20 inline-flex items-center gap-1.5 text-white">
                     <span>Academic Programs</span>
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                </a>
+                <a href="{{ route('admin.academic-journeys.index') }}" class="px-3.5 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-xs font-medium backdrop-blur-sm transition-colors border border-white/20 inline-flex items-center gap-1.5 text-white">
+                    <span>Academic Journeys</span>
                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
                 </a>
                 <a href="{{ route('admin.beyond-classrooms.index') }}" class="px-3.5 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-xs font-medium backdrop-blur-sm transition-colors border border-white/20 inline-flex items-center gap-1.5 text-white">
@@ -122,6 +130,29 @@
             <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
                 <span class="text-xs text-slate-400 font-medium">Value Badges</span>
                 <a href="{{ route('admin.features.index') }}" class="inline-flex items-center justify-center rounded-md text-xs font-semibold transition-colors bg-jrs-navy hover:bg-jrs-red text-white h-8 px-3 gap-1 shadow-2xs">
+                    <span>Manage</span>
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+                </a>
+            </div>
+        </div>
+
+        <!-- Module: Stats Section -->
+        <div class="rounded-xl border border-slate-200 bg-white p-5 sm:p-6 shadow-xs flex flex-col justify-between hover:border-jrs-navy/40 transition-colors">
+            <div>
+                <div class="w-10 h-10 rounded-lg bg-amber-500/10 text-amber-500 flex items-center justify-center mb-4 border border-amber-500/20">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+                </div>
+                <div class="flex items-center justify-between gap-2">
+                    <h3 class="text-base font-bold text-jrs-navy font-heading tracking-tight">Stats Section</h3>
+                    <span class="inline-flex items-center rounded-full border border-jrs-red/20 bg-jrs-red/10 px-2 py-0.5 text-[11px] font-semibold text-jrs-red">Active</span>
+                </div>
+                <p class="text-xs text-slate-500 mt-2 leading-relaxed">
+                    Manage key impact numbers & milestones (2021 Establishment, 1000+ Students, 50+ Faculty, 100+ Activities).
+                </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
+                <span class="text-xs text-slate-400 font-medium">Impact Counters</span>
+                <a href="{{ route('admin.stats.index') }}" class="inline-flex items-center justify-center rounded-md text-xs font-semibold transition-colors bg-jrs-navy hover:bg-jrs-red text-white h-8 px-3 gap-1 shadow-2xs">
                     <span>Manage</span>
                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
                 </a>

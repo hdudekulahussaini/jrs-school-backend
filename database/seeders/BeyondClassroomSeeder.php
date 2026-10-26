@@ -14,12 +14,12 @@ class BeyondClassroomSeeder extends Seeder
     {
         $activities = [
             [
-                'title' => 'Sports',
-                'category' => 'Fitness & Teamwork',
-                'description' => 'Developing physical stamina, athletic discipline, teamwork, and sportsmanship across diverse track, court, and field games.',
-                'icon' => 'trophy',
-                'color' => '#15803d',
-                'image_path' => '/images/beyond/sports.jpg',
+                'title' => 'Art & Painting',
+                'category' => 'Creative Expression',
+                'description' => 'Nurturing aesthetic imagination, visual storytelling, and self-expression through color, sketching, and canvas painting.',
+                'icon' => 'palette',
+                'color' => '#e11d48',
+                'image_path' => '/images/journey/butterflies-programme.jpg',
                 'sort_order' => 1,
                 'is_active' => true,
             ],
@@ -54,12 +54,12 @@ class BeyondClassroomSeeder extends Seeder
                 'is_active' => true,
             ],
             [
-                'title' => 'Science & Activities',
-                'category' => 'Research & Labs',
-                'description' => 'Inspiring curiosity, scientific inquiry, experiment-based problem solving, and hands-on technological exploration.',
-                'icon' => 'flask',
-                'color' => '#2563eb',
-                'image_path' => '/images/beyond/science-lab.jpg',
+                'title' => 'Yoga',
+                'category' => 'Mind & Wellness',
+                'description' => 'Promoting holistic mental clarity, mindfulness, posture alignment, and inner equilibrium through guided asanas.',
+                'icon' => 'heart',
+                'color' => '#059669',
+                'image_path' => '/images/events/annual-day.jpg',
                 'sort_order' => 5,
                 'is_active' => true,
             ],
@@ -73,7 +73,50 @@ class BeyondClassroomSeeder extends Seeder
                 'sort_order' => 6,
                 'is_active' => true,
             ],
+            [
+                'title' => 'Games & Sports',
+                'category' => 'Fitness & Teamwork',
+                'description' => 'Developing physical stamina, athletic discipline, teamwork, and sportsmanship across diverse track, court, and field games.',
+                'icon' => 'trophy',
+                'color' => '#15803d',
+                'image_path' => '/images/beyond/sports.jpg',
+                'sort_order' => 7,
+                'is_active' => true,
+            ],
+            [
+                'title' => 'Project Work',
+                'category' => 'Research & Labs',
+                'description' => 'Inspiring curiosity, scientific inquiry, experiment-based problem solving, and hands-on technological exploration.',
+                'icon' => 'flask',
+                'color' => '#2563eb',
+                'image_path' => '/images/beyond/science-lab.jpg',
+                'sort_order' => 8,
+                'is_active' => true,
+            ],
+            [
+                'title' => 'Excursions & Trips',
+                'category' => 'Experiential Tours',
+                'description' => 'Broadening real-world horizons through educational field visits, ecological nature trips, and cultural tours.',
+                'icon' => 'compass',
+                'color' => '#d97706',
+                'image_path' => '/images/events/republic-day.jpg',
+                'sort_order' => 9,
+                'is_active' => true,
+            ],
+            [
+                'title' => 'Clubs & Activities',
+                'category' => 'Leadership & Social',
+                'description' => 'Encouraging collaborative leadership, public speaking, literary debates, and social responsibility.',
+                'icon' => 'users',
+                'color' => '#7c3aed',
+                'image_path' => '/images/journey/middle-school-students.jpg',
+                'sort_order' => 10,
+                'is_active' => true,
+            ],
         ];
+
+        // Replace older single names like 'Sports' and 'Science & Activities' with the updated titles
+        BeyondClassroom::whereIn('title', ['Sports', 'Science & Activities'])->delete();
 
         foreach ($activities as $act) {
             BeyondClassroom::updateOrCreate(

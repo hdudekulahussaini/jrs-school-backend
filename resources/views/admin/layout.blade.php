@@ -91,6 +91,7 @@
                     $isHomeActive = request()->routeIs('admin.tickers.*') || 
                                     request()->routeIs('admin.sliders.*') || 
                                     request()->routeIs('admin.features.*') || 
+                                    request()->routeIs('admin.stats.*') || 
                                     request()->routeIs('admin.facilities.*') || 
                                     request()->routeIs('admin.programs.*') || 
                                     request()->routeIs('admin.beyond-classrooms.*') || 
@@ -124,9 +125,9 @@
                             <span>Key Features</span>
                         </a>
 
-                        <a href="{{ route('admin.facilities.index') }}" class="flex items-center gap-2.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors {{ request()->routeIs('admin.facilities.*') ? 'bg-jrs-red text-white font-semibold shadow-xs' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
-                            <span class="w-1.5 h-1.5 rounded-full {{ request()->routeIs('admin.facilities.*') ? 'bg-white ring-2 ring-white/30' : 'bg-white/40' }}"></span>
-                            <span>Facilities</span>
+                        <a href="{{ route('admin.stats.index') }}" class="flex items-center gap-2.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors {{ request()->routeIs('admin.stats.*') ? 'bg-jrs-red text-white font-semibold shadow-xs' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
+                            <span class="w-1.5 h-1.5 rounded-full {{ request()->routeIs('admin.stats.*') ? 'bg-white ring-2 ring-white/30' : 'bg-white/40' }}"></span>
+                            <span>Stats Section</span>
                         </a>
 
                         <a href="{{ route('admin.programs.index') }}" class="flex items-center gap-2.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors {{ request()->routeIs('admin.programs.*') ? 'bg-jrs-red text-white font-semibold shadow-xs' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
@@ -134,14 +135,86 @@
                             <span>Academic Programs</span>
                         </a>
 
-                        <a href="{{ route('admin.beyond-classrooms.index') }}" class="flex items-center gap-2.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors {{ request()->routeIs('admin.beyond-classrooms.*') ? 'bg-jrs-red text-white font-semibold shadow-xs' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
-                            <span class="w-1.5 h-1.5 rounded-full {{ request()->routeIs('admin.beyond-classrooms.*') ? 'bg-white ring-2 ring-white/30' : 'bg-white/40' }}"></span>
-                            <span>Beyond Classroom</span>
-                        </a>
-
                         <a href="{{ route('admin.events.index') }}" class="flex items-center gap-2.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors {{ request()->routeIs('admin.events.*') ? 'bg-jrs-red text-white font-semibold shadow-xs' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
                             <span class="w-1.5 h-1.5 rounded-full {{ request()->routeIs('admin.events.*') ? 'bg-white ring-2 ring-white/30' : 'bg-white/40' }}"></span>
                             <span>Latest Events</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Academics Page Dropdown -->
+                @php
+                    $isAcademicsActive = request()->routeIs('admin.academic-journeys.*');
+                @endphp
+                <div class="space-y-1">
+                    <button type="button" 
+                            id="academicsDropdownBtn"
+                            onclick="toggleAcademicsDropdown()" 
+                            class="w-full flex items-center justify-between px-3 py-2 rounded-md text-sm font-medium transition-colors {{ $isAcademicsActive ? 'bg-white/15 text-white font-semibold' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
+                        <div class="flex items-center gap-3">
+                            <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/></svg>
+                            <span>Academics Page</span>
+                        </div>
+                        <svg id="academicsDropdownArrow" class="w-4 h-4 shrink-0 transition-transform duration-200 {{ $isAcademicsActive ? 'rotate-180 text-white' : 'text-white/60' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </button>
+
+                    <div id="academicsDropdownMenu" class="{{ $isAcademicsActive ? '' : 'hidden' }} pl-4 pr-1 py-1 space-y-1 border-l border-white/10 ml-5">
+                        <a href="{{ route('admin.academic-journeys.index') }}" class="flex items-center gap-2.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors {{ request()->routeIs('admin.academic-journeys.*') ? 'bg-jrs-red text-white font-semibold shadow-xs' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
+                            <span class="w-1.5 h-1.5 rounded-full {{ request()->routeIs('admin.academic-journeys.*') ? 'bg-white ring-2 ring-white/30' : 'bg-white/40' }}"></span>
+                            <span>Academic Journeys</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Amenities Page Dropdown -->
+                @php
+                    $isAmenitiesActive = request()->routeIs('admin.facilities.*') || request()->routeIs('admin.amenities.*');
+                @endphp
+                <div class="space-y-1">
+                    <button type="button" 
+                            id="amenitiesDropdownBtn"
+                            onclick="toggleAmenitiesDropdown()" 
+                            class="w-full flex items-center justify-between px-3 py-2 rounded-md text-sm font-medium transition-colors {{ $isAmenitiesActive ? 'bg-white/15 text-white font-semibold' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
+                        <div class="flex items-center gap-3">
+                            <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                            <span>Amenities Page</span>
+                        </div>
+                        <svg id="amenitiesDropdownArrow" class="w-4 h-4 shrink-0 transition-transform duration-200 {{ $isAmenitiesActive ? 'rotate-180 text-white' : 'text-white/60' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </button>
+
+                    <div id="amenitiesDropdownMenu" class="{{ $isAmenitiesActive ? '' : 'hidden' }} pl-4 pr-1 py-1 space-y-1 border-l border-white/10 ml-5">
+                        <a href="{{ route('admin.facilities.index') }}" class="flex items-center gap-2.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors {{ $isAmenitiesActive ? 'bg-jrs-red text-white font-semibold shadow-xs' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
+                            <span class="w-1.5 h-1.5 rounded-full {{ $isAmenitiesActive ? 'bg-white ring-2 ring-white/30' : 'bg-white/40' }}"></span>
+                            <span>Facilities (8 Cards)</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Beyond Classroom Page Dropdown -->
+                @php
+                    $isBeyondActive = request()->routeIs('admin.beyond-classrooms.*') || request()->routeIs('admin.beyond-classroom-cta.*');
+                @endphp
+                <div class="space-y-1">
+                    <button type="button" 
+                            id="beyondDropdownBtn"
+                            onclick="toggleBeyondDropdown()" 
+                            class="w-full flex items-center justify-between px-3 py-2 rounded-md text-sm font-medium transition-colors {{ $isBeyondActive ? 'bg-white/15 text-white font-semibold' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
+                        <div class="flex items-center gap-3">
+                            <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            <span>Beyond Classroom Page</span>
+                        </div>
+                        <svg id="beyondDropdownArrow" class="w-4 h-4 shrink-0 transition-transform duration-200 {{ $isBeyondActive ? 'rotate-180 text-white' : 'text-white/60' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </button>
+
+                    <div id="beyondDropdownMenu" class="{{ $isBeyondActive ? '' : 'hidden' }} pl-4 pr-1 py-1 space-y-1 border-l border-white/10 ml-5">
+                        <a href="{{ route('admin.beyond-classrooms.index') }}" class="flex items-center gap-2.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors {{ request()->routeIs('admin.beyond-classrooms.*') ? 'bg-jrs-red text-white font-semibold shadow-xs' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
+                            <span class="w-1.5 h-1.5 rounded-full {{ request()->routeIs('admin.beyond-classrooms.*') ? 'bg-white ring-2 ring-white/30' : 'bg-white/40' }}"></span>
+                            <span>Activities (10 Cards)</span>
+                        </a>
+
+                        <a href="{{ route('admin.beyond-classroom-cta.index') }}" class="flex items-center gap-2.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors {{ request()->routeIs('admin.beyond-classroom-cta.*') ? 'bg-jrs-red text-white font-semibold shadow-xs' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
+                            <span class="w-1.5 h-1.5 rounded-full {{ request()->routeIs('admin.beyond-classroom-cta.*') ? 'bg-white ring-2 ring-white/30' : 'bg-white/40' }}"></span>
+                            <span>CTA Banner Section</span>
                         </a>
                     </div>
                 </div>
@@ -171,6 +244,45 @@
                         <a href="{{ route('admin.vision-mission.index') }}" class="flex items-center gap-2.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors {{ request()->routeIs('admin.vision-mission.*') ? 'bg-jrs-red text-white font-semibold shadow-xs' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
                             <span class="w-1.5 h-1.5 rounded-full {{ request()->routeIs('admin.vision-mission.*') ? 'bg-white ring-2 ring-white/30' : 'bg-white/40' }}"></span>
                             <span>Vision & Mission</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Careers Page Dropdown -->
+                @php
+                    $isCareersActive = request()->routeIs('admin.careers-teaching.*') || request()->routeIs('admin.careers-benefits.*') || request()->routeIs('admin.careers-opportunities.*') || request()->routeIs('admin.job-openings.*');
+                @endphp
+                <div class="space-y-1">
+                    <button type="button" 
+                            id="careersDropdownBtn"
+                            onclick="toggleCareersDropdown()" 
+                            class="w-full flex items-center justify-between px-3 py-2 rounded-md text-sm font-medium transition-colors {{ $isCareersActive ? 'bg-white/15 text-white font-semibold' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
+                        <div class="flex items-center gap-3">
+                            <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                            <span>Careers Page</span>
+                        </div>
+                        <svg id="careersDropdownArrow" class="w-4 h-4 shrink-0 transition-transform duration-200 {{ $isCareersActive ? 'rotate-180 text-white' : 'text-white/60' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </button>
+
+                    <div id="careersDropdownMenu" class="{{ $isCareersActive ? '' : 'hidden' }} pl-4 pr-1 py-1 space-y-1 border-l border-white/10 ml-5">
+                        <a href="{{ route('admin.careers-teaching.index') }}" class="flex items-center gap-2.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors {{ request()->routeIs('admin.careers-teaching.*') ? 'bg-jrs-red text-white font-semibold shadow-xs' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
+                            <span class="w-1.5 h-1.5 rounded-full {{ request()->routeIs('admin.careers-teaching.*') ? 'bg-white ring-2 ring-white/30' : 'bg-white/40' }}"></span>
+                            <span>Teaching at JRS</span>
+                        </a>
+
+                        <a href="{{ route('admin.careers-benefits.index') }}" class="flex items-center gap-2.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors {{ request()->routeIs('admin.careers-benefits.*') ? 'bg-jrs-red text-white font-semibold shadow-xs' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
+                            <span class="w-1.5 h-1.5 rounded-full {{ request()->routeIs('admin.careers-benefits.*') ? 'bg-white ring-2 ring-white/30' : 'bg-white/40' }}"></span>
+                            <span>Work Culture & Benefits</span>
+                        </a>
+
+                        <a href="{{ route('admin.careers-opportunities.index') }}" class="flex items-center gap-2.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors {{ request()->routeIs('admin.careers-opportunities.*') ? 'bg-jrs-red text-white font-semibold shadow-xs' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
+                            <span class="w-1.5 h-1.5 rounded-full {{ request()->routeIs('admin.careers-opportunities.*') ? 'bg-white ring-2 ring-white/30' : 'bg-white/40' }}"></span>
+                            <span>How To Apply</span>
+                        </a>
+
+                        <a href="{{ route('admin.job-openings.index') }}" class="flex items-center gap-2.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors {{ request()->routeIs('admin.job-openings.*') ? 'bg-jrs-red text-white font-semibold shadow-xs' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
+                            <span class="w-1.5 h-1.5 rounded-full {{ request()->routeIs('admin.job-openings.*') ? 'bg-white ring-2 ring-white/30' : 'bg-white/40' }}"></span>
+                            <span>Job Openings</span>
                         </a>
                     </div>
                 </div>
@@ -282,9 +394,53 @@
             }
         }
 
+        function toggleAcademicsDropdown() {
+            const menu = document.getElementById('academicsDropdownMenu');
+            const arrow = document.getElementById('academicsDropdownArrow');
+            if (menu) {
+                menu.classList.toggle('hidden');
+            }
+            if (arrow) {
+                arrow.classList.toggle('rotate-180');
+            }
+        }
+
+        function toggleAmenitiesDropdown() {
+            const menu = document.getElementById('amenitiesDropdownMenu');
+            const arrow = document.getElementById('amenitiesDropdownArrow');
+            if (menu) {
+                menu.classList.toggle('hidden');
+            }
+            if (arrow) {
+                arrow.classList.toggle('rotate-180');
+            }
+        }
+
+        function toggleBeyondDropdown() {
+            const menu = document.getElementById('beyondDropdownMenu');
+            const arrow = document.getElementById('beyondDropdownArrow');
+            if (menu) {
+                menu.classList.toggle('hidden');
+            }
+            if (arrow) {
+                arrow.classList.toggle('rotate-180');
+            }
+        }
+
         function toggleAboutDropdown() {
             const menu = document.getElementById('aboutDropdownMenu');
             const arrow = document.getElementById('aboutDropdownArrow');
+            if (menu) {
+                menu.classList.toggle('hidden');
+            }
+            if (arrow) {
+                arrow.classList.toggle('rotate-180');
+            }
+        }
+
+        function toggleCareersDropdown() {
+            const menu = document.getElementById('careersDropdownMenu');
+            const arrow = document.getElementById('careersDropdownArrow');
             if (menu) {
                 menu.classList.toggle('hidden');
             }

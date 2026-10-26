@@ -1,11 +1,14 @@
 <?php
 
 use App\Http\Controllers\Api\AboutApiController;
+use App\Http\Controllers\Api\AcademicJourneyApiController;
 use App\Http\Controllers\Api\AcademicProgramApiController;
 use App\Http\Controllers\Api\BeyondClassroomApiController;
+use App\Http\Controllers\Api\CareerApiController;
 use App\Http\Controllers\Api\FacilityApiController;
 use App\Http\Controllers\Api\HeroSliderApiController;
 use App\Http\Controllers\Api\HomeFeatureApiController;
+use App\Http\Controllers\Api\HomeStatApiController;
 use App\Http\Controllers\Api\NewsTickerApiController;
 use App\Http\Controllers\Api\SchoolEventApiController;
 use App\Http\Controllers\Api\VisionMissionApiController;
@@ -34,8 +37,13 @@ Route::get('/hero-sliders', [HeroSliderApiController::class, 'getActiveSliders']
 Route::get('/sliders', [HeroSliderApiController::class, 'index']);
 Route::get('/sliders/{id}', [HeroSliderApiController::class, 'show']);
 
-// Facilities GET Endpoints
+// Campus Amenities / Facilities GET Endpoints (Read-Only GET for React site & Amenities page)
+Route::get('/amenities-page', [FacilityApiController::class, 'getPageData']);
+Route::get('/amenities', [FacilityApiController::class, 'getActiveFacilities']);
+Route::get('/amenities/{id}', [FacilityApiController::class, 'show']);
 Route::get('/facilities', [FacilityApiController::class, 'getActiveFacilities']);
+Route::get('/facilities/{id}', [FacilityApiController::class, 'show']);
+Route::get('/campus/facilities', [FacilityApiController::class, 'getActiveFacilities']);
 Route::get('/admin/facilities', [FacilityApiController::class, 'index']);
 Route::get('/admin/facilities/{id}', [FacilityApiController::class, 'show']);
 
@@ -45,16 +53,31 @@ Route::get('/academics', [AcademicProgramApiController::class, 'getActiveProgram
 Route::get('/admin/programs', [AcademicProgramApiController::class, 'index']);
 Route::get('/admin/programs/{id}', [AcademicProgramApiController::class, 'show']);
 
+// Academics Page (Academic Journeys) GET Endpoints (Read-Only GET for React site)
+Route::get('/academic-journeys', [AcademicJourneyApiController::class, 'index']);
+Route::get('/journeys', [AcademicJourneyApiController::class, 'index']);
+Route::get('/academics/journeys', [AcademicJourneyApiController::class, 'index']);
+Route::get('/academic-journeys/{idOrSlug}', [AcademicJourneyApiController::class, 'show']);
+Route::get('/academics/journeys/{idOrSlug}', [AcademicJourneyApiController::class, 'show']);
+
 // About JRS Homepage Section GET Endpoint
 Route::get('/about', [AboutApiController::class, 'getAbout']);
 
 // Vision & Mission Cards GET Endpoint
 Route::get('/vision-mission', [VisionMissionApiController::class, 'index']);
 
-// Beyond Classroom GET Endpoints (for React Homepage)
+// Beyond Classroom Page & CTA GET Endpoints (Read-Only GET for React site & Beyond Classroom page)
+Route::get('/beyond-classroom-page', [BeyondClassroomApiController::class, 'getPageData']);
+Route::get('/beyond-page', [BeyondClassroomApiController::class, 'getPageData']);
+Route::get('/beyond-classroom-cta', [BeyondClassroomApiController::class, 'getCta']);
+Route::get('/beyond-cta', [BeyondClassroomApiController::class, 'getCta']);
 Route::get('/beyond-classrooms', [BeyondClassroomApiController::class, 'getActiveActivities']);
+Route::get('/beyond-classroom', [BeyondClassroomApiController::class, 'getActiveActivities']);
 Route::get('/beyond', [BeyondClassroomApiController::class, 'getActiveActivities']);
+Route::get('/beyond/activities', [BeyondClassroomApiController::class, 'getActiveActivities']);
 Route::get('/beyond-classrooms/{id}', [BeyondClassroomApiController::class, 'show']);
+Route::get('/beyond-classroom/{id}', [BeyondClassroomApiController::class, 'show']);
+Route::get('/beyond/{id}', [BeyondClassroomApiController::class, 'show']);
 
 // Latest Events GET Endpoints (for React Homepage)
 Route::get('/events', [SchoolEventApiController::class, 'getActiveEvents']);
@@ -65,6 +88,23 @@ Route::get('/events/{id}', [SchoolEventApiController::class, 'show']);
 Route::get('/features', [HomeFeatureApiController::class, 'getActiveFeatures']);
 Route::get('/home-features', [HomeFeatureApiController::class, 'getActiveFeatures']);
 Route::get('/features/{id}', [HomeFeatureApiController::class, 'show']);
+
+// Stats Section GET Endpoints (for React Homepage)
+Route::get('/stats', [HomeStatApiController::class, 'getActiveStats']);
+Route::get('/home-stats', [HomeStatApiController::class, 'getActiveStats']);
+Route::get('/stats/{id}', [HomeStatApiController::class, 'show']);
+
+// Careers Page GET Endpoints (Read-Only GET for React site & Careers page)
+Route::get('/careers-page', [CareerApiController::class, 'getPageData']);
+Route::get('/careers/teaching', [CareerApiController::class, 'getTeachingSection']);
+Route::get('/careers/benefits', [CareerApiController::class, 'getBenefits']);
+Route::get('/careers/why-join', [CareerApiController::class, 'getBenefits']);
+Route::get('/careers/benefits/{id}', [CareerApiController::class, 'showBenefit']);
+Route::get('/careers/how-to-apply', [CareerApiController::class, 'getApplicationProcess']);
+Route::get('/careers/application-process', [CareerApiController::class, 'getApplicationProcess']);
+Route::get('/careers/openings', [CareerApiController::class, 'getJobOpenings']);
+Route::get('/careers', [CareerApiController::class, 'getJobOpenings']);
+Route::get('/careers/openings/{id}', [CareerApiController::class, 'showOpening']);
 
 
 

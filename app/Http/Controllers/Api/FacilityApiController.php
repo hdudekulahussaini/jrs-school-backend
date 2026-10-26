@@ -13,19 +13,46 @@ use Illuminate\Support\Str;
 class FacilityApiController extends Controller
 {
     /**
-     * Public endpoint for React frontend: GET /api/facilities
+     * Public endpoint for React frontend: GET /api/facilities, /api/amenities
      */
     public function getActiveFacilities(): JsonResponse
     {
         $facilities = Facility::where('is_active', true)
             ->orderBy('sort_order', 'asc')
-            ->orderBy('id', 'desc')
+            ->orderBy('id', 'asc')
             ->get();
 
         return response()->json([
             'success' => true,
+            'message' => 'Active campus amenities retrieved successfully',
             'count' => $facilities->count(),
+            'total' => $facilities->count(),
             'data' => $facilities
+        ], 200);
+    }
+
+    /**
+     * Public endpoint for dedicated Amenities page: GET /api/amenities-page
+     */
+    public function getPageData(): JsonResponse
+    {
+        $amenities = Facility::where('is_active', true)
+            ->orderBy('sort_order', 'asc')
+            ->orderBy('id', 'asc')
+            ->get();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Campus amenities page data retrieved successfully',
+            'page' => [
+                'badge' => 'OUR CAMPUS',
+                'title' => 'State-Of-The-Art Facilities',
+                'highlight_title' => 'Facilities',
+                'subtitle' => 'The campus boasts of the following unique facilities to make this happen:'
+            ],
+            'count' => $amenities->count(),
+            'total' => $amenities->count(),
+            'data' => $amenities
         ], 200);
     }
 

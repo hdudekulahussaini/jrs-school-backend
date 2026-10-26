@@ -19,6 +19,9 @@ use App\Http\Controllers\Admin\NewsTickerController;
 use App\Http\Controllers\Admin\SchoolEventController;
 use App\Http\Controllers\Admin\VisionMissionController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\CampusLifeController;
+use App\Http\Controllers\Admin\WhyChooseController;
+use App\Http\Controllers\Admin\PtaMemberController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,11 +50,9 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
 
     // News Tickers Full CRUD Resource
     Route::resource('/tickers', NewsTickerController::class)->names('admin.tickers');
-    Route::post('/tickers/{id}/toggle', [NewsTickerController::class, 'toggle'])->name('admin.tickers.toggle');
 
     // Hero Sliders Full CRUD Resource
     Route::resource('/sliders', HeroSliderController::class)->names('admin.sliders');
-    Route::post('/sliders/{id}/toggle', [HeroSliderController::class, 'toggle'])->name('admin.sliders.toggle');
 
     // Key Features Full CRUD Resource
     Route::resource('/features', HomeFeatureController::class)->names('admin.features');
@@ -63,15 +64,27 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
 
     // Campus Amenities / Facilities Full CRUD Resource
     Route::resource('/facilities', FacilityController::class)->names('admin.facilities');
+<<<<<<< HEAD
     Route::post('/facilities/{id}/toggle', [FacilityController::class, 'toggle'])->name('admin.facilities.toggle');
     Route::resource('/amenities', FacilityController::class)->names('admin.amenities');
     Route::post('/amenities/{id}/toggle', [FacilityController::class, 'toggle'])->name('admin.amenities.toggle');
+=======
+
+>>>>>>> 04ab64343de79bd33c3d967ec6538c01b8d40678
     // About JRS Section Full CRUD Resource
     Route::resource('/about', AboutSectionController::class)->names('admin.about');
 
     // Vision & Mission Full CRUD Resource
     Route::resource('/vision-mission', VisionMissionController::class)->names('admin.vision-mission');
-    Route::post('/vision-mission/{id}/toggle', [VisionMissionController::class, 'toggle'])->name('admin.vision-mission.toggle');
+
+    // Campus Tour & Life Full CRUD Resource
+    Route::resource('/campus-life', CampusLifeController::class)->names('admin.campus-life');
+
+    // Why Choose JRS Full CRUD Resource
+    Route::resource('/why-choose', WhyChooseController::class)->names('admin.why-choose');
+
+    // Parent Teacher Association (PTA) Full CRUD Resource
+    Route::resource('/pta-members', PtaMemberController::class)->names('admin.pta-members');
 
     // Academic Programs Full CRUD Resource
     Route::resource('/programs', AcademicProgramController::class)->names('admin.programs');
@@ -114,3 +127,4 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
         return view('admin.swagger');
     })->name('admin.swagger');
 });
+

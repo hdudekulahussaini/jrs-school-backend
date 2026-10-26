@@ -109,14 +109,11 @@
                                 @endif
                             </td>
 
-                            <!-- Status Toggle -->
+                            <!-- Status -->
                             <td class="p-4 align-middle text-center">
-                                <form action="{{ route('admin.tickers.toggle', $ticker->id) }}" method="POST">
-                                    @csrf
-                                    <button type="submit" class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold transition-colors cursor-pointer {{ $ticker->is_active ? 'border border-emerald-200 bg-emerald-50 text-emerald-700 hover:bg-emerald-100' : 'border border-slate-200 bg-slate-50 text-slate-600 hover:bg-slate-100' }}">
-                                        {{ $ticker->is_active ? 'Active' : 'Disabled' }}
-                                    </button>
-                                </form>
+                                <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold {{ $ticker->is_active ? 'border border-emerald-200 bg-emerald-50 text-emerald-700' : 'border border-slate-200 bg-slate-50 text-slate-600' }}">
+                                    {{ $ticker->is_active ? 'Active' : 'Disabled' }}
+                                </span>
                             </td>
 
                             <!-- Actions -->

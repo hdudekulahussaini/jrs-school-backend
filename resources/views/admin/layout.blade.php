@@ -9,6 +9,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Bootstrap Icons & FontAwesome -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <!-- Tailwind via CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -221,7 +224,11 @@
 
                 <!-- About Page Dropdown -->
                 @php
-                    $isAboutActive = request()->routeIs('admin.about.*') || request()->routeIs('admin.vision-mission.*');
+                    $isAboutActive = request()->routeIs('admin.about.*') 
+                        || request()->routeIs('admin.vision-mission.*')
+                        || request()->routeIs('admin.campus-life.*')
+                        || request()->routeIs('admin.why-choose.*')
+                        || request()->routeIs('admin.pta-members.*');
                 @endphp
                 <div class="space-y-1">
                     <button type="button" 
@@ -245,9 +252,25 @@
                             <span class="w-1.5 h-1.5 rounded-full {{ request()->routeIs('admin.vision-mission.*') ? 'bg-white ring-2 ring-white/30' : 'bg-white/40' }}"></span>
                             <span>Vision & Mission</span>
                         </a>
+
+                        <a href="{{ route('admin.campus-life.index') }}" class="flex items-center gap-2.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors {{ request()->routeIs('admin.campus-life.*') ? 'bg-slate-800 text-white font-semibold' : 'text-slate-400 hover:text-slate-100 hover:bg-slate-900' }}">
+                            <span class="w-1.5 h-1.5 rounded-full {{ request()->routeIs('admin.campus-life.*') ? 'bg-emerald-400 ring-2 ring-emerald-400/30' : 'bg-slate-600' }}"></span>
+                            <span>Campus Tour & Life</span>
+                        </a>
+
+                        <a href="{{ route('admin.why-choose.index') }}" class="flex items-center gap-2.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors {{ request()->routeIs('admin.why-choose.*') ? 'bg-slate-800 text-white font-semibold' : 'text-slate-400 hover:text-slate-100 hover:bg-slate-900' }}">
+                            <span class="w-1.5 h-1.5 rounded-full {{ request()->routeIs('admin.why-choose.*') ? 'bg-emerald-400 ring-2 ring-emerald-400/30' : 'bg-slate-600' }}"></span>
+                            <span>Why Choose JRS</span>
+                        </a>
+
+                        <a href="{{ route('admin.pta-members.index') }}" class="flex items-center gap-2.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors {{ request()->routeIs('admin.pta-members.*') ? 'bg-slate-800 text-white font-semibold' : 'text-slate-400 hover:text-slate-100 hover:bg-slate-900' }}">
+                            <span class="w-1.5 h-1.5 rounded-full {{ request()->routeIs('admin.pta-members.*') ? 'bg-emerald-400 ring-2 ring-emerald-400/30' : 'bg-slate-600' }}"></span>
+                            <span>PTA Committee</span>
+                        </a>
                     </div>
                 </div>
 
+<<<<<<< HEAD
                 <!-- Careers Page Dropdown -->
                 @php
                     $isCareersActive = request()->routeIs('admin.careers-teaching.*') || request()->routeIs('admin.careers-benefits.*') || request()->routeIs('admin.careers-opportunities.*') || request()->routeIs('admin.job-openings.*');
@@ -292,6 +315,8 @@
                     <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
                     <span>Swagger API Docs</span>
                 </a>
+=======
+>>>>>>> 04ab64343de79bd33c3d967ec6538c01b8d40678
             </div>
 
             <!-- User Footer Info & Logout -->

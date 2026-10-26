@@ -21,6 +21,12 @@ use App\Http\Controllers\Api\ChairmanMessageApiController;
 use App\Http\Controllers\Api\PrincipalMessageApiController;
 use App\Http\Controllers\Api\EducationalSocietyApiController;
 use App\Http\Controllers\Api\SchoolManagementCommitteeApiController;
+use App\Http\Controllers\Api\AdmissionStepApiController;
+use App\Http\Controllers\Api\AdmissionCriterionApiController;
+use App\Http\Controllers\Api\AdmissionFaqApiController;
+use App\Http\Controllers\Api\AdmissionHeroApiController;
+use App\Http\Controllers\Api\AdmissionEnquiryApiController;
+use App\Http\Controllers\Api\ContactApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -97,7 +103,6 @@ Route::get('/features', [HomeFeatureApiController::class, 'getActiveFeatures']);
 Route::get('/home-features', [HomeFeatureApiController::class, 'getActiveFeatures']);
 Route::get('/features/{id}', [HomeFeatureApiController::class, 'show']);
 
-<<<<<<< HEAD
 // Stats Section GET Endpoints (for React Homepage)
 Route::get('/stats', [HomeStatApiController::class, 'getActiveStats']);
 Route::get('/home-stats', [HomeStatApiController::class, 'getActiveStats']);
@@ -115,7 +120,6 @@ Route::get('/careers/openings', [CareerApiController::class, 'getJobOpenings']);
 Route::get('/careers', [CareerApiController::class, 'getJobOpenings']);
 Route::get('/careers/openings/{id}', [CareerApiController::class, 'showOpening']);
 
-=======
 // Campus Tour & Life At JRS
 Route::get('/campus-tour', [CampusLifeApiController::class, 'index']);
 
@@ -124,7 +128,6 @@ Route::get('/why-choose', [WhyChooseApiController::class, 'index']);
 
 // Parent Teacher Association (PTA)
 Route::get('/pta-members', [PtaMemberApiController::class, 'index']);
->>>>>>> 04ab64343de79bd33c3d967ec6538c01b8d40678
 
 // Educational Society Managing Committee
 Route::get('/educational-society', [EducationalSocietyApiController::class, 'index']);
@@ -140,3 +143,29 @@ Route::get('/chairman', [ChairmanMessageApiController::class, 'index']);
 
 // Principal of JRS - Leadership Page
 Route::get('/principal', [PrincipalMessageApiController::class, 'index']);
+
+// Admission Open Hero Section (Header) - Admission Page
+Route::get('/admission-hero', [AdmissionHeroApiController::class, 'index']);
+
+// Admission Process (6 Steps) - Admission Page
+Route::get('/admission-process', [AdmissionStepApiController::class, 'index']);
+
+// Admission Criteria & Guidelines - Admission Page
+Route::get('/admission-criteria', [AdmissionCriterionApiController::class, 'index']);
+
+// Admission FAQs - Admission Page
+Route::get('/admission-faqs', [AdmissionFaqApiController::class, 'index']);
+
+// Contact Us & Campus Location
+Route::get('/contact', [ContactApiController::class, 'index']);
+Route::get('/contact-us', [ContactApiController::class, 'index']);
+Route::post('/contact/inquiry', [ContactApiController::class, 'storeInquiry']);
+Route::post('/contact-inquiries', [ContactApiController::class, 'storeInquiry']);
+Route::get('/contact/grades', [ContactApiController::class, 'grades']);
+
+// Admission Form Enquiries (Submission & Options)
+Route::post('/admission-enquiries', [AdmissionEnquiryApiController::class, 'store']);
+Route::get('/admission-enquiries/options', [AdmissionEnquiryApiController::class, 'options']);
+
+
+

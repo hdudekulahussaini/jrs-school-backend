@@ -337,6 +337,65 @@
                     </div>
                 </div>
 
+                <!-- Admissions Dropdown -->
+                @php
+                    $isAdmissionsActive = request()->routeIs('admin.admission-hero.*') || request()->routeIs('admin.admission-enquiries.*') || request()->routeIs('admin.admission-steps.*') || request()->routeIs('admin.admission-criteria.*') || request()->routeIs('admin.admission-faqs.*') || request()->routeIs('admin.admission-banner.*') || request()->routeIs('admin.contact-settings.*') || request()->routeIs('admin.contact-inquiries.*');
+                @endphp
+                <div class="space-y-1">
+                    <button type="button" 
+                            id="admissionsDropdownBtn"
+                            onclick="toggleAdmissionsDropdown()" 
+                            class="w-full flex items-center justify-between px-3 py-2 rounded-md text-sm font-medium transition-colors {{ $isAdmissionsActive ? 'bg-white/15 text-white font-semibold' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
+                        <div class="flex items-center gap-3">
+                            <svg class="w-4 h-4 shrink-0 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                            <span>Admissions</span>
+                        </div>
+                        <svg id="admissionsDropdownArrow" class="w-4 h-4 shrink-0 transition-transform duration-200 {{ $isAdmissionsActive ? 'rotate-180 text-white' : 'text-white/60' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </button>
+
+                    <div id="admissionsDropdownMenu" class="{{ $isAdmissionsActive ? '' : 'hidden' }} pl-4 pr-1 py-1 space-y-1 border-l border-white/10 ml-5">
+                        <a href="{{ route('admin.admission-hero.index') }}" class="flex items-center gap-2.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors {{ request()->routeIs('admin.admission-hero.*') ? 'bg-jrs-red text-white font-semibold shadow-xs' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
+                            <span class="w-1.5 h-1.5 rounded-full {{ request()->routeIs('admin.admission-hero.*') ? 'bg-white ring-2 ring-white/30' : 'bg-white/40' }}"></span>
+                            <span>Admission Open (Hero)</span>
+                        </a>
+
+                        <a href="{{ route('admin.admission-enquiries.index') }}" class="flex items-center gap-2.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors {{ request()->routeIs('admin.admission-enquiries.*') ? 'bg-jrs-red text-white font-semibold shadow-xs' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
+                            <span class="w-1.5 h-1.5 rounded-full {{ request()->routeIs('admin.admission-enquiries.*') ? 'bg-white ring-2 ring-white/30' : 'bg-white/40' }}"></span>
+                            <span>Admission Enquiries</span>
+                        </a>
+
+                        <a href="{{ route('admin.admission-steps.index') }}" class="flex items-center gap-2.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors {{ request()->routeIs('admin.admission-steps.*') ? 'bg-jrs-red text-white font-semibold shadow-xs' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
+                            <span class="w-1.5 h-1.5 rounded-full {{ request()->routeIs('admin.admission-steps.*') ? 'bg-white ring-2 ring-white/30' : 'bg-white/40' }}"></span>
+                            <span>Admission Process</span>
+                        </a>
+
+                        <a href="{{ route('admin.admission-criteria.index') }}" class="flex items-center gap-2.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors {{ request()->routeIs('admin.admission-criteria.*') ? 'bg-jrs-red text-white font-semibold shadow-xs' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
+                            <span class="w-1.5 h-1.5 rounded-full {{ request()->routeIs('admin.admission-criteria.*') ? 'bg-white ring-2 ring-white/30' : 'bg-white/40' }}"></span>
+                            <span>Criteria & Guidelines</span>
+                        </a>
+
+                        <a href="{{ route('admin.admission-faqs.index') }}" class="flex items-center gap-2.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors {{ request()->routeIs('admin.admission-faqs.*') ? 'bg-jrs-red text-white font-semibold shadow-xs' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
+                            <span class="w-1.5 h-1.5 rounded-full {{ request()->routeIs('admin.admission-faqs.*') ? 'bg-white ring-2 ring-white/30' : 'bg-white/40' }}"></span>
+                            <span>Admission FAQs</span>
+                        </a>
+
+                        <a href="{{ route('admin.admission-banner.index') }}" class="flex items-center gap-2.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors {{ request()->routeIs('admin.admission-banner.*') ? 'bg-jrs-red text-white font-semibold shadow-xs' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
+                            <span class="w-1.5 h-1.5 rounded-full {{ request()->routeIs('admin.admission-banner.*') ? 'bg-white ring-2 ring-white/30' : 'bg-white/40' }}"></span>
+                            <span>Admission Banner</span>
+                        </a>
+
+                        <a href="{{ route('admin.contact-settings.index') }}" class="flex items-center gap-2.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors {{ request()->routeIs('admin.contact-settings.*') ? 'bg-jrs-red text-white font-semibold shadow-xs' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
+                            <span class="w-1.5 h-1.5 rounded-full {{ request()->routeIs('admin.contact-settings.*') ? 'bg-white ring-2 ring-white/30' : 'bg-white/40' }}"></span>
+                            <span>Contact Us</span>
+                        </a>
+
+                        <a href="{{ route('admin.contact-inquiries.index') }}" class="flex items-center gap-2.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors {{ request()->routeIs('admin.contact-inquiries.*') ? 'bg-jrs-red text-white font-semibold shadow-xs' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
+                            <span class="w-1.5 h-1.5 rounded-full {{ request()->routeIs('admin.contact-inquiries.*') ? 'bg-white ring-2 ring-white/30' : 'bg-white/40' }}"></span>
+                            <span>Contact Inquiries</span>
+                        </a>
+                    </div>
+                </div>
+
                 <!-- Careers Page Dropdown -->
                 @php
                     $isCareersActive = request()->routeIs('admin.careers-teaching.*') || request()->routeIs('admin.careers-benefits.*') || request()->routeIs('admin.careers-opportunities.*') || request()->routeIs('admin.job-openings.*');
@@ -375,6 +434,12 @@
                         </a>
                     </div>
                 </div>
+
+                <!-- Contact Us Direct Sidebar Item -->
+                <a href="{{ route('admin.contact-settings.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors {{ request()->routeIs('admin.contact-settings.*') ? 'bg-white/15 text-white font-semibold' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
+                    <svg class="w-4 h-4 shrink-0 text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                    <span>Contact Us</span>
+                </a>
 
                 <div class="pt-4 px-3 pb-2 text-[11px] font-semibold uppercase tracking-wider text-white/40">Developer</div>
                 <a href="{{ route('admin.swagger') }}" class="flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors text-white/70 hover:text-white hover:bg-white/10">
@@ -527,9 +592,28 @@
             }
         }
 
+        function toggleAdmissionsDropdown() {
+            const menu = document.getElementById('admissionsDropdownMenu');
+            const arrow = document.getElementById('admissionsDropdownArrow');
+            if (menu) {
+                menu.classList.toggle('hidden');
+            }
+            if (arrow) {
+                arrow.classList.toggle('rotate-180');
+            }
+        }
+
         function toggleCareersDropdown() {
             const menu = document.getElementById('careersDropdownMenu');
             const arrow = document.getElementById('careersDropdownArrow');
+            if (menu) {
+                menu.classList.toggle('hidden');
+            }
+            if (arrow) {
+                arrow.classList.toggle('rotate-180');
+            }
+        }
+
         function toggleLeadershipDropdown(e) {
             if (e) {
                 e.stopPropagation();

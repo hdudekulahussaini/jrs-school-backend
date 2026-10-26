@@ -640,6 +640,55 @@
                                         "application/json": {
                                             example: {
                                                 success: true,
+                                                count: 4,
+                                                data: [
+                                                    {
+                                                        id: 1,
+                                                        title: "Year of Establishment",
+                                                        value: "2021",
+                                                        icon: "graduation-cap",
+                                                        color: "#eab308",
+                                                        description: "Founded with a vision for world-class holistic education.",
+                                                        sort_order: 1,
+                                                        is_active: true
+                                                    },
+                                                    {
+                                                        id: 2,
+                                                        title: "Happy Students",
+                                                        value: "1000+",
+                                                        icon: "users",
+                                                        color: "#eab308",
+                                                        description: "Nurturing bright young minds across all grade levels.",
+                                                        sort_order: 2,
+                                                        is_active: true
+                                                    },
+                                                    {
+                                                        id: 3,
+                                                        title: "Experienced Faculty",
+                                                        value: "50+",
+                                                        icon: "award",
+                                                        color: "#eab308",
+                                                        description: "Dedicated and passionate educators shaping tomorrow.",
+                                                        sort_order: 3,
+                                                        is_active: true
+                                                    },
+                                                    {
+                                                        id: 4,
+                                                        title: "Co-curricular Activities",
+                                                        value: "100+",
+                                                        icon: "trophy",
+                                                        color: "#eab308",
+                                                        description: "Wide array of sports, arts, robotics, and clubs.",
+                                                        sort_order: 4,
+                                                        is_active: true
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     },
                     "/campus-tour": {
                         get: {
@@ -712,16 +761,10 @@
                                                         url: "https://jrs-school.vercel.app/admissions"
                                                     }
                                                 },
-
                                                 count: 4,
                                                 data: [
                                                     {
                                                         id: 1,
-                                                        title: "Year of Establishment",
-                                                        value: "2021",
-                                                        icon: "graduation-cap",
-                                                        color: "#eab308",
-                                                        description: "Founded with a vision for world-class holistic education.",
                                                         title: "Beyond Classroom",
                                                         subtitle: "Holistic student development programs",
                                                         icon: "fa-solid fa-graduation-cap",
@@ -731,11 +774,6 @@
                                                     },
                                                     {
                                                         id: 2,
-                                                        title: "Happy Students",
-                                                        value: "1000+",
-                                                        icon: "users",
-                                                        color: "#eab308",
-                                                        description: "Nurturing bright young minds across all grade levels.",
                                                         title: "Sports Excellence",
                                                         subtitle: "Olympic standard athletic facilities",
                                                         icon: "fa-solid fa-trophy",
@@ -745,11 +783,6 @@
                                                     },
                                                     {
                                                         id: 3,
-                                                        title: "Experienced Faculty",
-                                                        value: "50+",
-                                                        icon: "award",
-                                                        color: "#eab308",
-                                                        description: "Dedicated and passionate educators shaping tomorrow.",
                                                         title: "Visual & Performing Arts",
                                                         subtitle: "Creative studios & music theatre",
                                                         icon: "fa-solid fa-palette",
@@ -759,11 +792,6 @@
                                                     },
                                                     {
                                                         id: 4,
-                                                        title: "Co-curricular Activities",
-                                                        value: "100+",
-                                                        icon: "trophy",
-                                                        color: "#eab308",
-                                                        description: "Wide array of sports, arts, robotics, and clubs.",
                                                         title: "Campus Infrastructure",
                                                         subtitle: "Eco-friendly, digital-first learning environment",
                                                         icon: "fa-solid fa-building-columns",
@@ -879,6 +907,13 @@
                                                     bg_color: "#031c3f",
                                                     is_active: true
                                                 }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
                     "/why-choose": {
                         get: {
                             tags: ["Why Choose JRS (Frontend)"],
@@ -1087,6 +1122,15 @@
                                                         image_full_url: "http://127.0.0.1:8000/images/journey/butterflies-programme.jpg",
                                                         sort_order: 1,
                                                         is_active: true
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
                     "/pta-members": {
                         get: {
                             tags: ["Parent Teacher Association - PTA (Frontend)"],
@@ -1330,7 +1374,6 @@
                             description: "Returns all active teaching and administrative vacancies sorted by order.",
                             responses: { "200": { description: "List of job openings" } }
                         }
-=======
                     },
                     "/admission-banner": {
                         get: {
@@ -1978,6 +2021,486 @@
                                             }
                                         }
                                     }
+                                }
+                            }
+                        }
+                    },
+                    "/admission-hero": {
+                        get: {
+                            tags: ["Admissions (Frontend)"],
+                            summary: "Get Admission Open Hero Header for React site",
+                            description: "Returns top admission banner details: location tag, title, academic year, description, contact numbers, 3 highlight features (CBSE, Holistic, Faculty), and trust badges.",
+                            responses: {
+                                "200": {
+                                    description: "Successful response with admission hero data",
+                                    content: {
+                                        "application/json": {
+                                            example: {
+                                                success: true,
+                                                data: {
+                                                    id: 1,
+                                                    location_tag: "NARAPALLY, HYDERABAD",
+                                                    title: "Admission Open For",
+                                                    academic_year: "2026 – 2027",
+                                                    description: "Give your child the right foundation for a brighter future. Apply early for personalized guidance, campus tour, and direct interaction with academic mentors.",
+                                                    phone: "+91 915740 43210",
+                                                    email: "info@jrsinternationalschool.com",
+                                                    features: [
+                                                        {
+                                                            title: "CBSE Curriculum",
+                                                            subtitle: "National standards",
+                                                            icon: "bi bi-mortarboard-fill"
+                                                        },
+                                                        {
+                                                            title: "Holistic Growth",
+                                                            subtitle: "Arts, sports & STEM",
+                                                            icon: "bi bi-stars"
+                                                        },
+                                                        {
+                                                            title: "Top Faculty",
+                                                            subtitle: "Caring mentorship",
+                                                            icon: "bi bi-award-fill"
+                                                        }
+                                                    ],
+                                                    trust_badges: [
+                                                        "100% Confidential",
+                                                        "Quick 24-hr Response"
+                                                    ]
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "/admission-enquiries": {
+                        post: {
+                            tags: ["Admissions (Frontend)"],
+                            summary: "Submit Admission Enquiry Form from React site",
+                            description: "Creates a new admission enquiry when a parent submits the Enquiry Form on the website.",
+                            requestBody: {
+                                required: true,
+                                content: {
+                                    "application/json": {
+                                        example: {
+                                            academic_year: "2026-2027",
+                                            branch: "JRS INTERNATIONAL SCHOOL",
+                                            admission_type: "DAY SCHOLAR",
+                                            grade: "Class 1",
+                                            country_code: "+91",
+                                            parent_mobile: "9157404321",
+                                            student_dob: "2020-05-15",
+                                            notes: "Interested in bus transport."
+                                        }
+                                    }
+                                }
+                            },
+                            responses: {
+                                "201": {
+                                    description: "Enquiry submitted successfully",
+                                    content: {
+                                        "application/json": {
+                                            example: {
+                                                success: true,
+                                                message: "Thank you! Your admission enquiry has been submitted successfully.",
+                                                data: {
+                                                    id: 1,
+                                                    academic_year: "2026-2027",
+                                                    branch: "JRS INTERNATIONAL SCHOOL",
+                                                    admission_type: "DAY SCHOLAR",
+                                                    grade: "Class 1",
+                                                    country_code: "+91",
+                                                    parent_mobile: "9157404321",
+                                                    student_dob: "2020-05-15",
+                                                    status: "pending"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "/admission-enquiries/options": {
+                        get: {
+                            tags: ["Admissions (Frontend)"],
+                            summary: "Get Enquiry Form dropdown options (academic years, admission types)",
+                            responses: {
+                                "200": {
+                                    description: "Enquiry Form options",
+                                    content: {
+                                        "application/json": {
+                                            example: {
+                                                success: true,
+                                                data: {
+                                                    academic_years: ["2026-2027", "2027-2028"],
+                                                    admission_types: ["DAY SCHOLAR", "DAY BOARDING", "RESIDENTIAL"]
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "/admission-process": {
+                        get: {
+                            tags: ["Admissions (Frontend)"],
+                            summary: "Get Admission Process Steps (6 Steps) for React site",
+                            description: "Returns section heading and all 6 sequential admission process cards (Meet Admission Officer, Procure Application Form, Register With Us, Appear For Admission Test, Personal Interview, Pay Fee) for the admissions page.",
+                            responses: {
+                                "200": {
+                                    description: "Successful response with admission process steps",
+                                    content: {
+                                        "application/json": {
+                                            example: {
+                                                success: true,
+                                                section: {
+                                                    eyebrow: "STEPS OF",
+                                                    title: "Admission Process",
+                                                    title_prefix: "Admission",
+                                                    title_highlight: "Process",
+                                                    description: "Follow these simple steps to complete the admission process at JRS."
+                                                },
+                                                count: 6,
+                                                data: [
+                                                    {
+                                                        id: 1,
+                                                        step_number: 1,
+                                                        title: "Meet The Admission Officer",
+                                                        description: "Visit the school campus and meet our admission officer for guidance.",
+                                                        icon: "bi bi-person-badge-fill"
+                                                    },
+                                                    {
+                                                        id: 2,
+                                                        step_number: 2,
+                                                        title: "Procure The Application Form",
+                                                        description: "Collect the application form from the school or download it as provided.",
+                                                        icon: "bi bi-file-earmark-text-fill"
+                                                    },
+                                                    {
+                                                        id: 3,
+                                                        step_number: 3,
+                                                        title: "Register With Us",
+                                                        description: "Submit the completed application form with the required details.",
+                                                        icon: "bi bi-person-vcard-fill"
+                                                    },
+                                                    {
+                                                        id: 4,
+                                                        step_number: 4,
+                                                        title: "Appear For The Admission Test",
+                                                        description: "The student needs to appear for the admission test as per the grade.",
+                                                        icon: "bi bi-pencil-square"
+                                                    },
+                                                    {
+                                                        id: 5,
+                                                        step_number: 5,
+                                                        title: "Appear For The Personal Interview",
+                                                        description: "The student and parents may be called for a personal interview.",
+                                                        icon: "bi bi-chat-quote-fill"
+                                                    },
+                                                    {
+                                                        id: 6,
+                                                        step_number: 6,
+                                                        title: "Pay Fee",
+                                                        description: "Upon selection, complete the fee payment to confirm admission.",
+                                                        icon: "bi bi-credit-card-2-front-fill"
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "/admission-criteria": {
+                        get: {
+                            tags: ["Admissions (Frontend)"],
+                            summary: "Get Admission Criteria & Guidelines (4 Cards) for React site",
+                            description: "Returns section heading and all 4 admission criteria cards (Nursery Admission, Competency Level Test, Seat Allocation & Waitlist Policy, Admissions Appeals & Support) with tags, points checklist, and notes for the admissions page.",
+                            responses: {
+                                "200": {
+                                    description: "Successful response with admission criteria & guidelines",
+                                    content: {
+                                        "application/json": {
+                                            example: {
+                                                success: true,
+                                                section: {
+                                                    eyebrow: "ADMISSION ARRANGEMENTS & POLICY",
+                                                    title: "Admission Criteria & Guidelines",
+                                                    title_prefix: "Admission Criteria &",
+                                                    title_highlight: "Guidelines",
+                                                    description: "Essential guidelines for parents applying to Nursery and Grades 1 through 12, designed to ensure a fair, supportive, and child-centered enrollment process."
+                                                },
+                                                count: 4,
+                                                data: [
+                                                    {
+                                                        id: 1,
+                                                        step_number: 1,
+                                                        watermark: "01",
+                                                        badge_tag: "Early Years (Age 2+)",
+                                                        title: "Nursery Admission",
+                                                        description: "You can apply for a place in our Nursery by filling in an application form available from the school office or online. Children are admitted to Nursery the term after their second birthday.",
+                                                        icon: "bi bi-stars",
+                                                        note: null,
+                                                        points: [
+                                                            "Proof of address & birth certificate required",
+                                                            "Campus visits welcome to meet our caring staff"
+                                                        ]
+                                                    },
+                                                    {
+                                                        id: 2,
+                                                        step_number: 2,
+                                                        watermark: "02",
+                                                        badge_tag: "Grades 1 to 12",
+                                                        title: "Competency Level Test (CLT)",
+                                                        description: "Applicants seeking admission to Grades 1 to 12 will be required to appear for a Competency Level Test (CLT).",
+                                                        icon: "bi bi-clipboard-check-fill",
+                                                        note: "Note: The sole purpose of CLT is to rightly assess the grade for which the child is eligible rather than to grant or refuse admission.",
+                                                        points: []
+                                                    },
+                                                    {
+                                                        id: 3,
+                                                        step_number: 3,
+                                                        watermark: "03",
+                                                        badge_tag: "Fair & Transparent",
+                                                        title: "Seat Allocation & Waitlist Policy",
+                                                        description: "Admission will be offered only on a first-come, first-served basis. If no seats are available at the time the application is received, the applicant will be placed on the waitlist.",
+                                                        icon: "bi bi-people-fill",
+                                                        note: null,
+                                                        points: [
+                                                            "Offered strictly on a first-come, first-served basis",
+                                                            "Parents/Guardians notified promptly once a seat opens"
+                                                        ]
+                                                    },
+                                                    {
+                                                        id: 4,
+                                                        step_number: 4,
+                                                        watermark: "04",
+                                                        badge_tag: "Guidance & Appeals",
+                                                        title: "Admissions Appeals & Support",
+                                                        description: "Information on admissions appeals and procedural guidelines is readily available from the school office. Our team is here to assist you at every stage of the application.",
+                                                        icon: "bi bi-file-earmark-text-fill",
+                                                        note: null,
+                                                        points: [
+                                                            "Appeals assistance available at school office",
+                                                            "Transparent review and parent guidance"
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "/admission-faqs": {
+                        get: {
+                            tags: ["Admissions (Frontend)"],
+                            summary: "Get Admission Frequently Asked Questions (FAQs) for React site",
+                            description: "Returns section heading and all 13 frequently asked questions with answers for the admissions page accordion.",
+                            responses: {
+                                "200": {
+                                    description: "Successful response with admission FAQs",
+                                    content: {
+                                        "application/json": {
+                                            example: {
+                                                success: true,
+                                                section: {
+                                                    eyebrow: "ADMISSIONS FAQS",
+                                                    title: "Frequently Asked Questions",
+                                                    title_prefix: "Frequently Asked",
+                                                    title_highlight: "Questions",
+                                                    description: "Find answers to commonly asked questions about admissions, academics, and life at JRS."
+                                                },
+                                                count: 13,
+                                                data: [
+                                                    {
+                                                        id: 1,
+                                                        question: "What is the admission procedure?",
+                                                        answer: "The admission procedure begins with obtaining and filling out the application form either online or at the school office, followed by an interaction/competency assessment, document verification, and fee payment."
+                                                    },
+                                                    {
+                                                        id: 2,
+                                                        question: "Is admission guaranteed?",
+                                                        answer: "Admission is offered strictly on a first-come, first-served basis, subject to availability of seats and meeting the admission criteria."
+                                                    },
+                                                    {
+                                                        id: 3,
+                                                        question: "What curriculum will the school follow?",
+                                                        answer: "JRS International School follows a comprehensive, child-centered curriculum adhering to CBSE and international educational standards designed for holistic development."
+                                                    },
+                                                    {
+                                                        id: 4,
+                                                        question: "Can I make an early application for admission?",
+                                                        answer: "Yes, parents are encouraged to apply early as admissions are processed on a first-come, first-served basis and seat availability in each grade is limited."
+                                                    },
+                                                    {
+                                                        id: 5,
+                                                        question: "What is the fee structure?",
+                                                        answer: "Our fee structure is transparent and includes tuition, activities, and campus facilities. Please visit the school admissions office or contact us for a detailed grade-wise breakdown."
+                                                    },
+                                                    {
+                                                        id: 6,
+                                                        question: "Can I get fee concessions?",
+                                                        answer: "Fee concessions and scholarships may be considered on merit, sibling enrollment, or specific circumstances as per the school trust guidelines."
+                                                    },
+                                                    {
+                                                        id: 7,
+                                                        question: "How many terms will the school have?",
+                                                        answer: "The academic year is divided into two comprehensive terms: Term 1 (June to October) and Term 2 (November to April)."
+                                                    },
+                                                    {
+                                                        id: 8,
+                                                        question: "What will be the school timings?",
+                                                        answer: "School operates from 8:30 AM to 3:30 PM for Primary and Secondary grades, with customized shorter timings for Pre-Primary/Early Years."
+                                                    },
+                                                    {
+                                                        id: 9,
+                                                        question: "Will the school authorities be taking adequate measures to ensure hygiene in the school?",
+                                                        answer: "Yes, we maintain the highest standards of hygiene with regular campus sanitization, clean drinking water filtration systems, and well-maintained washroom facilities."
+                                                    },
+                                                    {
+                                                        id: 10,
+                                                        question: "What is the kind of security offered to the students?",
+                                                        answer: "The campus features 24/7 CCTV surveillance, biometric access control, trained security personnel, visitor logging, and strict bus transport tracking."
+                                                    },
+                                                    {
+                                                        id: 11,
+                                                        question: "How often will there be PTM's?",
+                                                        answer: "Parent-Teacher Meetings (PTMs) are scheduled at the end of each term and after major periodic assessments, typically every 6 to 8 weeks."
+                                                    },
+                                                    {
+                                                        id: 12,
+                                                        question: "Other than a PTM, when can a parent interact with the teacher?",
+                                                        answer: "Parents can schedule prior appointments through the school ERP portal or contact teachers during designated weekday visiting hours."
+                                                    },
+                                                    {
+                                                        id: 13,
+                                                        question: "How many students will be there per division?",
+                                                        answer: "To ensure personalized attention, class sizes are strictly maintained at an optimal student-teacher ratio of 25 to 30 students per division."
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "/contact": {
+                        get: {
+                            tags: ["Contact Us (Frontend)"],
+                            summary: "Get Official Contact Information & Campus Map for React site",
+                            description: "Returns school address, phone, email, and Google Maps direct link & embed URL.",
+                            responses: {
+                                "200": {
+                                    description: "Successful response with contact details",
+                                    content: {
+                                        "application/json": {
+                                            example: {
+                                                success: true,
+                                                data: {
+                                                    id: 1,
+                                                    address: "JRS International School, Narapally, Near Uppal Depot, Hyderabad, Telangana",
+                                                    phone: "+91 915740 43210",
+                                                    email: "info@jrsinternationalschool.com",
+                                                    map_link: "https://maps.google.com/?q=JRS+International+School+Narapally+Hyderabad"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "/contact/grades": {
+                        get: {
+                            tags: ["Contact Us (Frontend)"],
+                            summary: "Get grade dropdown options for the Contact Us inquiry form",
+                            description: "Returns list of grades available for selection in the Contact Us page inquiry dropdown.",
+                            responses: {
+                                "200": {
+                                    description: "List of grade options",
+                                    content: {
+                                        "application/json": {
+                                            example: {
+                                                success: true,
+                                                data: [
+                                                    "Play Group",
+                                                    "Nursery",
+                                                    "LKG",
+                                                    "UKG",
+                                                    "Grade 1",
+                                                    "Grade 2",
+                                                    "Grade 3",
+                                                    "Grade 4",
+                                                    "Grade 5",
+                                                    "Grade 6",
+                                                    "Grade 7",
+                                                    "Grade 8",
+                                                    "Grade 9",
+                                                    "Grade 10",
+                                                    "Grade 11",
+                                                    "Grade 12"
+                                                ]
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "/contact/inquiry": {
+                        post: {
+                            tags: ["Contact Us (Frontend)"],
+                            summary: "Submit Online Inquiry (Send Us A Message)",
+                            description: "Submit inquiry from the Contact Us page. Also available at alias POST /api/contact-inquiries. Supports both snake_case (parent_name, phone, grade, email, message) and camelCase (parentName, phoneNumber, gradeOfChild, emailAddress, yourQuery).",
+                            requestBody: {
+                                required: true,
+                                content: {
+                                    "application/json": {
+                                        schema: {
+                                            type: "object",
+                                            required: ["parent_name", "phone", "message"],
+                                            properties: {
+                                                parent_name: { type: "string", example: "Ramesh Reddy" },
+                                                phone: { type: "string", example: "+91 98765 43210" },
+                                                grade: { type: "string", example: "Grade 5" },
+                                                email: { type: "string", format: "email", example: "name@example.com" },
+                                                message: { type: "string", example: "Tell us what you'd like to know about JRS..." }
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            responses: {
+                                "201": {
+                                    description: "Inquiry submitted successfully",
+                                    content: {
+                                        "application/json": {
+                                            example: {
+                                                success: true,
+                                                message: "Thank you for contacting us! Our admissions counselor will get back to you within 24 hours.",
+                                                data: {
+                                                    id: 1,
+                                                    parent_name: "Ramesh Reddy",
+                                                    phone: "+91 98765 43210",
+                                                    grade: "Grade 5",
+                                                    email: "name@example.com",
+                                                    message: "Tell us what you'd like to know about JRS...",
+                                                    status: "pending",
+                                                    created_at: "2026-10-26T12:00:00Z"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "422": {
+                                    description: "Validation error"
                                 }
                             }
                         }

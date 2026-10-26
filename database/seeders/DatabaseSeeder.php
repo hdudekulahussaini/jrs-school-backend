@@ -33,6 +33,13 @@ class DatabaseSeeder extends Seeder
             PrincipalMessageSeeder::class,
             EducationalSocietyMemberSeeder::class,
             SchoolManagementMemberSeeder::class,
+            AdmissionStepSeeder::class,
+            AdmissionCriterionSeeder::class,
+            AdmissionFaqSeeder::class,
+            ContactSettingSeeder::class,
+            AdmissionHeroSeeder::class,
+            AdmissionEnquirySeeder::class,
+            ContactInquirySeeder::class,
         ]);
     }
 }

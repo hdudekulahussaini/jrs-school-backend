@@ -23,6 +23,13 @@ use App\Http\Controllers\Admin\CampusLifeController;
 use App\Http\Controllers\Admin\WhyChooseController;
 use App\Http\Controllers\Admin\PtaMemberController;
 use App\Http\Controllers\Admin\AdmissionBannerController;
+use App\Http\Controllers\Admin\AdmissionHeroController;
+use App\Http\Controllers\Admin\AdmissionStepController;
+use App\Http\Controllers\Admin\AdmissionCriterionController;
+use App\Http\Controllers\Admin\AdmissionFaqController;
+use App\Http\Controllers\Admin\AdmissionEnquiryController;
+use App\Http\Controllers\Admin\ContactSettingController;
+use App\Http\Controllers\Admin\ContactInquiryController;
 use App\Http\Controllers\Admin\ChairmanMessageController;
 use App\Http\Controllers\Admin\PrincipalMessageController;
 use App\Http\Controllers\Admin\EducationalSocietyController;
@@ -69,13 +76,10 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
 
     // Campus Amenities / Facilities Full CRUD Resource
     Route::resource('/facilities', FacilityController::class)->names('admin.facilities');
-<<<<<<< HEAD
     Route::post('/facilities/{id}/toggle', [FacilityController::class, 'toggle'])->name('admin.facilities.toggle');
     Route::resource('/amenities', FacilityController::class)->names('admin.amenities');
     Route::post('/amenities/{id}/toggle', [FacilityController::class, 'toggle'])->name('admin.amenities.toggle');
-=======
 
->>>>>>> 04ab64343de79bd33c3d967ec6538c01b8d40678
     // About JRS Section Full CRUD Resource
     Route::resource('/about', AboutSectionController::class)->names('admin.about');
 
@@ -99,6 +103,22 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
 
     // Admission & Campus Tour CTA Banner (About Page)
     Route::resource('/admission-banner', AdmissionBannerController::class)->names('admin.admission-banner');
+
+    // Admission Open Hero Section (Header)
+    Route::get('/admission-hero', [AdmissionHeroController::class, 'index'])->name('admin.admission-hero.index');
+    Route::put('/admission-hero', [AdmissionHeroController::class, 'update'])->name('admin.admission-hero.update');
+
+    // Admission Process (6 Steps) Full CRUD Resource
+    Route::resource('/admission-steps', AdmissionStepController::class)->names('admin.admission-steps');
+
+    // Admission Criteria & Guidelines Full CRUD Resource
+    Route::resource('/admission-criteria', AdmissionCriterionController::class)->names('admin.admission-criteria');
+
+    // Admission FAQs Full CRUD Resource
+    Route::resource('/admission-faqs', AdmissionFaqController::class)->names('admin.admission-faqs');
+
+    // Admission Form Enquiries CRM
+    Route::resource('/admission-enquiries', AdmissionEnquiryController::class)->only(['index', 'update', 'destroy'])->names('admin.admission-enquiries');
 
     // Chairman of JRS - Leadership Page Sections
     Route::get('/chairman', [ChairmanMessageController::class, 'index'])->name('admin.chairman.index');
@@ -147,6 +167,13 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     // Careers Page - Job Openings Full CRUD Resource
     Route::resource('/job-openings', JobOpeningController::class)->names('admin.job-openings');
     Route::post('/job-openings/{id}/toggle', [JobOpeningController::class, 'toggle'])->name('admin.job-openings.toggle');
+
+    // Contact Us Settings
+    Route::get('/contact-settings', [ContactSettingController::class, 'index'])->name('admin.contact-settings.index');
+    Route::put('/contact-settings', [ContactSettingController::class, 'update'])->name('admin.contact-settings.update');
+
+    // Contact Us Online Inquiries CRM
+    Route::resource('/contact-inquiries', ContactInquiryController::class)->only(['index', 'show', 'update', 'destroy'])->names('admin.contact-inquiries');
 
     // Admin Swagger Documentation
     Route::get('/swagger', function () {

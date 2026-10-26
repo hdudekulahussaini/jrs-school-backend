@@ -171,29 +171,6 @@
             </div>
         @endif
     </div>
-
-    <!-- API Integration Information Card -->
-    <div class="rounded-xl border border-slate-200 bg-white p-5 shadow-xs">
-        <div class="flex items-start gap-3">
-            <div class="p-2 rounded-lg bg-blue-50 text-blue-600 shrink-0">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-            </div>
-            <div class="space-y-1.5 flex-1">
-                <h4 class="text-sm font-bold text-jrs-navy font-heading">Frontend API Integration</h4>
-                <p class="text-xs text-slate-500">
-                    The React website frontend (<a href="https://jrs-school.vercel.app/" target="_blank" class="text-jrs-red hover:underline">https://jrs-school.vercel.app/</a>) fetches these active statistics via the following public endpoints:
-                </p>
-                <div class="flex flex-wrap gap-2 pt-1 font-mono text-xs">
-                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded bg-slate-100 text-slate-800 font-semibold border border-slate-200">
-                        <span class="text-emerald-600 font-bold">GET</span> /api/stats
-                    </span>
-                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded bg-slate-100 text-slate-800 font-semibold border border-slate-200">
-                        <span class="text-emerald-600 font-bold">GET</span> /api/home-stats
-                    </span>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
 
 <script>

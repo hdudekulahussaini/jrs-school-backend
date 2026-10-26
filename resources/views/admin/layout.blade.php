@@ -89,6 +89,11 @@
                     <span>Dashboard</span>
                 </a>
 
+                <a href="{{ route('admin.top-bar.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors {{ request()->routeIs('admin.top-bar.*') ? 'bg-jrs-red text-white font-semibold shadow-xs' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
+                    <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"/></svg>
+                    <span>Header Top Bar</span>
+                </a>
+
                 <!-- Home Page Dropdown -->
                 @php
                     $isHomeActive = request()->routeIs('admin.tickers.*') || 
@@ -171,7 +176,9 @@
 
                 <!-- Amenities Page Dropdown -->
                 @php
-                    $isAmenitiesActive = request()->routeIs('admin.facilities.*') || request()->routeIs('admin.amenities.*');
+                    $isAmenitiesActive = request()->routeIs('admin.facilities.*') || request()->routeIs('admin.amenities.*') || request()->routeIs('admin.amenities-cta.*');
+                    $isFacilitiesActive = request()->routeIs('admin.facilities.*') || request()->routeIs('admin.amenities.*');
+                    $isAmenitiesCtaActive = request()->routeIs('admin.amenities-cta.*');
                 @endphp
                 <div class="space-y-1">
                     <button type="button" 
@@ -186,9 +193,13 @@
                     </button>
 
                     <div id="amenitiesDropdownMenu" class="{{ $isAmenitiesActive ? '' : 'hidden' }} pl-4 pr-1 py-1 space-y-1 border-l border-white/10 ml-5">
-                        <a href="{{ route('admin.facilities.index') }}" class="flex items-center gap-2.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors {{ $isAmenitiesActive ? 'bg-jrs-red text-white font-semibold shadow-xs' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
-                            <span class="w-1.5 h-1.5 rounded-full {{ $isAmenitiesActive ? 'bg-white ring-2 ring-white/30' : 'bg-white/40' }}"></span>
+                        <a href="{{ route('admin.facilities.index') }}" class="flex items-center gap-2.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors {{ $isFacilitiesActive ? 'bg-jrs-red text-white font-semibold shadow-xs' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
+                            <span class="w-1.5 h-1.5 rounded-full {{ $isFacilitiesActive ? 'bg-white ring-2 ring-white/30' : 'bg-white/40' }}"></span>
                             <span>Facilities (8 Cards)</span>
+                        </a>
+                        <a href="{{ route('admin.amenities-cta.index') }}" class="flex items-center gap-2.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors {{ $isAmenitiesCtaActive ? 'bg-jrs-red text-white font-semibold shadow-xs' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
+                            <span class="w-1.5 h-1.5 rounded-full {{ $isAmenitiesCtaActive ? 'bg-white ring-2 ring-white/30' : 'bg-white/40' }}"></span>
+                            <span>CTA Banner Section</span>
                         </a>
                     </div>
                 </div>
@@ -270,10 +281,9 @@
                     </div>
                 </div>
 
-<<<<<<< HEAD
                 <!-- Careers Page Dropdown -->
                 @php
-                    $isCareersActive = request()->routeIs('admin.careers-teaching.*') || request()->routeIs('admin.careers-benefits.*') || request()->routeIs('admin.careers-opportunities.*') || request()->routeIs('admin.job-openings.*');
+                    $isCareersActive = request()->routeIs('admin.careers-teaching.*') || request()->routeIs('admin.careers-benefits.*') || request()->routeIs('admin.careers-opportunities.*');
                 @endphp
                 <div class="space-y-1">
                     <button type="button" 
@@ -302,10 +312,42 @@
                             <span class="w-1.5 h-1.5 rounded-full {{ request()->routeIs('admin.careers-opportunities.*') ? 'bg-white ring-2 ring-white/30' : 'bg-white/40' }}"></span>
                             <span>How To Apply</span>
                         </a>
+                    </div>
+                </div>
 
-                        <a href="{{ route('admin.job-openings.index') }}" class="flex items-center gap-2.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors {{ request()->routeIs('admin.job-openings.*') ? 'bg-jrs-red text-white font-semibold shadow-xs' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
-                            <span class="w-1.5 h-1.5 rounded-full {{ request()->routeIs('admin.job-openings.*') ? 'bg-white ring-2 ring-white/30' : 'bg-white/40' }}"></span>
-                            <span>Job Openings</span>
+                <!-- Gallery Page Dropdown -->
+                @php
+                    $isGalleryActive = request()->routeIs('admin.gallery-albums.*') || request()->routeIs('admin.gallery-items.*') || request()->routeIs('admin.news-media.*');
+                    $isGalleryAlbumsActive = request()->routeIs('admin.gallery-albums.*');
+                    $isGalleryItemsActive = request()->routeIs('admin.gallery-items.*');
+                    $isNewsMediaActive = request()->routeIs('admin.news-media.*');
+                @endphp
+                <div class="space-y-1">
+                    <button type="button" 
+                            id="galleryDropdownBtn"
+                            onclick="toggleGalleryDropdown()" 
+                            class="w-full flex items-center justify-between px-3 py-2 rounded-md text-sm font-medium transition-colors {{ $isGalleryActive ? 'bg-white/15 text-white font-semibold' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
+                        <div class="flex items-center gap-3">
+                            <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                            <span>Gallery Page</span>
+                        </div>
+                        <svg id="galleryDropdownArrow" class="w-4 h-4 shrink-0 transition-transform duration-200 {{ $isGalleryActive ? 'rotate-180 text-white' : 'text-white/60' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </button>
+
+                    <div id="galleryDropdownMenu" class="{{ $isGalleryActive ? '' : 'hidden' }} pl-4 pr-1 py-1 space-y-1 border-l border-white/10 ml-5">
+                        <a href="{{ route('admin.gallery-albums.index') }}" class="flex items-center gap-2.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors {{ $isGalleryAlbumsActive ? 'bg-jrs-red text-white font-semibold shadow-xs' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
+                            <span class="w-1.5 h-1.5 rounded-full {{ $isGalleryAlbumsActive ? 'bg-white ring-2 ring-white/30' : 'bg-white/40' }}"></span>
+                            <span>Album Sections (6)</span>
+                        </a>
+
+                        <a href="{{ route('admin.gallery-items.index') }}" class="flex items-center gap-2.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors {{ $isGalleryItemsActive ? 'bg-jrs-red text-white font-semibold shadow-xs' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
+                            <span class="w-1.5 h-1.5 rounded-full {{ $isGalleryItemsActive ? 'bg-white ring-2 ring-white/30' : 'bg-white/40' }}"></span>
+                            <span>Photos & Videos</span>
+                        </a>
+
+                        <a href="{{ route('admin.news-media.index') }}" class="flex items-center gap-2.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors {{ $isNewsMediaActive ? 'bg-jrs-red text-white font-semibold shadow-xs' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
+                            <span class="w-1.5 h-1.5 rounded-full {{ $isNewsMediaActive ? 'bg-white ring-2 ring-white/30' : 'bg-white/40' }}"></span>
+                            <span>News & Media (Press)</span>
                         </a>
                     </div>
                 </div>
@@ -315,8 +357,6 @@
                     <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
                     <span>Swagger API Docs</span>
                 </a>
-=======
->>>>>>> 04ab64343de79bd33c3d967ec6538c01b8d40678
             </div>
 
             <!-- User Footer Info & Logout -->
@@ -466,6 +506,17 @@
         function toggleCareersDropdown() {
             const menu = document.getElementById('careersDropdownMenu');
             const arrow = document.getElementById('careersDropdownArrow');
+            if (menu) {
+                menu.classList.toggle('hidden');
+            }
+            if (arrow) {
+                arrow.classList.toggle('rotate-180');
+            }
+        }
+
+        function toggleGalleryDropdown() {
+            const menu = document.getElementById('galleryDropdownMenu');
+            const arrow = document.getElementById('galleryDropdownArrow');
             if (menu) {
                 menu.classList.toggle('hidden');
             }

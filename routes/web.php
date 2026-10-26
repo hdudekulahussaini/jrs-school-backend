@@ -9,7 +9,6 @@ use App\Http\Controllers\Admin\BeyondClassroomCtaController;
 use App\Http\Controllers\Admin\CareerBenefitController;
 use App\Http\Controllers\Admin\CareerOpportunityController;
 use App\Http\Controllers\Admin\CareerSectionController;
-use App\Http\Controllers\Admin\JobOpeningController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\FacilityController;
 use App\Http\Controllers\Admin\HeroSliderController;
@@ -22,6 +21,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\CampusLifeController;
 use App\Http\Controllers\Admin\WhyChooseController;
 use App\Http\Controllers\Admin\PtaMemberController;
+use App\Http\Controllers\Admin\AmenityCtaController;
+use App\Http\Controllers\Admin\GalleryAlbumController;
+use App\Http\Controllers\Admin\GalleryItemController;
+use App\Http\Controllers\Admin\NewsMediaController;
+use App\Http\Controllers\Admin\TopBarController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,6 +51,8 @@ Route::get('/swagger', function () {
 // Protected Admin Dashboard Routes
 Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('admin.dashboard');
+    Route::get('/top-bar', [TopBarController::class, 'index'])->name('admin.top-bar.index');
+    Route::post('/top-bar', [TopBarController::class, 'update'])->name('admin.top-bar.update');
 
     // News Tickers Full CRUD Resource
     Route::resource('/tickers', NewsTickerController::class)->names('admin.tickers');
@@ -64,13 +70,12 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
 
     // Campus Amenities / Facilities Full CRUD Resource
     Route::resource('/facilities', FacilityController::class)->names('admin.facilities');
-<<<<<<< HEAD
     Route::post('/facilities/{id}/toggle', [FacilityController::class, 'toggle'])->name('admin.facilities.toggle');
     Route::resource('/amenities', FacilityController::class)->names('admin.amenities');
     Route::post('/amenities/{id}/toggle', [FacilityController::class, 'toggle'])->name('admin.amenities.toggle');
-=======
+    Route::resource('/amenities-cta', AmenityCtaController::class)->names('admin.amenities-cta');
+    Route::post('/amenities-cta/{id}/toggle', [AmenityCtaController::class, 'toggle'])->name('admin.amenities-cta.toggle');
 
->>>>>>> 04ab64343de79bd33c3d967ec6538c01b8d40678
     // About JRS Section Full CRUD Resource
     Route::resource('/about', AboutSectionController::class)->names('admin.about');
 
@@ -118,9 +123,13 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::resource('/careers-opportunities', CareerOpportunityController::class)->names('admin.careers-opportunities');
     Route::post('/careers-opportunities/{id}/toggle', [CareerOpportunityController::class, 'toggle'])->name('admin.careers-opportunities.toggle');
 
-    // Careers Page - Job Openings Full CRUD Resource
-    Route::resource('/job-openings', JobOpeningController::class)->names('admin.job-openings');
-    Route::post('/job-openings/{id}/toggle', [JobOpeningController::class, 'toggle'])->name('admin.job-openings.toggle');
+    // Gallery Page Full CRUD Resource (Albums & Photos/Videos & News Media)
+    Route::resource('/gallery-albums', GalleryAlbumController::class)->names('admin.gallery-albums');
+    Route::post('/gallery-albums/{id}/toggle', [GalleryAlbumController::class, 'toggle'])->name('admin.gallery-albums.toggle');
+    Route::resource('/gallery-items', GalleryItemController::class)->names('admin.gallery-items');
+    Route::post('/gallery-items/{id}/toggle', [GalleryItemController::class, 'toggle'])->name('admin.gallery-items.toggle');
+    Route::resource('/news-media', NewsMediaController::class)->names('admin.news-media');
+    Route::post('/news-media/{id}/toggle', [NewsMediaController::class, 'toggle'])->name('admin.news-media.toggle');
 
     // Admin Swagger Documentation
     Route::get('/swagger', function () {

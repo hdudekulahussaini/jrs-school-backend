@@ -16,6 +16,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\CampusLifeApiController;
 use App\Http\Controllers\Api\WhyChooseApiController;
 use App\Http\Controllers\Api\PtaMemberApiController;
+use App\Http\Controllers\Api\GalleryApiController;
+use App\Http\Controllers\Api\NewsMediaApiController;
+use App\Http\Controllers\Api\TopBarApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +31,9 @@ use App\Http\Controllers\Api\PtaMemberApiController;
 | the authenticated admin web dashboard.
 |
 */
+
+// Header Top Bar GET Endpoint (Global Phone, Email, CBSE Affiliation & Documents)
+Route::get('/top-bar', [TopBarApiController::class, 'getTopBar']);
 
 // News Ticker GET Endpoints
 Route::get('/news-ticker', [NewsTickerApiController::class, 'getActiveTickers']);
@@ -42,6 +48,8 @@ Route::get('/sliders/{id}', [HeroSliderApiController::class, 'show']);
 
 // Campus Amenities / Facilities GET Endpoints (Read-Only GET for React site & Amenities page)
 Route::get('/amenities-page', [FacilityApiController::class, 'getPageData']);
+Route::get('/amenities-cta', [FacilityApiController::class, 'getCta']);
+Route::get('/amenities/cta', [FacilityApiController::class, 'getCta']);
 Route::get('/amenities', [FacilityApiController::class, 'getActiveFacilities']);
 Route::get('/amenities/{id}', [FacilityApiController::class, 'show']);
 Route::get('/facilities', [FacilityApiController::class, 'getActiveFacilities']);
@@ -92,7 +100,6 @@ Route::get('/features', [HomeFeatureApiController::class, 'getActiveFeatures']);
 Route::get('/home-features', [HomeFeatureApiController::class, 'getActiveFeatures']);
 Route::get('/features/{id}', [HomeFeatureApiController::class, 'show']);
 
-<<<<<<< HEAD
 // Stats Section GET Endpoints (for React Homepage)
 Route::get('/stats', [HomeStatApiController::class, 'getActiveStats']);
 Route::get('/home-stats', [HomeStatApiController::class, 'getActiveStats']);
@@ -110,7 +117,6 @@ Route::get('/careers/openings', [CareerApiController::class, 'getJobOpenings']);
 Route::get('/careers', [CareerApiController::class, 'getJobOpenings']);
 Route::get('/careers/openings/{id}', [CareerApiController::class, 'showOpening']);
 
-=======
 // Campus Tour & Life At JRS
 Route::get('/campus-tour', [CampusLifeApiController::class, 'index']);
 
@@ -119,6 +125,19 @@ Route::get('/why-choose', [WhyChooseApiController::class, 'index']);
 
 // Parent Teacher Association (PTA)
 Route::get('/pta-members', [PtaMemberApiController::class, 'index']);
->>>>>>> 04ab64343de79bd33c3d967ec6538c01b8d40678
+
+// Gallery Page Endpoints (Albums & Media for React Frontend)
+Route::get('/gallery-page', [GalleryApiController::class, 'getPageData']);
+Route::get('/gallery', [GalleryApiController::class, 'getPageData']);
+Route::get('/gallery-albums', [GalleryApiController::class, 'getAlbums']);
+Route::get('/gallery-albums/{idOrSlug}', [GalleryApiController::class, 'getAlbum']);
+Route::get('/gallery-items', [GalleryApiController::class, 'getItems']);
+
+// News & Media Endpoints (Press Coverage & Achievements for React Frontend)
+Route::get('/media-page', [NewsMediaApiController::class, 'getPageData']);
+Route::get('/news-media', [NewsMediaApiController::class, 'getItems']);
+Route::get('/news-media/{id}', [NewsMediaApiController::class, 'show']);
+
+
 
 

@@ -21,16 +21,17 @@ class DatabaseSeeder extends Seeder
             BeyondClassroomSeeder::class,
             SchoolEventSeeder::class,
             HomeFeatureSeeder::class,
-<<<<<<< HEAD
             AcademicJourneySeeder::class,
             HomeStatSeeder::class,
             BeyondClassroomCtaSeeder::class,
+            AmenityCtaSeeder::class,
             CareerSeeder::class,
-=======
             CampusLifeSeeder::class,
             WhyChooseFeatureSeeder::class,
             PtaMemberSeeder::class,
->>>>>>> 04ab64343de79bd33c3d967ec6538c01b8d40678
+            GallerySeeder::class,
+            NewsMediaSeeder::class,
+            TopBarSeeder::class,
         ]);
     }
 }

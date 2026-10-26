@@ -137,75 +137,42 @@
         </div>
     </div>
 
-    <!-- Metadata & API Inspect Details -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <!-- Details Card -->
-        <div class="md:col-span-1 bg-white rounded-xl shadow-sm border border-slate-200 p-5 space-y-4">
-            <h3 class="text-sm font-bold text-jrs-navy uppercase tracking-wider flex items-center gap-2">
-                <i class="fas fa-info-circle text-jrs-red"></i> Record Details
-            </h3>
+    <!-- Record Details -->
+    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 space-y-4">
+        <h3 class="text-sm font-bold text-jrs-navy uppercase tracking-wider flex items-center gap-2">
+            <i class="fas fa-info-circle text-jrs-red"></i> Record Details
+        </h3>
 
-            <dl class="space-y-3 text-xs">
-                <div>
-                    <dt class="text-slate-400 font-semibold uppercase tracking-wider text-[10px]">Database ID</dt>
-                    <dd class="text-slate-700 font-mono font-bold mt-0.5">#{{ $program->id }}</dd>
-                </div>
-                <div>
-                    <dt class="text-slate-400 font-semibold uppercase tracking-wider text-[10px]">URL Slug</dt>
-                    <dd class="text-slate-700 font-mono mt-0.5">{{ $program->slug }}</dd>
-                </div>
-                <div>
-                    <dt class="text-slate-400 font-semibold uppercase tracking-wider text-[10px]">Display Order</dt>
-                    <dd class="text-slate-700 font-bold mt-0.5">{{ $program->sort_order }}</dd>
-                </div>
-                <div>
-                    <dt class="text-slate-400 font-semibold uppercase tracking-wider text-[10px]">Button Target</dt>
-                    <dd class="text-slate-700 font-mono truncate mt-0.5">{{ $program->button_link ?: 'N/A' }}</dd>
-                </div>
-                <div>
-                    <dt class="text-slate-400 font-semibold uppercase tracking-wider text-[10px]">Created At</dt>
-                    <dd class="text-slate-700 mt-0.5">{{ $program->created_at->format('M d, Y h:i A') }}</dd>
-                </div>
-                <div>
-                    <dt class="text-slate-400 font-semibold uppercase tracking-wider text-[10px]">Last Updated</dt>
-                    <dd class="text-slate-700 mt-0.5">{{ $program->updated_at->format('M d, Y h:i A') }}</dd>
-                </div>
-                <div>
-                    <dt class="text-slate-400 font-semibold uppercase tracking-wider text-[10px]">Image Stored Path</dt>
-                    <dd class="text-slate-700 font-mono text-[11px] break-all mt-0.5">{{ $program->image }}</dd>
-                </div>
-            </dl>
-        </div>
-
-        <!-- JSON API Viewer -->
-        <div class="md:col-span-2 bg-slate-900 rounded-xl shadow-sm border border-slate-800 p-5 flex flex-col">
-            <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-3">
-                <div class="flex items-center gap-2">
-                    <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">GET</span>
-                    <span class="text-xs font-mono text-slate-300">/api/academic-programs/{{ $program->id }}</span>
-                </div>
-                <a href="{{ url('/api/academic-programs/' . $program->id) }}" target="_blank"
-                   class="text-xs font-mono text-jrs-red hover:underline flex items-center gap-1">
-                    <span>Open Raw API</span> <i class="fas fa-external-link-alt text-[10px]"></i>
-                </a>
+        <dl class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
+            <div>
+                <dt class="text-slate-400 font-semibold uppercase tracking-wider text-[10px]">Database ID</dt>
+                <dd class="text-slate-700 font-mono font-bold mt-0.5">#{{ $program->id }}</dd>
             </div>
-            <pre class="flex-1 text-[11px] font-mono text-emerald-400 bg-black/40 p-3 rounded-lg overflow-x-auto leading-relaxed">{{ json_encode([
-                'id' => $program->id,
-                'stage_badge' => $program->stage_badge,
-                'title' => $program->title,
-                'slug' => $program->slug,
-                'subtitle' => $program->subtitle,
-                'description' => $program->description,
-                'highlights' => $program->highlights,
-                'image_url' => $program->image_url,
-                'button_text' => $program->button_text,
-                'button_link' => $program->button_link,
-                'sort_order' => $program->sort_order,
-                'is_active' => (bool)$program->is_active,
-                'created_at' => $program->created_at->toISOString(),
-                'updated_at' => $program->updated_at->toISOString(),
-            ], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) }}</pre>
-        </div>
+            <div>
+                <dt class="text-slate-400 font-semibold uppercase tracking-wider text-[10px]">URL Slug</dt>
+                <dd class="text-slate-700 font-mono mt-0.5">{{ $program->slug }}</dd>
+            </div>
+            <div>
+                <dt class="text-slate-400 font-semibold uppercase tracking-wider text-[10px]">Display Order</dt>
+                <dd class="text-slate-700 font-bold mt-0.5">{{ $program->sort_order }}</dd>
+            </div>
+            <div>
+                <dt class="text-slate-400 font-semibold uppercase tracking-wider text-[10px]">Button Target</dt>
+                <dd class="text-slate-700 font-mono truncate mt-0.5">{{ $program->button_link ?: 'N/A' }}</dd>
+            </div>
+            <div>
+                <dt class="text-slate-400 font-semibold uppercase tracking-wider text-[10px]">Created At</dt>
+                <dd class="text-slate-700 mt-0.5">{{ $program->created_at->format('M d, Y h:i A') }}</dd>
+            </div>
+            <div>
+                <dt class="text-slate-400 font-semibold uppercase tracking-wider text-[10px]">Last Updated</dt>
+                <dd class="text-slate-700 mt-0.5">{{ $program->updated_at->format('M d, Y h:i A') }}</dd>
+            </div>
+            <div class="sm:col-span-2">
+                <dt class="text-slate-400 font-semibold uppercase tracking-wider text-[10px]">Image Stored Path</dt>
+                <dd class="text-slate-700 font-mono text-[11px] break-all mt-0.5">{{ $program->image }}</dd>
+            </div>
+        </dl>
     </div>
 </div>
 @endsection

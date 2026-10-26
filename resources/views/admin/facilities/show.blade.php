@@ -135,17 +135,5 @@
         </div>
     </div>
 
-    <!-- API Response Snippet (shadcn/ui Card + Code) -->
-    <div class="rounded-xl border border-slate-200 bg-slate-950 text-slate-100 shadow-xs overflow-hidden">
-        <div class="px-5 py-3 border-b border-slate-800 flex items-center justify-between text-xs">
-            <div class="flex items-center space-x-2">
-                <span class="rounded bg-emerald-500/20 text-emerald-400 font-mono font-bold px-1.5 py-0.5 text-[11px]">GET</span>
-                <span class="font-mono text-slate-300">/api/facilities</span>
-            </div>
-            <span class="text-slate-500 text-[11px]">JSON Payload</span>
-        </div>
-        <pre class="p-4 text-xs font-mono text-emerald-400 overflow-x-auto">{{ json_encode($facility, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) }}</pre>
-    </div>
-
 </div>
 @endsection

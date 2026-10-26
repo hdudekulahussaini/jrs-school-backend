@@ -108,11 +108,6 @@
                         {{ $event->description ?? 'No description provided.' }}
                     </p>
                 </div>
-
-                <div>
-                    <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-1">API JSON Format</span>
-                    <pre class="bg-slate-900 text-slate-100 text-xs p-4 rounded-lg overflow-x-auto font-mono">{{ json_encode($event, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) }}</pre>
-                </div>
             </div>
         </div>
     </div>

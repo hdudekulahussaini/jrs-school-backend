@@ -67,6 +67,29 @@
 
     <!-- Active Modules Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+        <!-- Module 0: Header Top Bar -->
+        <div class="rounded-xl border border-slate-200 bg-white p-5 sm:p-6 shadow-xs flex flex-col justify-between hover:border-jrs-navy/40 transition-colors">
+            <div>
+                <div class="w-10 h-10 rounded-lg bg-blue-50 text-jrs-navy flex items-center justify-center mb-4 border border-blue-200/60">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"/></svg>
+                </div>
+                <div class="flex items-center justify-between gap-2">
+                    <h3 class="text-base font-bold text-jrs-navy font-heading tracking-tight">Header Top Bar</h3>
+                    <span class="inline-flex items-center rounded-full border border-emerald-200 bg-emerald-50 px-2 py-0.5 text-[11px] font-semibold text-emerald-700">Global</span>
+                </div>
+                <p class="text-xs text-slate-500 mt-2 leading-relaxed">
+                    Manage top bar contact phone (+91 915740 43210), email, CBSE Affiliated School badge, Mandatory Disclosure, and School Prospectus PDFs.
+                </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
+                <span class="text-xs text-slate-400 font-medium">Header Bar</span>
+                <a href="{{ route('admin.top-bar.index') }}" class="inline-flex items-center justify-center rounded-md text-xs font-semibold transition-colors bg-jrs-navy hover:bg-jrs-red text-white h-8 px-3 gap-1 shadow-2xs">
+                    <span>Manage</span>
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+                </a>
+            </div>
+        </div>
+
         <!-- Module 1: News Ticker Announcement -->
         <div class="rounded-xl border border-slate-200 bg-white p-5 sm:p-6 shadow-xs flex flex-col justify-between hover:border-jrs-navy/40 transition-colors">
             <div>
@@ -351,6 +374,52 @@
             <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
                 <span class="text-xs text-slate-400">Collaboration</span>
                 <a href="{{ route('admin.pta-members.index') }}" class="inline-flex items-center justify-center rounded-md text-xs font-medium transition-colors bg-slate-900 text-white hover:bg-slate-800 h-8 px-3 gap-1 shadow-2xs">
+                    <span>Manage</span>
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+                </a>
+            </div>
+        </div>
+
+        <!-- Module 7: Gallery Page -->
+        <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-xs flex flex-col justify-between hover:border-slate-300 transition-colors">
+            <div>
+                <div class="w-10 h-10 rounded-lg bg-red-50 text-jrs-red flex items-center justify-center mb-4 border border-red-200/60">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                </div>
+                <div class="flex items-center justify-between gap-2">
+                    <h3 class="text-base font-semibold text-slate-900 font-heading tracking-tight">Gallery Page</h3>
+                    <span class="inline-flex items-center rounded-full border border-emerald-200 bg-emerald-50 px-2 py-0.5 text-[11px] font-medium text-emerald-700">Active</span>
+                </div>
+                <p class="text-xs text-slate-500 mt-2 leading-relaxed">
+                    Manage 6 gallery showcase sections (Amphitheatre, Annual Days, Science Experiments, Life Skills Videos, Republic Day) and all photos/videos.
+                </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
+                <span class="text-xs text-slate-400">Photo & Video Grids</span>
+                <a href="{{ route('admin.gallery-albums.index') }}" class="inline-flex items-center justify-center rounded-md text-xs font-medium transition-colors bg-jrs-red text-white hover:opacity-95 h-8 px-3 gap-1 shadow-2xs">
+                    <span>Manage</span>
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+                </a>
+            </div>
+        </div>
+
+        <!-- Module 8: News & Media (Press Coverage) -->
+        <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-xs flex flex-col justify-between hover:border-slate-300 transition-colors">
+            <div>
+                <div class="w-10 h-10 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center mb-4 border border-amber-200/60">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/></svg>
+                </div>
+                <div class="flex items-center justify-between gap-2">
+                    <h3 class="text-base font-semibold text-slate-900 font-heading tracking-tight">News & Media</h3>
+                    <span class="inline-flex items-center rounded-full border border-amber-200 bg-amber-50 px-2 py-0.5 text-[11px] font-medium text-amber-700">Press</span>
+                </div>
+                <p class="text-xs text-slate-500 mt-2 leading-relaxed">
+                    Manage newspaper clippings ("Our Achievements In The News" featured cards and "Latest News" campus press coverage from Mana Telangana, Surya Daily, Vaartha, Andhra Prabha).
+                </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
+                <span class="text-xs text-slate-400">Press Clippings</span>
+                <a href="{{ route('admin.news-media.index') }}" class="inline-flex items-center justify-center rounded-md text-xs font-medium transition-colors bg-jrs-navy text-white hover:bg-jrs-red h-8 px-3 gap-1 shadow-2xs">
                     <span>Manage</span>
                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
                 </a>

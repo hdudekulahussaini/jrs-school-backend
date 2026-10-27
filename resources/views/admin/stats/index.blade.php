@@ -69,7 +69,6 @@
                         <th class="h-10 px-4 w-20 text-center">Icon</th>
                         <th class="h-10 px-4 w-32 font-bold text-slate-700">Value</th>
                         <th class="h-10 px-4 min-w-[200px]">Metric Label / Title</th>
-                        <th class="h-10 px-4 min-w-[220px]">Description</th>
                         <th class="h-10 px-4 w-28 text-center">Status</th>
                         <th class="h-10 px-4 w-32 text-right">Actions</th>
                     </tr>
@@ -116,12 +115,6 @@
                                 <span class="font-mono text-[11px] text-slate-400">icon: {{ $stat->icon ?? 'graduation-cap' }}</span>
                             </td>
 
-                            <!-- Description -->
-                            <td class="p-4 align-middle">
-                                <p class="text-xs text-slate-600 line-clamp-2 max-w-sm">
-                                    {{ $stat->description ?? '—' }}
-                                </p>
-                            </td>
 
                             <!-- Status Toggle -->
                             <td class="p-4 align-middle text-center">
@@ -152,7 +145,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="7" class="p-8 text-center text-slate-500 text-xs sm:text-sm">
+                            <td colspan="6" class="p-8 text-center text-slate-500 text-xs sm:text-sm">
                                 <div class="max-w-sm mx-auto space-y-2">
                                     <svg class="w-8 h-8 text-slate-300 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
                                     <p class="font-medium">No stats cards found.</p>

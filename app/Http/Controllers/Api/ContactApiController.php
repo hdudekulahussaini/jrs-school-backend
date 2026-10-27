@@ -33,6 +33,7 @@ class ContactApiController extends Controller
             ],
         ], 200);
     }
+    /**
      * Submit Online Inquiry Message from Contact Us page.
      * POST /api/contact/inquiry or POST /api/contact-inquiries
      */

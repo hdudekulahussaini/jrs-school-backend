@@ -65,6 +65,7 @@ class HomeStatController extends Controller
         $validated['sort_order'] = $request->input('sort_order', 0);
         $validated['color'] = $request->input('color', '#eab308');
         $validated['icon'] = $request->input('icon', 'graduation-cap');
+        $validated['description'] = $request->input('description', null);
 
         HomeStat::create($validated);
 
@@ -102,6 +103,7 @@ class HomeStatController extends Controller
         $validated['sort_order'] = $request->input('sort_order', 0);
         $validated['color'] = $request->input('color', '#eab308');
         $validated['icon'] = $request->input('icon', 'graduation-cap');
+        $validated['description'] = $request->input('description', null);
 
         $stat->update($validated);
 

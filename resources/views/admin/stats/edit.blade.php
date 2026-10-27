@@ -62,16 +62,6 @@
                     </div>
                 </div>
 
-                <!-- Description -->
-                <div>
-                    <label for="description" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                        Description / Subtitle (Optional)
-                    </label>
-                    <textarea name="description" id="description" rows="2" placeholder="Optional context or caption..." class="flex min-h-[60px] w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm shadow-xs placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-jrs-navy">{{ old('description', $stat->description) }}</textarea>
-                    @error('description')
-                        <p class="text-xs text-jrs-red mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
 
                 <!-- Icon & Color -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">

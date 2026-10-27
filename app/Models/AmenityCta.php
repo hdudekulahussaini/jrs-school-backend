@@ -64,6 +64,7 @@ class AmenityCta extends Model
             'secondary_button_text' => 'nullable|string|max:100',
             'secondary_button_url' => 'nullable|string|max:255',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,webp,svg|max:5120',
+            'image_file' => 'nullable|image|mimes:jpeg,png,jpg,webp,svg|max:5120',
             'bg_color' => 'nullable|string|max:50',
             'is_active' => 'nullable|boolean',
         ];

@@ -145,6 +145,9 @@
                 @error('image')
                     <p class="text-xs text-red-600">{{ $message }}</p>
                 @enderror
+                @error('image_file')
+                    <p class="text-xs text-red-600">{{ $message }}</p>
+                @enderror
             </div>
 
             <!-- Active Status -->

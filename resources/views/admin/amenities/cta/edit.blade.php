@@ -147,6 +147,9 @@
                        accept="image/*"
                        class="w-full px-3 py-2 text-xs rounded-md border border-slate-200 file:mr-3 file:py-1 file:px-2.5 file:rounded file:border-0 file:text-xs file:font-semibold file:bg-jrs-navy file:text-white hover:file:opacity-90">
                 <p class="text-[11px] text-slate-500">Upload a new image only to replace the current artwork.</p>
+                @error('image_file')
+                    <p class="text-xs text-red-600">{{ $message }}</p>
+                @enderror
             </div>
 
             <!-- Active Status -->

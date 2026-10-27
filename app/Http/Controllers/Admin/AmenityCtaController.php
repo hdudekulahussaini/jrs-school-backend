@@ -62,17 +62,18 @@ class AmenityCtaController extends Controller
     /**
      * Show the form for editing the specified CTA banner.
      */
-    public function edit(AmenityCta $amenities_ctum)
+    public function edit($id)
     {
-        $cta = $amenities_ctum;
+        $cta = AmenityCta::findOrFail($id);
         return view('admin.amenities.cta.edit', compact('cta'));
     }
 
     /**
      * Update the specified CTA banner in storage.
      */
-    public function update(Request $request, AmenityCta $amenities_ctum)
+    public function update(Request $request, $id)
     {
+        $cta = AmenityCta::findOrFail($id);
         $validated = $request->validate(AmenityCta::validationRules());
         $isActive = $request->has('is_active');
         $validated['is_active'] = $isActive;
@@ -87,10 +88,10 @@ class AmenityCtaController extends Controller
         unset($validated['image_file']);
 
         if ($isActive) {
-            AmenityCta::where('id', '!=', $amenities_ctum->id)->update(['is_active' => false]);
+            AmenityCta::where('id', '!=', $cta->id)->update(['is_active' => false]);
         }
 
-        $amenities_ctum->update($validated);
+        $cta->update($validated);
 
         return redirect()->route('admin.amenities-cta.index')
             ->with('success', 'Amenities CTA banner updated successfully.');
@@ -99,9 +100,10 @@ class AmenityCtaController extends Controller
     /**
      * Remove the specified CTA banner from storage.
      */
-    public function destroy(AmenityCta $amenities_ctum)
+    public function destroy($id)
     {
-        $amenities_ctum->delete();
+        $cta = AmenityCta::findOrFail($id);
+        $cta->delete();
 
         return redirect()->route('admin.amenities-cta.index')
             ->with('success', 'Amenities CTA banner deleted successfully.');

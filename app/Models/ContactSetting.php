@@ -16,5 +16,18 @@ class ContactSetting extends Model
         'phone',
         'email',
         'map_link',
+        'facebook_url',
+        'instagram_url',
+        'twitter_url',
+        'youtube_url',
+        'linkedin_url',
+        'social_links',
+    ];
+
+    /**
+     * The attributes that should be cast.
+     */
+    protected $casts = [
+        'social_links' => 'array',
     ];
 }

@@ -67,6 +67,7 @@ class HeroSliderController extends Controller
         $validated = $request->validated();
         $validated['is_active'] = $request->has('is_active');
         $validated['sort_order'] = $request->input('sort_order', 0);
+        $validated['contact_phone'] = $request->input('contact_phone', null);
 
         // Handle Image Upload
         if ($request->hasFile('image')) {
@@ -114,6 +115,7 @@ class HeroSliderController extends Controller
         $slider = HeroSlider::findOrFail($id);
         $validated = $request->validated();
         $validated['is_active'] = $request->has('is_active');
+        $validated['contact_phone'] = $request->input('contact_phone', null);
 
         // Check if user requested to remove image
         if ($request->has('remove_image') && $request->remove_image == '1') {

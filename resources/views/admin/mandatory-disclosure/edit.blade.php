@@ -52,6 +52,8 @@
                 <select id="category" name="category" onchange="toggleCategoryFields(this.value)" class="w-full h-10 px-3.5 rounded-xl border border-slate-200 bg-white text-sm shadow-xs focus:outline-none focus:ring-2 focus:ring-jrs-navy/20 focus:border-jrs-navy font-semibold text-slate-800">
                     <option value="general_info" {{ old('category', $item->category) === 'general_info' ? 'selected' : '' }}>General Information (Table 1: Name, Affiliation, Code, Email, Contacts)</option>
                     <option value="document" {{ old('category', $item->category) === 'document' ? 'selected' : '' }}>Documents And Information (Table 2: Statutory Certificates &amp; PDFs)</option>
+                    <option value="infrastructure" {{ old('category', $item->category) === 'infrastructure' ? 'selected' : '' }}>School Infrastructure (Table 3: Campus Area, Rooms, Labs, Video Link)</option>
+                    <option value="smc" {{ old('category', $item->category) === 'smc' ? 'selected' : '' }}>School Management Committee (Table 4: SMC Details &amp; Documents)</option>
                 </select>
             </div>
 
@@ -65,25 +67,26 @@
                     <label for="title" class="block text-xs font-semibold text-slate-700">
                         <span id="titleLabel">Information Title</span> <span class="text-rose-500">*</span>
                     </label>
-                    <input type="text" id="title" name="title" value="{{ old('title', $item->title) }}" required placeholder="e.g. Name of the School or Building Safety Certificate" class="w-full h-10 px-3.5 rounded-xl border border-slate-200 bg-white text-sm shadow-xs placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-jrs-navy/20 focus:border-jrs-navy">
+                    <input type="text" id="title" name="title" value="{{ old('title', $item->title) }}" required placeholder="e.g. Name of the School or Total Campus Area" class="w-full h-10 px-3.5 rounded-xl border border-slate-200 bg-white text-sm shadow-xs placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-jrs-navy/20 focus:border-jrs-navy">
                 </div>
             </div>
 
-            <!-- General Info Field (Details text) -->
+            <!-- General Info / Details Field -->
             <div id="generalInfoFields" class="space-y-1.5">
                 <label for="value" class="block text-xs font-semibold text-slate-700">
-                    Details / Value <span class="text-rose-500">*</span>
+                    <span id="valueLabel">Details / Value</span> <span id="valueRequiredStar" class="text-rose-500">*</span>
                 </label>
-                <textarea id="value" name="value" rows="3" placeholder="e.g. JRS INTERNATIONAL SCHOOL or 3630372 or info@jrsinternationalschool.com" class="w-full p-3.5 rounded-xl border border-slate-200 bg-white text-sm shadow-xs placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-jrs-navy/20 focus:border-jrs-navy">{{ old('value', $item->value) }}</textarea>
+                <textarea id="value" name="value" rows="3" placeholder="e.g. JRS INTERNATIONAL SCHOOL or 12,477 Sq. Mtr. (3.08 Acres) or 22 Classrooms (48 Sq. Mtr. each)" class="w-full p-3.5 rounded-xl border border-slate-200 bg-white text-sm shadow-xs placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-jrs-navy/20 focus:border-jrs-navy">{{ old('value', $item->value) }}</textarea>
             </div>
 
-            <!-- Document Upload Fields -->
+            <!-- Document / Action Button Upload Fields -->
             <div id="documentFields" class="space-y-4">
                 <div class="space-y-1.5">
                     <label for="button_label" class="block text-xs font-semibold text-slate-700">
-                        Document Button Label
+                        <span id="buttonLabelText">Document Button Label</span>
                     </label>
-                    <input type="text" id="button_label" name="button_label" value="{{ old('button_label', $item->button_label) }}" placeholder="e.g. Building Safety Certificate or NOC Certificate" class="w-full h-10 px-3.5 rounded-xl border border-slate-200 bg-white text-sm shadow-xs placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-jrs-navy/20 focus:border-jrs-navy">
+                    <input type="text" id="button_label" name="button_label" value="{{ old('button_label', $item->button_label) }}" placeholder="e.g. Building Safety Certificate, Land Certificate, or Watch Video" class="w-full h-10 px-3.5 rounded-xl border border-slate-200 bg-white text-sm shadow-xs placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-jrs-navy/20 focus:border-jrs-navy">
+                    <p class="text-[11px] text-slate-400">Label shown on the document/action button (e.g. "Land Certificate", "Watch Video", "View SMC Details").</p>
                 </div>
 
                 <div class="space-y-1.5">
@@ -102,8 +105,11 @@
                 </div>
 
                 <div class="space-y-1.5">
-                    <label for="file_url" class="block text-xs font-semibold text-slate-700">External Document URL (Optional Alternative)</label>
-                    <input type="url" id="file_url" name="file_url" value="{{ old('file_url', $item->file_url) }}" placeholder="https://..." class="w-full h-10 px-3.5 rounded-xl border border-slate-200 bg-white text-sm shadow-xs placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-jrs-navy/20 focus:border-jrs-navy">
+                    <label for="file_url" class="block text-xs font-semibold text-slate-700">
+                        <span id="fileUrlLabel">External Document or Video URL (Optional)</span>
+                    </label>
+                    <input type="url" id="file_url" name="file_url" value="{{ old('file_url', $item->file_url) }}" placeholder="https://youtube.com/watch?v=... or https://..." class="w-full h-10 px-3.5 rounded-xl border border-slate-200 bg-white text-sm shadow-xs placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-jrs-navy/20 focus:border-jrs-navy">
+                    <p class="text-[11px] text-slate-400">For YouTube inspection video, enter YouTube URL here and set button label to "Watch Video".</p>
                 </div>
             </div>
 
@@ -145,15 +151,40 @@
         const generalFields = document.getElementById('generalInfoFields');
         const documentFields = document.getElementById('documentFields');
         const titleLabel = document.getElementById('titleLabel');
+        const titleInput = document.getElementById('title');
+        const valueLabel = document.getElementById('valueLabel');
+        const buttonLabelText = document.getElementById('buttonLabelText');
+        const valueRequiredStar = document.getElementById('valueRequiredStar');
 
         if (category === 'general_info') {
             generalFields.classList.remove('hidden');
             documentFields.classList.add('hidden');
-            titleLabel.textContent = 'Information Title';
-        } else {
+            titleLabel.textContent = 'Information';
+            titleInput.placeholder = 'e.g. Name of the School or Affiliation No';
+            valueLabel.textContent = 'Details / Value';
+            valueRequiredStar.classList.remove('hidden');
+        } else if (category === 'document') {
             generalFields.classList.add('hidden');
             documentFields.classList.remove('hidden');
             titleLabel.textContent = 'Documents / Information Name';
+            titleInput.placeholder = 'e.g. Copies of Affiliation / Upgradation Letter';
+            buttonLabelText.textContent = 'Upload Documents Button Label';
+            valueRequiredStar.classList.add('hidden');
+        } else if (category === 'infrastructure') {
+            generalFields.classList.remove('hidden');
+            documentFields.classList.remove('hidden');
+            titleLabel.textContent = 'Infrastructure Information';
+            titleInput.placeholder = 'e.g. Total Campus Area of the School, No. and Size of Classrooms, or Link of YouTube Video';
+            valueLabel.textContent = 'Details (e.g. 12,477 Sq. Mtr., 22 Classrooms, Yes, 20)';
+            buttonLabelText.textContent = 'Action Button Label (Optional, e.g. Land Certificate or Watch Video)';
+            valueRequiredStar.classList.add('hidden');
+        } else if (category === 'smc') {
+            generalFields.classList.add('hidden');
+            documentFields.classList.remove('hidden');
+            titleLabel.textContent = 'Documents / Information Name';
+            titleInput.placeholder = 'e.g. School Management Committee (SMC)';
+            buttonLabelText.textContent = 'Action Button Label (e.g. View SMC Details)';
+            valueRequiredStar.classList.add('hidden');
         }
     }
 

@@ -45,18 +45,34 @@ class MandatoryDisclosureController extends Controller
             ->orderBy('id', 'asc')
             ->get();
 
+        $infrastructures = MandatoryDisclosure::where('category', 'infrastructure')
+            ->orderBy('sort_order', 'asc')
+            ->orderBy('id', 'asc')
+            ->get();
+
+        $smcItems = MandatoryDisclosure::where('category', 'smc')
+            ->orderBy('sort_order', 'asc')
+            ->orderBy('id', 'asc')
+            ->get();
+
         $totalCount = MandatoryDisclosure::count();
         $generalCount = $generalInfos->count();
         $documentCount = $documents->count();
+        $infrastructureCount = $infrastructures->count();
+        $smcCount = $smcItems->count();
         $activeCount = MandatoryDisclosure::where('is_active', true)->count();
 
         return view('admin.mandatory-disclosure.index', compact(
             'items',
             'generalInfos',
             'documents',
+            'infrastructures',
+            'smcItems',
             'totalCount',
             'generalCount',
             'documentCount',
+            'infrastructureCount',
+            'smcCount',
             'activeCount'
         ));
     }

@@ -59,36 +59,77 @@ class TopBarController extends Controller
             $validated['email_href'] = 'mailto:' . $validated['email'];
         }
 
+        // Retain or set standard titles
+        $validated['mandatory_disclosure_title'] = $topBar->mandatory_disclosure_title ?: 'Mandatory Disclosure';
+        $validated['prospectus_title'] = $topBar->prospectus_title ?: 'School Prospectus';
+
+        // Keep affiliation code if already stored
+        if (!isset($validated['cbse_affiliation_code'])) {
+            $validated['cbse_affiliation_code'] = $topBar->cbse_affiliation_code;
+        }
+
         $uploadDir = public_path('uploads/documents');
         if (!File::exists($uploadDir)) {
             File::makeDirectory($uploadDir, 0755, true);
         }
 
-        // Handle Mandatory Disclosure PDF upload
-        if ($request->hasFile('mandatory_disclosure_file_upload')) {
+        // Handle Mandatory Disclosure (URL or Upload Option)
+        $mandatoryType = $request->input('mandatory_disclosure_type', 'file');
+        if ($mandatoryType === 'url') {
+            // Delete previous file if switching to external URL
             if ($topBar->mandatory_disclosure_file && File::exists(public_path(ltrim($topBar->mandatory_disclosure_file, '/')))) {
                 File::delete(public_path(ltrim($topBar->mandatory_disclosure_file, '/')));
             }
+            $validated['mandatory_disclosure_file'] = null;
+            $validated['mandatory_disclosure_url'] = $request->input('mandatory_disclosure_url');
+        } else {
+            // File upload option
+            if ($request->hasFile('mandatory_disclosure_file_upload')) {
+                if ($topBar->mandatory_disclosure_file && File::exists(public_path(ltrim($topBar->mandatory_disclosure_file, '/')))) {
+                    File::delete(public_path(ltrim($topBar->mandatory_disclosure_file, '/')));
+                }
 
-            $file = $request->file('mandatory_disclosure_file_upload');
-            $filename = 'mandatory_disclosure_' . time() . '.' . $file->getClientOriginalExtension();
-            $file->move($uploadDir, $filename);
-            $validated['mandatory_disclosure_file'] = '/uploads/documents/' . $filename;
+                $file = $request->file('mandatory_disclosure_file_upload');
+                $filename = 'mandatory_disclosure_' . time() . '.' . $file->getClientOriginalExtension();
+                $file->move($uploadDir, $filename);
+                $validated['mandatory_disclosure_file'] = '/uploads/documents/' . $filename;
+            }
+            // Clear URL when active file exists
+            if (!empty($validated['mandatory_disclosure_file']) || !empty($topBar->mandatory_disclosure_file)) {
+                $validated['mandatory_disclosure_url'] = null;
+            }
         }
 
-        // Handle School Prospectus PDF upload
-        if ($request->hasFile('prospectus_file_upload')) {
+        // Handle School Prospectus (URL or Upload Option)
+        $prospectusType = $request->input('prospectus_type', 'file');
+        if ($prospectusType === 'url') {
+            // Delete previous file if switching to external URL
             if ($topBar->prospectus_file && File::exists(public_path(ltrim($topBar->prospectus_file, '/')))) {
                 File::delete(public_path(ltrim($topBar->prospectus_file, '/')));
             }
+            $validated['prospectus_file'] = null;
+            $validated['prospectus_url'] = $request->input('prospectus_url');
+        } else {
+            // File upload option
+            if ($request->hasFile('prospectus_file_upload')) {
+                if ($topBar->prospectus_file && File::exists(public_path(ltrim($topBar->prospectus_file, '/')))) {
+                    File::delete(public_path(ltrim($topBar->prospectus_file, '/')));
+                }
 
-            $file = $request->file('prospectus_file_upload');
-            $filename = 'prospectus_' . time() . '.' . $file->getClientOriginalExtension();
-            $file->move($uploadDir, $filename);
-            $validated['prospectus_file'] = '/uploads/documents/' . $filename;
+                $file = $request->file('prospectus_file_upload');
+                $filename = 'prospectus_' . time() . '.' . $file->getClientOriginalExtension();
+                $file->move($uploadDir, $filename);
+                $validated['prospectus_file'] = '/uploads/documents/' . $filename;
+            }
+            // Clear URL when active file exists
+            if (!empty($validated['prospectus_file']) || !empty($topBar->prospectus_file)) {
+                $validated['prospectus_url'] = null;
+            }
         }
 
+        unset($validated['mandatory_disclosure_type']);
         unset($validated['mandatory_disclosure_file_upload']);
+        unset($validated['prospectus_type']);
         unset($validated['prospectus_file_upload']);
 
         $topBar->fill($validated);

@@ -167,16 +167,11 @@
                     <h4 class="text-xs font-semibold uppercase tracking-wider text-slate-500">4. Display Settings</h4>
                 </div>
 
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 items-center">
                     <div class="space-y-2">
                         <label for="sort_order" class="text-sm font-medium leading-none text-slate-700">Display Order</label>
                         <input type="number" name="sort_order" id="sort_order" value="{{ old('sort_order', $slider->sort_order) }}" min="0" class="flex h-9 w-full rounded-md border border-slate-200 bg-white px-3 py-1 text-sm shadow-xs focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-950">
                         <p class="text-xs text-slate-500">Order sequence (lower numbers first).</p>
-                    </div>
-
-                    <div class="space-y-2">
-                        <label for="contact_phone" class="text-sm font-medium leading-none text-slate-700">Contact Phone (Optional)</label>
-                        <input type="text" name="contact_phone" id="contact_phone" value="{{ old('contact_phone', $slider->contact_phone) }}" placeholder="e.g. +91 91574 04321" class="flex h-9 w-full rounded-md border border-slate-200 bg-white px-3 py-1 text-sm shadow-xs focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-950">
                     </div>
 
                     <!-- Switch (shadcn/ui style Switch) -->

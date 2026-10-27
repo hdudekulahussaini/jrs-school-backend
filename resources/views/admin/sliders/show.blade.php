@@ -115,10 +115,6 @@
                 </div>
             </div>
 
-            <div class="p-4 grid grid-cols-1 sm:grid-cols-3 gap-1">
-                <span class="font-medium text-slate-500">Contact Phone:</span>
-                <span class="sm:col-span-2 text-slate-900 font-mono text-xs">{{ $slider->contact_phone ?: '—' }}</span>
-            </div>
 
             <div class="p-4 grid grid-cols-1 sm:grid-cols-3 gap-1">
                 <span class="font-medium text-slate-500">Display Order:</span>

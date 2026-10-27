@@ -25,6 +25,18 @@ class MandatoryDisclosureApiController extends Controller
             ->orderBy('id', 'asc')
             ->get();
 
+        $infrastructure = MandatoryDisclosure::where('category', 'infrastructure')
+            ->where('is_active', true)
+            ->orderBy('sort_order', 'asc')
+            ->orderBy('id', 'asc')
+            ->get();
+
+        $smc = MandatoryDisclosure::where('category', 'smc')
+            ->where('is_active', true)
+            ->orderBy('sort_order', 'asc')
+            ->orderBy('id', 'asc')
+            ->get();
+
         return response()->json([
             'success' => true,
             'message' => 'Mandatory Disclosure data retrieved successfully',
@@ -45,6 +57,16 @@ class MandatoryDisclosureApiController extends Controller
                     'title' => 'Documents And Information',
                     'count' => $documents->count(),
                     'items' => $documents,
+                ],
+                'school_infrastructure' => [
+                    'title' => 'School Infrastructure',
+                    'count' => $infrastructure->count(),
+                    'items' => $infrastructure,
+                ],
+                'school_management_committee' => [
+                    'title' => 'School Management Committee',
+                    'count' => $smc->count(),
+                    'items' => $smc,
                 ],
             ],
         ], 200, [], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);

@@ -2033,20 +2033,11 @@
                             responses: {
                                 "200": {
                                     description: "Top Bar details retrieved successfully",
-                    "/admission-hero": {
-                        get: {
-                            tags: ["Admissions (Frontend)"],
-                            summary: "Get Admission Open Hero Header for React site",
-                            description: "Returns top admission banner details: location tag, title, academic year, description, contact numbers, 3 highlight features (CBSE, Holistic, Faculty), and trust badges.",
-                            responses: {
-                                "200": {
-                                    description: "Successful response with admission hero data",
                                     content: {
                                         "application/json": {
                                             example: {
                                                 success: true,
                                                 data: {
-
                                                     phone: { label: "+91 915740 43210", href: "tel:+9191574043210", highlight_color: "#e31e24" },
                                                     email: { label: "info@jrsinternationalschool.com", href: "mailto:info@jrsinternationalschool.com" },
                                                     affiliation: { label: "CBSE Affiliated School", code: "Affiliation No. 3630372" },
@@ -2158,7 +2149,23 @@
                                             }
                                         }
                                     }
-
+                                }
+                            }
+                        }
+                    },
+                    "/admission-hero": {
+                        get: {
+                            tags: ["Admissions (Frontend)"],
+                            summary: "Get Admission Open Hero Header for React site",
+                            description: "Returns top admission banner details: location tag, title, academic year, description, contact numbers, 3 highlight features (CBSE, Holistic, Faculty), and trust badges.",
+                            responses: {
+                                "200": {
+                                    description: "Successful response with admission hero data",
+                                    content: {
+                                        "application/json": {
+                                            example: {
+                                                success: true,
+                                                data: {
                                                     id: 1,
                                                     location_tag: "NARAPALLY, HYDERABAD",
                                                     title: "Admission Open For",
@@ -2637,6 +2644,128 @@
                                     description: "Validation error"
                                 }
                             }
+                        }
+                    },
+                    "/breadcrumb-banners/page/{slug}": {
+                        get: {
+                            tags: ["Breadcrumb Banners (Frontend)"],
+                            summary: "Get dynamic breadcrumb banner by page slug",
+                            description: "Returns the active breadcrumb banner (title, orange highlight, subtitle, description, buttons, background artwork, and stats cards) for any page slug (e.g. about, principals-message, educational-society, school-management-committee).",
+                            parameters: [
+                                {
+                                    name: "slug",
+                                    in: "path",
+                                    required: true,
+                                    description: "The page slug (e.g. principals-message, educational-society, school-management-committee, about)",
+                                    schema: { type: "string", example: "principals-message" }
+                                }
+                            ],
+                            responses: {
+                                "200": {
+                                    description: "Active breadcrumb banner data",
+                                    content: {
+                                        "application/json": {
+                                            example: {
+                                                success: true,
+                                                data: {
+                                                    id: 2,
+                                                    page_name: "Principal's Message",
+                                                    page_slug: "principals-message",
+                                                    breadcrumb_title: "Principal's Message",
+                                                    title: "Principal’s",
+                                                    highlighted_title: "Message",
+                                                    subtitle: "Empowering Minds and Enriching Lives.",
+                                                    description: "At JRS International School, we believe that every child has unique potential, and meaningful education is about discovering, nurturing and transforming that potential into purpose.",
+                                                    background_image: "http://127.0.0.1:8000/images/amenities/cta-banner.png",
+                                                    primary_button: { text: "Read Message", url: "/principal" },
+                                                    secondary_button: { text: "About JRS", url: "/about" },
+                                                    stats: [],
+                                                    is_active: true
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "404": { description: "Banner not found for given slug" }
+                            }
+                        }
+                    },
+                    "/breadcrumb-banners": {
+                        get: {
+                            tags: ["Breadcrumb Banners (Frontend)"],
+                            summary: "List all active breadcrumb banners",
+                            parameters: [
+                                { name: "all", in: "query", schema: { type: "boolean" }, description: "Set to 1 to include inactive banners" },
+                                { name: "search", in: "query", schema: { type: "string" }, description: "Filter by title or page" }
+                            ],
+                            responses: {
+                                "200": { description: "List of banners" }
+                            }
+                        },
+                        post: {
+                            tags: ["Breadcrumb Banners (Admin / API)"],
+                            summary: "Create a new breadcrumb banner",
+                            requestBody: {
+                                required: true,
+                                content: {
+                                    "application/json": {
+                                        schema: {
+                                            type: "object",
+                                            required: ["page_name", "page_slug", "breadcrumb_title", "title"],
+                                            properties: {
+                                                page_name: { type: "string", example: "About JRS" },
+                                                page_slug: { type: "string", example: "about" },
+                                                breadcrumb_title: { type: "string", example: "About JRS" },
+                                                title: { type: "string", example: "About" },
+                                                highlighted_title: { type: "string", example: "JRS" },
+                                                subtitle: { type: "string", example: "Learning Today. Leading Tomorrow." },
+                                                description: { type: "string", example: "At JRS International School, we are dedicated to providing a transformative educational experience..." },
+                                                primary_button_text: { type: "string", example: "Our Story" },
+                                                primary_button_url: { type: "string", example: "#our-story" },
+                                                secondary_button_text: { type: "string", example: "Watch Campus Video" },
+                                                secondary_button_url: { type: "string", example: "#campus-video" },
+                                                is_active: { type: "boolean", example: true }
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            responses: {
+                                "201": { description: "Banner created successfully" }
+                            }
+                        }
+                    },
+                    "/breadcrumb-banners/{id}": {
+                        get: {
+                            tags: ["Breadcrumb Banners (Frontend)"],
+                            summary: "Get banner by ID or Slug",
+                            parameters: [
+                                { name: "id", in: "path", required: true, schema: { type: "string" } }
+                            ],
+                            responses: { "200": { description: "Banner record" } }
+                        },
+                        put: {
+                            tags: ["Breadcrumb Banners (Admin / API)"],
+                            summary: "Update existing banner",
+                            parameters: [
+                                { name: "id", in: "path", required: true, schema: { type: "integer" } }
+                            ],
+                            responses: { "200": { description: "Banner updated" } }
+                        },
+                        delete: {
+                            tags: ["Breadcrumb Banners (Admin / API)"],
+                            summary: "Delete banner",
+                            parameters: [
+                                { name: "id", in: "path", required: true, schema: { type: "integer" } }
+                            ],
+                            responses: { "200": { description: "Banner deleted" } }
+                        }
+                    },
+                    "/breadcrumb-banners/pages": {
+                        get: {
+                            tags: ["Breadcrumb Banners (Frontend)"],
+                            summary: "List all supported website pages & their configuration status",
+                            responses: { "200": { description: "Supported pages list" } }
                         }
                     }
                 }

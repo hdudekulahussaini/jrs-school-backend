@@ -22,17 +22,44 @@ class ContactApiController extends Controller
             ], 404);
         }
 
+        // Prepare normalized social links list
+        $socialLinksList = $contact->social_links;
+        if (empty($socialLinksList) || !is_array($socialLinksList)) {
+            $socialLinksList = array_values(array_filter([
+                $contact->facebook_url ? ['platform' => 'Facebook', 'icon' => 'fab fa-facebook-f', 'url' => $contact->facebook_url] : null,
+                $contact->instagram_url ? ['platform' => 'Instagram', 'icon' => 'fab fa-instagram', 'url' => $contact->instagram_url] : null,
+                $contact->twitter_url ? ['platform' => 'X (Twitter)', 'icon' => 'fab fa-x-twitter', 'url' => $contact->twitter_url] : null,
+                $contact->youtube_url ? ['platform' => 'YouTube', 'icon' => 'fab fa-youtube', 'url' => $contact->youtube_url] : null,
+                $contact->linkedin_url ? ['platform' => 'LinkedIn', 'icon' => 'fab fa-linkedin-in', 'url' => $contact->linkedin_url] : null,
+            ]));
+        }
+
         return response()->json([
             'success' => true,
             'data'    => [
-                'id'       => $contact->id,
-                'address'  => $contact->address,
-                'phone'    => $contact->phone,
-                'email'    => $contact->email,
-                'map_link' => $contact->map_link,
+                'id'            => $contact->id,
+                'address'       => $contact->address,
+                'phone'         => $contact->phone,
+                'email'         => $contact->email,
+                'map_link'      => $contact->map_link,
+                'facebook_url'  => $contact->facebook_url,
+                'instagram_url' => $contact->instagram_url,
+                'twitter_url'   => $contact->twitter_url,
+                'youtube_url'   => $contact->youtube_url,
+                'linkedin_url'  => $contact->linkedin_url,
+                'social_links'  => $socialLinksList,
+                'social_links_map' => [
+                    'facebook'  => $contact->facebook_url,
+                    'instagram' => $contact->instagram_url,
+                    'twitter'   => $contact->twitter_url,
+                    'x'         => $contact->twitter_url,
+                    'youtube'   => $contact->youtube_url,
+                    'linkedin'  => $contact->linkedin_url,
+                ],
             ],
         ], 200);
     }
+
     /**
      * Submit Online Inquiry Message from Contact Us page.
      * POST /api/contact/inquiry or POST /api/contact-inquiries

@@ -31,6 +31,7 @@ use App\Http\Controllers\Api\AdmissionFaqApiController;
 use App\Http\Controllers\Api\AdmissionHeroApiController;
 use App\Http\Controllers\Api\AdmissionEnquiryApiController;
 use App\Http\Controllers\Api\ContactApiController;
+use App\Http\Controllers\Api\BreadcrumbBannerApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -192,6 +193,17 @@ Route::get('/contact/grades', [ContactApiController::class, 'grades']);
 // Admission Form Enquiries (Submission & Options)
 Route::post('/admission-enquiries', [AdmissionEnquiryApiController::class, 'store']);
 Route::get('/admission-enquiries/options', [AdmissionEnquiryApiController::class, 'options']);
+
+// Breadcrumb Banners REST APIs (Dynamic Header Banners for React Frontend)
+Route::get('/breadcrumb-banners/pages', [BreadcrumbBannerApiController::class, 'pages']);
+Route::get('/breadcrumb-banners/page/{slug}', [BreadcrumbBannerApiController::class, 'getBySlug']);
+Route::get('/breadcrumb-banners/by-slug/{slug}', [BreadcrumbBannerApiController::class, 'getBySlug']);
+Route::get('/breadcrumb-banners', [BreadcrumbBannerApiController::class, 'index']);
+Route::post('/breadcrumb-banners', [BreadcrumbBannerApiController::class, 'store']);
+Route::get('/breadcrumb-banners/{idOrSlug}', [BreadcrumbBannerApiController::class, 'show']);
+Route::put('/breadcrumb-banners/{id}', [BreadcrumbBannerApiController::class, 'update']);
+Route::patch('/breadcrumb-banners/{id}', [BreadcrumbBannerApiController::class, 'update']);
+Route::delete('/breadcrumb-banners/{id}', [BreadcrumbBannerApiController::class, 'destroy']);
 
 
 

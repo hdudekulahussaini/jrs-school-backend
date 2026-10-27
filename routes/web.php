@@ -39,6 +39,8 @@ use App\Http\Controllers\Admin\PrincipalMessageController;
 use App\Http\Controllers\Admin\EducationalSocietyController;
 use App\Http\Controllers\Admin\SchoolManagementCommitteeController;
 use App\Http\Controllers\Admin\MandatoryDisclosureController;
+use App\Http\Controllers\Admin\BreadcrumbBannerController;
+use App\Http\Controllers\Admin\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -64,6 +66,13 @@ Route::get('/swagger', function () {
 // Protected Admin Dashboard Routes
 Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('admin.dashboard');
+
+    // Admin Profile Management (Update Profile, Email, Password)
+    Route::get('/profile', [ProfileController::class, 'index'])->name('admin.profile.index');
+    Route::put('/profile', [ProfileController::class, 'updateProfile'])->name('admin.profile.update');
+    Route::put('/profile/email', [ProfileController::class, 'updateEmail'])->name('admin.profile.email');
+    Route::put('/profile/password', [ProfileController::class, 'updatePassword'])->name('admin.profile.password');
+
     Route::get('/top-bar', [TopBarController::class, 'index'])->name('admin.top-bar.index');
     Route::post('/top-bar', [TopBarController::class, 'update'])->name('admin.top-bar.update');
 
@@ -190,6 +199,11 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
 
     // Contact Us Online Inquiries CRM
     Route::resource('/contact-inquiries', ContactInquiryController::class)->only(['index', 'show', 'update', 'destroy'])->names('admin.contact-inquiries');
+
+    // Breadcrumb Banners Full CRUD Resource
+    Route::post('/breadcrumb-banners/seed-defaults', [BreadcrumbBannerController::class, 'seedDefaults'])->name('admin.breadcrumb-banners.seed-defaults');
+    Route::post('/breadcrumb-banners/{id}/toggle', [BreadcrumbBannerController::class, 'toggle'])->name('admin.breadcrumb-banners.toggle');
+    Route::resource('/breadcrumb-banners', BreadcrumbBannerController::class)->names('admin.breadcrumb-banners');
 
     // Admin Swagger Documentation
     Route::get('/swagger', function () {

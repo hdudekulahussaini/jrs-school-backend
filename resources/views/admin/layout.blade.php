@@ -89,9 +89,19 @@
                     <span>Dashboard</span>
                 </a>
 
+                <a href="{{ route('admin.profile.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors {{ request()->routeIs('admin.profile.*') ? 'bg-jrs-red text-white font-semibold shadow-xs' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
+                    <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+                    <span>Admin Profile</span>
+                </a>
+
                 <a href="{{ route('admin.top-bar.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors {{ request()->routeIs('admin.top-bar.*') ? 'bg-jrs-red text-white font-semibold shadow-xs' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
                     <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"/></svg>
                     <span>Header Top Bar</span>
+                </a>
+
+                <a href="{{ route('admin.breadcrumb-banners.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors {{ request()->routeIs('admin.breadcrumb-banners.*') ? 'bg-jrs-red text-white font-semibold shadow-xs' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
+                    <svg class="w-4 h-4 shrink-0 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                    <span>Breadcrumb Banners</span>
                 </a>
 
                 <!-- Home Page Dropdown -->
@@ -499,15 +509,15 @@
 
             <!-- User Footer Info & Logout -->
             <div class="p-3 border-t border-white/10 bg-jrs-navy flex items-center justify-between">
-                <div class="flex items-center gap-2.5 overflow-hidden">
-                    <div class="w-8 h-8 rounded-full bg-jrs-red text-white border border-white/20 flex items-center justify-center font-bold text-xs shrink-0">
+                <a href="{{ route('admin.profile.index') }}" class="flex items-center gap-2.5 overflow-hidden group flex-1 mr-2" title="Manage Profile Settings">
+                    <div class="w-8 h-8 rounded-full bg-jrs-red text-white border border-white/20 flex items-center justify-center font-bold text-xs shrink-0 group-hover:scale-105 transition-transform">
                         {{ strtoupper(substr(Auth::user()->name ?? 'A', 0, 1)) }}
                     </div>
                     <div class="truncate">
-                        <div class="text-xs font-medium text-white truncate">{{ Auth::user()->name ?? 'Administrator' }}</div>
+                        <div class="text-xs font-medium text-white truncate group-hover:text-red-200 transition-colors">{{ Auth::user()->name ?? 'Administrator' }}</div>
                         <div class="text-[11px] text-white/60 truncate">{{ Auth::user()->email ?? 'admin@jrsschool.com' }}</div>
                     </div>
-                </div>
+                </a>
                 <form action="{{ route('admin.logout') }}" method="POST" class="shrink-0">
                     @csrf
                     <button type="submit" title="Sign Out" class="p-1.5 text-white/60 hover:text-jrs-red hover:bg-white/10 rounded-md transition-colors">
@@ -537,6 +547,14 @@
                 </div>
 
                 <div class="flex items-center gap-3">
+                    <a href="{{ route('admin.profile.index') }}" 
+                       class="inline-flex items-center gap-2 px-2.5 py-1.5 rounded-lg border border-slate-200 bg-slate-50 hover:bg-slate-100 hover:border-slate-300 text-xs font-semibold text-jrs-navy transition-colors {{ request()->routeIs('admin.profile.*') ? 'ring-2 ring-jrs-navy/20 bg-slate-100 font-bold' : '' }}"
+                       title="Admin Profile Settings">
+                        <span class="w-6 h-6 rounded-full bg-jrs-navy text-white text-[10px] font-bold flex items-center justify-center shrink-0">
+                            {{ strtoupper(substr(Auth::user()->name ?? 'A', 0, 1)) }}
+                        </span>
+                        <span class="hidden sm:inline font-medium max-w-[130px] truncate">{{ Auth::user()->name ?? 'Admin' }}</span>
+                    </a>
 
                     <form action="{{ route('admin.logout') }}" method="POST" class="inline">
                         @csrf

@@ -23,7 +23,7 @@
     </div>
 
     <!-- Form Container -->
-    <div class="max-w-4xl">
+    <div class="w-full">
         <form action="{{ route('admin.events.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
             @csrf
 

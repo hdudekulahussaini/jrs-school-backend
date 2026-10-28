@@ -4,7 +4,7 @@
 @section('header', 'Academic Journey Details')
 
 @section('content')
-<div class="space-y-6 max-w-4xl">
+<div class="space-y-6 w-full">
     <!-- Top Action Bar -->
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div class="flex items-center gap-3">
@@ -63,7 +63,8 @@
                 <img src="{{ asset($journey->image_path) }}" alt="{{ $journey->title }}" class="w-full h-full object-cover">
                 <div class="absolute bottom-4 left-4 bg-jrs-navy text-white px-3 py-1.5 rounded-full text-xs font-semibold flex items-center gap-2 shadow-md border border-white/20">
                     <span class="w-2 h-2 rounded-full bg-amber-400"></span>
-                    <span>Icon: {{ $journey->icon ?? 'baby' }}</span>
+                    <i class="{{ Str::startsWith($journey->icon ?? '', ['bi ', 'fa']) ? $journey->icon : (in_array($journey->icon, ['baby', 'users', 'sparkles', 'heart', 'book', 'award']) ? 'bi bi-award-fill' : 'bi bi-mortarboard-fill') }}"></i>
+                    <span>Icon: {{ $journey->icon ?? 'bi bi-mortarboard-fill' }}</span>
                 </div>
             </div>
         @endif

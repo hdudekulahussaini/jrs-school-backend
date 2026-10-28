@@ -4,7 +4,7 @@
 @section('header', 'Facility Details')
 
 @section('content')
-<div class="space-y-6 max-w-4xl">
+<div class="space-y-6 w-full">
 
     <!-- Breadcrumb & Top Actions (shadcn/ui style) -->
     <div class="flex items-center justify-between">
@@ -50,8 +50,10 @@
                 </div>
 
                 <!-- Floating circular Icon centered on the wave -->
-                <div class="absolute -bottom-4 left-6 z-20 w-11 h-11 rounded-full {{ $facility->theme_color === 'red' ? 'bg-red-600' : 'bg-jrs-navy' }} text-white border-2 border-white shadow-md flex items-center justify-center text-base">
-                    @if($facility->icon === 'flask')
+                <div class="absolute -bottom-4 left-6 z-20 w-11 h-11 rounded-full {{ $facility->theme_color === 'red' ? 'bg-red-600' : 'bg-jrs-navy' }} text-white border-2 border-white shadow-md flex items-center justify-center text-lg">
+                    @if(\Illuminate\Support\Str::startsWith($facility->icon, ['bi ', 'bi-', 'fa-']))
+                        <i class="{{ \Illuminate\Support\Str::startsWith($facility->icon, 'bi-') && !\Illuminate\Support\Str::startsWith($facility->icon, 'bi ') ? 'bi ' . $facility->icon : $facility->icon }}"></i>
+                    @elseif($facility->icon === 'flask')
                         🧪
                     @elseif($facility->icon === 'book')
                         📖
@@ -59,8 +61,14 @@
                         🏃
                     @elseif($facility->icon === 'bus')
                         🚌
-                    @else
+                    @elseif($facility->icon === 'school')
+                        🏫
+                    @elseif($facility->icon === 'monitor')
                         🖥️
+                    @elseif(!empty($facility->icon))
+                        <i class="{{ \Illuminate\Support\Str::startsWith($facility->icon, 'bi') ? $facility->icon : 'bi bi-' . $facility->icon }}"></i>
+                    @else
+                        <i class="bi bi-laptop"></i>
                     @endif
                 </div>
             </div>
@@ -107,7 +115,32 @@
 
             <div class="p-4 grid grid-cols-1 sm:grid-cols-3 gap-1">
                 <span class="font-medium text-slate-500">Icon Key:</span>
-                <span class="sm:col-span-2 font-mono text-xs text-slate-800">{{ $facility->icon ?: 'monitor' }}</span>
+                <span class="sm:col-span-2 font-mono text-xs text-slate-800 flex items-center gap-2">
+                    <span class="w-6 h-6 rounded-md {{ $facility->theme_color === 'red' ? 'bg-red-600' : 'bg-jrs-navy' }} text-white flex items-center justify-center text-xs">
+                        @if(\Illuminate\Support\Str::startsWith($facility->icon, ['bi ', 'bi-', 'fa-']))
+                            <i class="{{ \Illuminate\Support\Str::startsWith($facility->icon, 'bi-') && !\Illuminate\Support\Str::startsWith($facility->icon, 'bi ') ? 'bi ' . $facility->icon : $facility->icon }}"></i>
+                        @elseif(!empty($facility->icon))
+                            <i class="bi bi-{{ $facility->icon }}"></i>
+                        @else
+                            <i class="bi bi-laptop"></i>
+                        @endif
+                    </span>
+                    <span>{{ $facility->icon ?: 'bi bi-laptop' }}</span>
+                </span>
+            </div>
+
+            <div class="p-4 grid grid-cols-1 sm:grid-cols-3 gap-1">
+                <span class="font-medium text-slate-500">Destination URL:</span>
+                <div class="sm:col-span-2">
+                    @if($facility->destination_url)
+                        <a href="{{ $facility->destination_url }}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-xs text-blue-600 hover:underline font-mono break-all">
+                            <span>{{ $facility->destination_url }}</span>
+                            <svg class="w-3 h-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                        </a>
+                    @else
+                        <span class="text-slate-400 text-xs italic">— None —</span>
+                    @endif
+                </div>
             </div>
 
             <div class="p-4 grid grid-cols-1 sm:grid-cols-3 gap-1">

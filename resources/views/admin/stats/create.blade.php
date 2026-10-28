@@ -23,7 +23,7 @@
     </div>
 
     <!-- Form Container -->
-    <div class="max-w-4xl">
+    <div class="w-full">
         <form action="{{ route('admin.stats.store') }}" method="POST" class="space-y-6">
             @csrf
 

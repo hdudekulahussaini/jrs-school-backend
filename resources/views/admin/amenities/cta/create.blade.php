@@ -4,7 +4,7 @@
 @section('header', 'New Amenities CTA Banner')
 
 @section('content')
-<div class="space-y-6 max-w-4xl">
+<div class="space-y-6 w-full">
 
     <div class="flex items-center justify-between">
         <div class="space-y-1">

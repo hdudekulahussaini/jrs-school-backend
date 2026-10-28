@@ -4,7 +4,7 @@
 @section('header', 'Add Gallery Album')
 
 @section('content')
-<div class="max-w-4xl space-y-6">
+<div class="space-y-6 w-full">
 
     <!-- Breadcrumb -->
     <div class="flex items-center justify-between">

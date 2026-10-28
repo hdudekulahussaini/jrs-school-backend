@@ -60,7 +60,7 @@ class AcademicJourney extends Model
             'age_group' => 'nullable|string|max:100',
             'slug' => 'nullable|string|max:190',
             'description' => 'required|string',
-            'icon' => 'nullable|string|max:50',
+            'icon' => 'nullable|string|max:190',
             'icon_svg' => 'nullable|string',
             'image' => $id ? 'nullable|image|mimes:jpeg,png,jpg,webp,svg|max:4096' : 'nullable|image|mimes:jpeg,png,jpg,webp,svg|max:4096',
             'image_path' => 'nullable|string|max:255',

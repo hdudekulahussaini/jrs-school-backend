@@ -4,7 +4,7 @@
 @section('header', 'Edit Header Top Bar Settings')
 
 @section('content')
-<div class="space-y-6 max-w-5xl">
+<div class="space-y-6 w-full">
 
     <!-- Top Action / Back Button -->
     <div class="flex items-center justify-between">

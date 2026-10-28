@@ -4,7 +4,7 @@
 @section('header', 'Edit Admission FAQ')
 
 @section('content')
-<div class="space-y-6 max-w-4xl">
+<div class="space-y-6 w-full">
 
     <!-- Back Navigation -->
     <div>

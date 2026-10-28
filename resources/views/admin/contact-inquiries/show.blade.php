@@ -4,7 +4,7 @@
 @section('header', 'Contact Inquiry Details')
 
 @section('content')
-<div class="space-y-6 max-w-5xl">
+<div class="space-y-6 w-full">
 
     <!-- Top Action Bar -->
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">

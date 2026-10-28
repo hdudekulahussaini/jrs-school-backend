@@ -81,7 +81,9 @@
 
                                     <!-- Mini Badge Icon overlay matching screenshot -->
                                     <div class="absolute bottom-1 right-1 w-5 h-5 rounded-full {{ $facility->theme_color === 'red' ? 'bg-red-600' : 'bg-jrs-navy' }} text-white flex items-center justify-center text-[9px] shadow-xs">
-                                        @if($facility->icon === 'flask')
+                                        @if(\Illuminate\Support\Str::startsWith($facility->icon, ['bi ', 'bi-', 'fa-']))
+                                            <i class="{{ \Illuminate\Support\Str::startsWith($facility->icon, 'bi-') && !\Illuminate\Support\Str::startsWith($facility->icon, 'bi ') ? 'bi ' . $facility->icon : $facility->icon }}"></i>
+                                        @elseif($facility->icon === 'flask')
                                             🧪
                                         @elseif($facility->icon === 'book')
                                             📖
@@ -89,8 +91,14 @@
                                             🏃
                                         @elseif($facility->icon === 'bus')
                                             🚌
-                                        @else
+                                        @elseif($facility->icon === 'school')
+                                            🏫
+                                        @elseif($facility->icon === 'monitor')
                                             🖥️
+                                        @elseif(!empty($facility->icon))
+                                            <i class="{{ \Illuminate\Support\Str::startsWith($facility->icon, 'bi') ? $facility->icon : 'bi bi-' . $facility->icon }}"></i>
+                                        @else
+                                            <i class="bi bi-laptop"></i>
                                         @endif
                                     </div>
                                 </div>
@@ -106,6 +114,12 @@
                                         <p class="text-xs text-slate-500 line-clamp-1 max-w-md">
                                             {{ $facility->description }}
                                         </p>
+                                    @endif
+                                    @if($facility->destination_url)
+                                        <div class="flex items-center gap-1 text-[11px] text-blue-600 font-mono pt-0.5 truncate max-w-md">
+                                            <svg class="w-3 h-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                                            <a href="{{ $facility->destination_url }}" target="_blank" rel="noopener noreferrer" class="hover:underline truncate" onclick="event.stopPropagation()">{{ $facility->destination_url }}</a>
+                                        </div>
                                     @endif
                                 </div>
                             </td>

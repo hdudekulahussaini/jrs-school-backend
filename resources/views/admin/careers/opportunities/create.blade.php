@@ -4,7 +4,7 @@
 @section('header', 'Add Opportunities Section')
 
 @section('content')
-<div class="max-w-4xl space-y-6">
+<div class="space-y-6 w-full">
 
     <!-- Header -->
     <div class="flex items-center justify-between">

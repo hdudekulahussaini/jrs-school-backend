@@ -4,7 +4,7 @@
 @section('header', 'Edit Amenities CTA Banner')
 
 @section('content')
-<div class="max-w-3xl space-y-6">
+<div class="space-y-6 max-w-4xl">
 
     <div class="flex items-center justify-between">
         <div class="space-y-1">
@@ -133,23 +133,15 @@
             </div>
 
             <!-- Current Artwork & Image Upload -->
-            <div class="space-y-2 pt-2">
-                <label class="text-xs font-semibold text-slate-700">Artwork / Montage Image</label>
-                @if($cta->image_path)
-                    <div class="flex items-center gap-3 p-3 rounded-lg border border-slate-200 bg-slate-50">
-                        <img src="{{ $cta->image_full_url }}" alt="Preview" class="w-20 h-10 object-cover rounded bg-slate-900 border border-slate-300">
-                        <div class="text-xs text-slate-600 truncate font-mono">{{ $cta->image_path }}</div>
-                    </div>
-                @endif
-                <input type="file" 
-                       id="image_file" 
-                       name="image_file" 
-                       accept="image/*"
-                       class="w-full px-3 py-2 text-xs rounded-md border border-slate-200 file:mr-3 file:py-1 file:px-2.5 file:rounded file:border-0 file:text-xs file:font-semibold file:bg-jrs-navy file:text-white hover:file:opacity-90">
-                <p class="text-[11px] text-slate-500">Upload a new image only to replace the current artwork.</p>
-                @error('image_file')
-                    <p class="text-xs text-red-600">{{ $message }}</p>
-                @enderror
+            <div>
+                @include('admin.partials.image-upload', [
+                    'name' => 'image_file',
+                    'id' => 'image_file',
+                    'label' => 'Artwork / Montage Image',
+                    'current' => $cta->image_full_url ?? null,
+                    'aspect' => 'banner',
+                    'help' => 'Upload a new image only to replace the current artwork. Leave blank to keep current.',
+                ])
             </div>
 
             <!-- Active Status -->

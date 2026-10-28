@@ -23,7 +23,7 @@
     </div>
 
     <!-- Form Container -->
-    <div class="max-w-3xl">
+    <div class="max-w-4xl">
         <form action="{{ route('admin.stats.store') }}" method="POST" class="space-y-6">
             @csrf
 
@@ -41,7 +41,7 @@
                         <label for="value" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
                             Stat Value / Number <span class="text-jrs-red">*</span>
                         </label>
-                        <input type="text" name="value" id="value" value="{{ old('value') }}" required placeholder="e.g. 2021, 1000+, 50+, 100+" class="flex h-9 w-full rounded-md border {{ $errors->has('value') ? 'border-jrs-red ring-1 ring-jrs-red' : 'border-slate-200' }} bg-white px-3 py-1 text-xs sm:text-sm shadow-xs transition-colors placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-jrs-navy font-bold">
+                        <input type="text" name="value" id="value" value="{{ old('value') }}" required class="flex h-9 w-full rounded-md border {{ $errors->has('value') ? 'border-jrs-red ring-1 ring-jrs-red' : 'border-slate-200' }} bg-white px-3 py-1 text-xs sm:text-sm shadow-xs transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-jrs-navy font-bold">
                         <span class="text-[11px] text-slate-400">Can include numbers, plus signs, suffixes (e.g. 1000+, 99.8%).</span>
                         @error('value')
                             <p class="text-xs text-jrs-red mt-1">{{ $message }}</p>
@@ -53,7 +53,7 @@
                         <label for="title" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
                             Metric Label / Title <span class="text-jrs-red">*</span>
                         </label>
-                        <input type="text" name="title" id="title" value="{{ old('title') }}" required placeholder="e.g. Year of Establishment, Happy Students" class="flex h-9 w-full rounded-md border {{ $errors->has('title') ? 'border-jrs-red ring-1 ring-jrs-red' : 'border-slate-200' }} bg-white px-3 py-1 text-xs sm:text-sm shadow-xs transition-colors placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-jrs-navy">
+                        <input type="text" name="title" id="title" value="{{ old('title') }}" required class="flex h-9 w-full rounded-md border {{ $errors->has('title') ? 'border-jrs-red ring-1 ring-jrs-red' : 'border-slate-200' }} bg-white px-3 py-1 text-xs sm:text-sm shadow-xs transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-jrs-navy">
                         <span class="text-[11px] text-slate-400">Appears below the number.</span>
                         @error('title')
                             <p class="text-xs text-jrs-red mt-1">{{ $message }}</p>
@@ -61,47 +61,132 @@
                     </div>
                 </div>
 
+                <!-- Theme Color & Badge Icon (Bootstrap Icon) -->
+                <div class="space-y-4 pt-2">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <!-- Icon Badge Color -->
+                        <div>
+                            <label for="color" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                                Icon Badge Color <span class="text-rose-500">*</span>
+                            </label>
+                            <div class="flex items-center gap-2">
+                                <input type="color" id="colorPicker" value="{{ old('color', '#eab308') }}" oninput="setColor(this.value)" class="h-10 w-11 p-1 rounded-lg border border-slate-200 cursor-pointer bg-white shrink-0">
+                                <input type="text" name="color" id="color" value="{{ old('color', '#eab308') }}" oninput="setColor(this.value)" class="flex h-10 w-full rounded-lg border border-slate-200 bg-white px-3 py-1 text-xs sm:text-sm font-mono shadow-xs focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-jrs-navy">
+                            </div>
+                            <div class="flex flex-wrap items-center gap-1.5 mt-2.5">
+                                <span class="text-[10px] text-slate-400 font-semibold uppercase mr-1">Palette:</span>
+                                <button type="button" onclick="setColor('#eab308')" class="w-5 h-5 rounded-full bg-[#eab308] border border-black/10 hover:scale-110 transition-transform shadow-2xs" title="Gold/Amber"></button>
+                                <button type="button" onclick="setColor('#e31e24')" class="w-5 h-5 rounded-full bg-[#e31e24] border border-black/10 hover:scale-110 transition-transform shadow-2xs" title="JRS Red"></button>
+                                <button type="button" onclick="setColor('#059669')" class="w-5 h-5 rounded-full bg-[#059669] border border-black/10 hover:scale-110 transition-transform shadow-2xs" title="Emerald Green"></button>
+                                <button type="button" onclick="setColor('#2563eb')" class="w-5 h-5 rounded-full bg-[#2563eb] border border-black/10 hover:scale-110 transition-transform shadow-2xs" title="Royal Blue"></button>
+                                <button type="button" onclick="setColor('#4f46e5')" class="w-5 h-5 rounded-full bg-[#4f46e5] border border-black/10 hover:scale-110 transition-transform shadow-2xs" title="Indigo"></button>
+                                <button type="button" onclick="setColor('#9333ea')" class="w-5 h-5 rounded-full bg-[#9333ea] border border-black/10 hover:scale-110 transition-transform shadow-2xs" title="Purple"></button>
+                                <button type="button" onclick="setColor('#0284c7')" class="w-5 h-5 rounded-full bg-[#0284c7] border border-black/10 hover:scale-110 transition-transform shadow-2xs" title="Sky Blue"></button>
+                                <button type="button" onclick="setColor('#0f172a')" class="w-5 h-5 rounded-full bg-[#0f172a] border border-black/10 hover:scale-110 transition-transform shadow-2xs" title="Deep Slate"></button>
+                            </div>
+                            @error('color')
+                                <p class="text-xs text-jrs-red mt-1">{{ $message }}</p>
+                            @enderror
+                        </div>
 
-                <!-- Icon & Color -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <!-- Icon Selector -->
-                    <div>
-                        <label for="icon" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                            Icon Symbol
-                        </label>
-                        <select name="icon" id="icon" class="flex h-9 w-full rounded-md border border-slate-200 bg-white px-3 py-1 text-xs sm:text-sm shadow-xs focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-jrs-navy">
-                            <option value="graduation-cap" {{ old('icon') == 'graduation-cap' ? 'selected' : '' }}>graduation-cap (Establishment / Education)</option>
-                            <option value="users" {{ old('icon') == 'users' ? 'selected' : '' }}>users (Happy Students / Community)</option>
-                            <option value="award" {{ old('icon') == 'award' ? 'selected' : '' }}>award (Faculty / Excellence)</option>
-                            <option value="trophy" {{ old('icon') == 'trophy' ? 'selected' : '' }}>trophy (Co-curricular / Sports)</option>
-                            <option value="book" {{ old('icon') == 'book' ? 'selected' : '' }}>book (Academics / Library)</option>
-                            <option value="star" {{ old('icon') == 'star' ? 'selected' : '' }}>star (Success / Ratings)</option>
-                            <option value="shield-check" {{ old('icon') == 'shield-check' ? 'selected' : '' }}>shield-check (Safety / Trust)</option>
-                        </select>
-                        @error('icon')
-                            <p class="text-xs text-jrs-red mt-1">{{ $message }}</p>
-                        @enderror
+                        <!-- Badge Icon Input with Live Preview Box -->
+                        <div class="space-y-1.5">
+                            <div class="flex items-center justify-between">
+                                <label for="icon" class="block text-xs font-bold text-slate-700 uppercase tracking-wider">
+                                    Badge Icon (Bootstrap Icon) <span class="text-rose-500">*</span>
+                                </label>
+                                <span class="text-[11px] text-slate-400">Overlapping badge icon on counter card</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <div id="icon-preview-box" class="w-11 h-11 rounded-xl flex items-center justify-center text-white text-xl shrink-0 shadow-xs transition-all duration-200" style="background-color: {{ old('color', '#eab308') }}">
+                                    <i id="icon-preview" class="bi bi-mortarboard-fill"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <input type="text" name="icon" id="icon" value="{{ old('icon', 'bi bi-mortarboard-fill') }}" class="flex h-11 w-full rounded-lg border border-slate-200 bg-white px-3.5 py-2 text-sm text-slate-800 shadow-xs transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 focus-visible:border-transparent font-mono">
+                                </div>
+                            </div>
+                            @error('icon')
+                                <p class="text-xs text-jrs-red mt-1">{{ $message }}</p>
+                            @enderror
+                        </div>
                     </div>
 
-                    <!-- Accent Color -->
-                    <div>
-                        <label for="color" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                            Accent / Icon Color
-                        </label>
-                        <div class="flex items-center gap-2">
-                            <input type="color" id="colorPicker" value="{{ old('color', '#eab308') }}" oninput="setColor(this.value)" class="h-9 w-10 p-0.5 rounded border border-slate-200 cursor-pointer bg-white">
-                            <input type="text" name="color" id="color" value="{{ old('color', '#eab308') }}" oninput="setColor(this.value)" placeholder="#eab308" class="flex h-9 w-full rounded-md border border-slate-200 bg-white px-3 py-1 text-xs sm:text-sm font-mono shadow-xs focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-jrs-navy">
+                    <!-- Quick Presets -->
+                    <div class="space-y-2 pt-1">
+                        <div class="text-xs font-semibold text-slate-600 flex items-center justify-between">
+                            <span>Quick Presets</span>
+                            <span class="text-[11px] text-slate-400 font-normal">Click any preset to apply icon</span>
                         </div>
-                        <div class="flex flex-wrap gap-1.5 mt-2">
-                            <button type="button" onclick="setColor('#eab308')" class="w-5 h-5 rounded-full bg-[#eab308] border border-black/10 hover:scale-110 transition-transform" title="Gold/Amber (Default)"></button>
-                            <button type="button" onclick="setColor('#e31e24')" class="w-5 h-5 rounded-full bg-[#e31e24] border border-black/10 hover:scale-110 transition-transform" title="JRS Red"></button>
-                            <button type="button" onclick="setColor('#059669')" class="w-5 h-5 rounded-full bg-[#059669] border border-black/10 hover:scale-110 transition-transform" title="Emerald Green"></button>
-                            <button type="button" onclick="setColor('#2563eb')" class="w-5 h-5 rounded-full bg-[#2563eb] border border-black/10 hover:scale-110 transition-transform" title="Royal Blue"></button>
-                            <button type="button" onclick="setColor('#8b5cf6')" class="w-5 h-5 rounded-full bg-[#8b5cf6] border border-black/10 hover:scale-110 transition-transform" title="Purple"></button>
+                        <div class="flex flex-wrap gap-2" id="icon-presets">
+                            <button type="button" data-icon="bi bi-mortarboard-fill" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
+                                <i class="bi bi-mortarboard-fill text-slate-600"></i>
+                                <span>Academic Excellence</span>
+                            </button>
+                            <button type="button" data-icon="bi bi-calendar-check-fill" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
+                                <i class="bi bi-calendar-check-fill text-slate-600"></i>
+                                <span>Year of Establishment</span>
+                            </button>
+                            <button type="button" data-icon="bi bi-people-fill" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
+                                <i class="bi bi-people-fill text-slate-600"></i>
+                                <span>Happy Students</span>
+                            </button>
+                            <button type="button" data-icon="bi bi-award-fill" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
+                                <i class="bi bi-award-fill text-slate-600"></i>
+                                <span>Expert Teachers</span>
+                            </button>
+                            <button type="button" data-icon="bi bi-trophy-fill" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
+                                <i class="bi bi-trophy-fill text-slate-600"></i>
+                                <span>Board Pass Rate</span>
+                            </button>
+                            <button type="button" data-icon="bi bi-shield-check" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
+                                <i class="bi bi-shield-check text-slate-600"></i>
+                                <span>Safe & Secure</span>
+                            </button>
+                            <button type="button" data-icon="bi bi-buildings-fill" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
+                                <i class="bi bi-buildings-fill text-slate-600"></i>
+                                <span>Campus & Infrastructure</span>
+                            </button>
+                            <button type="button" data-icon="bi bi-person-badge-fill" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
+                                <i class="bi bi-person-badge-fill text-slate-600"></i>
+                                <span>1:25 Ratio</span>
+                            </button>
+                            <button type="button" data-icon="bi bi-laptop" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
+                                <i class="bi bi-laptop text-slate-600"></i>
+                                <span>Smart Classrooms</span>
+                            </button>
+                            <button type="button" data-icon="bi bi-book-half" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
+                                <i class="bi bi-book-half text-slate-600"></i>
+                                <span>Library & Books</span>
+                            </button>
+                            <button type="button" data-icon="bi bi-lightbulb-fill" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
+                                <i class="bi bi-lightbulb-fill text-slate-600"></i>
+                                <span>STEM & Innovation</span>
+                            </button>
+                            <button type="button" data-icon="bi bi-tree-fill" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
+                                <i class="bi bi-tree-fill text-slate-600"></i>
+                                <span>Eco Campus</span>
+                            </button>
+                            <button type="button" data-icon="bi bi-flask" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
+                                <i class="bi bi-flask text-slate-600"></i>
+                                <span>Science Labs</span>
+                            </button>
+                            <button type="button" data-icon="bi bi-palette-fill" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
+                                <i class="bi bi-palette-fill text-slate-600"></i>
+                                <span>Performing Arts</span>
+                            </button>
+                            <button type="button" data-icon="bi bi-globe2" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
+                                <i class="bi bi-globe2 text-slate-600"></i>
+                                <span>Global Vision</span>
+                            </button>
+                            <button type="button" data-icon="bi bi-heart-pulse-fill" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
+                                <i class="bi bi-heart-pulse-fill text-slate-600"></i>
+                                <span>Health & Wellness</span>
+                            </button>
+                            <button type="button" data-icon="bi bi-stars" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
+                                <i class="bi bi-stars text-slate-600"></i>
+                                <span>Values & Ethos</span>
+                            </button>
                         </div>
-                        @error('color')
-                            <p class="text-xs text-jrs-red mt-1">{{ $message }}</p>
-                        @enderror
                     </div>
                 </div>
             </div>
@@ -149,9 +234,87 @@
 </div>
 
 <script>
-function setColor(hex) {
-    document.getElementById('color').value = hex;
-    document.getElementById('colorPicker').value = hex;
-}
+    function setColor(hex) {
+        if (!hex) return;
+        document.getElementById('color').value = hex;
+        const picker = document.getElementById('colorPicker');
+        if (picker) {
+            picker.value = hex;
+        }
+        const previewBox = document.getElementById('icon-preview-box');
+        if (previewBox) {
+            previewBox.style.backgroundColor = hex;
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const iconInput = document.getElementById('icon');
+        const iconPreview = document.getElementById('icon-preview');
+        const iconPreviewBox = document.getElementById('icon-preview-box');
+        const colorInput = document.getElementById('color');
+        const colorPicker = document.getElementById('colorPicker');
+        const presetButtons = document.querySelectorAll('.icon-preset-btn');
+
+        function updateIconPreview(val) {
+            if (!val || !val.trim()) {
+                iconPreviewBox.innerHTML = '<i class="bi bi-mortarboard-fill"></i>';
+                return;
+            }
+            val = val.trim();
+            if (val.startsWith('<')) {
+                iconPreviewBox.innerHTML = val;
+            } else {
+                let cls = val;
+                if (!cls.startsWith('bi ') && !cls.startsWith('fa-')) {
+                    cls = 'bi bi-' + cls;
+                }
+                iconPreviewBox.innerHTML = '<i class="' + cls + '"></i>';
+            }
+        }
+
+        function highlightActivePreset(currentVal) {
+            presetButtons.forEach(btn => {
+                const btnIcon = btn.getAttribute('data-icon');
+                if (btnIcon === currentVal.trim()) {
+                    btn.classList.add('border-rose-400', 'bg-rose-50', 'text-rose-700');
+                    btn.classList.remove('border-slate-200', 'bg-white', 'text-slate-700');
+                } else {
+                    btn.classList.remove('border-rose-400', 'bg-rose-50', 'text-rose-700');
+                    btn.classList.add('border-slate-200', 'bg-white', 'text-slate-700');
+                }
+            });
+        }
+
+        if (iconInput) {
+            iconInput.addEventListener('input', function() {
+                updateIconPreview(this.value);
+                highlightActivePreset(this.value);
+            });
+            updateIconPreview(iconInput.value);
+            highlightActivePreset(iconInput.value);
+        }
+
+        if (colorInput) {
+            colorInput.addEventListener('input', function() {
+                setColor(this.value);
+            });
+        }
+        if (colorPicker) {
+            colorPicker.addEventListener('input', function() {
+                setColor(this.value);
+            });
+        }
+
+        presetButtons.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const iconVal = this.getAttribute('data-icon');
+                if (iconInput) {
+                    iconInput.value = iconVal;
+                    updateIconPreview(iconVal);
+                    highlightActivePreset(iconVal);
+                }
+            });
+        });
+    });
 </script>
 @endsection

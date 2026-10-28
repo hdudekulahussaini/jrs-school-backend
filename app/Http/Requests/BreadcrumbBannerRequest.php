@@ -87,4 +87,20 @@ class BreadcrumbBannerRequest extends FormRequest
             'background_image.image' => 'The file uploaded must be a valid image file (jpeg, png, webp, svg, gif).',
         ];
     }
+
+    /**
+     * Handle failed validation for API vs Web requests.
+     */
+    protected function failedValidation(\Illuminate\Contracts\Validation\Validator $validator)
+    {
+        if ($this->expectsJson() || $this->is('api/*')) {
+            throw new \Illuminate\Http\Exceptions\HttpResponseException(response()->json([
+                'success' => false,
+                'message' => 'Breadcrumb banner validation error',
+                'errors' => $validator->errors()
+            ], 422));
+        }
+
+        parent::failedValidation($validator);
+    }
 }

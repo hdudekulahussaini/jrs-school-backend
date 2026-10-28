@@ -4,7 +4,7 @@
 @section('header', 'Add Press Article')
 
 @section('content')
-<div class="max-w-4xl mx-auto space-y-6">
+<div class="space-y-6 max-w-4xl">
 
     <!-- Top Bar -->
     <div class="flex items-center justify-between">
@@ -19,16 +19,6 @@
         </div>
     </div>
 
-    @if($errors->any())
-        <div class="p-4 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-sm">
-            <p class="font-semibold mb-1">Please fix the following issues:</p>
-            <ul class="list-disc list-inside space-y-0.5 text-xs">
-                @foreach($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
 
     <form action="{{ route('admin.news-media.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
         @csrf
@@ -103,25 +93,15 @@
             <hr class="border-slate-100">
 
             <!-- Section 3: Newspaper Clipping Image Upload -->
-            <div class="space-y-4">
-                <h3 class="text-sm font-bold uppercase tracking-wider text-slate-400">Newspaper Clipping Photo</h3>
-
-                <div class="space-y-2">
-                    <label class="block text-xs font-semibold text-slate-700">
-                        Upload Scan / Photo of Newspaper Clipping <span class="text-rose-500">*</span>
-                    </label>
-
-                    <div class="flex items-center gap-4">
-                        <div id="imagePreviewContainer" class="w-32 h-24 rounded-xl border border-dashed border-slate-300 bg-slate-50 flex items-center justify-center overflow-hidden flex-shrink-0">
-                            <img id="imagePreview" src="" alt="Preview" class="w-full h-full object-cover hidden">
-                            <span id="imagePlaceholder" class="text-xs text-slate-400 text-center px-2">No file chosen</span>
-                        </div>
-                        <div class="flex-1 space-y-1">
-                            <input type="file" id="image" name="image" accept="image/jpeg,image/png,image/webp" required onchange="previewSelectedImage(this)" class="block w-full text-xs text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-jrs-navy/10 file:text-jrs-navy hover:file:bg-jrs-navy/20 cursor-pointer">
-                            <p class="text-[11px] text-slate-400">Accepted formats: JPG, PNG, WEBP. Maximum file size: 5 MB.</p>
-                        </div>
-                    </div>
-                </div>
+            <div>
+                @include('admin.partials.image-upload', [
+                    'name' => 'image',
+                    'id' => 'image',
+                    'label' => 'Newspaper Clipping Photo',
+                    'aspect' => 'landscape',
+                    'required' => true,
+                    'help' => 'Accepted formats: JPG, PNG, WEBP. Maximum file size: 5 MB.',
+                ])
             </div>
 
             <hr class="border-slate-100">

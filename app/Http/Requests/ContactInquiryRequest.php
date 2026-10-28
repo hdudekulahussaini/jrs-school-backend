@@ -55,4 +55,20 @@ class ContactInquiryRequest extends FormRequest
             'message.required'     => 'Your query or message is required.',
         ];
     }
+
+    /**
+     * Handle failed validation for API vs Web requests.
+     */
+    protected function failedValidation(\Illuminate\Contracts\Validation\Validator $validator)
+    {
+        if ($this->expectsJson() || $this->is('api/*')) {
+            throw new \Illuminate\Http\Exceptions\HttpResponseException(response()->json([
+                'success' => false,
+                'message' => 'Contact inquiry validation error',
+                'errors' => $validator->errors()
+            ], 422));
+        }
+
+        parent::failedValidation($validator);
+    }
 }

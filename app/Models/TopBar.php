@@ -13,14 +13,9 @@ class TopBar extends Model
 
     protected $fillable = [
         'phone',
-        'phone_href',
+        'phone_2',
         'email',
-        'email_href',
         'cbse_affiliation_text',
-        'cbse_affiliation_code',
-        'mandatory_disclosure_title',
-        'mandatory_disclosure_url',
-        'mandatory_disclosure_file',
         'prospectus_title',
         'prospectus_url',
         'prospectus_file',
@@ -32,21 +27,8 @@ class TopBar extends Model
     ];
 
     protected $appends = [
-        'mandatory_disclosure_link',
         'prospectus_link',
     ];
-
-    /**
-     * Resolved download/open link for Mandatory Disclosure (file or external URL).
-     */
-    public function getMandatoryDisclosureLinkAttribute(): ?string
-    {
-        if (!empty($this->mandatory_disclosure_file)) {
-            return asset(ltrim($this->mandatory_disclosure_file, '/'));
-        }
-
-        return $this->mandatory_disclosure_url ?: '#';
-    }
 
     /**
      * Resolved download/open link for School Prospectus (file or external URL).
@@ -67,15 +49,9 @@ class TopBar extends Model
     {
         return [
             'phone' => 'required|string|max:50',
-            'phone_href' => 'nullable|string|max:100',
+            'phone_2' => 'nullable|string|max:50',
             'email' => 'required|email|max:100',
-            'email_href' => 'nullable|string|max:100',
             'cbse_affiliation_text' => 'required|string|max:150',
-            'cbse_affiliation_code' => 'nullable|string|max:100',
-            'mandatory_disclosure_type' => 'nullable|in:file,url',
-            'mandatory_disclosure_title' => 'nullable|string|max:100',
-            'mandatory_disclosure_url' => 'nullable|url|max:255',
-            'mandatory_disclosure_file_upload' => 'nullable|file|mimes:pdf,doc,docx,zip|max:20480',
             'prospectus_type' => 'nullable|in:file,url',
             'prospectus_title' => 'nullable|string|max:100',
             'prospectus_url' => 'nullable|url|max:255',

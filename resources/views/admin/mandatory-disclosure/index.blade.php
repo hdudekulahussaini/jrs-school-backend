@@ -6,20 +6,8 @@
 @section('content')
 <div class="space-y-8">
 
-    <!-- Top Breadcrumb & Navigation -->
-    <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
-        <div class="space-y-1">
-            <div class="flex items-center gap-2.5">
-                <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 font-heading">Mandatory Disclosure</h2>
-                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-jrs-navy/10 text-jrs-navy">
-                    About JRS
-                </span>
-            </div>
-            <p class="text-sm text-slate-500">
-                Manage CBSE statutory public disclosures: General Information, Documents &amp; Certificates, School Infrastructure, and School Management Committee.
-            </p>
-        </div>
-        <div class="flex flex-wrap items-center gap-2">
+    <!-- Top Action: Add Options (Aligned Right) -->
+    <div class="flex flex-wrap items-center justify-end gap-2">
             <a href="{{ route('admin.mandatory-disclosure.create', ['category' => 'general_info']) }}" class="inline-flex items-center justify-center rounded-xl text-xs font-semibold transition-all border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 shadow-xs h-9 px-3.5 gap-1.5">
                 <svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
                 <span>Add General Info</span>
@@ -37,63 +25,7 @@
                 <span>Add SMC Doc</span>
             </a>
         </div>
-    </div>
 
-    <!-- Stats Pill Cards -->
-    <div class="grid grid-cols-2 sm:grid-cols-5 gap-3 sm:gap-4">
-        <div class="p-4 rounded-xl border border-slate-200 bg-white shadow-xs flex items-center justify-between">
-            <div>
-                <p class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Total Records</p>
-                <p class="text-2xl font-bold text-slate-900 mt-1 font-heading">{{ $totalCount }}</p>
-            </div>
-            <div class="w-9 h-9 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center font-bold">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-            </div>
-        </div>
-        <div class="p-4 rounded-xl border border-slate-200 bg-white shadow-xs flex items-center justify-between">
-            <div>
-                <p class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">General Info</p>
-                <p class="text-2xl font-bold text-jrs-navy mt-1 font-heading">{{ $generalCount }}</p>
-            </div>
-            <div class="w-9 h-9 rounded-xl bg-blue-50 text-jrs-navy flex items-center justify-center font-bold">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-            </div>
-        </div>
-        <div class="p-4 rounded-xl border border-slate-200 bg-white shadow-xs flex items-center justify-between">
-            <div>
-                <p class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Certificates</p>
-                <p class="text-2xl font-bold text-emerald-600 mt-1 font-heading">{{ $documentCount }}</p>
-            </div>
-            <div class="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-            </div>
-        </div>
-        <div class="p-4 rounded-xl border border-slate-200 bg-white shadow-xs flex items-center justify-between">
-            <div>
-                <p class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Infrastructure</p>
-                <p class="text-2xl font-bold text-indigo-600 mt-1 font-heading">{{ $infrastructureCount }}</p>
-            </div>
-            <div class="w-9 h-9 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
-            </div>
-        </div>
-        <div class="p-4 rounded-xl border border-slate-200 bg-white shadow-xs flex items-center justify-between col-span-2 sm:col-span-1">
-            <div>
-                <p class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">SMC Documents</p>
-                <p class="text-2xl font-bold text-rose-600 mt-1 font-heading">{{ $smcCount }}</p>
-            </div>
-            <div class="w-9 h-9 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center font-bold">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
-            </div>
-        </div>
-    </div>
-
-    @if(session('success'))
-        <div class="p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-sm flex items-center gap-2">
-            <svg class="w-5 h-5 text-emerald-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-            <span>{{ session('success') }}</span>
-        </div>
-    @endif
 
     <!-- Section 1: General Information Table -->
     <div class="space-y-3">
@@ -102,8 +34,7 @@
                 <span class="w-1.5 h-6 rounded-full bg-jrs-red"></span>
                 <h3 class="text-base sm:text-lg font-bold text-slate-900 font-heading">General Information</h3>
                 <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-slate-100 text-slate-600">{{ $generalCount }} items</span>
-            </div>
-            <a href="{{ route('admin.mandatory-disclosure.create', ['category' => 'general_info']) }}" class="text-xs font-semibold text-jrs-navy hover:text-jrs-red transition-colors flex items-center gap-1">
+             <a href="{{ route('admin.mandatory-disclosure.create', ['category' => 'general_info']) }}" class="text-xs font-semibold text-jrs-navy hover:text-jrs-red transition-colors flex items-center gap-1">
                 <span>+ Add Item</span>
             </a>
         </div>

@@ -4,7 +4,7 @@
 @section('header', 'Principal of JRS (Academic Leadership)')
 
 @section('content')
-<div class="space-y-6 max-w-7xl mx-auto">
+<div class="space-y-6">
 
     <!-- PRIMARY TABLE: Records Table View -->
     <div class="rounded-xl border border-slate-200 bg-white shadow-xs overflow-hidden">
@@ -43,11 +43,10 @@
                                     @if($item->image_full_url)
                                         <img src="{{ $item->image_full_url }}" alt="{{ $item->name }}" class="w-full h-full object-cover">
                                     @else
-                                        <div class="flex flex-col items-center justify-center text-slate-400">
-                                            <svg class="w-6 h-6 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                                        <div class="flex items-center justify-center text-slate-300">
+                                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
                                             </svg>
-                                            <span class="text-[8px] text-slate-400 mt-0.5 font-medium">No Photo</span>
                                         </div>
                                     @endif
                                 </div>
@@ -56,27 +55,35 @@
                             <!-- Leadership Profile -->
                             <td class="p-4 align-middle space-y-1">
                                 <div class="flex items-center gap-1.5 flex-wrap">
-                                    <span class="inline-block text-[10px] font-bold text-amber-700 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded uppercase tracking-wider">
-                                        {{ $item->card_badge ?? 'PRINCIPAL' }}
-                                    </span>
-                                    <span class="inline-block text-[10px] font-bold text-red-600 bg-red-50 border border-red-200 px-2 py-0.5 rounded uppercase tracking-wider">
-                                        {{ $item->profile_badge ?? 'ACADEMIC LEADERSHIP' }}
-                                    </span>
+                                    @if($item->card_badge)
+                                        <span class="inline-block text-[10px] font-bold text-amber-700 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded uppercase tracking-wider">
+                                            {{ $item->card_badge }}
+                                        </span>
+                                    @endif
+                                    @if($item->profile_badge)
+                                        <span class="inline-block text-[10px] font-bold text-red-600 bg-red-50 border border-red-200 px-2 py-0.5 rounded uppercase tracking-wider">
+                                            {{ $item->profile_badge }}
+                                        </span>
+                                    @endif
                                 </div>
                                 <div class="font-bold text-slate-900 font-heading text-sm">
                                     {{ $item->name }}
                                 </div>
-                                <div class="text-xs text-slate-500">
-                                    {{ $item->sub_title }}
-                                </div>
+                                @if($item->sub_title)
+                                    <div class="text-xs text-slate-500">
+                                        {{ $item->sub_title }}
+                                    </div>
+                                @endif
                             </td>
 
                             <!-- Address & Message -->
                             <td class="p-4 align-middle space-y-1.5">
                                 <div class="flex items-center gap-1.5 flex-wrap">
-                                    <span class="inline-block text-[10px] font-bold text-jrs-navy bg-slate-100 px-2 py-0.5 rounded uppercase tracking-wider">
-                                        {{ $item->section_badge ?? "PRINCIPAL'S MESSAGE" }}
-                                    </span>
+                                    @if($item->section_badge)
+                                        <span class="inline-block text-[10px] font-bold text-jrs-navy bg-slate-100 px-2 py-0.5 rounded uppercase tracking-wider">
+                                            {{ $item->section_badge }}
+                                        </span>
+                                    @endif
                                     @if($item->academic_year)
                                         <span class="inline-block text-[10px] text-slate-500 bg-slate-100 px-1.5 py-0.5 rounded">
                                             {{ $item->academic_year }}
@@ -104,9 +111,15 @@
                                     </div>
                                 @endif
                                 <div class="text-xs text-slate-600 font-medium pt-0.5">
-                                    <span class="text-slate-400 text-[10px] uppercase tracking-wider block font-semibold">{{ $item->signoff_note ?? 'WARM REGARDS,' }}</span>
-                                    <span class="text-slate-900 font-bold">{{ $item->signoff_name }}</span>
-                                    <span class="text-slate-500 text-[11px] block">{{ $item->signoff_sub }}</span>
+                                    @if($item->signoff_note)
+                                        <span class="text-slate-400 text-[10px] uppercase tracking-wider block font-semibold">{{ $item->signoff_note }}</span>
+                                    @endif
+                                    @if($item->signoff_name)
+                                        <span class="text-slate-900 font-bold">{{ $item->signoff_name }}</span>
+                                    @endif
+                                    @if($item->signoff_sub)
+                                        <span class="text-slate-500 text-[11px] block">{{ $item->signoff_sub }}</span>
+                                    @endif
                                 </div>
                             </td>
 

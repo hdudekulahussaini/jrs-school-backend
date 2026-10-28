@@ -117,39 +117,22 @@
             <div class="space-y-4">
                 <div class="space-y-1">
                     <h4 class="text-xs font-semibold uppercase tracking-wider text-slate-500">3. Facility Photograph</h4>
-                    <p class="text-xs text-slate-500">Change or remove the current photograph.</p>
+                    <p class="text-xs text-slate-500">Change or remove the current photograph with instant preview before saving.</p>
                 </div>
 
-                @if($facility->image_full_url)
-                    <div class="rounded-lg border border-slate-200 bg-slate-50/60 p-3.5 flex items-center justify-between gap-4">
-                        <div class="flex items-center space-x-3 overflow-hidden">
-                            <img src="{{ $facility->image_full_url }}" alt="Facility Photo" class="w-16 h-11 rounded-md object-cover border border-slate-200 shrink-0">
-                            <div class="truncate">
-                                <span class="text-xs font-semibold text-slate-900 block">Current Photo Attached</span>
-                                <span class="text-[11px] text-slate-500 font-mono truncate block max-w-sm">{{ $facility->image_path }}</span>
-                            </div>
-                        </div>
-                        <label class="inline-flex items-center space-x-2 text-xs text-red-600 font-medium cursor-pointer shrink-0 hover:underline">
-                            <input type="checkbox" name="remove_image" value="1" class="rounded border-slate-300 text-red-600 focus:ring-red-500">
-                            <span>Remove Photo</span>
-                        </label>
-                    </div>
-                @endif
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div class="space-y-2">
-                        <label for="image" class="text-sm font-medium leading-none text-slate-700">Upload New File</label>
-                        <input type="file" name="image" id="image" accept="image/*" class="flex h-9 w-full rounded-md border border-slate-200 bg-white px-3 py-1.5 text-xs text-slate-600 shadow-xs file:border-0 file:bg-transparent file:text-xs file:font-medium file:text-slate-900 cursor-pointer">
-                        @error('image')
-                            <p class="text-xs text-red-600 font-medium">{{ $message }}</p>
-                        @enderror
-                    </div>
-
-                    <div class="space-y-2">
-                        <label for="image_url" class="text-sm font-medium leading-none text-slate-700">Or Image URL</label>
-                        <input type="text" name="image_url" id="image_url" value="{{ old('image_url') }}" placeholder="https://..." class="flex h-9 w-full rounded-md border border-slate-200 bg-white px-3 py-1 text-sm shadow-xs placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-950">
-                    </div>
-                </div>
+                @include('admin.partials.image-upload', [
+                    'name' => 'image',
+                    'id' => 'image',
+                    'label' => 'Facility Photograph',
+                    'current' => $facility->image_full_url ?? null,
+                    'currentPath' => $facility->image_path ?? null,
+                    'removeName' => 'remove_image',
+                    'aspect' => 'video',
+                    'help' => 'Recommended: Crisp landscape photograph showing facility features (1200×800px).',
+                    'urlField' => true,
+                    'urlName' => 'image_url',
+                    'urlValue' => old('image_url'),
+                ])
             </div>
 
             <!-- Divider -->

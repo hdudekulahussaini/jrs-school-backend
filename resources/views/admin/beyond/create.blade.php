@@ -40,7 +40,7 @@
                         <label for="title" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
                             Activity Title <span class="text-jrs-red">*</span>
                         </label>
-                        <input type="text" name="title" id="title" value="{{ old('title') }}" required placeholder="e.g. Sports, Music, Dance, Karate" class="flex h-9 w-full rounded-md border {{ $errors->has('title') ? 'border-jrs-red ring-1 ring-jrs-red' : 'border-slate-200' }} bg-white px-3 py-1 text-xs sm:text-sm shadow-xs transition-colors placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-jrs-navy">
+                        <input type="text" name="title" id="title" value="{{ old('title') }}" required class="flex h-9 w-full rounded-md border {{ $errors->has('title') ? 'border-jrs-red ring-1 ring-jrs-red' : 'border-slate-200' }} bg-white px-3 py-1 text-xs sm:text-sm shadow-xs transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-jrs-navy">
                         @error('title')
                             <p class="text-xs text-jrs-red mt-1">{{ $message }}</p>
                         @enderror
@@ -50,7 +50,7 @@
                         <label for="category" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
                             Category / Subtitle
                         </label>
-                        <input type="text" name="category" id="category" value="{{ old('category') }}" placeholder="e.g. Fitness & Teamwork, Vocal & Instruments" class="flex h-9 w-full rounded-md border {{ $errors->has('category') ? 'border-jrs-red ring-1 ring-jrs-red' : 'border-slate-200' }} bg-white px-3 py-1 text-xs sm:text-sm shadow-xs transition-colors placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-jrs-navy">
+                        <input type="text" name="category" id="category" value="{{ old('category') }}" class="flex h-9 w-full rounded-md border {{ $errors->has('category') ? 'border-jrs-red ring-1 ring-jrs-red' : 'border-slate-200' }} bg-white px-3 py-1 text-xs sm:text-sm shadow-xs transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-jrs-navy">
                         @error('category')
                             <p class="text-xs text-jrs-red mt-1">{{ $message }}</p>
                         @enderror
@@ -65,7 +65,7 @@
                         </label>
                         <div class="flex items-center gap-2">
                             <input type="color" id="colorPicker" value="{{ old('color', '#15803d') }}" oninput="document.getElementById('color').value = this.value" class="h-9 w-10 p-0.5 rounded border border-slate-200 cursor-pointer bg-white">
-                            <input type="text" name="color" id="color" value="{{ old('color', '#15803d') }}" oninput="document.getElementById('colorPicker').value = this.value" placeholder="#15803d" class="flex h-9 w-full rounded-md border border-slate-200 bg-white px-3 py-1 text-xs sm:text-sm font-mono shadow-xs focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-jrs-navy">
+                            <input type="text" name="color" id="color" value="{{ old('color') }}" oninput="document.getElementById('colorPicker').value = this.value" class="flex h-9 w-full rounded-md border border-slate-200 bg-white px-3 py-1 text-xs sm:text-sm font-mono shadow-xs focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-jrs-navy">
                         </div>
                         <div class="flex flex-wrap gap-1.5 mt-2">
                             <button type="button" onclick="setColor('#15803d')" class="w-5 h-5 rounded-full bg-[#15803d] border border-black/10 hover:scale-110 transition-transform" title="Sports Green"></button>
@@ -107,7 +107,7 @@
                     <label for="description" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
                         Activity Description
                     </label>
-                    <textarea name="description" id="description" rows="3" placeholder="Describe the coaching, student activities, benefits, or highlights..." class="flex min-h-[80px] w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm shadow-xs placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-jrs-navy">{{ old('description') }}</textarea>
+                    <textarea name="description" id="description" rows="3" class="flex min-h-[80px] w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm shadow-xs focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-jrs-navy">{{ old('description') }}</textarea>
                     @error('description')
                         <p class="text-xs text-jrs-red mt-1">{{ $message }}</p>
                     @enderror
@@ -121,39 +121,16 @@
                     <p class="text-xs text-slate-500">Upload portrait photo of the students in action.</p>
                 </div>
 
-                <div class="space-y-4">
-                    <div>
-                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Upload Image</label>
-                        <div class="flex items-center justify-center w-full">
-                            <label for="image" class="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed rounded-lg cursor-pointer transition-colors border-slate-300 hover:border-jrs-navy bg-slate-50/50 hover:bg-slate-50">
-                                <div class="flex flex-col items-center justify-center pt-5 pb-6">
-                                    <svg class="w-8 h-8 mb-2 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
-                                    <p class="mb-1 text-xs text-slate-600 font-medium"><span class="font-bold text-jrs-navy">Click to browse</span> or drag and drop</p>
-                                    <p class="text-[11px] text-slate-400">WEBP, JPG, PNG up to 5MB</p>
-                                </div>
-                                <input id="image" name="image" type="file" class="hidden" accept="image/*">
-                            </label>
-                        </div>
-                        @error('image')
-                            <p class="text-xs text-jrs-red mt-1">{{ $message }}</p>
-                        @enderror
-                    </div>
-
-                    <div class="relative flex items-center justify-center">
-                        <div class="border-t border-slate-200 w-full"></div>
-                        <span class="bg-white px-3 text-[11px] font-bold text-slate-400 uppercase tracking-wider absolute">OR</span>
-                    </div>
-
-                    <div>
-                        <label for="image_url" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                            Image Asset Path / Remote URL
-                        </label>
-                        <input type="text" name="image_url" id="image_url" value="{{ old('image_url') }}" placeholder="e.g. /images/beyond/sports.jpg or https://..." class="flex h-9 w-full rounded-md border border-slate-200 bg-white px-3 py-1 text-xs sm:text-sm shadow-xs transition-colors placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-jrs-navy">
-                        @error('image_url')
-                            <p class="text-xs text-jrs-red mt-1">{{ $message }}</p>
-                        @enderror
-                    </div>
-                </div>
+                @include('admin.partials.image-upload', [
+                    'name' => 'image',
+                    'id' => 'image',
+                    'label' => 'Activity Photograph',
+                    'aspect' => 'video',
+                    'help' => 'Supported: WEBP, JPG, PNG up to 5MB (recommended 16:9 landscape).',
+                    'urlField' => true,
+                    'urlName' => 'image_url',
+                    'urlValue' => old('image_url'),
+                ])
             </div>
 
             <!-- Publishing Settings Card -->

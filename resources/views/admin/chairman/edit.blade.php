@@ -4,7 +4,7 @@
 @section('header', 'Edit Chairman Sections')
 
 @section('content')
-<div class="max-w-5xl mx-auto space-y-6">
+<div class="space-y-6 max-w-5xl">
 
     <!-- Back Navigation -->
     <div>
@@ -70,47 +70,17 @@
                     </div>
 
                     <!-- Photo Upload with Live Preview -->
-                    <div class="space-y-3 pt-2">
-                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider">Portrait Photo (Upload & Preview)</label>
-                        
-                        <div class="flex flex-col sm:flex-row items-start gap-5 p-4 rounded-xl border border-slate-200 bg-white shadow-2xs">
-                            <!-- Visual Preview Box -->
-                            <div class="w-24 h-32 rounded-xl overflow-hidden border-2 border-slate-300 bg-slate-900 flex items-center justify-center shrink-0 shadow-inner relative group">
-                                <img id="chairman-preview-img" 
-                                     src="{{ $chairman->image_full_url ?? '' }}" 
-                                     alt="Chairman Preview" 
-                                     class="w-full h-full object-cover {{ $chairman->image_full_url ? '' : 'hidden' }}">
-                                <div id="chairman-preview-placeholder" class="flex flex-col items-center justify-center text-amber-400 p-2 {{ $chairman->image_full_url ? 'hidden' : '' }}">
-                                    <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
-                                    </svg>
-                                    <span class="text-[9px] text-slate-400 mt-1 font-medium text-center">No Photo</span>
-                                </div>
-                            </div>
-
-                            <!-- Upload Controls -->
-                            <div class="flex-1 space-y-3 w-full">
-                                <div>
-                                    <label for="image" class="block text-xs font-semibold text-slate-700 mb-1">Upload New Photo File</label>
-                                    <input type="file" 
-                                           name="image" 
-                                           id="image" 
-                                           accept="image/*" 
-                                           onchange="previewChairmanPhoto(event)"
-                                           class="w-full text-xs text-slate-500 file:mr-3 file:py-2 file:px-3.5 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-jrs-navy file:text-white hover:file:bg-slate-800 transition-colors cursor-pointer border border-slate-200 rounded-lg p-1 bg-slate-50">
-                                    <span class="text-[11px] text-slate-400 mt-1 block">Supports JPG, PNG, WEBP, GIF (Max: 10MB). Best size: 400x500px portrait.</span>
-
-                                    @if($chairman->image_path)
-                                        <div class="pt-2 border-t border-slate-100 flex items-center">
-                                            <label class="flex items-center gap-2 cursor-pointer text-xs text-red-600 hover:text-red-700 font-semibold">
-                                                <input type="checkbox" name="remove_image" value="1" class="w-3.5 h-3.5 text-red-600 rounded border-slate-300 focus:ring-red-500">
-                                                <span>Remove current photo</span>
-                                            </label>
-                                        </div>
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
+                    <div>
+                        @include('admin.partials.image-upload', [
+                            'name' => 'image',
+                            'id' => 'image',
+                            'label' => 'Portrait Photo',
+                            'current' => $chairman->image_full_url ?? null,
+                            'currentPath' => $chairman->image_path ?? null,
+                            'removeName' => 'remove_image',
+                            'aspect' => 'portrait',
+                            'help' => 'Supports JPG, PNG, WEBP, GIF (Max: 10MB). Best size: 400x500px portrait.',
+                        ])
                     </div>
                 </div>
 

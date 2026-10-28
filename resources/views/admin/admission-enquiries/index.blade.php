@@ -6,20 +6,6 @@
 @section('content')
 <div class="space-y-6">
 
-    <!-- Top Action Header Banner -->
-    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-white p-6 rounded-2xl border border-slate-200 shadow-2xs">
-        <div>
-            <div class="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-red-50 text-jrs-red text-xs font-semibold uppercase tracking-wider mb-1.5 border border-red-100">
-                <span class="w-1.5 h-1.5 rounded-full bg-jrs-red animate-pulse"></span>
-                <span>Admissions CRM</span>
-            </div>
-            <h2 class="text-xl font-extrabold text-jrs-navy font-heading">Admission Enquiries Received</h2>
-            <p class="text-xs text-slate-500 mt-1">Live submissions from the "Enquiry Form" on the Admission Open page.</p>
-        </div>
-        <div class="flex items-center gap-2">
-            <span class="text-xs font-semibold text-slate-500">Total Enquiries: <span class="font-extrabold text-jrs-navy text-sm">{{ $stats['total'] }}</span></span>
-        </div>
-    </div>
 
     <!-- Stats Quick Cards -->
     <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
@@ -56,12 +42,6 @@
         </a>
     </div>
 
-    @if(session('success'))
-        <div class="p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-semibold flex items-center gap-2">
-            <i class="bi bi-check-circle-fill text-emerald-600 text-base"></i>
-            <span>{{ session('success') }}</span>
-        </div>
-    @endif
 
     <!-- Search & Filter Card -->
     <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs">

@@ -4,7 +4,7 @@
 @section('header', 'Edit Breadcrumb Banner')
 
 @section('content')
-<div class="space-y-6 max-w-5xl mx-auto">
+<div class="space-y-6 max-w-5xl">
 
     <!-- Breadcrumb / Back Link -->
     <div class="flex items-center justify-between">
@@ -138,31 +138,17 @@
                 </div>
             </div>
 
-            <!-- Section 4: Current & Replacement Background Image -->
-            <div class="border-b border-slate-100 pb-5">
-                <div class="text-sm font-bold text-jrs-navy font-heading">4. Background Image & Artwork</div>
-                <p class="text-xs text-slate-500 mt-0.5">Current background image shown below. Upload a replacement image if desired.</p>
-
-                <!-- Current Image Thumbnail -->
-                <div class="mt-4 p-4 rounded-xl border border-slate-200 bg-slate-50 flex items-center gap-4">
-                    <div class="relative w-28 h-16 rounded-lg overflow-hidden border border-slate-300 bg-slate-900 shrink-0">
-                        <img src="{{ $banner->background_image_url }}" alt="{{ $banner->page_name }}" class="w-full h-full object-cover">
-                    </div>
-                    <div class="text-xs space-y-1 min-w-0">
-                        <div class="font-bold text-slate-800">Current Background Image</div>
-                        <div class="text-slate-500 truncate font-mono text-[11px]">{{ $banner->background_image ?? 'Default Building Artwork' }}</div>
-                        <a href="{{ $banner->background_image_url }}" target="_blank" class="text-blue-600 hover:underline text-[11px] font-medium inline-block">View Full Size &rarr;</a>
-                    </div>
-                </div>
-
-                <div class="mt-4">
-                    <label for="background_image" class="text-xs font-semibold text-slate-700 block mb-1">Replace Image (Upload New)</label>
-                    <input type="file" id="background_image" name="background_image" accept="image/*" class="w-full text-xs text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-jrs-navy file:text-white hover:file:opacity-90 cursor-pointer border border-slate-200 rounded-lg p-1.5 bg-white">
-                    <span class="text-[11px] text-slate-400 mt-1 block">Supported formats: JPG, PNG, WEBP, SVG (Max 10MB)</span>
-                    @error('background_image')
-                        <p class="text-[11px] text-red-600 mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
+            <!-- Section 4: Background Image & Artwork -->
+            <div>
+                @include('admin.partials.image-upload', [
+                    'name' => 'background_image',
+                    'id' => 'background_image',
+                    'label' => '4. Background Image & Artwork',
+                    'current' => $banner->background_image_url ?? null,
+                    'currentPath' => $banner->background_image ?? null,
+                    'aspect' => 'banner',
+                    'help' => 'Recommended: High-resolution horizontal landscape photograph (1920×600px). JPG, PNG, WEBP, SVG (Max 10MB).',
+                ])
             </div>
 
             @php
@@ -311,6 +297,82 @@ document.getElementById('page_name').addEventListener('input', function() {
 
 // Initial check
 updateStatsVisibility();
+
+// Live Background Image Single-Frame Preview Handler
+function previewBannerImage(event) {
+    const input = event.target;
+    if (input.files && input.files[0]) {
+        const file = input.files[0];
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+            const previewImg = document.getElementById('bannerImagePreview');
+            const statusBadge = document.getElementById('bannerImageStatus');
+            const filenameSpan = document.getElementById('bannerImageFilename');
+            const resetBtn = document.getElementById('resetImageBtn');
+            const notice = document.getElementById('uploadFileNotice');
+
+            if (previewImg) {
+                previewImg.src = e.target.result;
+            }
+
+            if (statusBadge) {
+                statusBadge.textContent = 'New Selected';
+                statusBadge.className = 'font-semibold text-[10px] uppercase px-1.5 py-0.5 rounded bg-blue-500/90 text-white';
+            }
+
+            if (filenameSpan) {
+                filenameSpan.textContent = file.name;
+                filenameSpan.title = file.name;
+            }
+
+            if (resetBtn) {
+                resetBtn.classList.remove('hidden');
+            }
+
+            if (notice) {
+                const sizeMb = (file.size / (1024 * 1024)).toFixed(2);
+                const sizeText = sizeMb > 0.1 ? sizeMb + ' MB' : (file.size / 1024).toFixed(1) + ' KB';
+                notice.innerHTML = '<span class="text-emerald-600 font-semibold">Selected: ' + file.name + ' (' + sizeText + ')</span> &bull; Click "Choose New Image" to change or "Revert" to cancel.';
+            }
+        };
+
+        reader.readAsDataURL(file);
+    }
+}
+
+function clearBannerImageSelection() {
+    const input = document.getElementById('background_image');
+    if (input) input.value = '';
+
+    const previewImg = document.getElementById('bannerImagePreview');
+    const statusBadge = document.getElementById('bannerImageStatus');
+    const filenameSpan = document.getElementById('bannerImageFilename');
+    const resetBtn = document.getElementById('resetImageBtn');
+    const notice = document.getElementById('uploadFileNotice');
+
+    if (previewImg) {
+        previewImg.src = previewImg.getAttribute('data-original');
+    }
+
+    if (statusBadge) {
+        const hasCustom = @json(!empty($banner->background_image));
+        statusBadge.textContent = hasCustom ? 'Current Image' : 'Default Artwork';
+        statusBadge.className = 'font-semibold text-[10px] uppercase px-1.5 py-0.5 rounded ' + (hasCustom ? 'bg-emerald-500/80' : 'bg-slate-700/80');
+    }
+
+    if (filenameSpan) {
+        filenameSpan.textContent = @json(basename($banner->background_image ?? 'cta-banner.png'));
+    }
+
+    if (resetBtn) {
+        resetBtn.classList.add('hidden');
+    }
+
+    if (notice) {
+        notice.textContent = 'Recommended: High-resolution horizontal landscape photograph (1920\u00D7600px).';
+    }
+}
 </script>
 @endpush
 @endsection

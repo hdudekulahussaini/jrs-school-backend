@@ -4,7 +4,7 @@
 @section('header', 'Edit Gallery Media')
 
 @section('content')
-<div class="max-w-3xl space-y-6">
+<div class="space-y-6 max-w-4xl">
 
     <!-- Breadcrumb -->
     <div class="flex items-center justify-between">
@@ -46,25 +46,15 @@
             <hr class="border-slate-100">
 
             <!-- Current Image Preview & Replacement -->
-            <div class="space-y-2">
-                <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider">
-                    Current Image
-                </label>
-                <div class="flex items-center gap-4 p-3 rounded-xl bg-slate-50 border border-slate-200">
-                    <img src="{{ $item->image_full_url }}" alt="Preview" class="w-24 h-18 object-cover rounded-lg border border-slate-200 shadow-xs">
-                    <div class="space-y-1 text-xs flex-1">
-                        <p class="font-bold text-slate-900 font-mono text-[11px] break-all">{{ $item->image_path }}</p>
-                        <p class="text-slate-500 text-[11px]">Upload a new image below if you want to replace it.</p>
-                    </div>
-                </div>
-
-                <div class="pt-2">
-                    <label for="image" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">
-                        Replace Image (Optional)
-                    </label>
-                    <input type="file" name="image" id="image" accept="image/*" class="flex h-10 w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs file:mr-3 file:py-1 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-slate-100 file:text-slate-700 hover:file:bg-slate-200 transition-colors">
-                    @error('image') <p class="text-[11px] text-red-600 font-medium">{{ $message }}</p> @enderror
-                </div>
+            <div>
+                @include('admin.partials.image-upload', [
+                    'name' => 'image',
+                    'id' => 'image',
+                    'label' => 'Photo / Image',
+                    'current' => $item->image_full_url ?? null,
+                    'aspect' => 'landscape',
+                    'help' => 'Leave empty to keep existing photo. Upload a new image to replace.',
+                ])
             </div>
 
             <!-- Video URL Option -->

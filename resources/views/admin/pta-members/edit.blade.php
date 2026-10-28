@@ -79,21 +79,15 @@
                     <h4 class="text-xs font-semibold uppercase tracking-wider text-slate-500">Avatar / Photo</h4>
                 </div>
 
-                @if($member->image_full_url)
-                    <div class="flex items-center gap-4 p-3 bg-slate-50 rounded-lg border border-slate-200">
-                        <img src="{{ $member->image_full_url }}" alt="{{ $member->name }}" class="w-16 h-16 rounded-full object-cover border border-slate-200">
-                        <div class="text-xs text-slate-500">
-                            <span class="font-medium text-slate-700 block">Current Photo</span>
-                            <span class="truncate block max-w-sm">{{ $member->image_path }}</span>
-                        </div>
-                    </div>
-                @endif
-
-                <div class="space-y-2">
-                    <label for="image" class="text-sm font-medium leading-none text-slate-700">Replace Photo File</label>
-                    <input type="file" name="image" id="image" accept="image/*" class="flex w-full rounded-md border border-slate-200 bg-white px-3 py-1.5 text-xs sm:text-sm text-slate-500 file:mr-4 file:py-1 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-slate-900 file:text-white hover:file:bg-slate-800 shadow-xs cursor-pointer">
-                    <p class="text-[11px] text-slate-400">Supported: JPG, PNG, WEBP (Max 6MB)</p>
-                </div>
+                @include('admin.partials.image-upload', [
+                    'name' => 'image',
+                    'id' => 'image',
+                    'label' => 'Member Avatar Photo',
+                    'current' => $member->image_full_url ?? null,
+                    'currentPath' => $member->image_path ?? null,
+                    'aspect' => 'avatar',
+                    'help' => 'Supported formats: JPG, PNG, WEBP (Max 6MB). Square or portrait recommended.',
+                ])
             </div>
 
             <!-- Divider -->

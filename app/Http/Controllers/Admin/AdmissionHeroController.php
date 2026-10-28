@@ -69,6 +69,8 @@ class AdmissionHeroController extends Controller
             $hero = AdmissionHero::create($request->validated());
         }
 
+        flash()->success('Admission Open hero section updated successfully.', 'Hero Updated');
+
         return redirect()->route('admin.admission-hero.index')
             ->with('success', 'Admission Open hero section updated successfully.');
     }

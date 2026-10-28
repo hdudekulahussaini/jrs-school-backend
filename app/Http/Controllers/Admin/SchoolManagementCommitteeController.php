@@ -70,6 +70,8 @@ class SchoolManagementCommitteeController extends Controller
 
         SchoolManagementMember::create($validated);
 
+        flash()->success('School Management Committee member added successfully.', 'Member Added');
+
         return redirect()->route('admin.school-management-committee.index')
             ->with('success', 'School Management Committee member added successfully.');
     }
@@ -117,6 +119,8 @@ class SchoolManagementCommitteeController extends Controller
 
         $member->update($validated);
 
+        flash()->success('Committee member updated successfully.', 'Member Updated');
+
         return redirect()->route('admin.school-management-committee.index')
             ->with('success', 'Committee member updated successfully.');
     }
@@ -133,6 +137,8 @@ class SchoolManagementCommitteeController extends Controller
         }
 
         $member->delete();
+
+        flash()->info('Committee member deleted successfully.', 'Member Removed');
 
         return redirect()->route('admin.school-management-committee.index')
             ->with('success', 'Committee member deleted successfully.');

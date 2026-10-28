@@ -6,25 +6,12 @@
 @section('content')
 <div class="space-y-6">
 
-    <!-- Page Header (shadcn/ui style) -->
-    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <div class="space-y-1">
-            <div class="flex items-center gap-2.5">
-                <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-jrs-navy font-heading">Stats Section</h2>
-                <div class="inline-flex items-center rounded-full border border-slate-200 bg-slate-50 px-2.5 py-0.5 text-xs font-semibold text-slate-700">
-                    {{ $totalCount }} {{ Str::plural('stat', $totalCount) }}
-                </div>
-            </div>
-            <p class="text-xs sm:text-sm text-slate-500">
-                Manage the key impact metrics & achievements displayed on the homepage (e.g. 2021 Year of Establishment, 1000+ Happy Students, 50+ Experienced Faculty).
-            </p>
-        </div>
-        <div class="flex items-center gap-2">
-            <a href="{{ route('admin.stats.create') }}" class="inline-flex items-center justify-center rounded-md text-sm font-semibold transition-opacity bg-jrs-red hover:opacity-95 text-white shadow-xs h-9 px-4 py-2 gap-2">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
-                <span>Add Stat</span>
-            </a>
-        </div>
+    <!-- Top Action: Add Button (Aligned Right) -->
+    <div class="flex items-center justify-end">
+        <a href="{{ route('admin.stats.create') }}" class="inline-flex items-center justify-center rounded-lg text-xs sm:text-sm font-semibold bg-jrs-red hover:bg-red-700 text-white shadow-xs h-9 px-4 py-2 gap-2 transition-colors">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+            <span>Add Stat</span>
+        </a>
     </div>
 
     <!-- Toolbar: Tabs + Search -->
@@ -49,7 +36,7 @@
             @endif
             <div class="relative w-full">
                 <svg class="w-4 h-4 text-slate-400 absolute left-3 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-                <input type="text" name="search" value="{{ request('search') }}" placeholder="Search stats..." class="flex h-9 w-full rounded-md border border-slate-200 bg-white pl-9 pr-3 py-1 text-xs sm:text-sm shadow-xs transition-colors placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-jrs-navy">
+                <input type="text" name="search" value="{{ request('search') }}" class="flex h-9 w-full rounded-md border border-slate-200 bg-white pl-9 pr-3 py-1 text-xs sm:text-sm shadow-xs transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-jrs-navy">
             </div>
             @if(request('search'))
                 <a href="{{ route('admin.stats.index', ['status' => request('status')]) }}" class="inline-flex items-center justify-center rounded-md text-xs font-medium border border-slate-200 bg-white px-2.5 h-9 text-slate-600 hover:bg-slate-50 transition-colors">
@@ -85,19 +72,27 @@
 
                             <!-- Icon Preview -->
                             <td class="p-4 align-middle text-center">
-                                <div class="inline-flex w-10 h-10 rounded-xl items-center justify-center text-amber-500 bg-amber-50 border border-amber-200 shadow-2xs mx-auto">
-                                    @if($stat->icon === 'graduation-cap')
-                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 14l9-5-9-5-9 5 9 5z"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/></svg>
-                                    @elseif($stat->icon === 'users')
-                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
-                                    @elseif($stat->icon === 'award')
-                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="8" r="6"/><path stroke-linecap="round" stroke-linejoin="round" d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
-                                    @elseif($stat->icon === 'trophy')
-                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 21h8m-4-4v4M5 4h14a2 2 0 012 2v2a5 5 0 01-5 5h-8a5 5 0 01-5-5V6a2 2 0 012-2zm-3 4h3m14 0h3"/></svg>
-                                    @elseif($stat->icon === 'book')
-                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                                @php
+                                    $rawIcon = trim($stat->icon ?? '');
+                                    $aliasMap = [
+                                        'graduation-cap' => 'bi bi-mortarboard-fill',
+                                        'users' => 'bi bi-people-fill',
+                                        'award' => 'bi bi-award-fill',
+                                        'trophy' => 'bi bi-trophy-fill',
+                                        'book' => 'bi bi-book-half',
+                                        'star' => 'bi bi-stars',
+                                        'shield-check' => 'bi bi-shield-check',
+                                    ];
+                                    $iconClass = $aliasMap[$rawIcon] ?? (str_starts_with($rawIcon, 'bi ') || str_starts_with($rawIcon, 'fa-') ? $rawIcon : ('bi bi-' . $rawIcon));
+                                    $badgeColor = $stat->color ?: '#eab308';
+                                @endphp
+                                <div class="inline-flex w-10 h-10 rounded-xl items-center justify-center text-white shadow-xs mx-auto text-lg transition-transform hover:scale-110" style="background-color: {{ $badgeColor }}">
+                                    @if(str_contains($rawIcon, '<'))
+                                        {!! $rawIcon !!}
+                                    @elseif($rawIcon)
+                                        <i class="{{ $iconClass }}"></i>
                                     @else
-                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                                        <i class="bi bi-mortarboard-fill"></i>
                                     @endif
                                 </div>
                             </td>
@@ -112,7 +107,9 @@
                             <!-- Title / Label -->
                             <td class="p-4 align-middle">
                                 <div class="font-bold text-sm text-jrs-navy">{{ $stat->title }}</div>
-                                <span class="font-mono text-[11px] text-slate-400">icon: {{ $stat->icon ?? 'graduation-cap' }}</span>
+                                @if($stat->icon)
+                                    <span class="font-mono text-[11px] text-slate-400">icon: {{ $stat->icon }}</span>
+                                @endif
                             </td>
 
 

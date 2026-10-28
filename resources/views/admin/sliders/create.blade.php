@@ -40,14 +40,14 @@
 
                 <div class="space-y-2">
                     <label for="badge_title" class="text-sm font-medium leading-none text-slate-700">Top Tagline / Badge</label>
-                    <input type="text" name="badge_title" id="badge_title" value="{{ old('badge_title', 'NURTURING BRIGHT MINDS • BUILDING A BETTER TOMORROW') }}" placeholder="e.g. NURTURING BRIGHT MINDS • BUILDING A BETTER TOMORROW" class="flex h-9 w-full rounded-md border border-slate-200 bg-white px-3 py-1 text-sm shadow-xs transition-colors placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-950">
+                    <input type="text" name="badge_title" id="badge_title" value="{{ old('badge_title') }}" class="flex h-9 w-full rounded-md border border-slate-200 bg-white px-3 py-1 text-sm shadow-xs transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-950">
                     <p class="text-xs text-slate-500">Small uppercase badge tag above the main heading.</p>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="space-y-2">
                         <label for="title" class="text-sm font-medium leading-none text-slate-700">Main Title (Line 1) <span class="text-red-500">*</span></label>
-                        <input type="text" name="title" id="title" required value="{{ old('title', 'Empowering') }}" placeholder="e.g. Empowering" class="flex h-9 w-full rounded-md border @error('title') border-red-500 @else border-slate-200 @enderror bg-white px-3 py-1 text-sm shadow-xs transition-colors placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-950">
+                        <input type="text" name="title" id="title" required value="{{ old('title') }}" class="flex h-9 w-full rounded-md border @error('title') border-red-500 @else border-slate-200 @enderror bg-white px-3 py-1 text-sm shadow-xs transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-950">
                         @error('title')
                             <p class="text-xs text-red-600 font-medium">{{ $message }}</p>
                         @enderror
@@ -55,14 +55,14 @@
 
                     <div class="space-y-2">
                         <label for="highlight_text" class="text-sm font-medium leading-none text-slate-700">Highlighted Title (Line 2 in Yellow)</label>
-                        <input type="text" name="highlight_text" id="highlight_text" value="{{ old('highlight_text', 'Future Leaders') }}" placeholder="e.g. Future Leaders" class="flex h-9 w-full rounded-md border border-slate-200 bg-white px-3 py-1 text-sm shadow-xs transition-colors placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-950">
+                        <input type="text" name="highlight_text" id="highlight_text" value="{{ old('highlight_text') }}" class="flex h-9 w-full rounded-md border border-slate-200 bg-white px-3 py-1 text-sm shadow-xs transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-950">
                         <p class="text-xs text-slate-500">Keywords rendered in bright golden-yellow.</p>
                     </div>
                 </div>
 
                 <div class="space-y-2">
                     <label for="description" class="text-sm font-medium leading-none text-slate-700">Paragraph Description</label>
-                    <textarea name="description" id="description" rows="3" placeholder="Briefly describe the values, campus features, or admissions message..." class="flex min-h-[80px] w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm shadow-xs placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-950">{{ old('description', 'At JRS International School, we inspire curiosity, creativity and compassion. A place where every child discovers their potential and shines in their own unique way.') }}</textarea>
+                    <textarea name="description" id="description" rows="3" class="flex min-h-[80px] w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm shadow-xs focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-950">{{ old('description') }}</textarea>
                 </div>
             </div>
 
@@ -84,7 +84,7 @@
                         </div>
                         <div class="space-y-1.5">
                             <label for="primary_button_text" class="text-xs font-medium text-slate-600">Button Label</label>
-                            <input type="text" name="primary_button_text" id="primary_button_text" value="{{ old('primary_button_text', 'Admissions 2026-27') }}" placeholder="e.g. Admissions 2026-27" class="flex h-9 w-full rounded-md border border-slate-200 bg-white px-3 py-1 text-xs sm:text-sm shadow-xs placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-950">
+                            <input type="text" name="primary_button_text" id="primary_button_text" value="{{ old('primary_button_text') }}" class="flex h-9 w-full rounded-md border border-slate-200 bg-white px-3 py-1 text-xs sm:text-sm shadow-xs focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-950">
                             <p class="text-[11px] text-slate-500">CTA label on the solid red button.</p>
                         </div>
                     </div>
@@ -97,11 +97,11 @@
                         </div>
                         <div class="space-y-1.5">
                             <label for="secondary_button_text" class="text-xs font-medium text-slate-600">Button Label</label>
-                            <input type="text" name="secondary_button_text" id="secondary_button_text" value="{{ old('secondary_button_text', 'Take a Virtual Tour') }}" placeholder="e.g. Take a Virtual Tour" class="flex h-9 w-full rounded-md border border-slate-200 bg-white px-3 py-1 text-xs sm:text-sm shadow-xs placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-950">
+                            <input type="text" name="secondary_button_text" id="secondary_button_text" value="{{ old('secondary_button_text') }}" class="flex h-9 w-full rounded-md border border-slate-200 bg-white px-3 py-1 text-xs sm:text-sm shadow-xs focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-950">
                         </div>
                         <div class="space-y-1.5">
                             <label for="secondary_button_url" class="text-xs font-medium text-slate-600">Button Target URL</label>
-                            <input type="text" name="secondary_button_url" id="secondary_button_url" value="{{ old('secondary_button_url', 'https://jrs-school.vercel.app/#tour') }}" placeholder="e.g. https://jrs-school.vercel.app/#tour" class="flex h-9 w-full rounded-md border border-slate-200 bg-white px-3 py-1 text-xs sm:text-sm shadow-xs placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-950">
+                            <input type="text" name="secondary_button_url" id="secondary_button_url" value="{{ old('secondary_button_url') }}" class="flex h-9 w-full rounded-md border border-slate-200 bg-white px-3 py-1 text-xs sm:text-sm shadow-xs focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-950">
                         </div>
                     </div>
                 </div>
@@ -117,20 +117,16 @@
                     <p class="text-xs text-slate-500">Upload a high-resolution school campus or activity image (recommended 1920x1080).</p>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div class="space-y-2">
-                        <label for="image" class="text-sm font-medium leading-none text-slate-700">Upload File</label>
-                        <input type="file" name="image" id="image" accept="image/*" class="flex h-9 w-full rounded-md border border-slate-200 bg-white px-3 py-1.5 text-xs text-slate-600 shadow-xs file:border-0 file:bg-transparent file:text-xs file:font-medium file:text-slate-900 cursor-pointer">
-                        @error('image')
-                            <p class="text-xs text-red-600 font-medium">{{ $message }}</p>
-                        @enderror
-                    </div>
-
-                    <div class="space-y-2">
-                        <label for="image_url" class="text-sm font-medium leading-none text-slate-700">Or Paste Image URL</label>
-                        <input type="text" name="image_url" id="image_url" value="{{ old('image_url') }}" placeholder="https://..." class="flex h-9 w-full rounded-md border border-slate-200 bg-white px-3 py-1 text-sm shadow-xs placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-950">
-                    </div>
-                </div>
+                @include('admin.partials.image-upload', [
+                    'name' => 'image',
+                    'id' => 'image',
+                    'label' => 'Slide Photograph',
+                    'aspect' => 'banner',
+                    'help' => 'Recommended: High-resolution school campus or activity image (1920×1080px).',
+                    'urlField' => true,
+                    'urlName' => 'image_url',
+                    'urlValue' => old('image_url'),
+                ])
             </div>
 
             <!-- Divider -->

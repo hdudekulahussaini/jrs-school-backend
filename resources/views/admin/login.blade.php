@@ -64,24 +64,6 @@
                 <p class="text-xs text-slate-500 mt-1">Enter your administrator credentials to continue</p>
             </div>
 
-            <!-- Alerts -->
-            @if(session('success'))
-                <div class="mb-5 p-3.5 rounded-xl bg-jrs-navy/5 border border-jrs-navy/20 text-jrs-navy text-xs flex items-center gap-2">
-                    <svg class="w-4 h-4 text-jrs-navy shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                    <span>{{ session('success') }}</span>
-                </div>
-            @endif
-
-            @if($errors->any())
-                <div class="mb-5 p-3.5 rounded-xl bg-jrs-red/5 border border-jrs-red/20 text-jrs-red text-xs space-y-1">
-                    @foreach($errors->all() as $error)
-                        <div class="flex items-center gap-2">
-                            <svg class="w-3.5 h-3.5 text-jrs-red shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                            <span>{{ $error }}</span>
-                        </div>
-                    @endforeach
-                </div>
-            @endif
 
             <!-- Form -->
             <form action="{{ route('admin.login.submit') }}" method="POST" class="space-y-4">
@@ -153,5 +135,8 @@
             }
         }
     </script>
+
+    <!-- PHPFlasher Google Material Design Theme -->
+    @include('admin.partials.flasher-material')
 </body>
 </html>

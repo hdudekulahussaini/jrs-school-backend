@@ -24,6 +24,8 @@ class VisionMissionController extends Controller
     public function create()
     {
         if (VisionMission::count() >= 2) {
+            flash()->warning('Only 2 cards (Vision & Mission) are allowed. You can edit existing cards.', 'Limit Reached');
+
             return redirect()->route('admin.vision-mission.index')
                 ->with('error', 'Only 2 cards (Vision & Mission) are allowed. You can edit existing cards.');
         }
@@ -37,6 +39,8 @@ class VisionMissionController extends Controller
     public function store(VisionMissionRequest $request)
     {
         if (VisionMission::count() >= 2) {
+            flash()->error('Cannot add card. The maximum limit of 2 cards (Vision & Mission) has already been reached.', 'Action Denied');
+
             return redirect()->route('admin.vision-mission.index')
                 ->with('error', 'Cannot add card. The maximum limit of 2 cards (Vision & Mission) has already been reached.');
         }
@@ -60,6 +64,8 @@ class VisionMissionController extends Controller
         unset($validated['image_file']);
 
         VisionMission::create($validated);
+
+        flash()->success('Vision & Mission card created successfully.', 'Card Created');
 
         return redirect()->route('admin.vision-mission.index')
             ->with('success', 'Vision & Mission card created successfully.');
@@ -99,6 +105,8 @@ class VisionMissionController extends Controller
 
         $item->update($validated);
 
+        flash()->success('Vision & Mission card updated successfully.', 'Card Updated');
+
         return redirect()->route('admin.vision-mission.index')
             ->with('success', 'Vision & Mission card updated successfully.');
     }
@@ -110,6 +118,8 @@ class VisionMissionController extends Controller
     {
         $item = VisionMission::findOrFail($id);
         $item->delete();
+
+        flash()->info('Vision & Mission card deleted successfully.', 'Card Removed');
 
         return redirect()->route('admin.vision-mission.index')
             ->with('success', 'Vision & Mission card deleted successfully.');

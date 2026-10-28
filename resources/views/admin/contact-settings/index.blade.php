@@ -4,7 +4,7 @@
 @section('header', 'Contact Us')
 
 @section('content')
-<div class="max-w-4xl mx-auto space-y-6">
+<div class="space-y-6">
 
     <!-- Top Action Header Banner -->
     <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-white p-6 rounded-2xl border border-slate-200 shadow-2xs">

@@ -4,7 +4,7 @@
 @section('header', 'About JRS Section')
 
 @section('content')
-<div class="space-y-6 max-w-6xl mx-auto">
+<div class="space-y-6">
 
     @if(!$about)
         <div class="bg-white rounded-2xl p-12 text-center border border-slate-200/80 shadow-xs">

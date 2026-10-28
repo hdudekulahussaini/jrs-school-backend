@@ -112,20 +112,16 @@
                     <p class="text-xs text-slate-500">Upload a crisp photo showing students or the facility in action.</p>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div class="space-y-2">
-                        <label for="image" class="text-sm font-medium leading-none text-slate-700">Upload Photo File</label>
-                        <input type="file" name="image" id="image" accept="image/*" class="flex h-9 w-full rounded-md border border-slate-200 bg-white px-3 py-1.5 text-xs text-slate-600 shadow-xs file:border-0 file:bg-transparent file:text-xs file:font-medium file:text-slate-900 cursor-pointer">
-                        @error('image')
-                            <p class="text-xs text-red-600 font-medium">{{ $message }}</p>
-                        @enderror
-                    </div>
-
-                    <div class="space-y-2">
-                        <label for="image_url" class="text-sm font-medium leading-none text-slate-700">Or Image URL</label>
-                        <input type="text" name="image_url" id="image_url" value="{{ old('image_url') }}" placeholder="https://..." class="flex h-9 w-full rounded-md border border-slate-200 bg-white px-3 py-1 text-sm shadow-xs placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-950">
-                    </div>
-                </div>
+                @include('admin.partials.image-upload', [
+                    'name' => 'image',
+                    'id' => 'image',
+                    'label' => 'Facility Photograph',
+                    'aspect' => 'video',
+                    'help' => 'Recommended: Crisp landscape photograph showing facility features (1200×800px).',
+                    'urlField' => true,
+                    'urlName' => 'image_url',
+                    'urlValue' => old('image_url'),
+                ])
             </div>
 
             <!-- Divider -->

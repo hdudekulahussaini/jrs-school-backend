@@ -63,11 +63,13 @@ class HomeStatController extends Controller
         $validated = $request->validated();
         $validated['is_active'] = $request->has('is_active');
         $validated['sort_order'] = $request->input('sort_order', 0);
-        $validated['color'] = $request->input('color', '#eab308');
-        $validated['icon'] = $request->input('icon', 'graduation-cap');
+        $validated['color'] = $request->filled('color') ? $request->input('color') : null;
+        $validated['icon'] = $request->filled('icon') ? $request->input('icon') : null;
         $validated['description'] = $request->input('description', null);
 
         HomeStat::create($validated);
+
+        flash()->success('Stat card created successfully.', 'Stat Created');
 
         return redirect()->route('admin.stats.index')
             ->with('success', 'Stat card created successfully.');
@@ -101,11 +103,13 @@ class HomeStatController extends Controller
 
         $validated['is_active'] = $request->has('is_active');
         $validated['sort_order'] = $request->input('sort_order', 0);
-        $validated['color'] = $request->input('color', '#eab308');
-        $validated['icon'] = $request->input('icon', 'graduation-cap');
+        $validated['color'] = $request->filled('color') ? $request->input('color') : null;
+        $validated['icon'] = $request->filled('icon') ? $request->input('icon') : null;
         $validated['description'] = $request->input('description', null);
 
         $stat->update($validated);
+
+        flash()->success('Stat card updated successfully.', 'Stat Updated');
 
         return redirect()->route('admin.stats.index')
             ->with('success', 'Stat card updated successfully.');
@@ -119,6 +123,12 @@ class HomeStatController extends Controller
         $stat = HomeStat::findOrFail($id);
         $stat->is_active = !$stat->is_active;
         $stat->save();
+
+        if ($stat->is_active) {
+            flash()->success('Stat status changed to Active.', 'Status Updated');
+        } else {
+            flash()->warning('Stat status changed to Inactive.', 'Status Inactive');
+        }
 
         if (request()->wantsJson() || request()->ajax()) {
             return response()->json([
@@ -139,6 +149,8 @@ class HomeStatController extends Controller
     {
         $stat = HomeStat::findOrFail($id);
         $stat->delete();
+
+        flash()->info('Stat card deleted successfully.', 'Stat Removed');
 
         return redirect()->route('admin.stats.index')
             ->with('success', 'Stat card deleted successfully.');

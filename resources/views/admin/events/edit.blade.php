@@ -46,7 +46,7 @@
                     <label for="title" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
                         Event Title <span class="text-jrs-red">*</span>
                     </label>
-                    <input type="text" name="title" id="title" value="{{ old('title', $event->title) }}" required placeholder="e.g. Republic Day Celebrations, Annual Day" class="flex h-9 w-full rounded-md border {{ $errors->has('title') ? 'border-jrs-red ring-1 ring-jrs-red' : 'border-slate-200' }} bg-white px-3 py-1 text-xs sm:text-sm shadow-xs transition-colors placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-jrs-navy">
+                    <input type="text" name="title" id="title" value="{{ old('title', $event->title) }}" required class="flex h-9 w-full rounded-md border {{ $errors->has('title') ? 'border-jrs-red ring-1 ring-jrs-red' : 'border-slate-200' }} bg-white px-3 py-1 text-xs sm:text-sm shadow-xs transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-jrs-navy">
                     @error('title')
                         <p class="text-xs text-jrs-red mt-1">{{ $message }}</p>
                     @enderror
@@ -68,7 +68,7 @@
                         <label for="badge_day" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
                             Badge Day (e.g. 26)
                         </label>
-                        <input type="text" name="badge_day" id="badge_day" value="{{ old('badge_day', $event->badge_day) }}" placeholder="26" maxlength="10" class="flex h-9 w-full rounded-md border border-slate-200 bg-white px-3 py-1 text-xs sm:text-sm font-mono shadow-xs focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-jrs-navy">
+                        <input type="text" name="badge_day" id="badge_day" value="{{ old('badge_day', $event->badge_day) }}" maxlength="10" class="flex h-9 w-full rounded-md border border-slate-200 bg-white px-3 py-1 text-xs sm:text-sm font-mono shadow-xs focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-jrs-navy">
                         <span class="text-[11px] text-slate-400">Red bold number on badge.</span>
                     </div>
 
@@ -76,7 +76,7 @@
                         <label for="badge_month" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
                             Badge Month (e.g. JAN)
                         </label>
-                        <input type="text" name="badge_month" id="badge_month" value="{{ old('badge_month', $event->badge_month) }}" placeholder="JAN" maxlength="10" class="flex h-9 w-full rounded-md border border-slate-200 bg-white px-3 py-1 text-xs sm:text-sm uppercase font-mono shadow-xs focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-jrs-navy">
+                        <input type="text" name="badge_month" id="badge_month" value="{{ old('badge_month', $event->badge_month) }}" maxlength="10" class="flex h-9 w-full rounded-md border border-slate-200 bg-white px-3 py-1 text-xs sm:text-sm uppercase font-mono shadow-xs focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-jrs-navy">
                         <span class="text-[11px] text-slate-400">Navy uppercase label.</span>
                     </div>
                 </div>
@@ -86,7 +86,7 @@
                     <label for="description" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
                         Event Description
                     </label>
-                    <textarea name="description" id="description" rows="3" placeholder="Brief summary of patriotic performances, awards, guest lectures, or games..." class="flex min-h-[80px] w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm shadow-xs placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-jrs-navy">{{ old('description', $event->description) }}</textarea>
+                    <textarea name="description" id="description" rows="3" class="flex min-h-[80px] w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm shadow-xs focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-jrs-navy">{{ old('description', $event->description) }}</textarea>
                     @error('description')
                         <p class="text-xs text-jrs-red mt-1">{{ $message }}</p>
                     @enderror
@@ -100,61 +100,19 @@
                     <p class="text-xs text-slate-500">Update event celebration photo (recommended ratio 16:10).</p>
                 </div>
 
-                <!-- Current Photo Preview -->
-                @if($event->image_full_url)
-                    <div class="p-3 bg-slate-50 rounded-lg border border-slate-200 flex items-center justify-between gap-4">
-                        <div class="flex items-center gap-3">
-                            <div class="relative w-20 h-14 rounded-md overflow-hidden border border-slate-200 shrink-0">
-                                <img src="{{ $event->image_full_url }}" alt="{{ $event->title }}" class="w-full h-full object-cover">
-                                <div class="absolute top-1 left-1 bg-white/95 rounded px-1 text-[9px] font-bold text-jrs-red leading-tight">
-                                    {{ $event->display_day }} {{ $event->display_month }}
-                                </div>
-                            </div>
-                            <div>
-                                <span class="text-xs font-bold text-slate-700 block">Current Photo</span>
-                                <span class="text-[11px] text-slate-400 block font-mono truncate max-w-xs">{{ $event->image_path }}</span>
-                            </div>
-                        </div>
-                        <label class="flex items-center gap-1.5 text-xs text-jrs-red hover:underline cursor-pointer">
-                            <input type="checkbox" name="remove_image" value="1" class="rounded border-slate-300 text-jrs-red focus:ring-jrs-red">
-                            <span>Remove</span>
-                        </label>
-                    </div>
-                @endif
-
-                <div class="space-y-4">
-                    <div>
-                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Replace Image</label>
-                        <div class="flex items-center justify-center w-full">
-                            <label for="image" class="flex flex-col items-center justify-center w-full h-28 border-2 border-dashed rounded-lg cursor-pointer transition-colors border-slate-300 hover:border-jrs-navy bg-slate-50/50 hover:bg-slate-50">
-                                <div class="flex flex-col items-center justify-center pt-4 pb-4">
-                                    <svg class="w-6 h-6 mb-1.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
-                                    <p class="text-xs text-slate-600 font-medium"><span class="font-bold text-jrs-navy">Upload new image</span> (replaces current)</p>
-                                    <p class="text-[11px] text-slate-400">WEBP, JPG, PNG up to 5MB</p>
-                                </div>
-                                <input id="image" name="image" type="file" class="hidden" accept="image/*">
-                            </label>
-                        </div>
-                        @error('image')
-                            <p class="text-xs text-jrs-red mt-1">{{ $message }}</p>
-                        @enderror
-                    </div>
-
-                    <div class="relative flex items-center justify-center">
-                        <div class="border-t border-slate-200 w-full"></div>
-                        <span class="bg-white px-3 text-[11px] font-bold text-slate-400 uppercase tracking-wider absolute">OR</span>
-                    </div>
-
-                    <div>
-                        <label for="image_url" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                            Image Asset Path / Remote URL
-                        </label>
-                        <input type="text" name="image_url" id="image_url" value="{{ old('image_url') }}" placeholder="e.g. /images/events/republic-day.jpg or https://..." class="flex h-9 w-full rounded-md border border-slate-200 bg-white px-3 py-1 text-xs sm:text-sm shadow-xs transition-colors placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-jrs-navy">
-                        @error('image_url')
-                            <p class="text-xs text-jrs-red mt-1">{{ $message }}</p>
-                        @enderror
-                    </div>
-                </div>
+                @include('admin.partials.image-upload', [
+                    'name' => 'image',
+                    'id' => 'image',
+                    'label' => 'Event Photograph',
+                    'current' => $event->image_full_url ?? null,
+                    'currentPath' => $event->image_path ?? null,
+                    'removeName' => 'remove_image',
+                    'aspect' => 'video',
+                    'help' => 'Supported: WEBP, JPG, PNG up to 5MB (recommended 16:10 landscape).',
+                    'urlField' => true,
+                    'urlName' => 'image_url',
+                    'urlValue' => old('image_url'),
+                ])
             </div>
 
             <!-- Target Link Card -->
@@ -169,14 +127,14 @@
                         <label for="link_text" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
                             Link Label
                         </label>
-                        <input type="text" name="link_text" id="link_text" value="{{ old('link_text', $event->link_text) }}" placeholder="Explore event" class="flex h-9 w-full rounded-md border border-slate-200 bg-white px-3 py-1 text-xs sm:text-sm shadow-xs focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-jrs-navy">
+                        <input type="text" name="link_text" id="link_text" value="{{ old('link_text', $event->link_text) }}" class="flex h-9 w-full rounded-md border border-slate-200 bg-white px-3 py-1 text-xs sm:text-sm shadow-xs focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-jrs-navy">
                     </div>
 
                     <div>
                         <label for="link_url" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
                             Target URL / Route
                         </label>
-                        <input type="text" name="link_url" id="link_url" value="{{ old('link_url', $event->link_url) }}" placeholder="/gallery or https://..." class="flex h-9 w-full rounded-md border border-slate-200 bg-white px-3 py-1 text-xs sm:text-sm shadow-xs focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-jrs-navy">
+                        <input type="text" name="link_url" id="link_url" value="{{ old('link_url', $event->link_url) }}" class="flex h-9 w-full rounded-md border border-slate-200 bg-white px-3 py-1 text-xs sm:text-sm shadow-xs focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-jrs-navy">
                     </div>
                 </div>
             </div>

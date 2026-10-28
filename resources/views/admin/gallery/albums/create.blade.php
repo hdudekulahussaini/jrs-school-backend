@@ -103,13 +103,14 @@
                         @error('media_type') <p class="text-[11px] text-red-600 font-medium">{{ $message }}</p> @enderror
                     </div>
 
-                    <div class="space-y-1.5">
-                        <label for="cover_image" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider">
-                            Album Cover Image (Optional)
-                        </label>
-                        <input type="file" name="cover_image" id="cover_image" accept="image/*" class="flex h-10 w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs file:mr-3 file:py-1 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-slate-100 file:text-slate-700 hover:file:bg-slate-200 transition-colors">
-                        <p class="text-[10px] text-slate-400">If omitted, the first photo inside this album will be used as the preview.</p>
-                        @error('cover_image') <p class="text-[11px] text-red-600 font-medium">{{ $message }}</p> @enderror
+                    <div>
+                        @include('admin.partials.image-upload', [
+                            'name' => 'cover_image',
+                            'id' => 'cover_image',
+                            'label' => 'Album Cover Image (Optional)',
+                            'aspect' => 'video',
+                            'help' => 'Upload album cover photo (JPG, PNG, WEBP, Max 10MB). If omitted, the first photo inside this album will be used as preview.',
+                        ])
                     </div>
                 </div>
             </div>

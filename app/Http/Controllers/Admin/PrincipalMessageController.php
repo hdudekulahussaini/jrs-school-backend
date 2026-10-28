@@ -72,6 +72,8 @@ class PrincipalMessageController extends Controller
 
         $principal->update($data);
 
+        flash()->success('Principal leadership message updated successfully!', 'Leadership Updated');
+
         return redirect()->route('admin.principal.index')
             ->with('success', 'Principal leadership message updated successfully!');
     }
@@ -86,6 +88,13 @@ class PrincipalMessageController extends Controller
         $principal->save();
 
         $status = $principal->is_active ? 'activated' : 'deactivated';
+
+        if ($principal->is_active) {
+            flash()->success("Principal leadership section has been activated successfully.", 'Section Activated');
+        } else {
+            flash()->warning("Principal leadership section has been deactivated.", 'Section Deactivated');
+        }
+
         return redirect()->back()->with('success', "Principal leadership section has been {$status} successfully.");
     }
 }

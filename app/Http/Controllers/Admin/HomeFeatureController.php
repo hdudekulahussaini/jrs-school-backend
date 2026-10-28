@@ -62,22 +62,23 @@ class HomeFeatureController extends Controller
         $validated = $request->validated();
         $validated['is_active'] = $request->has('is_active');
         $validated['sort_order'] = $request->input('sort_order', 0);
-        $validated['color'] = $request->input('color', '#e31e24');
-        $validated['icon'] = $request->input('icon', 'graduation-cap');
+        $validated['color'] = $request->filled('color') ? $request->input('color') : null;
+        $validated['icon'] = $request->filled('icon') ? $request->input('icon') : null;
 
         HomeFeature::create($validated);
+
+        flash()->success('Key Feature card created successfully.', 'Feature Created');
 
         return redirect()->route('admin.features.index')
             ->with('success', 'Key Feature card created successfully.');
     }
 
     /**
-     * [READ - Show] Display feature details.
+     * [READ - Show] Redirect to edit form (show page removed).
      */
     public function show($id)
     {
-        $feature = HomeFeature::findOrFail($id);
-        return view('admin.features.show', compact('feature'));
+        return redirect()->route('admin.features.edit', $id);
     }
 
     /**
@@ -99,10 +100,12 @@ class HomeFeatureController extends Controller
 
         $validated['is_active'] = $request->has('is_active');
         $validated['sort_order'] = $request->input('sort_order', 0);
-        $validated['color'] = $request->input('color', '#e31e24');
-        $validated['icon'] = $request->input('icon', 'graduation-cap');
+        $validated['color'] = $request->filled('color') ? $request->input('color') : null;
+        $validated['icon'] = $request->filled('icon') ? $request->input('icon') : null;
 
         $feature->update($validated);
+
+        flash()->success('Key Feature card updated successfully.', 'Feature Updated');
 
         return redirect()->route('admin.features.index')
             ->with('success', 'Key Feature card updated successfully.');
@@ -116,6 +119,12 @@ class HomeFeatureController extends Controller
         $feature = HomeFeature::findOrFail($id);
         $feature->is_active = !$feature->is_active;
         $feature->save();
+
+        if ($feature->is_active) {
+            flash()->success('Feature status changed to Active.', 'Status Updated');
+        } else {
+            flash()->warning('Feature status changed to Inactive.', 'Status Inactive');
+        }
 
         if (request()->wantsJson() || request()->ajax()) {
             return response()->json([
@@ -136,6 +145,8 @@ class HomeFeatureController extends Controller
     {
         $feature = HomeFeature::findOrFail($id);
         $feature->delete();
+
+        flash()->info('Key Feature card deleted successfully.', 'Feature Removed');
 
         return redirect()->route('admin.features.index')
             ->with('success', 'Key Feature card deleted successfully.');

@@ -4,7 +4,7 @@
 @section('header', 'Add Vision / Mission')
 
 @section('content')
-<div class="space-y-6 max-w-4xl mx-auto">
+<div class="space-y-6 max-w-4xl">
 
     <!-- Breadcrumb & Back -->
     <div class="flex items-center justify-between">
@@ -77,12 +77,14 @@
             </div>
 
             <!-- Background Image File Upload -->
-            <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/80">
-                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                    Card Background Image
-                </label>
-                <input type="file" name="image_file" accept="image/*" class="w-full text-xs text-slate-600 file:mr-3 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-jrs-navy file:text-white hover:file:bg-jrs-navy-dark cursor-pointer border border-slate-200 rounded-xl p-1.5 bg-white">
-                <p class="text-[11px] text-slate-400 mt-1">Upload a background image file (JPG, PNG, WebP).</p>
+            <div>
+                @include('admin.partials.image-upload', [
+                    'name' => 'image_file',
+                    'id' => 'image_file',
+                    'label' => 'Card Background Image',
+                    'aspect' => 'landscape',
+                    'help' => 'Upload a background image file (JPG, PNG, WebP).',
+                ])
             </div>
 
             <!-- Sort Order & Active -->

@@ -23,7 +23,7 @@
     </div>
 
     <!-- Form Container -->
-    <div class="max-w-3xl">
+    <div class="max-w-4xl">
         <form action="{{ route('admin.academic-journeys.update', $journey->id) }}" method="POST" enctype="multipart/form-data" class="space-y-6">
             @csrf
             @method('PUT')
@@ -122,44 +122,18 @@
                     <p class="text-xs text-slate-500">Upload a new photograph or keep current image.</p>
                 </div>
 
-                @if($journey->image_path)
-                    <div class="flex items-center gap-4 p-3 bg-slate-50 border border-slate-200 rounded-lg">
-                        <img src="{{ asset($journey->image_path) }}" alt="{{ $journey->title }}" class="w-24 h-16 rounded object-cover border border-slate-200 shadow-2xs">
-                        <div class="space-y-1">
-                            <span class="text-xs font-bold text-slate-700 block">Current Image</span>
-                            <span class="text-[11px] font-mono text-slate-400 block break-all">{{ $journey->image_path }}</span>
-                        </div>
-                    </div>
-                @endif
-
-                <div class="space-y-4">
-                    <div>
-                        <label for="image" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                            Replace Photo File
-                        </label>
-                        <input type="file" name="image" id="image" accept="image/*" class="flex w-full rounded-md border border-slate-200 bg-white px-3 py-1.5 text-xs text-slate-500 file:mr-4 file:py-1.5 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-jrs-navy/10 file:text-jrs-navy hover:file:bg-jrs-navy/20 cursor-pointer">
-                        <span class="text-[11px] text-slate-400">Leave blank to retain current image. Accepted formats: JPEG, PNG, WEBP. Max: 4MB.</span>
-                        @error('image')
-                            <p class="text-xs text-jrs-red mt-1">{{ $message }}</p>
-                        @enderror
-                    </div>
-
-                    <div class="relative flex py-1 items-center">
-                        <div class="flex-grow border-t border-slate-200"></div>
-                        <span class="flex-shrink mx-4 text-slate-400 text-xs uppercase font-medium">OR image path</span>
-                        <div class="flex-grow border-t border-slate-200"></div>
-                    </div>
-
-                    <div>
-                        <label for="image_path" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                            Static Image Path / URL
-                        </label>
-                        <input type="text" name="image_path" id="image_path" value="{{ old('image_path', $journey->image_path) }}" placeholder="e.g. images/journey/butterflies-programme.jpg" class="flex h-9 w-full rounded-md border border-slate-200 bg-white px-3 py-1 text-xs sm:text-sm font-mono shadow-xs transition-colors placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-jrs-navy">
-                        @error('image_path')
-                            <p class="text-xs text-jrs-red mt-1">{{ $message }}</p>
-                        @enderror
-                    </div>
-                </div>
+                @include('admin.partials.image-upload', [
+                    'name' => 'image',
+                    'id' => 'image',
+                    'label' => 'Journey Stage Photograph',
+                    'current' => $journey->image_path ? asset($journey->image_path) : null,
+                    'currentPath' => $journey->image_path ?? null,
+                    'aspect' => 'landscape',
+                    'help' => 'Accepted formats: JPEG, PNG, WEBP. Max: 4MB.',
+                    'urlField' => true,
+                    'urlName' => 'image_path',
+                    'urlValue' => old('image_path', $journey->image_path),
+                ])
             </div>
 
             <!-- Publishing & Order Card -->

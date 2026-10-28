@@ -6,32 +6,12 @@
 @section('content')
 <div class="space-y-6">
 
-    <!-- Header & Action Bar -->
-    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <div class="space-y-1">
-            <div class="flex items-center gap-2.5">
-                <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-jrs-navy font-heading">Breadcrumb Banners</h2>
-                <div class="inline-flex items-center rounded-full border border-slate-200 bg-slate-50 px-2.5 py-0.5 text-xs font-semibold text-slate-700">
-                    {{ $totalCount }} {{ Str::plural('Banner', $totalCount) }}
-                </div>
-            </div>
-            <p class="text-xs sm:text-sm text-slate-500">
-                Manage dynamic header breadcrumb banners, titles with highlights, subtitles, background images, and stats cards across all website pages.
-            </p>
-        </div>
-        <div class="flex items-center gap-2 flex-wrap">
-            <form action="{{ route('admin.breadcrumb-banners.seed-defaults') }}" method="POST" onsubmit="return confirm('Restore all default banners from screenshots? Existing customized records will be preserved or refreshed.')">
-                @csrf
-                <button type="submit" class="inline-flex items-center justify-center rounded-md text-xs font-semibold border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 shadow-2xs h-9 px-3 gap-1.5 transition-colors" title="Seed default banners from screenshots">
-                    <svg class="w-3.5 h-3.5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
-                    <span>Seed / Reset Defaults</span>
-                </button>
-            </form>
-            <a href="{{ route('admin.breadcrumb-banners.create') }}" class="inline-flex items-center justify-center rounded-md text-sm font-semibold transition-opacity bg-jrs-red hover:opacity-95 text-white shadow-xs h-9 px-4 py-2 gap-2">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
-                <span>Add Banner</span>
-            </a>
-        </div>
+    <!-- Top Action: Add Button (Aligned Right) -->
+    <div class="flex items-center justify-end">
+        <a href="{{ route('admin.breadcrumb-banners.create') }}" class="inline-flex items-center justify-center rounded-lg text-xs sm:text-sm font-semibold bg-jrs-red hover:bg-red-700 text-white shadow-xs h-9 px-4 py-2 gap-2 transition-colors">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+            <span>Add Banner</span>
+        </a>
     </div>
 
 
@@ -82,21 +62,19 @@
 
                             <!-- Heading & Highlight -->
                             <td class="p-4 align-top">
-                                <div class="p-2.5 rounded-lg bg-[#031C3F] text-white border border-slate-800 shadow-2xs">
-                                    <div class="text-[10px] text-slate-300 font-medium mb-1">
-                                        Home &rsaquo; <span class="text-amber-400 font-semibold">{{ $banner->breadcrumb_title }}</span>
-                                    </div>
-                                    <div class="font-extrabold text-sm font-heading leading-tight tracking-tight">
-                                        {{ $banner->title }} <span class="text-amber-400">{{ $banner->highlighted_title }}</span>
-                                    </div>
-                                    @if($banner->secondary_button_text)
-                                        <div class="mt-2 flex items-center gap-1.5 flex-wrap">
-                                            <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-medium bg-white/10 text-white border border-white/20">
-                                                {{ $banner->secondary_button_text }} &#9658;
-                                            </span>
-                                        </div>
+                                <div class="font-bold text-slate-900 text-xs sm:text-sm">
+                                    {{ $banner->title }}
+                                    @if($banner->highlighted_title)
+                                        <span class="text-amber-600 font-extrabold">{{ $banner->highlighted_title }}</span>
                                     @endif
                                 </div>
+                                @if($banner->secondary_button_text)
+                                    <div class="mt-1.5 flex items-center gap-1.5">
+                                        <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-medium bg-slate-100 text-slate-600 border border-slate-200">
+                                            Btn: {{ $banner->secondary_button_text }}
+                                        </span>
+                                    </div>
+                                @endif
                             </td>
 
                             <!-- Subtitle & Description -->
@@ -161,12 +139,10 @@
                                     <p class="text-xs text-slate-500">
                                         You haven't created any breadcrumb banners yet, or none match your search criteria.
                                     </p>
-                                    <form action="{{ route('admin.breadcrumb-banners.seed-defaults') }}" method="POST">
-                                        @csrf
-                                        <button type="submit" class="inline-flex items-center justify-center px-4 py-2 rounded-md bg-jrs-red hover:bg-red-700 text-white font-semibold text-xs shadow-xs gap-1.5 transition-colors">
-                                            <span>Seed Default Banners from Screenshots</span>
-                                        </button>
-                                    </form>
+                                    <a href="{{ route('admin.breadcrumb-banners.create') }}" class="inline-flex items-center justify-center px-4 py-2 rounded-md bg-jrs-red hover:bg-red-700 text-white font-semibold text-xs shadow-xs gap-1.5 transition-colors">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+                                        <span>Create New Banner</span>
+                                    </a>
                                 </div>
                             </td>
                         </tr>

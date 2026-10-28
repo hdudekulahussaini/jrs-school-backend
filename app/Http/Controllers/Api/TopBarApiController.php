@@ -29,21 +29,32 @@ class TopBarApiController extends Controller
             'data' => [
                 'phone' => [
                     'label' => $topBar->phone,
-                    'href' => $topBar->phone_href ?: ('tel:' . preg_replace('/[^0-9+]/', '', $topBar->phone)),
+                    'href' => 'tel:' . preg_replace('/[^0-9+]/', '', $topBar->phone),
                     'highlight_color' => '#e31e24', // JRS Red
                 ],
+                'phone_2' => !empty($topBar->phone_2) ? [
+                    'label' => $topBar->phone_2,
+                    'href' => 'tel:' . preg_replace('/[^0-9+]/', '', $topBar->phone_2),
+                    'highlight_color' => '#e31e24',
+                ] : null,
+                'phones' => array_values(array_filter([
+                    [
+                        'label' => $topBar->phone,
+                        'href' => 'tel:' . preg_replace('/[^0-9+]/', '', $topBar->phone),
+                        'highlight_color' => '#e31e24',
+                    ],
+                    !empty($topBar->phone_2) ? [
+                        'label' => $topBar->phone_2,
+                        'href' => 'tel:' . preg_replace('/[^0-9+]/', '', $topBar->phone_2),
+                        'highlight_color' => '#e31e24',
+                    ] : null,
+                ])),
                 'email' => [
                     'label' => $topBar->email,
-                    'href' => $topBar->email_href ?: ('mailto:' . $topBar->email),
+                    'href' => 'mailto:' . $topBar->email,
                 ],
                 'affiliation' => [
                     'label' => $topBar->cbse_affiliation_text,
-                    'code' => $topBar->cbse_affiliation_code,
-                ],
-                'mandatory_disclosure' => [
-                    'label' => $topBar->mandatory_disclosure_title,
-                    'url' => $topBar->mandatory_disclosure_link,
-                    'is_file' => !empty($topBar->mandatory_disclosure_file),
                 ],
                 'school_prospectus' => [
                     'label' => $topBar->prospectus_title,

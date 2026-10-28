@@ -4,24 +4,14 @@
 @section('header', 'Admission Process')
 
 @section('content')
-<div class="space-y-8 max-w-7xl mx-auto">
+<div class="space-y-8">
 
-    <!-- Top Action Header Banner -->
-    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-white p-6 rounded-2xl border border-slate-200 shadow-2xs">
-        <div>
-            <div class="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-red-50 text-jrs-red text-xs font-semibold uppercase tracking-wider mb-1.5 border border-red-100">
-                <span class="w-1.5 h-1.5 rounded-full bg-jrs-red animate-pulse"></span>
-                <span>Enrollment Journey</span>
-            </div>
-            <h2 class="text-xl font-extrabold text-jrs-navy font-heading">Admission Process Steps</h2>
-            <p class="text-xs text-slate-500 mt-1">Manage the sequential steps shown on the website's "Steps of Admission Process" section.</p>
-        </div>
-        <div class="flex items-center gap-3">
-            <a href="{{ route('admin.admission-steps.create') }}" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-jrs-red hover:bg-red-700 text-white text-xs font-bold transition-all shadow-md shadow-red-600/20">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-                <span>Add Step</span>
-            </a>
-        </div>
+    <!-- Top Action: Add Button (Aligned Right) -->
+    <div class="flex items-center justify-end">
+        <a href="{{ route('admin.admission-steps.create') }}" class="inline-flex items-center justify-center rounded-lg text-xs sm:text-sm font-semibold bg-jrs-red hover:bg-red-700 text-white shadow-xs h-9 px-4 py-2 gap-2 transition-colors">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+            <span>Add Step</span>
+        </a>
     </div>
 
 

@@ -14,7 +14,6 @@ class NewsTickerController extends Controller
      */
     public function index(Request $request)
     {
-
         $query = NewsTicker::query();
 
         // Optional search
@@ -23,25 +22,12 @@ class NewsTickerController extends Controller
                   ->orWhere('badge_text', 'like', '%' . $request->search . '%');
         }
 
-        // Optional status filter
-        if ($request->filled('status')) {
-            if ($request->status === 'active') {
-                $query->where('is_active', true);
-            } elseif ($request->status === 'inactive') {
-                $query->where('is_active', false);
-            }
-        }
-
         $tickers = $query->orderBy('sort_order', 'asc')
             ->orderBy('id', 'desc')
             ->paginate(10)
             ->withQueryString();
 
-        $totalCount = NewsTicker::count();
-        $activeCount = NewsTicker::where('is_active', true)->count();
-        $inactiveCount = NewsTicker::where('is_active', false)->count();
-
-        return view('admin.tickers.index', compact('tickers', 'totalCount', 'activeCount', 'inactiveCount'));
+        return view('admin.tickers.index', compact('tickers'));
     }
 
     /**
@@ -59,7 +45,7 @@ class NewsTickerController extends Controller
     public function store(NewsTickerRequest $request)
     {
         $validated = $request->validated();
-        $validated['is_active'] = $request->has('is_active');
+        $validated['is_active'] = $request->has('is_active') ? $request->boolean('is_active') : true;
         if (empty($validated['badge_text'])) {
             $validated['badge_text'] = 'NEWS';
         }
@@ -69,17 +55,18 @@ class NewsTickerController extends Controller
 
         $ticker = NewsTicker::create($validated);
 
+        flash()->success('News ticker announcement created successfully.', 'Ticker Created');
+
         return redirect()->route('admin.tickers.index')
             ->with('success', 'News ticker announcement created successfully.');
     }
 
     /**
-     * [READ - Show] Display the specified ticker details.
+     * [READ - Show] Redirect to edit form (show page removed).
      */
     public function show($id)
     {
-        $ticker = NewsTicker::findOrFail($id);
-        return view('admin.tickers.show', compact('ticker'));
+        return redirect()->route('admin.tickers.edit', $id);
     }
 
     /**
@@ -98,12 +85,14 @@ class NewsTickerController extends Controller
     {
         $ticker = NewsTicker::findOrFail($id);
         $validated = $request->validated();
-        $validated['is_active'] = $request->has('is_active');
+        $validated['is_active'] = $request->has('is_active') ? $request->boolean('is_active') : true;
         if (empty($validated['badge_text'])) {
             $validated['badge_text'] = 'NEWS';
         }
 
         $ticker->update($validated);
+
+        flash()->success('News ticker announcement updated successfully.', 'Ticker Updated');
 
         return redirect()->route('admin.tickers.index')
             ->with('success', 'News ticker announcement updated successfully.');
@@ -118,6 +107,12 @@ class NewsTickerController extends Controller
         $ticker->is_active = !$ticker->is_active;
         $ticker->save();
 
+        if ($ticker->is_active) {
+            flash()->success('Ticker status changed to Active.', 'Status Updated');
+        } else {
+            flash()->warning('Ticker status changed to Disabled.', 'Ticker Disabled');
+        }
+
         return redirect()->back()
             ->with('success', 'Ticker status changed to ' . ($ticker->is_active ? 'Active' : 'Disabled') . '.');
     }
@@ -129,6 +124,8 @@ class NewsTickerController extends Controller
     {
         $ticker = NewsTicker::findOrFail($id);
         $ticker->delete();
+
+        flash()->info('News ticker announcement deleted successfully.', 'Ticker Removed');
 
         return redirect()->route('admin.tickers.index')
             ->with('success', 'News ticker announcement deleted successfully.');

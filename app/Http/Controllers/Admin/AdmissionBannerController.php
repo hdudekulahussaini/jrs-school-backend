@@ -59,6 +59,8 @@ class AdmissionBannerController extends Controller
 
         $banner->update($validated);
 
+        flash()->success('Admission Banner section updated successfully!', 'Banner Updated');
+
         return redirect()->route('admin.admission-banner.index')
             ->with('success', 'Admission Banner section updated successfully!');
     }

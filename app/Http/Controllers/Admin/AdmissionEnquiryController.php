@@ -56,6 +56,14 @@ class AdmissionEnquiryController extends Controller
 
         $admissionEnquiry->update($validated);
 
+        if ($validated['status'] === 'closed') {
+            flash()->warning("Enquiry #{$admissionEnquiry->id} status updated to Closed.", 'Enquiry Closed');
+        } elseif ($validated['status'] === 'admitted') {
+            flash()->success("Enquiry #{$admissionEnquiry->id} marked as Admitted!", 'Student Admitted');
+        } else {
+            flash()->info("Enquiry #{$admissionEnquiry->id} status updated to " . ucfirst($validated['status']) . ".", 'Status Updated');
+        }
+
         return redirect()->back()->with('success', "Enquiry #{$admissionEnquiry->id} status updated to " . ucfirst($validated['status']) . ".");
     }
 
@@ -66,6 +74,8 @@ class AdmissionEnquiryController extends Controller
     {
         $id = $admissionEnquiry->id;
         $admissionEnquiry->delete();
+
+        flash()->info("Admission enquiry #{$id} deleted successfully.", 'Enquiry Deleted');
 
         return redirect()->back()->with('success', "Admission enquiry #{$id} deleted successfully.");
     }

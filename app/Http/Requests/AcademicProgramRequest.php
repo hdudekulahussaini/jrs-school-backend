@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class AcademicProgramRequest extends FormRequest
 {
@@ -50,5 +52,21 @@ class AcademicProgramRequest extends FormRequest
             'image' => 'Student / Program Photo',
             'sort_order' => 'Sort Order',
         ];
+    }
+
+    /**
+     * Handle failed validation for API vs Web requests.
+     */
+    protected function failedValidation(Validator $validator)
+    {
+        if ($this->expectsJson() || $this->is('api/*')) {
+            throw new HttpResponseException(response()->json([
+                'success' => false,
+                'message' => 'Academic program validation error',
+                'errors' => $validator->errors()
+            ], 422));
+        }
+
+        parent::failedValidation($validator);
     }
 }

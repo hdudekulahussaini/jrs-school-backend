@@ -4,7 +4,7 @@
 @section('header', 'Edit About JRS')
 
 @section('content')
-<div class="space-y-6 max-w-4xl mx-auto">
+<div class="space-y-6 max-w-4xl">
 
     <!-- Breadcrumb & Header -->
     <div class="flex items-center justify-between">
@@ -82,41 +82,29 @@
             </div>
 
             <!-- Images Upload Section -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 p-4 rounded-2xl bg-slate-50 border border-slate-200/80">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <!-- Image 1 -->
                 <div>
-                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                        Students Image (Image 1)
-                    </label>
-                    @if($about->image_1_url)
-                        <div class="mb-3 flex items-center gap-3 bg-white p-2.5 rounded-xl border border-slate-200">
-                            <img src="{{ $about->image_1_url }}" alt="Current Image 1" class="w-14 h-14 rounded-lg object-cover border border-slate-100 shrink-0">
-                            <div class="min-w-0 flex-1">
-                                <span class="text-[10px] font-semibold text-slate-400 block uppercase">Current Uploaded Image</span>
-                                <span class="text-xs text-slate-700 truncate block font-mono">{{ basename($about->image_1_url) }}</span>
-                            </div>
-                        </div>
-                    @endif
-                    <input type="file" name="image_1_file" accept="image/*" class="w-full text-xs text-slate-600 file:mr-3 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-jrs-navy file:text-white hover:file:bg-jrs-navy-dark cursor-pointer border border-slate-200 rounded-xl p-1.5 bg-white">
-                    <p class="text-[11px] text-slate-400 mt-1">Upload an image file (JPG, PNG, WebP).</p>
+                    @include('admin.partials.image-upload', [
+                        'name' => 'image_1_file',
+                        'id' => 'image_1_file',
+                        'label' => 'Students Image (Image 1)',
+                        'current' => $about->image_1_url ?? null,
+                        'aspect' => 'landscape',
+                        'help' => 'Leave empty to keep existing. Upload image file (JPG, PNG, WebP) to replace.',
+                    ])
                 </div>
 
                 <!-- Image 2 -->
                 <div>
-                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                        Campus Building Image (Image 2)
-                    </label>
-                    @if($about->image_2_url)
-                        <div class="mb-3 flex items-center gap-3 bg-white p-2.5 rounded-xl border border-slate-200">
-                            <img src="{{ $about->image_2_url }}" alt="Current Image 2" class="w-14 h-14 rounded-lg object-cover border border-slate-100 shrink-0">
-                            <div class="min-w-0 flex-1">
-                                <span class="text-[10px] font-semibold text-slate-400 block uppercase">Current Uploaded Image</span>
-                                <span class="text-xs text-slate-700 truncate block font-mono">{{ basename($about->image_2_url) }}</span>
-                            </div>
-                        </div>
-                    @endif
-                    <input type="file" name="image_2_file" accept="image/*" class="w-full text-xs text-slate-600 file:mr-3 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-jrs-navy file:text-white hover:file:bg-jrs-navy-dark cursor-pointer border border-slate-200 rounded-xl p-1.5 bg-white">
-                    <p class="text-[11px] text-slate-400 mt-1">Upload an image file (JPG, PNG, WebP).</p>
+                    @include('admin.partials.image-upload', [
+                        'name' => 'image_2_file',
+                        'id' => 'image_2_file',
+                        'label' => 'Campus Building Image (Image 2)',
+                        'current' => $about->image_2_url ?? null,
+                        'aspect' => 'landscape',
+                        'help' => 'Leave empty to keep existing. Upload image file (JPG, PNG, WebP) to replace.',
+                    ])
                 </div>
             </div>
 

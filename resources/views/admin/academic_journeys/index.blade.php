@@ -6,25 +6,12 @@
 @section('content')
 <div class="space-y-6">
 
-    <!-- Page Header (shadcn/ui style) -->
-    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <div class="space-y-1">
-            <div class="flex items-center gap-2.5">
-                <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-jrs-navy font-heading">Academic Journeys</h2>
-                <div class="inline-flex items-center rounded-full border border-slate-200 bg-slate-50 px-2.5 py-0.5 text-xs font-semibold text-slate-700">
-                    {{ $totalCount }} {{ Str::plural('programme', $totalCount) }}
-                </div>
-            </div>
-            <p class="text-xs sm:text-sm text-slate-500">
-                Manage the early developmental academic journey stages (Pre-Primary, Young Buddies, Butterflies, Honey Bees) for the Academics page.
-            </p>
-        </div>
-        <div class="flex items-center gap-2">
-            <a href="{{ route('admin.academic-journeys.create') }}" class="inline-flex items-center justify-center rounded-md text-sm font-semibold transition-opacity bg-jrs-red hover:opacity-95 text-white shadow-xs h-9 px-4 py-2 gap-2">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
-                <span>Add Journey Card</span>
-            </a>
-        </div>
+    <!-- Top Action: Add Button (Aligned Right) -->
+    <div class="flex items-center justify-end">
+        <a href="{{ route('admin.academic-journeys.create') }}" class="inline-flex items-center justify-center rounded-lg text-xs sm:text-sm font-semibold bg-jrs-red hover:bg-red-700 text-white shadow-xs h-9 px-4 py-2 gap-2 transition-colors">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+            <span>Add Journey Card</span>
+        </a>
     </div>
 
     <!-- Toolbar: Tabs + Search -->

@@ -103,11 +103,13 @@
                 </div>
 
                 <div>
-                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                        School Campus Photo (Optional)
-                    </label>
-                    <input type="file" name="image_file" id="image_file" accept="image/*" class="block w-full text-xs text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-jrs-navy file:text-white hover:file:opacity-90 cursor-pointer">
-                    <p class="text-[11px] text-slate-400 mt-1">Leave blank to use the default JRS International School campus photograph.</p>
+                    @include('admin.partials.image-upload', [
+                        'name' => 'image_file',
+                        'id' => 'image_file',
+                        'label' => 'School Campus Photo (Optional)',
+                        'aspect' => 'landscape',
+                        'help' => 'Leave blank to use the default JRS International School campus photograph.',
+                    ])
                 </div>
 
                 <div class="pt-3 border-t border-slate-100 flex items-center gap-3">

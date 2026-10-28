@@ -74,6 +74,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::put('/profile/password', [ProfileController::class, 'updatePassword'])->name('admin.profile.password');
 
     Route::get('/top-bar', [TopBarController::class, 'index'])->name('admin.top-bar.index');
+    Route::get('/top-bar/edit', [TopBarController::class, 'edit'])->name('admin.top-bar.edit');
     Route::post('/top-bar', [TopBarController::class, 'update'])->name('admin.top-bar.update');
 
     // News Tickers Full CRUD Resource
@@ -201,7 +202,6 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::resource('/contact-inquiries', ContactInquiryController::class)->only(['index', 'show', 'update', 'destroy'])->names('admin.contact-inquiries');
 
     // Breadcrumb Banners Full CRUD Resource
-    Route::post('/breadcrumb-banners/seed-defaults', [BreadcrumbBannerController::class, 'seedDefaults'])->name('admin.breadcrumb-banners.seed-defaults');
     Route::post('/breadcrumb-banners/{id}/toggle', [BreadcrumbBannerController::class, 'toggle'])->name('admin.breadcrumb-banners.toggle');
     Route::resource('/breadcrumb-banners', BreadcrumbBannerController::class)->names('admin.breadcrumb-banners');
 
@@ -209,5 +209,6 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::get('/swagger', function () {
         return view('admin.swagger');
     })->name('admin.swagger');
+
 });
 

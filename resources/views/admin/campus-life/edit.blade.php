@@ -188,21 +188,15 @@
                     <h4 class="text-xs font-semibold uppercase tracking-wider text-slate-500">Photo / Image</h4>
                 </div>
 
-                @if($item->image_full_url)
-                    <div class="flex items-center gap-4 p-3 bg-slate-50 rounded-lg border border-slate-200">
-                        <img src="{{ $item->image_full_url }}" alt="{{ $item->title }}" class="w-24 h-16 rounded-md object-cover border border-slate-200">
-                        <div class="text-xs text-slate-500">
-                            <span class="font-medium text-slate-700 block">Current Photo</span>
-                            <span class="truncate block max-w-sm">{{ $item->image_path }}</span>
-                        </div>
-                    </div>
-                @endif
-
-                <div class="space-y-2">
-                    <label for="image" class="text-sm font-medium leading-none text-slate-700">Replace Image File</label>
-                    <input type="file" name="image" id="image" accept="image/*" class="flex w-full rounded-md border border-slate-200 bg-white px-3 py-1.5 text-xs sm:text-sm text-slate-500 file:mr-4 file:py-1 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-slate-900 file:text-white hover:file:bg-slate-800 shadow-xs cursor-pointer">
-                    <p class="text-[11px] text-slate-400">Supported: JPG, PNG, WEBP (Max 6MB)</p>
-                </div>
+                @include('admin.partials.image-upload', [
+                    'name' => 'image',
+                    'id' => 'image',
+                    'label' => 'Activity Photograph',
+                    'current' => $item->image_full_url ?? null,
+                    'currentPath' => $item->image_path ?? null,
+                    'aspect' => 'video',
+                    'help' => 'Supported: JPG, PNG, WEBP (Max 6MB). Recommended landscape.',
+                ])
             </div>
 
             <!-- Divider -->

@@ -54,6 +54,7 @@ class AmenityCtaController extends Controller
         }
 
         AmenityCta::create($validated);
+        flash()->success('Amenities CTA banner created successfully.');
 
         return redirect()->route('admin.amenities-cta.index')
             ->with('success', 'Amenities CTA banner created successfully.');
@@ -92,6 +93,7 @@ class AmenityCtaController extends Controller
         }
 
         $cta->update($validated);
+        flash()->success('Amenities CTA banner updated successfully.');
 
         return redirect()->route('admin.amenities-cta.index')
             ->with('success', 'Amenities CTA banner updated successfully.');
@@ -104,6 +106,7 @@ class AmenityCtaController extends Controller
     {
         $cta = AmenityCta::findOrFail($id);
         $cta->delete();
+        flash()->info('Amenities CTA banner deleted successfully.');
 
         return redirect()->route('admin.amenities-cta.index')
             ->with('success', 'Amenities CTA banner deleted successfully.');
@@ -119,8 +122,10 @@ class AmenityCtaController extends Controller
         if (!$cta->is_active) {
             AmenityCta::where('is_active', true)->update(['is_active' => false]);
             $cta->is_active = true;
+            flash()->success('Banner activated successfully.');
         } else {
             $cta->is_active = false;
+            flash()->warning('Banner deactivated.');
         }
 
         $cta->save();

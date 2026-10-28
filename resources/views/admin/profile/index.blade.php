@@ -4,7 +4,7 @@
 @section('header', 'Admin Profile Settings')
 
 @section('content')
-<div class="max-w-6xl mx-auto space-y-8 pb-12">
+<div class="space-y-8 pb-12">
 
     <!-- Top Profile Summary Card -->
     <div class="bg-gradient-to-r from-jrs-navy via-[#052b61] to-jrs-navy rounded-2xl p-6 sm:p-8 text-white shadow-md border border-white/10 relative overflow-hidden">
@@ -70,13 +70,6 @@
                     </div>
                 </div>
 
-                <!-- Form Specific Alert -->
-                @if(session('profile_success'))
-                    <div class="mb-4 p-3 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs flex items-center gap-2">
-                        <i class="bi bi-check-circle-fill text-emerald-600 text-sm"></i>
-                        <span class="font-medium">{{ session('profile_success') }}</span>
-                    </div>
-                @endif
 
                 <form id="profileDetailsForm" 
                       action="{{ route('admin.profile.update') }}" 
@@ -137,20 +130,6 @@
                     </div>
                 </div>
 
-                <!-- Form Specific Alert -->
-                @if(session('email_success'))
-                    <div class="mb-4 p-3 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs flex items-center gap-2">
-                        <i class="bi bi-check-circle-fill text-emerald-600 text-sm"></i>
-                        <span class="font-medium">{{ session('email_success') }}</span>
-                    </div>
-                @endif
-
-                @if(session('email_info'))
-                    <div class="mb-4 p-3 rounded-lg bg-blue-50 border border-blue-200 text-blue-800 text-xs flex items-center gap-2">
-                        <i class="bi bi-info-circle-fill text-blue-600 text-sm"></i>
-                        <span class="font-medium">{{ session('email_info') }}</span>
-                    </div>
-                @endif
 
                 <form id="emailUpdateForm" 
                       action="{{ route('admin.profile.email') }}" 
@@ -200,11 +179,6 @@
                         @enderror
                     </div>
 
-                    <div class="p-3 rounded-lg bg-amber-50/70 border border-amber-200/60 text-amber-900 text-[11px] leading-relaxed flex items-start gap-2">
-                        <i class="bi bi-shield-exclamation text-amber-600 shrink-0 text-sm mt-0.5"></i>
-                        <span>This email is your administrator login ID. Changing it requires using the new email for future logins.</span>
-                    </div>
-
                     <div class="pt-2">
                         <button type="submit" 
                                 class="w-full py-2.5 px-4 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold tracking-wide uppercase shadow-sm transition-all flex items-center justify-center gap-2">
@@ -232,13 +206,6 @@
                     </div>
                 </div>
 
-                <!-- Form Specific Alert -->
-                @if(session('password_success'))
-                    <div class="mb-4 p-3 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs flex items-center gap-2">
-                        <i class="bi bi-check-circle-fill text-emerald-600 text-sm"></i>
-                        <span class="font-medium">{{ session('password_success') }}</span>
-                    </div>
-                @endif
 
                 <form id="passwordUpdateForm" 
                       action="{{ route('admin.profile.password') }}" 

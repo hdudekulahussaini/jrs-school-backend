@@ -63,6 +63,8 @@ class AboutSectionController extends Controller
 
         AboutSection::create($validated);
 
+        flash()->success('About JRS section content saved successfully.', 'About Saved');
+
         return redirect()->route('admin.about.index')
             ->with('success', 'About JRS section content saved successfully.');
     }
@@ -121,6 +123,8 @@ class AboutSectionController extends Controller
 
         $about->update($validated);
 
+        flash()->success('About JRS section content updated successfully.', 'About Updated');
+
         return redirect()->route('admin.about.index')
             ->with('success', 'About JRS section content updated successfully.');
     }
@@ -132,6 +136,8 @@ class AboutSectionController extends Controller
     {
         $about = AboutSection::findOrFail($id);
         $about->delete();
+
+        flash()->info('About section entry deleted.', 'About Removed');
 
         return redirect()->route('admin.about.index')
             ->with('success', 'About section entry deleted.');

@@ -6,29 +6,16 @@
 @section('content')
 <div class="space-y-6">
 
-    <!-- Top Breadcrumb & Navigation -->
-    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <div class="space-y-1">
-            <div class="flex items-center gap-2.5">
-                <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 font-heading">News & Media Coverage</h2>
-                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-100 text-amber-800">
-                    {{ $totalCount }} {{ Str::plural('Article', $totalCount) }}
-                </span>
-            </div>
-            <p class="text-sm text-slate-500">
-                Manage newspaper press clippings, media coverage features, and campus achievements published under the Gallery &gt; News &amp; Media section.
-            </p>
-        </div>
-        <div class="flex items-center gap-2.5">
-            <a href="{{ route('admin.gallery-albums.index') }}" class="inline-flex items-center justify-center rounded-xl text-xs sm:text-sm font-semibold transition-all border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 shadow-xs h-9 px-4 py-2 gap-2">
-                <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                <span>Gallery Albums</span>
-            </a>
-            <a href="{{ route('admin.news-media.create') }}" class="inline-flex items-center justify-center rounded-xl text-xs sm:text-sm font-semibold transition-all bg-jrs-red hover:opacity-95 text-white shadow-xs h-9 px-4 py-2 gap-2">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
-                <span>Add Press Article</span>
-            </a>
-        </div>
+    <!-- Top Action: Add Option & Quick Links (Aligned Right) -->
+    <div class="flex items-center justify-end gap-2.5">
+        <a href="{{ route('admin.gallery-albums.index') }}" class="inline-flex items-center justify-center rounded-lg text-xs sm:text-sm font-semibold transition-all border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 shadow-xs h-9 px-4 py-2 gap-2">
+            <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+            <span>Gallery Albums</span>
+        </a>
+        <a href="{{ route('admin.news-media.create') }}" class="inline-flex items-center justify-center rounded-lg text-xs sm:text-sm font-semibold bg-jrs-red hover:bg-red-700 text-white shadow-xs h-9 px-4 py-2 gap-2 transition-colors">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+            <span>Add Press Article</span>
+        </a>
     </div>
 
     <!-- Stats Pill Cards -->

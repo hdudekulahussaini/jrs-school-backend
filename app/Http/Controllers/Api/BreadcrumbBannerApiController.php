@@ -144,7 +144,6 @@ class BreadcrumbBannerApiController extends Controller
     public function store(BreadcrumbBannerRequest $request): JsonResponse
     {
         $data = $request->validated();
-        $data['is_active'] = $request->has('is_active') ? (bool) $request->is_active : true;
 
         if ($request->hasFile('background_image')) {
             $file = $request->file('background_image');
@@ -160,7 +159,7 @@ class BreadcrumbBannerApiController extends Controller
         }
 
         $statsInput = $request->input('stats', []);
-        unset($data['stats'], $data['background_image_path']);
+        unset($data['stats'], $data['background_image_path'], $data['is_active']);
 
         $banner = BreadcrumbBanner::create($data);
 
@@ -190,11 +189,13 @@ class BreadcrumbBannerApiController extends Controller
 
     /**
      * PUT/PATCH /api/breadcrumb-banners/{id}
-     * REST API endpoint to update an existing breadcrumb banner.
+     * REST API endpoint to update an existing breadcrumb banner (by numeric ID or page slug).
      */
-    public function update(BreadcrumbBannerRequest $request, int $id): JsonResponse
+    public function update(BreadcrumbBannerRequest $request, $id): JsonResponse
     {
-        $banner = BreadcrumbBanner::find($id);
+        $banner = is_numeric($id)
+            ? BreadcrumbBanner::find($id)
+            : BreadcrumbBanner::where('page_slug', $id)->first();
 
         if (!$banner) {
             return response()->json([
@@ -204,9 +205,7 @@ class BreadcrumbBannerApiController extends Controller
         }
 
         $data = $request->validated();
-        if ($request->has('is_active')) {
-            $data['is_active'] = (bool) $request->is_active;
-        }
+        unset($data['is_active']);
 
         if ($request->hasFile('background_image')) {
             $file = $request->file('background_image');
@@ -264,11 +263,13 @@ class BreadcrumbBannerApiController extends Controller
 
     /**
      * DELETE /api/breadcrumb-banners/{id}
-     * REST API endpoint to delete a breadcrumb banner.
+     * REST API endpoint to delete a breadcrumb banner (by numeric ID or page slug).
      */
-    public function destroy(int $id): JsonResponse
+    public function destroy($id): JsonResponse
     {
-        $banner = BreadcrumbBanner::find($id);
+        $banner = is_numeric($id)
+            ? BreadcrumbBanner::find($id)
+            : BreadcrumbBanner::where('page_slug', $id)->first();
 
         if (!$banner) {
             return response()->json([

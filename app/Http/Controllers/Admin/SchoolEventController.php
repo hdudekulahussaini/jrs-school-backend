@@ -66,8 +66,8 @@ class SchoolEventController extends Controller
         $validated = $request->validated();
         $validated['is_active'] = $request->has('is_active');
         $validated['sort_order'] = $request->input('sort_order', 0);
-        $validated['link_url'] = $request->input('link_url', '/gallery');
-        $validated['link_text'] = $request->input('link_text', 'Explore event');
+        $validated['link_url'] = $request->filled('link_url') ? $request->input('link_url') : null;
+        $validated['link_text'] = $request->filled('link_text') ? $request->input('link_text') : null;
 
         // Derive badge day and month from event_date if not explicitly provided
         if (!empty($validated['event_date'])) {
@@ -95,6 +95,8 @@ class SchoolEventController extends Controller
         }
 
         SchoolEvent::create($validated);
+
+        flash()->success('Latest Event created successfully.', 'Event Created');
 
         return redirect()->route('admin.events.index')
             ->with('success', 'Latest Event created successfully.');
@@ -128,8 +130,8 @@ class SchoolEventController extends Controller
 
         $validated['is_active'] = $request->has('is_active');
         $validated['sort_order'] = $request->input('sort_order', 0);
-        $validated['link_url'] = $request->input('link_url', '/gallery');
-        $validated['link_text'] = $request->input('link_text', 'Explore event');
+        $validated['link_url'] = $request->filled('link_url') ? $request->input('link_url') : null;
+        $validated['link_text'] = $request->filled('link_text') ? $request->input('link_text') : null;
 
         // Derive badge day and month from event_date if provided
         if (!empty($validated['event_date'])) {
@@ -175,6 +177,8 @@ class SchoolEventController extends Controller
 
         $event->update($validated);
 
+        flash()->success('Latest Event updated successfully.', 'Event Updated');
+
         return redirect()->route('admin.events.index')
             ->with('success', 'Latest Event updated successfully.');
     }
@@ -187,6 +191,12 @@ class SchoolEventController extends Controller
         $event = SchoolEvent::findOrFail($id);
         $event->is_active = !$event->is_active;
         $event->save();
+
+        if ($event->is_active) {
+            flash()->success('Event status changed to Active.', 'Status Updated');
+        } else {
+            flash()->warning('Event status changed to Inactive.', 'Status Inactive');
+        }
 
         if (request()->wantsJson() || request()->ajax()) {
             return response()->json([
@@ -215,6 +225,8 @@ class SchoolEventController extends Controller
         }
 
         $event->delete();
+
+        flash()->info('Latest Event deleted successfully.', 'Event Deleted');
 
         return redirect()->route('admin.events.index')
             ->with('success', 'Latest Event deleted successfully.');

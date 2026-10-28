@@ -101,20 +101,15 @@
                     </div>
                 </div>
 
-                @if($section->image_full_url)
-                    <div>
-                        <span class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Current Campus Photo</span>
-                        <div class="relative w-full max-w-md h-40 rounded-lg overflow-hidden border border-slate-200 bg-slate-100 shadow-2xs">
-                            <img src="{{ $section->image_full_url }}" alt="Campus" class="w-full h-full object-cover">
-                        </div>
-                    </div>
-                @endif
-
                 <div>
-                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                        Replace School Campus Photo
-                    </label>
-                    <input type="file" name="image_file" id="image_file" accept="image/*" class="block w-full text-xs text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-jrs-navy file:text-white hover:file:opacity-90 cursor-pointer">
+                    @include('admin.partials.image-upload', [
+                        'name' => 'image_file',
+                        'id' => 'image_file',
+                        'label' => 'School Campus Photo',
+                        'current' => $section->image_full_url ?? null,
+                        'aspect' => 'landscape',
+                        'help' => 'Upload a new photo to replace current photo. Leave blank to keep existing.',
+                    ])
                 </div>
 
                 <div class="pt-3 border-t border-slate-100 flex items-center gap-3">

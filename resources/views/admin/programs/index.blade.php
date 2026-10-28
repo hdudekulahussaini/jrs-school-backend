@@ -6,25 +6,12 @@
 @section('content')
 <div class="space-y-6">
 
-    <!-- Page Header (shadcn/ui style) -->
-    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <div class="space-y-1">
-            <div class="flex items-center gap-2.5">
-                <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-jrs-navy font-heading">Academic Programmes</h2>
-                <div class="inline-flex items-center rounded-full border border-slate-200 bg-slate-50 px-2.5 py-0.5 text-xs font-semibold text-slate-700">
-                    {{ $totalCount }} {{ Str::plural('programme', $totalCount) }}
-                </div>
-            </div>
-            <p class="text-xs sm:text-sm text-slate-500">
-                Manage the progressive academic stages (Pre-Primary, Primary, Middle School) shown on the JRS International School homepage.
-            </p>
-        </div>
-        <div class="flex items-center gap-2">
-            <a href="{{ route('admin.programs.create') }}" class="inline-flex items-center justify-center rounded-md text-sm font-semibold transition-opacity bg-jrs-red hover:opacity-95 text-white shadow-xs h-9 px-4 py-2 gap-2">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
-                <span>Add Academic Program</span>
-            </a>
-        </div>
+    <!-- Top Action: Add Button (Aligned Right) -->
+    <div class="flex items-center justify-end">
+        <a href="{{ route('admin.programs.create') }}" class="inline-flex items-center justify-center rounded-lg text-xs sm:text-sm font-semibold bg-jrs-red hover:bg-red-700 text-white shadow-xs h-9 px-4 py-2 gap-2 transition-colors">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+            <span>Add Academic Program</span>
+        </a>
     </div>
 
     <!-- Toolbar: Tabs + Search -->
@@ -49,7 +36,7 @@
             @endif
             <div class="relative w-full">
                 <svg class="w-4 h-4 text-slate-400 absolute left-3 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-                <input type="text" name="search" value="{{ request('search') }}" placeholder="Search programs..." class="flex h-9 w-full rounded-md border border-slate-200 bg-white pl-9 pr-3 py-1 text-xs sm:text-sm shadow-xs transition-colors placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-jrs-navy">
+                <input type="text" name="search" value="{{ request('search') }}" class="flex h-9 w-full rounded-md border border-slate-200 bg-white pl-9 pr-3 py-1 text-xs sm:text-sm shadow-xs transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-jrs-navy">
             </div>
             @if(request('search'))
                 <a href="{{ route('admin.programs.index', ['status' => request('status')]) }}" class="inline-flex items-center justify-center rounded-md text-xs font-medium border border-slate-200 bg-white px-2.5 h-9 text-slate-600 hover:bg-slate-50 transition-colors">
@@ -89,7 +76,9 @@
                                     @if($program->image_full_url)
                                         <img src="{{ $program->image_full_url }}" alt="{{ $program->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200">
                                     @else
-                                        <div class="w-full h-full flex items-center justify-center text-[10px] text-slate-400 font-medium">No Photo</div>
+                                        <div class="w-full h-full flex items-center justify-center text-slate-300">
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                                        </div>
                                     @endif
                                 </div>
                             </td>
@@ -97,15 +86,19 @@
                             <!-- Program Info -->
                             <td class="p-4 align-middle">
                                 <div class="space-y-1">
-                                    <div class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider text-jrs-red bg-red-50 border border-red-200">
-                                        {{ $program->stage_badge ?? 'STAGE' }}
-                                    </div>
+                                    @if($program->stage_badge)
+                                        <div class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider text-jrs-red bg-red-50 border border-red-200">
+                                            {{ $program->stage_badge }}
+                                        </div>
+                                    @endif
                                     <div class="font-bold text-base text-jrs-navy font-heading">
                                         {{ $program->title }}
                                     </div>
-                                    <div class="text-xs font-semibold text-jrs-red">
-                                        {{ $program->subtitle }}
-                                    </div>
+                                    @if($program->subtitle)
+                                        <div class="text-xs font-semibold text-jrs-red">
+                                            {{ $program->subtitle }}
+                                        </div>
+                                    @endif
                                     @if($program->description)
                                         <p class="text-xs text-slate-500 line-clamp-1 max-w-md">
                                             {{ $program->description }}
@@ -130,8 +123,6 @@
                                             </span>
                                         @endif
                                     </div>
-                                @else
-                                    <span class="text-xs text-slate-400 italic">No points specified</span>
                                 @endif
                             </td>
 

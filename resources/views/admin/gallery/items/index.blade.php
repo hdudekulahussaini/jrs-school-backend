@@ -6,29 +6,16 @@
 @section('content')
 <div class="space-y-6">
 
-    <!-- Top Breadcrumb & Actions -->
-    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <div class="space-y-1">
-            <div class="flex items-center gap-2.5">
-                <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 font-heading">Gallery Media Items</h2>
-                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-jrs-navy/10 text-jrs-navy">
-                    {{ $totalCount }} {{ Str::plural('Item', $totalCount) }}
-                </span>
-            </div>
-            <p class="text-sm text-slate-500">
-                Manage, organize, and upload photos & videos into albums across the school Gallery.
-            </p>
-        </div>
-        <div class="flex items-center gap-2.5">
-            <a href="{{ route('admin.gallery-albums.index') }}" class="inline-flex items-center justify-center rounded-xl text-xs sm:text-sm font-semibold transition-all border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 shadow-xs h-9 px-4 py-2 gap-2">
-                <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
-                <span>Album Sections</span>
-            </a>
-            <a href="{{ route('admin.gallery-items.create', ['album_id' => request('album_id')]) }}" class="inline-flex items-center justify-center rounded-xl text-xs sm:text-sm font-semibold transition-all bg-jrs-red hover:opacity-95 text-white shadow-xs h-9 px-4 py-2 gap-2">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
-                <span>Upload Photos / Videos</span>
-            </a>
-        </div>
+    <!-- Top Action: Add Option & Quick Links (Aligned Right) -->
+    <div class="flex items-center justify-end gap-2.5">
+        <a href="{{ route('admin.gallery-albums.index') }}" class="inline-flex items-center justify-center rounded-lg text-xs sm:text-sm font-semibold transition-all border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 shadow-xs h-9 px-4 py-2 gap-2">
+            <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+            <span>Album Sections</span>
+        </a>
+        <a href="{{ route('admin.gallery-items.create', ['album_id' => request('album_id')]) }}" class="inline-flex items-center justify-center rounded-lg text-xs sm:text-sm font-semibold bg-jrs-red hover:bg-red-700 text-white shadow-xs h-9 px-4 py-2 gap-2 transition-colors">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+            <span>Upload Photos / Videos</span>
+        </a>
     </div>
 
     <!-- Filter & Album Switcher Toolbar -->

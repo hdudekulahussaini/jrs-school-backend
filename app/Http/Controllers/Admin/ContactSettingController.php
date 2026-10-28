@@ -127,6 +127,8 @@ class ContactSettingController extends Controller
             $contact = ContactSetting::create($data);
         }
 
+        flash()->success('Contact details and social links updated successfully.', 'Settings Saved');
+
         return redirect()->route('admin.contact-settings.index')
             ->with('success', 'Contact details and social links updated successfully.');
     }

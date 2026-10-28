@@ -2029,7 +2029,7 @@
                         get: {
                             tags: ["Header Top Bar (Frontend)"],
                             summary: "Get global header Top Bar settings and documents",
-                            description: "Returns contact telephone number, email, CBSE Affiliation badge, Mandatory Disclosure document link, and School Prospectus link for the global site header.",
+                            description: "Returns contact telephone number, email, CBSE Affiliation badge, and School Prospectus link for the global site header.",
                             responses: {
                                 "200": {
                                     description: "Top Bar details retrieved successfully",
@@ -2039,9 +2039,13 @@
                                                 success: true,
                                                 data: {
                                                     phone: { label: "+91 915740 43210", href: "tel:+9191574043210", highlight_color: "#e31e24" },
+                                                    phone_2: { label: "+91 915740 43211", href: "tel:+9191574043211", highlight_color: "#e31e24" },
+                                                    phones: [
+                                                        { label: "+91 915740 43210", href: "tel:+9191574043210", highlight_color: "#e31e24" },
+                                                        { label: "+91 915740 43211", href: "tel:+9191574043211", highlight_color: "#e31e24" }
+                                                    ],
                                                     email: { label: "info@jrsinternationalschool.com", href: "mailto:info@jrsinternationalschool.com" },
-                                                    affiliation: { label: "CBSE Affiliated School", code: "Affiliation No. 3630372" },
-                                                    mandatory_disclosure: { label: "Mandatory Disclosure", url: "https://jrsinternationalschool.com/mandatory-disclosure.pdf", is_file: false },
+                                                    affiliation: { label: "CBSE Affiliated School" },
                                                     school_prospectus: { label: "School Prospectus", url: "https://jrsinternationalschool.com/school-prospectus.pdf", is_file: false },
                                                     is_active: true
                                                 }
@@ -4082,7 +4086,7 @@ id: 1,
                         get: {
                             tags: ["Header Top Bar (Frontend)"],
                             summary: "Get global header Top Bar settings and documents",
-                            description: "Returns contact telephone number, email, CBSE Affiliation badge, Mandatory Disclosure document link, and School Prospectus link for the global site header.",
+                            description: "Returns contact telephone number, email, CBSE Affiliation badge, and School Prospectus link for the global site header.",
                             responses: {
                                 "200": {
                                     description: "Top Bar details retrieved successfully",
@@ -4099,11 +4103,14 @@ id: 1,
                                             example: {
                                                 success: true,
                                                 data: {
-
                                                     phone: { label: "+91 915740 43210", href: "tel:+9191574043210", highlight_color: "#e31e24" },
+                                                    phone_2: { label: "+91 915740 43211", href: "tel:+9191574043211", highlight_color: "#e31e24" },
+                                                    phones: [
+                                                        { label: "+91 915740 43210", href: "tel:+9191574043210", highlight_color: "#e31e24" },
+                                                        { label: "+91 915740 43211", href: "tel:+9191574043211", highlight_color: "#e31e24" }
+                                                    ],
                                                     email: { label: "info@jrsinternationalschool.com", href: "mailto:info@jrsinternationalschool.com" },
-                                                    affiliation: { label: "CBSE Affiliated School", code: "Affiliation No. 3630372" },
-                                                    mandatory_disclosure: { label: "Mandatory Disclosure", url: "https://jrsinternationalschool.com/mandatory-disclosure.pdf", is_file: false },
+                                                    affiliation: { label: "CBSE Affiliated School" },
                                                     school_prospectus: { label: "School Prospectus", url: "https://jrsinternationalschool.com/school-prospectus.pdf", is_file: false },
                                                     is_active: true
                                                 }

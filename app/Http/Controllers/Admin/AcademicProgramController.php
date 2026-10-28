@@ -65,8 +65,8 @@ class AcademicProgramController extends Controller
         $validated = $request->validated();
         $validated['is_active'] = $request->has('is_active');
         $validated['sort_order'] = $request->input('sort_order', 0);
-        $validated['button_text'] = $request->input('button_text', 'Explore More');
-        $validated['button_url'] = $request->input('button_url', 'https://jrs-school.vercel.app/academics');
+        $validated['button_text'] = $request->filled('button_text') ? $request->input('button_text') : null;
+        $validated['button_url'] = $request->filled('button_url') ? $request->input('button_url') : null;
 
         // Parse highlights array
         $validated['highlights'] = $this->parseHighlights($request->input('highlights'));
@@ -86,6 +86,8 @@ class AcademicProgramController extends Controller
         }
 
         AcademicProgram::create($validated);
+
+        flash()->success('Academic Program created successfully.', 'Program Created');
 
         return redirect()->route('admin.programs.index')
             ->with('success', 'Academic Program created successfully.');
@@ -119,8 +121,8 @@ class AcademicProgramController extends Controller
 
         $validated['is_active'] = $request->has('is_active');
         $validated['sort_order'] = $request->input('sort_order', 0);
-        $validated['button_text'] = $request->input('button_text', 'Explore More');
-        $validated['button_url'] = $request->input('button_url', 'https://jrs-school.vercel.app/academics');
+        $validated['button_text'] = $request->filled('button_text') ? $request->input('button_text') : null;
+        $validated['button_url'] = $request->filled('button_url') ? $request->input('button_url') : null;
 
         // Parse highlights array
         $validated['highlights'] = $this->parseHighlights($request->input('highlights'));
@@ -158,6 +160,8 @@ class AcademicProgramController extends Controller
 
         $program->update($validated);
 
+        flash()->success('Academic Program updated successfully.', 'Program Updated');
+
         return redirect()->route('admin.programs.index')
             ->with('success', 'Academic Program updated successfully.');
     }
@@ -170,6 +174,12 @@ class AcademicProgramController extends Controller
         $program = AcademicProgram::findOrFail($id);
         $program->is_active = !$program->is_active;
         $program->save();
+
+        if ($program->is_active) {
+            flash()->success('Academic Program status changed to Active.', 'Status Updated');
+        } else {
+            flash()->warning('Academic Program status changed to Inactive.', 'Status Inactive');
+        }
 
         if (request()->wantsJson() || request()->ajax()) {
             return response()->json([
@@ -198,6 +208,8 @@ class AcademicProgramController extends Controller
         }
 
         $program->delete();
+
+        flash()->info('Academic Program deleted successfully.', 'Program Removed');
 
         return redirect()->route('admin.programs.index')
             ->with('success', 'Academic Program deleted successfully.');

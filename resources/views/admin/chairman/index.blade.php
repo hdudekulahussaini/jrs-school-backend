@@ -4,7 +4,7 @@
 @section('header', 'Chairman of JRS (Leadership)')
 
 @section('content')
-<div class="space-y-6 max-w-7xl mx-auto">
+<div class="space-y-6">
 
     <!-- PRIMARY TABLE: Records Table View -->
     <div class="rounded-xl border border-slate-200 bg-white shadow-xs overflow-hidden">
@@ -47,7 +47,6 @@
                                             <svg class="w-6 h-6 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
                                             </svg>
-                                            <span class="text-[8px] text-slate-400 mt-0.5 font-medium">No Photo</span>
                                         </div>
                                     @endif
                                 </div>
@@ -55,9 +54,11 @@
 
                             <!-- Leadership Profile -->
                             <td class="p-4 align-middle space-y-1">
-                                <span class="inline-block text-[10px] font-bold text-red-600 bg-red-50 border border-red-200 px-2 py-0.5 rounded uppercase tracking-wider">
-                                    {{ $item->profile_badge ?? 'FOUNDING LEADERSHIP' }}
-                                </span>
+                                @if($item->profile_badge)
+                                    <span class="inline-block text-[10px] font-bold text-red-600 bg-red-50 border border-red-200 px-2 py-0.5 rounded uppercase tracking-wider">
+                                        {{ $item->profile_badge }}
+                                    </span>
+                                @endif
                                 <div class="font-bold text-slate-900 font-heading text-sm">
                                     {{ $item->name }}
                                 </div>
@@ -73,9 +74,11 @@
 
                             <!-- Address & Message -->
                             <td class="p-4 align-middle space-y-1.5">
-                                <span class="inline-block text-[10px] font-bold text-jrs-navy bg-slate-100 px-2 py-0.5 rounded uppercase tracking-wider">
-                                    {{ $item->section_badge ?? "CHAIRMAN'S ADDRESS" }}
-                                </span>
+                                @if($item->section_badge)
+                                    <span class="inline-block text-[10px] font-bold text-jrs-navy bg-slate-100 px-2 py-0.5 rounded uppercase tracking-wider">
+                                        {{ $item->section_badge }}
+                                    </span>
+                                @endif
                                 <div class="font-bold text-slate-900 text-xs sm:text-sm line-clamp-1">
                                     {{ $item->title }}
                                 </div>
@@ -89,15 +92,21 @@
 
                             <!-- Strategic Commitment -->
                             <td class="p-4 align-middle space-y-1">
-                                <span class="inline-block text-[10px] font-bold text-amber-700 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded uppercase tracking-wider">
-                                    {{ $item->commitment_badge ?? 'OUR STRATEGIC COMMITMENT' }}
-                                </span>
-                                <div class="font-bold text-slate-900 text-xs line-clamp-1">
-                                    {{ $item->commitment_title }}
-                                </div>
-                                <div class="text-xs text-slate-500 line-clamp-2 leading-relaxed max-w-xs">
-                                    {{ $item->commitment_description }}
-                                </div>
+                                @if($item->commitment_badge)
+                                    <span class="inline-block text-[10px] font-bold text-amber-700 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded uppercase tracking-wider">
+                                        {{ $item->commitment_badge }}
+                                    </span>
+                                @endif
+                                @if($item->commitment_title)
+                                    <div class="font-bold text-slate-900 text-xs line-clamp-1">
+                                        {{ $item->commitment_title }}
+                                    </div>
+                                @endif
+                                @if($item->commitment_description)
+                                    <div class="text-xs text-slate-500 line-clamp-2 leading-relaxed max-w-xs">
+                                        {{ $item->commitment_description }}
+                                    </div>
+                                @endif
                             </td>
 
                             <!-- Status -->

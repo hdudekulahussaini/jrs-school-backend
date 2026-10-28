@@ -48,18 +48,28 @@ use App\Http\Controllers\Api\BreadcrumbBannerApiController;
 // Header Top Bar GET Endpoint (Global Phone, Email, CBSE Affiliation & Documents)
 Route::get('/top-bar', [TopBarApiController::class, 'getTopBar']);
 
-// News Ticker GET Endpoints
+// News Ticker Endpoints (Frontend & REST CRUD)
 Route::get('/news-ticker', [NewsTickerApiController::class, 'getActiveTickers']);
 Route::get('/news-tickers', [NewsTickerApiController::class, 'index']);
+Route::post('/news-tickers', [NewsTickerApiController::class, 'store']);
 Route::get('/news-tickers/{id}', [NewsTickerApiController::class, 'show']);
+Route::put('/news-tickers/{id}', [NewsTickerApiController::class, 'update']);
+Route::patch('/news-tickers/{id}', [NewsTickerApiController::class, 'update']);
+Route::patch('/news-tickers/{id}/toggle', [NewsTickerApiController::class, 'toggle']);
+Route::delete('/news-tickers/{id}', [NewsTickerApiController::class, 'destroy']);
 
-// Hero Slider GET Endpoints
+// Hero Slider Endpoints (Frontend & REST CRUD)
 Route::get('/hero-slider', [HeroSliderApiController::class, 'getActiveSliders']);
 Route::get('/hero-sliders', [HeroSliderApiController::class, 'getActiveSliders']);
 Route::get('/sliders', [HeroSliderApiController::class, 'index']);
+Route::post('/sliders', [HeroSliderApiController::class, 'store']);
 Route::get('/sliders/{id}', [HeroSliderApiController::class, 'show']);
+Route::put('/sliders/{id}', [HeroSliderApiController::class, 'update']);
+Route::patch('/sliders/{id}', [HeroSliderApiController::class, 'update']);
+Route::patch('/sliders/{id}/toggle', [HeroSliderApiController::class, 'toggle']);
+Route::delete('/sliders/{id}', [HeroSliderApiController::class, 'destroy']);
 
-// Campus Amenities / Facilities GET Endpoints (Read-Only GET for React site & Amenities page)
+// Campus Amenities / Facilities Endpoints (Frontend & REST CRUD)
 Route::get('/amenities-page', [FacilityApiController::class, 'getPageData']);
 Route::get('/amenities-cta', [FacilityApiController::class, 'getCta']);
 Route::get('/amenities/cta', [FacilityApiController::class, 'getCta']);
@@ -69,13 +79,31 @@ Route::get('/facilities', [FacilityApiController::class, 'getActiveFacilities'])
 Route::get('/facilities/{id}', [FacilityApiController::class, 'show']);
 Route::get('/campus/facilities', [FacilityApiController::class, 'getActiveFacilities']);
 Route::get('/admin/facilities', [FacilityApiController::class, 'index']);
+Route::post('/admin/facilities', [FacilityApiController::class, 'store']);
 Route::get('/admin/facilities/{id}', [FacilityApiController::class, 'show']);
+Route::put('/admin/facilities/{id}', [FacilityApiController::class, 'update']);
+Route::patch('/admin/facilities/{id}', [FacilityApiController::class, 'update']);
+Route::patch('/admin/facilities/{id}/toggle', [FacilityApiController::class, 'toggle']);
+Route::delete('/admin/facilities/{id}', [FacilityApiController::class, 'destroy']);
+Route::post('/facilities', [FacilityApiController::class, 'store']);
+Route::put('/facilities/{id}', [FacilityApiController::class, 'update']);
+Route::patch('/facilities/{id}', [FacilityApiController::class, 'update']);
+Route::delete('/facilities/{id}', [FacilityApiController::class, 'destroy']);
 
-// Academic Programs GET Endpoints (for React Homepage)
+// Academic Programs Endpoints (Frontend & REST CRUD)
 Route::get('/academic-programs', [AcademicProgramApiController::class, 'getActivePrograms']);
 Route::get('/academics', [AcademicProgramApiController::class, 'getActivePrograms']);
 Route::get('/admin/programs', [AcademicProgramApiController::class, 'index']);
+Route::post('/admin/programs', [AcademicProgramApiController::class, 'store']);
 Route::get('/admin/programs/{id}', [AcademicProgramApiController::class, 'show']);
+Route::put('/admin/programs/{id}', [AcademicProgramApiController::class, 'update']);
+Route::patch('/admin/programs/{id}', [AcademicProgramApiController::class, 'update']);
+Route::patch('/admin/programs/{id}/toggle', [AcademicProgramApiController::class, 'toggle']);
+Route::delete('/admin/programs/{id}', [AcademicProgramApiController::class, 'destroy']);
+Route::post('/academic-programs', [AcademicProgramApiController::class, 'store']);
+Route::put('/academic-programs/{id}', [AcademicProgramApiController::class, 'update']);
+Route::patch('/academic-programs/{id}', [AcademicProgramApiController::class, 'update']);
+Route::delete('/academic-programs/{id}', [AcademicProgramApiController::class, 'destroy']);
 
 // Academics Page (Academic Journeys) GET Endpoints (Read-Only GET for React site)
 Route::get('/academic-journeys', [AcademicJourneyApiController::class, 'index']);
@@ -86,6 +114,7 @@ Route::get('/academics/journeys/{idOrSlug}', [AcademicJourneyApiController::clas
 
 // About JRS Homepage Section GET Endpoint
 Route::get('/about', [AboutApiController::class, 'getAbout']);
+Route::get('/about-us', [AboutApiController::class, 'getAbout']);
 
 // Vision & Mission Cards GET Endpoint
 Route::get('/vision-mission', [VisionMissionApiController::class, 'index']);
@@ -132,12 +161,14 @@ Route::get('/careers/openings/{id}', [CareerApiController::class, 'showOpening']
 
 // Campus Tour & Life At JRS
 Route::get('/campus-tour', [CampusLifeApiController::class, 'index']);
+Route::get('/campus-life', [CampusLifeApiController::class, 'index']);
 
 // Why Choose JRS ("What Makes JRS Different?")
 Route::get('/why-choose', [WhyChooseApiController::class, 'index']);
 
 // Parent Teacher Association (PTA)
 Route::get('/pta-members', [PtaMemberApiController::class, 'index']);
+Route::get('/pta', [PtaMemberApiController::class, 'index']);
 
 // Gallery Page Endpoints (Albums & Media for React Frontend)
 Route::get('/gallery-page', [GalleryApiController::class, 'getPageData']);
@@ -164,18 +195,22 @@ Route::get('/admission-banner', [AdmissionBannerApiController::class, 'index']);
 
 // Chairman of JRS - Leadership Page
 Route::get('/chairman', [ChairmanMessageApiController::class, 'index']);
+Route::get('/leadership/chairman', [ChairmanMessageApiController::class, 'index']);
 
 // Principal of JRS - Leadership Page
 Route::get('/principal', [PrincipalMessageApiController::class, 'index']);
+Route::get('/leadership/principal', [PrincipalMessageApiController::class, 'index']);
 
 // Mandatory Public Disclosure (CBSE Compliance & Statutory Certificates)
 Route::get('/mandatory-disclosure', [MandatoryDisclosureApiController::class, 'index']);
 Route::get('/mandatory-disclosures', [MandatoryDisclosureApiController::class, 'index']);
 // Admission Open Hero Section (Header) - Admission Page
 Route::get('/admission-hero', [AdmissionHeroApiController::class, 'index']);
+Route::get('/admission-open', [AdmissionHeroApiController::class, 'index']);
 
 // Admission Process (6 Steps) - Admission Page
 Route::get('/admission-process', [AdmissionStepApiController::class, 'index']);
+Route::get('/admission-steps', [AdmissionStepApiController::class, 'index']);
 
 // Admission Criteria & Guidelines - Admission Page
 Route::get('/admission-criteria', [AdmissionCriterionApiController::class, 'index']);

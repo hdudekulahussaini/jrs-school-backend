@@ -4,7 +4,7 @@
 @section('header', 'New Amenities CTA Banner')
 
 @section('content')
-<div class="max-w-3xl space-y-6">
+<div class="space-y-6 max-w-4xl">
 
     <div class="flex items-center justify-between">
         <div class="space-y-1">
@@ -134,20 +134,14 @@
             </div>
 
             <!-- Artwork Image Upload -->
-            <div class="space-y-1.5 pt-2">
-                <label for="image_file" class="text-xs font-semibold text-slate-700">Background Artwork / Montage</label>
-                <input type="file" 
-                       id="image_file" 
-                       name="image_file" 
-                       accept="image/*"
-                       class="w-full px-3 py-2 text-xs rounded-md border border-slate-200 file:mr-3 file:py-1 file:px-2.5 file:rounded file:border-0 file:text-xs file:font-semibold file:bg-jrs-navy file:text-white hover:file:opacity-90">
-                <p class="text-[11px] text-slate-500">Leave empty to use the default high-resolution campus journey montage.</p>
-                @error('image')
-                    <p class="text-xs text-red-600">{{ $message }}</p>
-                @enderror
-                @error('image_file')
-                    <p class="text-xs text-red-600">{{ $message }}</p>
-                @enderror
+            <div>
+                @include('admin.partials.image-upload', [
+                    'name' => 'image_file',
+                    'id' => 'image_file',
+                    'label' => 'Background Artwork / Montage',
+                    'aspect' => 'banner',
+                    'help' => 'Leave empty to use the default high-resolution campus journey montage.',
+                ])
             </div>
 
             <!-- Active Status -->

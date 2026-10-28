@@ -69,12 +69,6 @@
         </div>
     </div>
 
-    @if(session('success'))
-        <div class="p-3 bg-emerald-50 text-emerald-800 text-xs rounded-xl border border-emerald-200 flex items-center gap-2">
-            <i class="bi bi-check-circle-fill text-emerald-600 text-sm"></i>
-            <span>{{ session('success') }}</span>
-        </div>
-    @endif
 
     <!-- Main Content Grid -->
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">

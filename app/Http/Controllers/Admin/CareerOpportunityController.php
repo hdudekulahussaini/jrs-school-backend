@@ -71,6 +71,8 @@ class CareerOpportunityController extends Controller
 
         CareerOpportunity::create($validated);
 
+        flash()->success('Career Opportunities section saved successfully.', 'Section Saved');
+
         return redirect()->route('admin.careers-opportunities.index')
             ->with('success', 'Career Opportunities & How To Apply section saved successfully.');
     }
@@ -110,6 +112,8 @@ class CareerOpportunityController extends Controller
 
         $careers_opportunity->update($validated);
 
+        flash()->success('Career Opportunities & How To Apply updated successfully.', 'Section Updated');
+
         return redirect()->route('admin.careers-opportunities.index')
             ->with('success', 'Career Opportunities & How To Apply updated successfully.');
     }
@@ -120,6 +124,8 @@ class CareerOpportunityController extends Controller
     public function destroy(CareerOpportunity $careers_opportunity)
     {
         $careers_opportunity->delete();
+
+        flash()->info('Section deleted successfully.', 'Section Removed');
 
         return redirect()->route('admin.careers-opportunities.index')
             ->with('success', 'Section deleted successfully.');
@@ -135,8 +141,10 @@ class CareerOpportunityController extends Controller
         if (!$item->is_active) {
             CareerOpportunity::where('is_active', true)->update(['is_active' => false]);
             $item->is_active = true;
+            flash()->success('Section activated as primary.', 'Status Updated');
         } else {
             $item->is_active = false;
+            flash()->warning('Section deactivated.', 'Status Inactive');
         }
 
         $item->save();

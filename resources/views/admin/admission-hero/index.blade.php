@@ -4,14 +4,8 @@
 @section('header', 'Admission Open')
 
 @section('content')
-<div class="max-w-5xl mx-auto space-y-6">
+<div class="space-y-6">
 
-    @if(session('success'))
-        <div class="p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-semibold flex items-center gap-2">
-            <i class="bi bi-check-circle-fill text-emerald-600 text-base"></i>
-            <span>{{ session('success') }}</span>
-        </div>
-    @endif
 
     <!-- Edit Form Card with Tabs -->
     <div class="bg-white rounded-2xl border border-slate-200 shadow-2xs overflow-hidden">

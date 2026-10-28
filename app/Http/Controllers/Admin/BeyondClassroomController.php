@@ -64,8 +64,8 @@ class BeyondClassroomController extends Controller
         $validated = $request->validated();
         $validated['is_active'] = $request->has('is_active');
         $validated['sort_order'] = $request->input('sort_order', 0);
-        $validated['color'] = $request->input('color', '#15803d');
-        $validated['icon'] = $request->input('icon', 'trophy');
+        $validated['color'] = $request->filled('color') ? $request->input('color') : null;
+        $validated['icon'] = $request->filled('icon') ? $request->input('icon') : null;
 
         // Handle Image Upload
         if ($request->hasFile('image')) {
@@ -82,6 +82,8 @@ class BeyondClassroomController extends Controller
         }
 
         BeyondClassroom::create($validated);
+
+        flash()->success('Beyond Classroom activity created successfully.', 'Activity Created');
 
         return redirect()->route('admin.beyond-classrooms.index')
             ->with('success', 'Beyond Classroom activity created successfully.');
@@ -115,8 +117,8 @@ class BeyondClassroomController extends Controller
 
         $validated['is_active'] = $request->has('is_active');
         $validated['sort_order'] = $request->input('sort_order', 0);
-        $validated['color'] = $request->input('color', '#15803d');
-        $validated['icon'] = $request->input('icon', 'trophy');
+        $validated['color'] = $request->filled('color') ? $request->input('color') : null;
+        $validated['icon'] = $request->filled('icon') ? $request->input('icon') : null;
 
         // Handle Image Replacement
         if ($request->hasFile('image')) {
@@ -151,6 +153,8 @@ class BeyondClassroomController extends Controller
 
         $activity->update($validated);
 
+        flash()->success('Beyond Classroom activity updated successfully.', 'Activity Updated');
+
         return redirect()->route('admin.beyond-classrooms.index')
             ->with('success', 'Beyond Classroom activity updated successfully.');
     }
@@ -163,6 +167,12 @@ class BeyondClassroomController extends Controller
         $activity = BeyondClassroom::findOrFail($id);
         $activity->is_active = !$activity->is_active;
         $activity->save();
+
+        if ($activity->is_active) {
+            flash()->success('Beyond Classroom status changed to Active.', 'Status Updated');
+        } else {
+            flash()->warning('Beyond Classroom status changed to Inactive.', 'Status Inactive');
+        }
 
         if (request()->wantsJson() || request()->ajax()) {
             return response()->json([
@@ -191,6 +201,8 @@ class BeyondClassroomController extends Controller
         }
 
         $activity->delete();
+
+        flash()->info('Beyond Classroom activity deleted successfully.', 'Activity Removed');
 
         return redirect()->route('admin.beyond-classrooms.index')
             ->with('success', 'Beyond Classroom activity deleted successfully.');

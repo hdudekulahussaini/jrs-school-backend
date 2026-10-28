@@ -47,7 +47,7 @@
                         <label for="title" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
                             Activity Title <span class="text-jrs-red">*</span>
                         </label>
-                        <input type="text" name="title" id="title" value="{{ old('title', $activity->title) }}" required placeholder="e.g. Sports, Music, Dance, Karate" class="flex h-9 w-full rounded-md border {{ $errors->has('title') ? 'border-jrs-red ring-1 ring-jrs-red' : 'border-slate-200' }} bg-white px-3 py-1 text-xs sm:text-sm shadow-xs transition-colors placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-jrs-navy">
+                        <input type="text" name="title" id="title" value="{{ old('title', $activity->title) }}" required class="flex h-9 w-full rounded-md border {{ $errors->has('title') ? 'border-jrs-red ring-1 ring-jrs-red' : 'border-slate-200' }} bg-white px-3 py-1 text-xs sm:text-sm shadow-xs transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-jrs-navy">
                         @error('title')
                             <p class="text-xs text-jrs-red mt-1">{{ $message }}</p>
                         @enderror
@@ -57,7 +57,7 @@
                         <label for="category" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
                             Category / Subtitle
                         </label>
-                        <input type="text" name="category" id="category" value="{{ old('category', $activity->category) }}" placeholder="e.g. Fitness & Teamwork, Vocal & Instruments" class="flex h-9 w-full rounded-md border {{ $errors->has('category') ? 'border-jrs-red ring-1 ring-jrs-red' : 'border-slate-200' }} bg-white px-3 py-1 text-xs sm:text-sm shadow-xs transition-colors placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-jrs-navy">
+                        <input type="text" name="category" id="category" value="{{ old('category', $activity->category) }}" class="flex h-9 w-full rounded-md border {{ $errors->has('category') ? 'border-jrs-red ring-1 ring-jrs-red' : 'border-slate-200' }} bg-white px-3 py-1 text-xs sm:text-sm shadow-xs transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-jrs-navy">
                         @error('category')
                             <p class="text-xs text-jrs-red mt-1">{{ $message }}</p>
                         @enderror
@@ -72,7 +72,7 @@
                         </label>
                         <div class="flex items-center gap-2">
                             <input type="color" id="colorPicker" value="{{ old('color', $activity->color ?? '#15803d') }}" oninput="document.getElementById('color').value = this.value" class="h-9 w-10 p-0.5 rounded border border-slate-200 cursor-pointer bg-white">
-                            <input type="text" name="color" id="color" value="{{ old('color', $activity->color ?? '#15803d') }}" oninput="document.getElementById('colorPicker').value = this.value" placeholder="#15803d" class="flex h-9 w-full rounded-md border border-slate-200 bg-white px-3 py-1 text-xs sm:text-sm font-mono shadow-xs focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-jrs-navy">
+                            <input type="text" name="color" id="color" value="{{ old('color', $activity->color) }}" oninput="document.getElementById('colorPicker').value = this.value" class="flex h-9 w-full rounded-md border border-slate-200 bg-white px-3 py-1 text-xs sm:text-sm font-mono shadow-xs focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-jrs-navy">
                         </div>
                         <div class="flex flex-wrap gap-1.5 mt-2">
                             <button type="button" onclick="setColor('#15803d')" class="w-5 h-5 rounded-full bg-[#15803d] border border-black/10 hover:scale-110 transition-transform" title="Sports Green"></button>
@@ -92,6 +92,7 @@
                             Icon Name / Category
                         </label>
                         <select name="icon" id="icon" class="flex h-9 w-full rounded-md border border-slate-200 bg-white px-3 py-1 text-xs sm:text-sm shadow-xs focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-jrs-navy">
+                            <option value="">Select Icon</option>
                             <option value="trophy" {{ old('icon', $activity->icon) == 'trophy' ? 'selected' : '' }}>trophy (Sports)</option>
                             <option value="music" {{ old('icon', $activity->icon) == 'music' ? 'selected' : '' }}>music (Music)</option>
                             <option value="dance" {{ old('icon', $activity->icon) == 'dance' ? 'selected' : '' }}>dance (Dance / Performing Arts)</option>
@@ -114,7 +115,7 @@
                     <label for="description" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
                         Activity Description
                     </label>
-                    <textarea name="description" id="description" rows="3" placeholder="Describe the coaching, student activities, benefits, or highlights..." class="flex min-h-[80px] w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm shadow-xs placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-jrs-navy">{{ old('description', $activity->description) }}</textarea>
+                    <textarea name="description" id="description" rows="3" class="flex min-h-[80px] w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm shadow-xs focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-jrs-navy">{{ old('description', $activity->description) }}</textarea>
                     @error('description')
                         <p class="text-xs text-jrs-red mt-1">{{ $message }}</p>
                     @enderror
@@ -128,56 +129,19 @@
                     <p class="text-xs text-slate-500">Update photo or upload a replacement.</p>
                 </div>
 
-                <!-- Current Photo Preview -->
-                @if($activity->image_full_url)
-                    <div class="p-3 bg-slate-50 rounded-lg border border-slate-200 flex items-center justify-between gap-4">
-                        <div class="flex items-center gap-3">
-                            <img src="{{ $activity->image_full_url }}" alt="{{ $activity->title }}" class="w-16 h-12 object-cover rounded-md border border-slate-200">
-                            <div>
-                                <span class="text-xs font-bold text-slate-700 block">Current Photo</span>
-                                <span class="text-[11px] text-slate-400 block font-mono truncate max-w-xs">{{ $activity->image_path }}</span>
-                            </div>
-                        </div>
-                        <label class="flex items-center gap-1.5 text-xs text-jrs-red hover:underline cursor-pointer">
-                            <input type="checkbox" name="remove_image" value="1" class="rounded border-slate-300 text-jrs-red focus:ring-jrs-red">
-                            <span>Remove</span>
-                        </label>
-                    </div>
-                @endif
-
-                <div class="space-y-4">
-                    <div>
-                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Replace Image</label>
-                        <div class="flex items-center justify-center w-full">
-                            <label for="image" class="flex flex-col items-center justify-center w-full h-28 border-2 border-dashed rounded-lg cursor-pointer transition-colors border-slate-300 hover:border-jrs-navy bg-slate-50/50 hover:bg-slate-50">
-                                <div class="flex flex-col items-center justify-center pt-4 pb-4">
-                                    <svg class="w-6 h-6 mb-1.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
-                                    <p class="text-xs text-slate-600 font-medium"><span class="font-bold text-jrs-navy">Upload new image</span> (replaces current)</p>
-                                    <p class="text-[11px] text-slate-400">WEBP, JPG, PNG up to 5MB</p>
-                                </div>
-                                <input id="image" name="image" type="file" class="hidden" accept="image/*">
-                            </label>
-                        </div>
-                        @error('image')
-                            <p class="text-xs text-jrs-red mt-1">{{ $message }}</p>
-                        @enderror
-                    </div>
-
-                    <div class="relative flex items-center justify-center">
-                        <div class="border-t border-slate-200 w-full"></div>
-                        <span class="bg-white px-3 text-[11px] font-bold text-slate-400 uppercase tracking-wider absolute">OR</span>
-                    </div>
-
-                    <div>
-                        <label for="image_url" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                            Image Asset Path / Remote URL
-                        </label>
-                        <input type="text" name="image_url" id="image_url" value="{{ old('image_url') }}" placeholder="e.g. /images/beyond/sports.jpg or https://..." class="flex h-9 w-full rounded-md border border-slate-200 bg-white px-3 py-1 text-xs sm:text-sm shadow-xs transition-colors placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-jrs-navy">
-                        @error('image_url')
-                            <p class="text-xs text-jrs-red mt-1">{{ $message }}</p>
-                        @enderror
-                    </div>
-                </div>
+                @include('admin.partials.image-upload', [
+                    'name' => 'image',
+                    'id' => 'image',
+                    'label' => 'Activity Photograph',
+                    'current' => $activity->image_full_url ?? null,
+                    'currentPath' => $activity->image_path ?? null,
+                    'removeName' => 'remove_image',
+                    'aspect' => 'video',
+                    'help' => 'Supported: WEBP, JPG, PNG up to 5MB (recommended 16:9 landscape).',
+                    'urlField' => true,
+                    'urlName' => 'image_url',
+                    'urlValue' => old('image_url'),
+                ])
             </div>
 
             <!-- Publishing Settings Card -->

@@ -47,6 +47,7 @@ class AdmissionFaqController extends Controller
     public function store(AdmissionFaqRequest $request)
     {
         AdmissionFaq::create($request->validated());
+        flash()->success('Admission FAQ created successfully.');
 
         return redirect()->route('admin.admission-faqs.index')
             ->with('success', 'Admission FAQ created successfully.');
@@ -68,6 +69,7 @@ class AdmissionFaqController extends Controller
     {
         $faq = AdmissionFaq::findOrFail($id);
         $faq->update($request->validated());
+        flash()->success('Admission FAQ updated successfully.');
 
         return redirect()->route('admin.admission-faqs.index')
             ->with('success', 'Admission FAQ updated successfully.');
@@ -80,6 +82,7 @@ class AdmissionFaqController extends Controller
     {
         $faq = AdmissionFaq::findOrFail($id);
         $faq->delete();
+        flash()->info('Admission FAQ deleted successfully.');
 
         return redirect()->route('admin.admission-faqs.index')
             ->with('success', 'Admission FAQ deleted successfully.');

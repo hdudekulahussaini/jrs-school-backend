@@ -4,7 +4,7 @@
 @section('header', 'Edit Vision / Mission')
 
 @section('content')
-<div class="space-y-6 max-w-4xl mx-auto">
+<div class="space-y-6 max-w-4xl">
 
     <!-- Breadcrumb & Back -->
     <div class="flex items-center justify-between">
@@ -78,21 +78,15 @@
             </div>
 
             <!-- Background Image File Upload -->
-            <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/80">
-                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                    Card Background Image
-                </label>
-                @if($item->image_path)
-                    <div class="mb-3 flex items-center gap-3 bg-white p-2.5 rounded-xl border border-slate-200">
-                        <img src="{{ $item->image_url }}" alt="Current Image" class="w-14 h-14 rounded-lg object-cover border border-slate-100 shrink-0">
-                        <div class="min-w-0 flex-1">
-                            <span class="text-[10px] font-semibold text-slate-400 block uppercase">Current Uploaded Image</span>
-                            <span class="text-xs text-slate-700 truncate block font-mono">{{ basename($item->image_path) }}</span>
-                        </div>
-                    </div>
-                @endif
-                <input type="file" name="image_file" accept="image/*" class="w-full text-xs text-slate-600 file:mr-3 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-jrs-navy file:text-white hover:file:bg-jrs-navy-dark cursor-pointer border border-slate-200 rounded-xl p-1.5 bg-white">
-                <p class="text-[11px] text-slate-400 mt-1">Upload an image file (JPG, PNG, WebP) to replace the current background.</p>
+            <div>
+                @include('admin.partials.image-upload', [
+                    'name' => 'image_file',
+                    'id' => 'image_file',
+                    'label' => 'Card Background Image',
+                    'current' => $item->image_url ?? null,
+                    'aspect' => 'landscape',
+                    'help' => 'Upload an image file (JPG, PNG, WebP) to replace the current background.',
+                ])
             </div>
 
             <!-- Sort Order & Active -->

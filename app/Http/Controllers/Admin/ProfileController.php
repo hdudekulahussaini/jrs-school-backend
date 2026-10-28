@@ -39,9 +39,9 @@ class ProfileController extends Controller
         $user->name = trim($validated['name']);
         $user->save();
 
-        return redirect()->route('admin.profile.index')
-            ->with('profile_success', 'Personal profile name updated successfully!')
-            ->with('success', 'Profile details updated successfully.');
+        flash()->success('Personal profile name updated successfully!', 'Profile Updated');
+
+        return redirect()->route('admin.profile.index');
     }
 
     /**
@@ -69,16 +69,17 @@ class ProfileController extends Controller
         $newEmail = strtolower(trim($validated['email']));
 
         if ($user->email === $newEmail) {
-            return redirect()->route('admin.profile.index')
-                ->with('email_info', 'The email address is identical to your current email.');
+            flash()->warning('The email address is identical to your current email.', 'No Changes Made');
+
+            return redirect()->route('admin.profile.index');
         }
 
         $user->email = $newEmail;
         $user->save();
 
-        return redirect()->route('admin.profile.index')
-            ->with('email_success', 'Email address updated successfully!')
-            ->with('success', 'Email address updated successfully.');
+        flash()->success('Email address updated successfully!', 'Email Updated');
+
+        return redirect()->route('admin.profile.index');
     }
 
     /**
@@ -102,6 +103,8 @@ class ProfileController extends Controller
         ]);
 
         if (!Hash::check($request->current_password, $user->password)) {
+            flash()->error('The provided current password does not match our records.', 'Authentication Error');
+
             return back()->withErrors([
                 'current_password' => 'The provided current password does not match our records.',
             ])->withInput();
@@ -110,8 +113,8 @@ class ProfileController extends Controller
         $user->password = Hash::make($request->password);
         $user->save();
 
-        return redirect()->route('admin.profile.index')
-            ->with('password_success', 'Password changed successfully! Keep your credentials safe.')
-            ->with('success', 'Password changed successfully.');
+        flash()->success('Password changed successfully! Keep your credentials safe.', 'Security Updated');
+
+        return redirect()->route('admin.profile.index');
     }
 }

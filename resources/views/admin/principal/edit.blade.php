@@ -4,7 +4,7 @@
 @section('header', 'Edit Principal Sections')
 
 @section('content')
-<div class="max-w-5xl mx-auto space-y-6">
+<div class="space-y-6 max-w-5xl">
 
     <!-- Back Navigation -->
     <div>
@@ -65,39 +65,16 @@
             <div class="p-6 space-y-6">
                 <!-- Photo Upload Box -->
                 <div>
-                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Portrait Photo</label>
-                    <div class="flex flex-col sm:flex-row items-start sm:items-center gap-5 p-4 rounded-xl border border-slate-200 bg-slate-50/60">
-                        <!-- Preview Box -->
-                        <div class="w-24 h-32 rounded-xl bg-slate-100 border border-slate-200 overflow-hidden flex items-center justify-center shrink-0 shadow-2xs relative">
-                            <img id="imagePreview" 
-                                 src="{{ $principal->image_full_url ?? '' }}" 
-                                 alt="Principal Preview" 
-                                 class="w-full h-full object-cover {{ $principal->image_full_url ? '' : 'hidden' }}">
-                            <div id="noImagePlaceholder" class="flex flex-col items-center justify-center text-slate-400 p-2 text-center {{ $principal->image_full_url ? 'hidden' : '' }}">
-                                <svg class="w-8 h-8 text-amber-500 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
-                                <span class="text-[9px] font-semibold">No Photo</span>
-                            </div>
-                        </div>
-
-                        <!-- Upload Controls -->
-                        <div class="space-y-3 flex-1 w-full">
-                            <div>
-                                <label for="image" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold bg-white border border-slate-300 text-slate-700 hover:bg-slate-50 cursor-pointer transition-colors shadow-2xs">
-                                    <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
-                                    <span>Upload New Portrait Photo</span>
-                                </label>
-                                <input type="file" name="image" id="image" accept="image/*" class="hidden" onchange="previewSelectedImage(event)">
-                                <p class="text-[11px] text-slate-500 mt-1.5">Recommended: High quality executive portrait photo (JPG, PNG, or WebP up to 3MB).</p>
-                            </div>
-
-                            @if($principal->image_path)
-                                <div class="flex items-center gap-2 pt-1 border-t border-slate-200">
-                                    <input type="checkbox" name="remove_image" id="remove_image" value="1" class="w-4 h-4 text-jrs-red rounded border-slate-300 focus:ring-jrs-red">
-                                    <label for="remove_image" class="text-xs text-red-600 font-medium cursor-pointer">Remove current photo</label>
-                                </div>
-                            @endif
-                        </div>
-                    </div>
+                    @include('admin.partials.image-upload', [
+                        'name' => 'image',
+                        'id' => 'image',
+                        'label' => 'Portrait Photo',
+                        'current' => $principal->image_full_url ?? null,
+                        'currentPath' => $principal->image_path ?? null,
+                        'removeName' => 'remove_image',
+                        'aspect' => 'portrait',
+                        'help' => 'Recommended: High quality executive portrait photo (JPG, PNG, or WebP up to 3MB).',
+                    ])
                 </div>
 
                 <!-- Profile Text Fields -->

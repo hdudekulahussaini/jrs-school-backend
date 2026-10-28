@@ -4,26 +4,14 @@
 @section('header', 'Educational Society (Managing Committee)')
 
 @section('content')
-<div class="space-y-6 max-w-7xl mx-auto">
+<div class="space-y-6">
 
-    <!-- Header Actions & Live Site Preview Banner -->
-    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-5 rounded-2xl border border-slate-200 shadow-xs">
-        <div>
-            <div class="flex items-center gap-2">
-                <span class="w-2.5 h-2.5 rounded-full bg-jrs-red"></span>
-                <span class="text-xs font-bold uppercase tracking-wider text-red-600">GOVERNING BODY & LEADERSHIP</span>
-            </div>
-            <h2 class="text-xl font-bold text-slate-900 font-heading mt-1">Managing Committee</h2>
-            <p class="text-xs text-slate-500 mt-1 max-w-2xl leading-relaxed">
-                Distinguished governing body steering the vision, academic excellence, statutory compliance, and strategic growth of JRS International School.
-            </p>
-        </div>
-        <div class="flex items-center gap-3 shrink-0">
-            <a href="{{ route('admin.educational-society.create') }}" class="inline-flex items-center justify-center rounded-xl text-xs font-bold transition-all bg-jrs-red hover:bg-red-700 text-white h-9 px-4 gap-2 shadow-sm shadow-red-600/20">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-                <span>Add Member</span>
-            </a>
-        </div>
+    <!-- Top Action: Add Button (Aligned Right) -->
+    <div class="flex items-center justify-end">
+        <a href="{{ route('admin.educational-society.create') }}" class="inline-flex items-center justify-center rounded-lg text-xs sm:text-sm font-semibold bg-jrs-red hover:bg-red-700 text-white shadow-xs h-9 px-4 py-2 gap-2 transition-colors">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+            <span>Add Member</span>
+        </a>
     </div>
 
     <!-- Search & Designation Filter Bar -->

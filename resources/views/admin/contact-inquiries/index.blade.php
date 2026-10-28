@@ -6,23 +6,12 @@
 @section('content')
 <div class="space-y-6">
 
-    <!-- Top Action Header Banner -->
-    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-white p-6 rounded-2xl border border-slate-200 shadow-2xs">
-        <div>
-            <div class="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-red-50 text-jrs-red text-xs font-semibold uppercase tracking-wider mb-1.5 border border-red-100">
-                <span class="w-1.5 h-1.5 rounded-full bg-jrs-red animate-pulse"></span>
-                <span>Contact Us CRM</span>
-            </div>
-            <h2 class="text-xl font-extrabold text-jrs-navy font-heading">Online Inquiries & Messages</h2>
-            <p class="text-xs text-slate-500 mt-1">Live submissions from the "Send Us A Message" online inquiry form on the Contact page.</p>
-        </div>
-        <div class="flex items-center gap-3">
-            <span class="text-xs font-semibold text-slate-500">Total Inquiries: <span class="font-extrabold text-jrs-navy text-sm">{{ $stats['total'] }}</span></span>
-            <a href="{{ route('admin.contact-settings.index') }}" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition-all border border-slate-200">
-                <i class="bi bi-geo-alt-fill text-jrs-red"></i>
-                <span>Contact Info Settings</span>
-            </a>
-        </div>
+    <!-- Top Action: Quick Settings (Aligned Right) -->
+    <div class="flex items-center justify-end">
+        <a href="{{ route('admin.contact-settings.index') }}" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white hover:bg-slate-50 text-slate-700 text-xs font-semibold transition-all border border-slate-200 shadow-2xs">
+            <i class="bi bi-geo-alt-fill text-jrs-red"></i>
+            <span>Contact Info Settings</span>
+        </a>
     </div>
 
     <!-- Stats Quick Cards -->
@@ -60,12 +49,6 @@
         </a>
     </div>
 
-    @if(session('success'))
-        <div class="p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-semibold flex items-center gap-2">
-            <i class="bi bi-check-circle-fill text-emerald-600 text-base"></i>
-            <span>{{ session('success') }}</span>
-        </div>
-    @endif
 
     <!-- Search & Filter Card -->
     <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs">

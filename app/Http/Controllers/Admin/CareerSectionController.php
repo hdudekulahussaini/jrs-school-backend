@@ -54,6 +54,8 @@ class CareerSectionController extends Controller
 
         CareerSection::create($validated);
 
+        flash()->success('Teaching at JRS section created successfully.', 'Section Created');
+
         return redirect()->route('admin.careers-teaching.index')
             ->with('success', 'Teaching at JRS section created successfully.');
     }
@@ -107,6 +109,8 @@ class CareerSectionController extends Controller
 
         $section->update($validated);
 
+        flash()->success('Teaching at JRS section updated successfully.', 'Section Updated');
+
         return redirect()->route('admin.careers-teaching.index')
             ->with('success', 'Teaching at JRS section updated successfully.');
     }
@@ -126,6 +130,8 @@ class CareerSectionController extends Controller
         }
 
         $section->delete();
+
+        flash()->info('Teaching at JRS section deleted.', 'Section Removed');
 
         return redirect()->route('admin.careers-teaching.index')
             ->with('success', 'Teaching at JRS section deleted.');

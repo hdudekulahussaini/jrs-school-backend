@@ -85,17 +85,19 @@ class HeroSliderController extends Controller
 
         HeroSlider::create($validated);
 
+        flash()->success('Hero slider item created successfully.', 'Slider Created');
+
         return redirect()->route('admin.sliders.index')
             ->with('success', 'Hero slider item created successfully.');
     }
 
     /**
-     * [READ - Show] Display a specific hero slide details.
+     * [READ - Show] Redirect to edit form since show page is decommissioned.
      */
     public function show($id)
     {
         $slider = HeroSlider::findOrFail($id);
-        return view('admin.sliders.show', compact('slider'));
+        return redirect()->route('admin.sliders.edit', $slider->id);
     }
 
     /**
@@ -140,6 +142,8 @@ class HeroSliderController extends Controller
 
         $slider->update($validated);
 
+        flash()->success('Hero slider item updated successfully.', 'Slider Updated');
+
         return redirect()->route('admin.sliders.index')
             ->with('success', 'Hero slider item updated successfully.');
     }
@@ -153,6 +157,12 @@ class HeroSliderController extends Controller
         $slider->is_active = !$slider->is_active;
         $slider->save();
 
+        if ($slider->is_active) {
+            flash()->success('Slide status changed to Active.', 'Status Updated');
+        } else {
+            flash()->warning('Slide status changed to Disabled.', 'Status Inactive');
+        }
+
         return redirect()->back()
             ->with('success', 'Slide status toggled to ' . ($slider->is_active ? 'Active' : 'Disabled') . '.');
     }
@@ -165,6 +175,8 @@ class HeroSliderController extends Controller
         $slider = HeroSlider::findOrFail($id);
         $this->deletePhysicalImage($slider->image_path);
         $slider->delete();
+
+        flash()->info('Hero slider item deleted successfully.', 'Slider Removed');
 
         return redirect()->route('admin.sliders.index')
             ->with('success', 'Hero slider item deleted successfully.');

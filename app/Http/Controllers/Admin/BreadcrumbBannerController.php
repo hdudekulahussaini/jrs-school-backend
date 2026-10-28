@@ -152,6 +152,8 @@ class BreadcrumbBannerController extends Controller
             }
         }
 
+        flash()->success('Breadcrumb banner for "' . $banner->page_name . '" created successfully.', 'Banner Created');
+
         return redirect()->route('admin.breadcrumb-banners.index')
             ->with('success', 'Breadcrumb banner for "' . $banner->page_name . '" created successfully.');
     }
@@ -211,6 +213,9 @@ class BreadcrumbBannerController extends Controller
             $data['background_image'] = '/uploads/banners/' . $filename;
         } elseif (!empty($request->background_image_path)) {
             $data['background_image'] = $request->background_image_path;
+        } else {
+            // Keep current background image when no new file or path is provided
+            unset($data['background_image']);
         }
 
         $statsInput = $request->input('stats', []);
@@ -235,6 +240,8 @@ class BreadcrumbBannerController extends Controller
             }
         }
 
+        flash()->success('Breadcrumb banner for "' . $banner->page_name . '" updated successfully.', 'Banner Updated');
+
         return redirect()->route('admin.breadcrumb-banners.index')
             ->with('success', 'Breadcrumb banner for "' . $banner->page_name . '" updated successfully.');
     }
@@ -258,6 +265,8 @@ class BreadcrumbBannerController extends Controller
 
         $pageName = $banner->page_name;
         $banner->delete();
+
+        flash()->info('Breadcrumb banner for "' . $pageName . '" deleted successfully.', 'Banner Deleted');
 
         return redirect()->route('admin.breadcrumb-banners.index')
             ->with('success', 'Breadcrumb banner for "' . $pageName . '" deleted successfully.');
@@ -284,18 +293,5 @@ class BreadcrumbBannerController extends Controller
 
         return redirect()->back()
             ->with('success', 'Status toggled successfully for ' . $banner->page_name . '.');
-    }
-
-    /**
-     * Seed or reset default banners for all 15 pages.
-     */
-    public function seedDefaults()
-    {
-        $this->ensureTableExists();
-
-        (new \Database\Seeders\BreadcrumbBannerSeeder())->run();
-
-        return redirect()->route('admin.breadcrumb-banners.index')
-            ->with('success', 'All default breadcrumb banners seeded successfully.');
     }
 }

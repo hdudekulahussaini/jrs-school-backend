@@ -6,25 +6,12 @@
 @section('content')
 <div class="space-y-6">
 
-    <!-- Page Header (shadcn/ui style) -->
-    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <div class="space-y-1">
-            <div class="flex items-center gap-2.5">
-                <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900">Hero Sliders</h2>
-                <div class="inline-flex items-center rounded-full border border-slate-200 bg-slate-50 px-2.5 py-0.5 text-xs font-semibold text-slate-700">
-                    {{ $totalCount }} {{ Str::plural('slide', $totalCount) }}
-                </div>
-            </div>
-            <p class="text-sm text-slate-500">
-                Manage the main homepage hero banner slides, titles, badges, and background imagery.
-            </p>
-        </div>
-        <div class="flex items-center gap-2">
-            <a href="{{ route('admin.sliders.create') }}" class="inline-flex items-center justify-center rounded-md text-sm font-semibold transition-opacity bg-jrs-red hover:opacity-95 text-white shadow-xs h-9 px-4 py-2 gap-2">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
-                <span>Add Hero Slide</span>
-            </a>
-        </div>
+    <!-- Top Action: Add Button (Aligned Right) -->
+    <div class="flex items-center justify-end">
+        <a href="{{ route('admin.sliders.create') }}" class="inline-flex items-center justify-center rounded-lg text-xs sm:text-sm font-semibold bg-jrs-red hover:bg-red-700 text-white shadow-xs h-9 px-4 py-2 gap-2 transition-colors">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+            <span>Add Hero Slide</span>
+        </a>
     </div>
 
     <!-- Toolbar: Tabs + Search (shadcn/ui style) -->
@@ -49,7 +36,7 @@
             @endif
             <div class="relative w-full">
                 <svg class="w-4 h-4 text-slate-400 absolute left-3 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-                <input type="text" name="search" value="{{ request('search') }}" placeholder="Filter slides..." class="flex h-9 w-full rounded-md border border-slate-200 bg-white pl-9 pr-3 py-1 text-xs sm:text-sm shadow-xs transition-colors placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-950">
+                <input type="text" name="search" value="{{ request('search') }}" class="flex h-9 w-full rounded-md border border-slate-200 bg-white pl-9 pr-3 py-1 text-xs sm:text-sm shadow-xs transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-950">
             </div>
             @if(request('search'))
                 <a href="{{ route('admin.sliders.index', ['status' => request('status')]) }}" class="inline-flex items-center justify-center rounded-md text-xs font-medium border border-slate-200 bg-white px-2.5 h-9 text-slate-600 hover:bg-slate-50 transition-colors">
@@ -93,9 +80,7 @@
                                         </div>
                                     </div>
                                 @else
-                                    <div class="w-20 h-12 rounded-md border border-dashed border-slate-200 bg-slate-50 flex items-center justify-center text-[11px] text-slate-400 font-medium">
-                                        No Image
-                                    </div>
+                                    <div class="w-20 h-12 rounded-md border border-dashed border-slate-200 bg-slate-50"></div>
                                 @endif
                             </td>
 
@@ -137,10 +122,6 @@
                                             <span>{{ $slider->secondary_button_text }}</span>
                                         </div>
                                     @endif
-
-                                    @if(!$slider->primary_button_text && !$slider->secondary_button_text)
-                                        <span class="text-slate-400 text-xs italic">No buttons</span>
-                                    @endif
                                 </div>
                             </td>
 
@@ -155,10 +136,6 @@
                             <!-- Actions (shadcn/ui Ghost / Outline Buttons) -->
                             <td class="p-4 align-middle text-right">
                                 <div class="flex items-center justify-end gap-1">
-                                    <a href="{{ route('admin.sliders.show', $slider->id) }}" title="View details" class="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-slate-100 hover:text-slate-900 h-8 w-8 text-slate-500">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
-                                    </a>
-
                                     <a href="{{ route('admin.sliders.edit', $slider->id) }}" title="Edit slide" class="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-slate-100 hover:text-slate-900 h-8 w-8 text-slate-500">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
                                     </a>

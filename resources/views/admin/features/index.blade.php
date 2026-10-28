@@ -6,25 +6,12 @@
 @section('content')
 <div class="space-y-6">
 
-    <!-- Page Header (shadcn/ui style) -->
-    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <div class="space-y-1">
-            <div class="flex items-center gap-2.5">
-                <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-jrs-navy font-heading">Key Features</h2>
-                <div class="inline-flex items-center rounded-full border border-slate-200 bg-slate-50 px-2.5 py-0.5 text-xs font-semibold text-slate-700">
-                    {{ $totalCount }} {{ Str::plural('feature', $totalCount) }}
-                </div>
-            </div>
-            <p class="text-xs sm:text-sm text-slate-500">
-                Manage the 5 core highlights shown beneath the homepage hero slider (CBSE Curriculum, Holistic Development, Experienced Faculty, etc.).
-            </p>
-        </div>
-        <div class="flex items-center gap-2">
-            <a href="{{ route('admin.features.create') }}" class="inline-flex items-center justify-center rounded-md text-sm font-semibold transition-opacity bg-jrs-red hover:opacity-95 text-white shadow-xs h-9 px-4 py-2 gap-2">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
-                <span>Add Feature</span>
-            </a>
-        </div>
+    <!-- Top Action: Add Button (Aligned Right) -->
+    <div class="flex items-center justify-end">
+        <a href="{{ route('admin.features.create') }}" class="inline-flex items-center justify-center rounded-lg text-xs sm:text-sm font-semibold bg-jrs-red hover:bg-red-700 text-white shadow-xs h-9 px-4 py-2 gap-2 transition-colors">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+            <span>Add Feature</span>
+        </a>
     </div>
 
     <!-- Toolbar: Tabs + Search -->
@@ -86,19 +73,30 @@
 
                             <!-- Icon Badge Preview -->
                             <td class="p-4 align-middle text-center">
-                                <div class="inline-flex w-11 h-11 rounded-2xl items-center justify-center text-white shadow-xs mx-auto" style="background-color: {{ $feature->color ?? '#e31e24' }}">
-                                    @if($feature->icon === 'graduation-cap')
-                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 14l9-5-9-5-9 5 9 5z"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/></svg>
-                                    @elseif($feature->icon === 'sparkles')
-                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
-                                    @elseif($feature->icon === 'award')
-                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="8" r="6"/><path stroke-linecap="round" stroke-linejoin="round" d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
-                                    @elseif($feature->icon === 'shield-check')
-                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
-                                    @elseif($feature->icon === 'building-2' || $feature->icon === 'building')
-                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                                @php
+                                    $rawIcon = trim($feature->icon ?? '');
+                                    $aliasMap = [
+                                        'graduation-cap' => 'bi bi-mortarboard-fill',
+                                        'sparkles' => 'bi bi-stars',
+                                        'award' => 'bi bi-award-fill',
+                                        'shield-check' => 'bi bi-shield-check',
+                                        'building-2' => 'bi bi-buildings-fill',
+                                        'building' => 'bi bi-buildings-fill',
+                                        'book' => 'bi bi-book-half',
+                                        'users' => 'bi bi-people-fill',
+                                        'trophy' => 'bi bi-trophy-fill',
+                                        'heart' => 'bi bi-heart-pulse-fill',
+                                    ];
+                                    $iconClass = $aliasMap[$rawIcon] ?? (str_starts_with($rawIcon, 'bi ') || str_starts_with($rawIcon, 'fa-') ? $rawIcon : ('bi bi-' . $rawIcon));
+                                    $badgeColor = $feature->color ?: '#e31e24';
+                                @endphp
+                                <div class="inline-flex w-10 h-10 rounded-xl items-center justify-center text-white shadow-xs mx-auto text-lg transition-transform hover:scale-110" style="background-color: {{ $badgeColor }}">
+                                    @if(str_contains($rawIcon, '<'))
+                                        {!! $rawIcon !!}
+                                    @elseif($rawIcon)
+                                        <i class="{{ $iconClass }}"></i>
                                     @else
-                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                                        <i class="bi bi-stars"></i>
                                     @endif
                                 </div>
                             </td>
@@ -106,22 +104,28 @@
                             <!-- Title -->
                             <td class="p-4 align-middle">
                                 <div class="font-bold text-sm text-jrs-navy">{{ $feature->title }}</div>
-                                <span class="font-mono text-[11px] text-slate-400">icon: {{ $feature->icon ?? 'graduation-cap' }}</span>
+                                @if($feature->icon)
+                                    <span class="font-mono text-[11px] text-slate-400">icon: {{ $feature->icon }}</span>
+                                @endif
                             </td>
 
                             <!-- Description -->
                             <td class="p-4 align-middle">
-                                <p class="text-xs text-slate-600 line-clamp-2 max-w-sm">
-                                    {{ $feature->description ?? '—' }}
-                                </p>
+                                @if($feature->description)
+                                    <p class="text-xs text-slate-600 line-clamp-2 max-w-sm">
+                                        {{ $feature->description }}
+                                    </p>
+                                @endif
                             </td>
 
                             <!-- Color Swatch -->
                             <td class="p-4 align-middle">
-                                <div class="flex items-center gap-2">
-                                    <span class="w-3.5 h-3.5 rounded-full border border-slate-300 shrink-0" style="background-color: {{ $feature->color ?? '#e31e24' }}"></span>
-                                    <span class="font-mono text-xs text-slate-600">{{ $feature->color ?? '#e31e24' }}</span>
-                                </div>
+                                @if($feature->color)
+                                    <div class="flex items-center gap-2">
+                                        <span class="w-3.5 h-3.5 rounded-full border border-slate-300 shrink-0 shadow-2xs" style="background-color: {{ $feature->color }}"></span>
+                                        <span class="font-mono text-xs text-slate-600">{{ $feature->color }}</span>
+                                    </div>
+                                @endif
                             </td>
 
                             <!-- Status Toggle -->
@@ -137,9 +141,6 @@
                             <!-- Actions -->
                             <td class="p-4 align-middle text-right">
                                 <div class="flex items-center justify-end gap-1">
-                                    <a href="{{ route('admin.features.show', $feature->id) }}" class="p-1.5 rounded-md text-slate-500 hover:text-jrs-navy hover:bg-slate-100 transition-colors" title="View Details">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
-                                    </a>
                                     <a href="{{ route('admin.features.edit', $feature->id) }}" class="p-1.5 rounded-md text-slate-500 hover:text-jrs-navy hover:bg-slate-100 transition-colors" title="Edit Feature">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
                                     </a>

@@ -55,6 +55,7 @@ class BeyondClassroomCtaController extends Controller
         }
 
         BeyondClassroomCta::create($validated);
+        flash()->success('Beyond Classroom CTA banner created successfully.');
 
         return redirect()->route('admin.beyond-classroom-cta.index')
             ->with('success', 'Beyond Classroom CTA banner created successfully.');
@@ -110,6 +111,7 @@ class BeyondClassroomCtaController extends Controller
         }
 
         $cta->update($validated);
+        flash()->success('Beyond Classroom CTA banner updated successfully.');
 
         return redirect()->route('admin.beyond-classroom-cta.index')
             ->with('success', 'Beyond Classroom CTA banner updated successfully.');
@@ -130,6 +132,7 @@ class BeyondClassroomCtaController extends Controller
         }
 
         $cta->delete();
+        flash()->info('Beyond Classroom CTA banner deleted successfully.');
 
         return redirect()->route('admin.beyond-classroom-cta.index')
             ->with('success', 'Beyond Classroom CTA banner deleted successfully.');

@@ -85,6 +85,8 @@ class GalleryAlbumController extends Controller
 
         GalleryAlbum::create($validated);
 
+        flash()->success('Gallery Album created successfully.', 'Album Created');
+
         return redirect()->route('admin.gallery-albums.index')
             ->with('success', 'Gallery Album created successfully.');
     }
@@ -136,6 +138,8 @@ class GalleryAlbumController extends Controller
 
         $album->update($validated);
 
+        flash()->success('Gallery Album updated successfully.', 'Album Updated');
+
         return redirect()->route('admin.gallery-albums.index')
             ->with('success', 'Gallery Album updated successfully.');
     }
@@ -167,6 +171,8 @@ class GalleryAlbumController extends Controller
 
         $album->delete();
 
+        flash()->info('Gallery Album and its items removed successfully.', 'Album Removed');
+
         return redirect()->route('admin.gallery-albums.index')
             ->with('success', 'Gallery Album and its items removed successfully.');
     }
@@ -179,6 +185,12 @@ class GalleryAlbumController extends Controller
         $album = GalleryAlbum::findOrFail($id);
         $album->is_active = !$album->is_active;
         $album->save();
+
+        if ($album->is_active) {
+            flash()->success('Album status changed to Active.', 'Status Updated');
+        } else {
+            flash()->warning('Album status changed to Inactive.', 'Status Inactive');
+        }
 
         if (request()->wantsJson()) {
             return response()->json([

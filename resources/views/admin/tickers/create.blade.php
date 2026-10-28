@@ -4,7 +4,7 @@
 @section('header', 'Create News Ticker')
 
 @section('content')
-<div class="max-w-4xl mx-auto space-y-6">
+<div class="space-y-6 max-w-4xl">
 
     <!-- Breadcrumb & Header -->
     <div class="flex items-center justify-between">
@@ -86,18 +86,6 @@
                     <input type="text" name="link_url" id="link_url" value="{{ old('link_url') }}" placeholder="https://jrs-school.vercel.app/admissions" class="flex h-9 w-full rounded-md border {{ $errors->has('link_url') ? 'border-red-500 ring-1 ring-red-500' : 'border-slate-200' }} bg-transparent px-3 py-1 text-sm shadow-xs transition-colors placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-950">
                 </div>
                 <p class="text-[11px] text-slate-400 mt-1.5">If set, clicking the announcement in the marquee opens this page.</p>
-            </div>
-
-            <!-- Status Toggle -->
-            <div class="p-4 rounded-lg bg-slate-50 border border-slate-200 flex items-center justify-between">
-                <div>
-                    <div class="text-sm font-semibold text-slate-900">Broadcast Immediately</div>
-                    <div class="text-xs text-slate-500">Show this announcement on the live website marquee right after saving.</div>
-                </div>
-                <label class="relative inline-flex items-center cursor-pointer">
-                    <input type="checkbox" name="is_active" id="is_active" value="1" {{ old('is_active', true) ? 'checked' : '' }} class="sr-only peer">
-                    <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-slate-900"></div>
-                </label>
             </div>
 
             <!-- Submit Buttons (shadcn/ui style) -->

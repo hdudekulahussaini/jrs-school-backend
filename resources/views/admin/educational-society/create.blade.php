@@ -4,7 +4,7 @@
 @section('header', 'Add Committee Member')
 
 @section('content')
-<div class="max-w-3xl mx-auto space-y-6">
+<div class="space-y-6 max-w-4xl">
 
     <!-- Back Navigation -->
     <div>
@@ -29,28 +29,13 @@
 
             <!-- Photo Upload Box -->
             <div>
-                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Member Photo</label>
-                <div class="flex flex-col sm:flex-row items-start sm:items-center gap-5 p-4 rounded-xl border border-slate-200 bg-slate-50/60">
-                    <!-- Preview Circle -->
-                    <div class="w-20 h-20 rounded-full bg-slate-200 border-2 border-white shadow-sm overflow-hidden flex items-center justify-center shrink-0 relative">
-                        <img id="imagePreview" src="" alt="Preview" class="w-full h-full object-cover hidden">
-                        <div id="noImagePlaceholder" class="flex items-center justify-center text-slate-400">
-                            <svg class="w-10 h-10" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-                            </svg>
-                        </div>
-                    </div>
-
-                    <!-- Upload Controls -->
-                    <div class="space-y-1.5 flex-1">
-                        <label for="image" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold bg-white border border-slate-300 text-slate-700 hover:bg-slate-50 cursor-pointer transition-colors shadow-2xs">
-                            <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
-                            <span>Choose Photo</span>
-                        </label>
-                        <input type="file" name="image" id="image" accept="image/*" class="hidden" onchange="previewSelectedImage(event)">
-                        <p class="text-[11px] text-slate-400">Square or portrait headshot recommended (PNG, JPG, or WebP up to 2MB). If no photo is uploaded, a clean avatar placeholder will be shown.</p>
-                    </div>
-                </div>
+                @include('admin.partials.image-upload', [
+                    'name' => 'image',
+                    'id' => 'image',
+                    'label' => 'Member Photo',
+                    'aspect' => 'avatar',
+                    'help' => 'Square or portrait headshot recommended (PNG, JPG, or WebP up to 2MB).',
+                ])
             </div>
 
             <!-- Name & Designation -->

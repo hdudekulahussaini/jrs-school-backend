@@ -80,6 +80,8 @@ class FacilityController extends Controller
 
         Facility::create($validated);
 
+        flash()->success('Facility card created successfully.', 'Facility Created');
+
         return redirect()->route('admin.facilities.index')
             ->with('success', 'Facility card created successfully.');
     }
@@ -133,6 +135,8 @@ class FacilityController extends Controller
 
         $facility->update($validated);
 
+        flash()->success('Facility card updated successfully.', 'Facility Updated');
+
         return redirect()->route('admin.facilities.index')
             ->with('success', 'Facility card updated successfully.');
     }
@@ -146,6 +150,12 @@ class FacilityController extends Controller
         $facility->is_active = !$facility->is_active;
         $facility->save();
 
+        if ($facility->is_active) {
+            flash()->success('Facility status changed to Active.', 'Status Updated');
+        } else {
+            flash()->warning('Facility status changed to Disabled.', 'Status Inactive');
+        }
+
         return redirect()->back()
             ->with('success', 'Facility status toggled to ' . ($facility->is_active ? 'Active' : 'Disabled') . '.');
     }
@@ -158,6 +168,8 @@ class FacilityController extends Controller
         $facility = Facility::findOrFail($id);
         $this->deletePhysicalImage($facility->image_path);
         $facility->delete();
+
+        flash()->info('Facility card deleted successfully.', 'Facility Removed');
 
         return redirect()->route('admin.facilities.index')
             ->with('success', 'Facility card deleted successfully.');

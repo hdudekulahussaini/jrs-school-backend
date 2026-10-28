@@ -184,11 +184,13 @@
                     <p class="text-xs text-slate-500">Upload a high quality photo for this campus tour card.</p>
                 </div>
 
-                <div class="space-y-2">
-                    <label for="image" class="text-sm font-medium leading-none text-slate-700">Upload Image File</label>
-                    <input type="file" name="image" id="image" accept="image/*" class="flex w-full rounded-md border border-slate-200 bg-white px-3 py-1.5 text-xs sm:text-sm text-slate-500 file:mr-4 file:py-1 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-slate-900 file:text-white hover:file:bg-slate-800 shadow-xs cursor-pointer">
-                    <p class="text-[11px] text-slate-400">Supported: JPG, PNG, WEBP (Max 6MB)</p>
-                </div>
+                @include('admin.partials.image-upload', [
+                    'name' => 'image',
+                    'id' => 'image',
+                    'label' => 'Activity Photograph',
+                    'aspect' => 'video',
+                    'help' => 'Supported: JPG, PNG, WEBP (Max 6MB). Recommended landscape.',
+                ])
             </div>
 
             <!-- Divider -->

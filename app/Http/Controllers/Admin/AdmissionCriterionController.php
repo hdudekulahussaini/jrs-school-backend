@@ -50,6 +50,7 @@ class AdmissionCriterionController extends Controller
     public function store(AdmissionCriterionRequest $request)
     {
         AdmissionCriterion::create($request->validated());
+        flash()->success('Admission criterion card created successfully.');
 
         return redirect()->route('admin.admission-criteria.index')
             ->with('success', 'Admission criterion card created successfully.');
@@ -71,6 +72,7 @@ class AdmissionCriterionController extends Controller
     {
         $criterion = AdmissionCriterion::findOrFail($id);
         $criterion->update($request->validated());
+        flash()->success('Admission criterion card updated successfully.');
 
         return redirect()->route('admin.admission-criteria.index')
             ->with('success', 'Admission criterion card updated successfully.');
@@ -83,6 +85,7 @@ class AdmissionCriterionController extends Controller
     {
         $criterion = AdmissionCriterion::findOrFail($id);
         $criterion->delete();
+        flash()->info('Admission criterion card deleted successfully.');
 
         return redirect()->route('admin.admission-criteria.index')
             ->with('success', 'Admission criterion card deleted successfully.');

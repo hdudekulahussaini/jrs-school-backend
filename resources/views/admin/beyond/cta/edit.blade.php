@@ -133,23 +133,15 @@
                     <p class="text-xs text-slate-500">Current artwork or upload a replacement banner photograph.</p>
                 </div>
 
-                @if($cta->image_full_url)
-                    <div>
-                        <span class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Current Artwork</span>
-                        <div class="relative w-full max-w-md h-36 rounded-lg overflow-hidden border border-slate-200 bg-slate-900 shadow-2xs">
-                            <img src="{{ $cta->image_full_url }}" alt="Artwork" class="w-full h-full object-cover">
-                        </div>
-                    </div>
-                @endif
-
                 <div>
-                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                        Replace Artwork Photograph
-                    </label>
-                    <input type="file" name="image_file" id="image_file" accept="image/*" onchange="previewImage(this)" class="block w-full text-xs text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-jrs-navy file:text-white hover:file:opacity-90 cursor-pointer">
-                    <div id="imagePreviewContainer" class="mt-3 hidden">
-                        <img id="imagePreview" src="" alt="Preview" class="w-full max-w-md h-36 object-cover rounded-lg border border-slate-200 shadow-2xs">
-                    </div>
+                    @include('admin.partials.image-upload', [
+                        'name' => 'image_file',
+                        'id' => 'image_file',
+                        'label' => 'Banner Artwork Photograph',
+                        'current' => $cta->image_full_url ?? null,
+                        'aspect' => 'banner',
+                        'help' => 'Leave blank to keep current artwork. Upload a file to replace.',
+                    ])
                 </div>
 
                 <!-- Active Toggle -->

@@ -16,9 +16,6 @@
             <span class="text-slate-900 font-medium">Edit #{{ $slider->id }}</span>
         </div>
         <div class="flex items-center space-x-2">
-            <a href="{{ route('admin.sliders.show', $slider->id) }}" class="inline-flex items-center justify-center rounded-md text-xs font-medium border border-slate-200 bg-white px-3 h-8 text-slate-700 hover:bg-slate-50 transition-colors">
-                View Details
-            </a>
             <a href="{{ route('admin.sliders.index') }}" class="inline-flex items-center justify-center rounded-md text-xs font-medium border border-slate-200 bg-white px-3 h-8 text-slate-700 hover:bg-slate-50 transition-colors">
                 &larr; Back to list
             </a>
@@ -51,13 +48,13 @@
 
                 <div class="space-y-2">
                     <label for="badge_title" class="text-sm font-medium leading-none text-slate-700">Top Tagline / Badge</label>
-                    <input type="text" name="badge_title" id="badge_title" value="{{ old('badge_title', $slider->badge_title) }}" placeholder="e.g. NURTURING BRIGHT MINDS • BUILDING A BETTER TOMORROW" class="flex h-9 w-full rounded-md border border-slate-200 bg-white px-3 py-1 text-sm shadow-xs transition-colors placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-950">
+                    <input type="text" name="badge_title" id="badge_title" value="{{ old('badge_title', $slider->badge_title) }}" class="flex h-9 w-full rounded-md border border-slate-200 bg-white px-3 py-1 text-sm shadow-xs transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-950">
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="space-y-2">
                         <label for="title" class="text-sm font-medium leading-none text-slate-700">Main Title (Line 1) <span class="text-red-500">*</span></label>
-                        <input type="text" name="title" id="title" required value="{{ old('title', $slider->title) }}" placeholder="e.g. Empowering" class="flex h-9 w-full rounded-md border @error('title') border-red-500 @else border-slate-200 @enderror bg-white px-3 py-1 text-sm shadow-xs transition-colors placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-950">
+                        <input type="text" name="title" id="title" required value="{{ old('title', $slider->title) }}" class="flex h-9 w-full rounded-md border @error('title') border-red-500 @else border-slate-200 @enderror bg-white px-3 py-1 text-sm shadow-xs transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-950">
                         @error('title')
                             <p class="text-xs text-red-600 font-medium">{{ $message }}</p>
                         @enderror
@@ -65,13 +62,13 @@
 
                     <div class="space-y-2">
                         <label for="highlight_text" class="text-sm font-medium leading-none text-slate-700">Highlighted Title (Line 2 in Yellow)</label>
-                        <input type="text" name="highlight_text" id="highlight_text" value="{{ old('highlight_text', $slider->highlight_text) }}" placeholder="e.g. Future Leaders" class="flex h-9 w-full rounded-md border border-slate-200 bg-white px-3 py-1 text-sm shadow-xs transition-colors placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-950">
+                        <input type="text" name="highlight_text" id="highlight_text" value="{{ old('highlight_text', $slider->highlight_text) }}" class="flex h-9 w-full rounded-md border border-slate-200 bg-white px-3 py-1 text-sm shadow-xs transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-950">
                     </div>
                 </div>
 
                 <div class="space-y-2">
                     <label for="description" class="text-sm font-medium leading-none text-slate-700">Paragraph Description</label>
-                    <textarea name="description" id="description" rows="3" class="flex min-h-[80px] w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm shadow-xs placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-950">{{ old('description', $slider->description) }}</textarea>
+                    <textarea name="description" id="description" rows="3" class="flex min-h-[80px] w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm shadow-xs focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-950">{{ old('description', $slider->description) }}</textarea>
                 </div>
             </div>
 
@@ -93,7 +90,7 @@
                         </div>
                         <div class="space-y-1.5">
                             <label for="primary_button_text" class="text-xs font-medium text-slate-600">Button Label</label>
-                            <input type="text" name="primary_button_text" id="primary_button_text" value="{{ old('primary_button_text', $slider->primary_button_text) }}" placeholder="e.g. Admissions 2026-27" class="flex h-9 w-full rounded-md border border-slate-200 bg-white px-3 py-1 text-xs sm:text-sm shadow-xs placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-950">
+                            <input type="text" name="primary_button_text" id="primary_button_text" value="{{ old('primary_button_text', $slider->primary_button_text) }}" class="flex h-9 w-full rounded-md border border-slate-200 bg-white px-3 py-1 text-xs sm:text-sm shadow-xs focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-950">
                             <p class="text-[11px] text-slate-500">CTA label on the solid red button.</p>
                         </div>
                     </div>
@@ -106,11 +103,11 @@
                         </div>
                         <div class="space-y-1.5">
                             <label for="secondary_button_text" class="text-xs font-medium text-slate-600">Button Label</label>
-                            <input type="text" name="secondary_button_text" id="secondary_button_text" value="{{ old('secondary_button_text', $slider->secondary_button_text) }}" placeholder="e.g. Take a Virtual Tour" class="flex h-9 w-full rounded-md border border-slate-200 bg-white px-3 py-1 text-xs sm:text-sm shadow-xs placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-950">
+                            <input type="text" name="secondary_button_text" id="secondary_button_text" value="{{ old('secondary_button_text', $slider->secondary_button_text) }}" class="flex h-9 w-full rounded-md border border-slate-200 bg-white px-3 py-1 text-xs sm:text-sm shadow-xs focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-950">
                         </div>
                         <div class="space-y-1.5">
                             <label for="secondary_button_url" class="text-xs font-medium text-slate-600">Button Target URL</label>
-                            <input type="text" name="secondary_button_url" id="secondary_button_url" value="{{ old('secondary_button_url', $slider->secondary_button_url) }}" placeholder="e.g. https://jrs-school.vercel.app/#tour" class="flex h-9 w-full rounded-md border border-slate-200 bg-white px-3 py-1 text-xs sm:text-sm shadow-xs placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-950">
+                            <input type="text" name="secondary_button_url" id="secondary_button_url" value="{{ old('secondary_button_url', $slider->secondary_button_url) }}" class="flex h-9 w-full rounded-md border border-slate-200 bg-white px-3 py-1 text-xs sm:text-sm shadow-xs focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-950">
                         </div>
                     </div>
                 </div>
@@ -123,39 +120,22 @@
             <div class="space-y-4">
                 <div class="space-y-1">
                     <h4 class="text-xs font-semibold uppercase tracking-wider text-slate-500">3. Background Photograph</h4>
-                    <p class="text-xs text-slate-500">Replace current background photograph with a new file or image link.</p>
+                    <p class="text-xs text-slate-500">Replace current background photograph with instant preview before saving.</p>
                 </div>
 
-                @if($slider->image_full_url)
-                    <div class="rounded-lg border border-slate-200 bg-slate-50/60 p-3.5 flex items-center justify-between gap-4">
-                        <div class="flex items-center space-x-3 overflow-hidden">
-                            <img src="{{ $slider->image_full_url }}" alt="Slide Image" class="w-16 h-11 rounded-md object-cover border border-slate-200 shrink-0">
-                            <div class="truncate">
-                                <span class="text-xs font-semibold text-slate-900 block">Current Photo Attached</span>
-                                <span class="text-[11px] text-slate-500 font-mono truncate block max-w-sm">{{ $slider->image_path }}</span>
-                            </div>
-                        </div>
-                        <label class="inline-flex items-center space-x-2 text-xs text-red-600 font-medium cursor-pointer shrink-0 hover:underline">
-                            <input type="checkbox" name="remove_image" value="1" class="rounded border-slate-300 text-red-600 focus:ring-red-500">
-                            <span>Remove Image</span>
-                        </label>
-                    </div>
-                @endif
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div class="space-y-2">
-                        <label for="image" class="text-sm font-medium leading-none text-slate-700">Upload New File</label>
-                        <input type="file" name="image" id="image" accept="image/*" class="flex h-9 w-full rounded-md border border-slate-200 bg-white px-3 py-1.5 text-xs text-slate-600 shadow-xs file:border-0 file:bg-transparent file:text-xs file:font-medium file:text-slate-900 cursor-pointer">
-                        @error('image')
-                            <p class="text-xs text-red-600 font-medium">{{ $message }}</p>
-                        @enderror
-                    </div>
-
-                    <div class="space-y-2">
-                        <label for="image_url" class="text-sm font-medium leading-none text-slate-700">Or Change Image URL</label>
-                        <input type="text" name="image_url" id="image_url" value="{{ old('image_url') }}" placeholder="https://..." class="flex h-9 w-full rounded-md border border-slate-200 bg-white px-3 py-1 text-sm shadow-xs placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-950">
-                    </div>
-                </div>
+                @include('admin.partials.image-upload', [
+                    'name' => 'image',
+                    'id' => 'image',
+                    'label' => 'Slide Photograph',
+                    'current' => $slider->image_full_url ?? null,
+                    'currentPath' => $slider->image_path ?? null,
+                    'removeName' => 'remove_image',
+                    'aspect' => 'banner',
+                    'help' => 'Recommended: High-resolution school campus or activity image (1920×1080px).',
+                    'urlField' => true,
+                    'urlName' => 'image_url',
+                    'urlValue' => old('image_url'),
+                ])
             </div>
 
             <!-- Divider -->

@@ -4,7 +4,7 @@
 @section('header', 'Edit Admission Banner (CTA)')
 
 @section('content')
-<div class="max-w-4xl mx-auto space-y-6">
+<div class="space-y-6 max-w-4xl">
 
     <!-- Header & Back Button -->
     <div class="flex items-center justify-between">
@@ -115,59 +115,16 @@
             </div>
 
             <!-- Background Photograph Upload Section -->
-            <div class="space-y-4 pt-2">
-                <div class="flex items-center justify-between border-b border-slate-100 pb-2">
-                    <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 font-heading">Background Photograph</h3>
-                    <span class="text-[11px] text-slate-400">JPG, PNG, WEBP (Max 10MB)</span>
-                </div>
-
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 items-start">
-                    <!-- Upload Input Card -->
-                    <div class="space-y-3">
-                        <label for="image" class="block text-xs font-bold text-slate-700">Upload Banner Image File</label>
-                        
-                        <!-- Drag & Drop / File Input Zone -->
-                        <div class="relative border-2 border-dashed border-slate-300 hover:border-jrs-navy/50 rounded-2xl p-6 text-center bg-slate-50/50 hover:bg-slate-50 transition-all cursor-pointer group">
-                            <input type="file" name="image" id="image" accept="image/*" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" onchange="previewBannerImage(event)">
-                            <div class="flex flex-col items-center justify-center space-y-2 pointer-events-none">
-                                <div class="w-12 h-12 rounded-full bg-jrs-navy/5 text-jrs-navy flex items-center justify-center group-hover:scale-110 transition-transform">
-                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
-                                </div>
-                                <div class="text-xs font-semibold text-slate-700">
-                                    <span class="text-jrs-red hover:underline">Click to browse</span> or drag and drop
-                                </div>
-                                <p class="text-[11px] text-slate-400" id="file-name-display">High-resolution horizontal photograph recommended</p>
-                            </div>
-                        </div>
-
-                        @error('image')
-                            <p class="text-xs text-red-600 font-medium">{{ $message }}</p>
-                        @enderror
-                    </div>
-
-                    <!-- Image Preview Card -->
-                    <div class="space-y-2">
-                        <div class="flex items-center justify-between">
-                            <span class="block text-xs font-bold text-slate-700">Image Preview</span>
-                            <span id="preview-status" class="text-[10px] text-slate-400 font-medium">{{ $banner->image_full_url ? 'Current Image' : 'No Image' }}</span>
-                        </div>
-
-                        <div class="relative rounded-2xl overflow-hidden border border-slate-200 bg-slate-900 aspect-video flex items-center justify-center shadow-xs">
-                            <img id="image-preview" src="{{ $banner->image_full_url ?? '' }}" alt="Banner Preview" class="w-full h-full object-cover {{ $banner->image_full_url ? '' : 'hidden' }}">
-                            <div id="no-image-placeholder" class="text-center p-4 {{ $banner->image_full_url ? 'hidden' : '' }}">
-                                <svg class="w-8 h-8 text-slate-500 mx-auto mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                                <span class="text-xs text-slate-400">No image selected</span>
-                            </div>
-                            <!-- Subtle Gradient to Preview Banner Effect -->
-                            <div class="absolute inset-0 bg-gradient-to-r from-slate-950/70 via-slate-950/30 to-transparent pointer-events-none"></div>
-                            @if($banner->image_path)
-                                <span id="current-filename-badge" class="absolute bottom-2 left-2 text-[10px] text-white/90 bg-black/60 backdrop-blur-xs px-2.5 py-1 rounded-md font-mono truncate max-w-[90%]">
-                                    {{ basename($banner->image_path) }}
-                                </span>
-                            @endif
-                        </div>
-                    </div>
-                </div>
+            <div>
+                @include('admin.partials.image-upload', [
+                    'name' => 'image',
+                    'id' => 'image',
+                    'label' => 'Background Photograph',
+                    'current' => $banner->image_full_url ?? null,
+                    'currentPath' => $banner->image_path ?? null,
+                    'aspect' => 'banner',
+                    'help' => 'High-resolution horizontal photograph recommended. JPG, PNG, WEBP (Max 10MB).',
+                ])
             </div>
 
             <!-- Action Buttons -->

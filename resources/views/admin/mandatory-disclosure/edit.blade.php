@@ -4,7 +4,7 @@
 @section('header', 'Edit Mandatory Disclosure Entry')
 
 @section('content')
-<div class="max-w-3xl mx-auto space-y-6">
+<div class="space-y-6 max-w-4xl">
 
     <!-- Top Bar -->
     <div class="flex items-center justify-between">
@@ -27,16 +27,6 @@
         </form>
     </div>
 
-    @if($errors->any())
-        <div class="p-4 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-sm">
-            <p class="font-semibold mb-1">Please fix the following issues:</p>
-            <ul class="list-disc list-inside space-y-0.5 text-xs">
-                @foreach($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
 
     <form action="{{ route('admin.mandatory-disclosure.update', $item->id) }}" method="POST" enctype="multipart/form-data" class="space-y-6">
         @csrf

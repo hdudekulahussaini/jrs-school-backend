@@ -4,7 +4,7 @@
 @section('header', 'Admission Banner (CTA)')
 
 @section('content')
-<div class="space-y-6 max-w-6xl mx-auto">
+<div class="space-y-6">
 
     @if($banner)
     <!-- Field Configuration & Content Data Table -->

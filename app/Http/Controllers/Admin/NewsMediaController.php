@@ -11,49 +11,12 @@ use Illuminate\Support\Str;
 class NewsMediaController extends Controller
 {
     /**
-     * Display listing of news and media coverage items.
+     * Display listing of news and media coverage items / photo uploader.
      */
     public function index(Request $request)
     {
-        $query = NewsMedia::query();
-
-        if ($request->filled('search')) {
-            $term = $request->search;
-            $query->where(function ($q) use ($term) {
-                $q->where('title', 'like', "%{$term}%")
-                  ->orWhere('english_title', 'like', "%{$term}%")
-                  ->orWhere('newspaper_name', 'like', "%{$term}%")
-                  ->orWhere('location', 'like', "%{$term}%")
-                  ->orWhere('description', 'like', "%{$term}%");
-            });
-        }
-
-        if ($request->filled('type')) {
-            if ($request->type === 'featured') {
-                $query->where('is_featured', true);
-            } elseif ($request->type === 'latest') {
-                $query->where('is_featured', false);
-            }
-        }
-
-        if ($request->filled('status')) {
-            if ($request->status === 'active') {
-                $query->where('is_active', true);
-            } elseif ($request->status === 'inactive') {
-                $query->where('is_active', false);
-            }
-        }
-
-        $items = $query->orderBy('sort_order', 'asc')
-            ->orderBy('published_date', 'desc')
-            ->paginate(12)
-            ->withQueryString();
-
-        $totalCount = NewsMedia::count();
-        $featuredCount = NewsMedia::where('is_featured', true)->count();
-        $latestCount = NewsMedia::where('is_featured', false)->count();
-
-        return view('admin.gallery.media.index', compact('items', 'totalCount', 'featuredCount', 'latestCount'));
+        $items = NewsMedia::orderBy('sort_order', 'asc')->orderBy('id', 'desc')->get();
+        return view('admin.gallery.media.index', compact('items'));
     }
 
     /**
@@ -61,37 +24,58 @@ class NewsMediaController extends Controller
      */
     public function create()
     {
-        $nextOrder = (NewsMedia::max('sort_order') ?? 0) + 1;
-        return view('admin.gallery.media.create', compact('nextOrder'));
+        return redirect()->route('admin.news-media.index');
     }
 
     /**
-     * Store newly created news/media article.
+     * Store news/media photos.
      */
     public function store(Request $request)
     {
-        $validated = $request->validate(NewsMedia::validationRules());
-        $validated['is_featured'] = $request->has('is_featured');
-        $validated['is_active'] = $request->has('is_active');
-        $validated['sort_order'] = $request->input('sort_order', 0);
+        // Handle removed clippings
+        if ($request->filled('removed_item_ids')) {
+            $removedIds = (array) $request->input('removed_item_ids');
+            $itemsToDelete = NewsMedia::whereIn('id', $removedIds)->get();
+            foreach ($itemsToDelete as $delItem) {
+                if ($delItem->image_path && Str::startsWith($delItem->image_path, '/uploads/news-media/')) {
+                    $path = public_path(ltrim($delItem->image_path, '/'));
+                    if (File::exists($path)) {
+                        File::delete($path);
+                    }
+                }
+                $delItem->delete();
+            }
+        }
 
-        if ($request->hasFile('image')) {
-            $file = $request->file('image');
+        // Upload newly added news/media photos
+        if ($request->hasFile('media_photos')) {
             $uploadDir = public_path('uploads/news-media');
             if (!File::exists($uploadDir)) {
                 File::makeDirectory($uploadDir, 0755, true);
             }
-            $filename = time() . '_' . Str::slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $file->getClientOriginalExtension();
-            $file->move($uploadDir, $filename);
-            $validated['image_path'] = '/uploads/news-media/' . $filename;
+            $maxSort = NewsMedia::max('sort_order') ?? 0;
+            foreach ($request->file('media_photos') as $file) {
+                if ($file && $file->isValid()) {
+                    $originalName = $file->getClientOriginalName();
+                    $filename = time() . '_' . Str::random(6) . '_' . Str::slug(pathinfo($originalName, PATHINFO_FILENAME)) . '.' . $file->getClientOriginalExtension();
+                    $file->move($uploadDir, $filename);
+                    NewsMedia::create([
+                        'title' => pathinfo($originalName, PATHINFO_FILENAME),
+                        'english_title' => pathinfo($originalName, PATHINFO_FILENAME),
+                        'newspaper_name' => 'Press Coverage',
+                        'published_date' => now(),
+                        'image_path' => '/uploads/news-media/' . $filename,
+                        'sort_order' => ++$maxSort,
+                        'is_active' => true,
+                    ]);
+                }
+            }
         }
 
-        NewsMedia::create($validated);
-
-        flash()->success('News & Media article published successfully.', 'Article Published');
+        flash()->success('News & Media photos saved successfully.', 'Media Saved');
 
         return redirect()->route('admin.news-media.index')
-            ->with('success', 'News & Media article published successfully.');
+            ->with('success', 'News & Media photos saved successfully.');
     }
 
     /**
@@ -99,8 +83,7 @@ class NewsMediaController extends Controller
      */
     public function edit(string $id)
     {
-        $item = NewsMedia::findOrFail($id);
-        return view('admin.gallery.media.edit', compact('item'));
+        return redirect()->route('admin.news-media.index');
     }
 
     /**

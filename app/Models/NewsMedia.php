@@ -68,13 +68,17 @@ class NewsMedia extends Model
     public static function validationRules(int $id = null): array
     {
         return [
-            'title' => 'required|string|max:255',
+            'title' => 'nullable|string|max:255',
             'english_title' => 'nullable|string|max:255',
-            'newspaper_name' => 'required|string|max:190',
+            'newspaper_name' => 'nullable|string|max:190',
             'location' => 'nullable|string|max:100',
-            'published_date' => 'required|date',
+            'published_date' => 'nullable|date',
             'description' => 'nullable|string',
-            'image' => ($id ? 'nullable' : 'required') . '|image|mimes:jpeg,png,jpg,webp,svg|max:5120',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp,svg|max:5120',
+            'media_photos' => 'nullable|array',
+            'media_photos.*' => 'image|mimes:jpeg,png,jpg,webp,svg|max:10240',
+            'removed_item_ids' => 'nullable|array',
+            'removed_item_ids.*' => 'integer',
             'article_url' => 'nullable|url|max:255',
             'is_featured' => 'nullable|boolean',
             'sort_order' => 'nullable|integer',

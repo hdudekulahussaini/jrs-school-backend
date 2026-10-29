@@ -38,13 +38,10 @@ class BeyondClassroomRequest extends FormRequest
     public function attributes(): array
     {
         return [
-            'title' => 'Activity Title',
-            'category' => 'Category / Subtitle',
-            'description' => 'Description',
+            'title' => 'Normal Text / Title',
+            'category' => 'Badge Text',
             'icon' => 'Icon',
-            'color' => 'Theme Color',
-            'image' => 'Activity Image',
-            'sort_order' => 'Sort Order',
+            'image' => 'Activity Photograph',
         ];
     }
 }

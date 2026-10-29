@@ -35,7 +35,7 @@ class AmenityCtaController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate(AmenityCta::validationRules());
-        $isActive = $request->has('is_active');
+        $isActive = $request->has('is_active') ? $request->boolean('is_active') : true;
         $validated['is_active'] = $isActive;
 
         if ($request->hasFile('image_file')) {
@@ -76,8 +76,14 @@ class AmenityCtaController extends Controller
     {
         $cta = AmenityCta::findOrFail($id);
         $validated = $request->validate(AmenityCta::validationRules());
-        $isActive = $request->has('is_active');
-        $validated['is_active'] = $isActive;
+
+        if ($request->has('is_active')) {
+            $isActive = $request->boolean('is_active');
+            $validated['is_active'] = $isActive;
+            if ($isActive) {
+                AmenityCta::where('id', '!=', $cta->id)->update(['is_active' => false]);
+            }
+        }
 
         if ($request->hasFile('image_file')) {
             $file = $request->file('image_file');
@@ -87,10 +93,6 @@ class AmenityCtaController extends Controller
         }
 
         unset($validated['image_file']);
-
-        if ($isActive) {
-            AmenityCta::where('id', '!=', $cta->id)->update(['is_active' => false]);
-        }
 
         $cta->update($validated);
         flash()->success('Amenities CTA banner updated successfully.');

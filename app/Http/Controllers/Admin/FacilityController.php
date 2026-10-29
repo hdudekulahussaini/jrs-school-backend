@@ -61,8 +61,8 @@ class FacilityController extends Controller
     public function store(FacilityRequest $request)
     {
         $validated = $request->validated();
-        $validated['is_active'] = $request->has('is_active');
-        $validated['sort_order'] = $request->input('sort_order', 0);
+        $validated['is_active'] = $request->has('is_active') ? $request->boolean('is_active') : true;
+        $validated['sort_order'] = $request->input('sort_order', (Facility::max('sort_order') ?? 0) + 1);
 
         if ($request->has('highlights') && is_array($request->input('highlights'))) {
             $validated['highlights'] = array_values(array_filter(array_map('trim', $request->input('highlights'))));
@@ -130,7 +130,9 @@ class FacilityController extends Controller
     {
         $facility = Facility::findOrFail($id);
         $validated = $request->validated();
-        $validated['is_active'] = $request->has('is_active');
+        if ($request->has('is_active')) {
+            $validated['is_active'] = $request->boolean('is_active');
+        }
 
         if ($request->has('highlights') && is_array($request->input('highlights'))) {
             $validated['highlights'] = array_values(array_filter(array_map('trim', $request->input('highlights'))));

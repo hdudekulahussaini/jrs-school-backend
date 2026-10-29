@@ -24,9 +24,12 @@ use App\Http\Controllers\Admin\PtaMemberController;
 use App\Http\Controllers\Admin\AmenityCtaController;
 use App\Http\Controllers\Admin\GalleryAlbumController;
 use App\Http\Controllers\Admin\GalleryItemController;
+use App\Http\Controllers\Admin\GalleryVideoController;
+use App\Http\Controllers\Admin\Gallery360Controller;
 use App\Http\Controllers\Admin\NewsMediaController;
 use App\Http\Controllers\Admin\TopBarController;
 use App\Http\Controllers\Admin\AdmissionBannerController;
+use App\Http\Controllers\Admin\AdmissionBrochureController;
 use App\Http\Controllers\Admin\AdmissionHeroController;
 use App\Http\Controllers\Admin\AdmissionStepController;
 use App\Http\Controllers\Admin\AdmissionCriterionController;
@@ -140,6 +143,10 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     // Admission FAQs Full CRUD Resource
     Route::resource('/admission-faqs', AdmissionFaqController::class)->names('admin.admission-faqs');
 
+    // Admission Brochure (PDF & Link)
+    Route::get('/admission-brochure', [AdmissionBrochureController::class, 'index'])->name('admin.admission-brochure.index');
+    Route::put('/admission-brochure', [AdmissionBrochureController::class, 'update'])->name('admin.admission-brochure.update');
+
     // Admission Form Enquiries CRM
     Route::resource('/admission-enquiries', AdmissionEnquiryController::class)->only(['index', 'update', 'destroy'])->names('admin.admission-enquiries');
 
@@ -192,6 +199,10 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::post('/gallery-albums/{id}/toggle', [GalleryAlbumController::class, 'toggle'])->name('admin.gallery-albums.toggle');
     Route::resource('/gallery-items', GalleryItemController::class)->names('admin.gallery-items');
     Route::post('/gallery-items/{id}/toggle', [GalleryItemController::class, 'toggle'])->name('admin.gallery-items.toggle');
+    Route::get('/gallery-videos', [GalleryVideoController::class, 'index'])->name('admin.gallery-videos.index');
+    Route::post('/gallery-videos', [GalleryVideoController::class, 'store'])->name('admin.gallery-videos.store');
+    Route::get('/gallery-360', [Gallery360Controller::class, 'index'])->name('admin.gallery-360.index');
+    Route::post('/gallery-360', [Gallery360Controller::class, 'store'])->name('admin.gallery-360.store');
     Route::resource('/news-media', NewsMediaController::class)->names('admin.news-media');
     Route::post('/news-media/{id}/toggle', [NewsMediaController::class, 'toggle'])->name('admin.news-media.toggle');
 

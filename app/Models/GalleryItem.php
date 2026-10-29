@@ -30,6 +30,7 @@ class GalleryItem extends Model
 
     protected $appends = [
         'image_full_url',
+        'video_full_url',
     ];
 
     /**
@@ -57,6 +58,50 @@ class GalleryItem extends Model
     }
 
     /**
+     * Return the fully qualified asset URL for the item video.
+     */
+    public function getVideoFullUrlAttribute(): ?string
+    {
+        if (empty($this->video_url)) {
+            return null;
+        }
+
+        if (Str::startsWith($this->video_url, ['http://', 'https://'])) {
+            return $this->video_url;
+        }
+
+        return url(ltrim($this->video_url, '/'));
+    }
+
+    /**
+     * Check if the video is an external link (YouTube, Vimeo, etc.).
+     */
+    public function getIsExternalVideoAttribute(): bool
+    {
+        if (empty($this->video_url)) {
+            return false;
+        }
+
+        return Str::contains($this->video_url, ['youtube.com', 'youtu.be', 'vimeo.com', 'dailymotion.com']);
+    }
+
+    /**
+     * Convert YouTube URL to embed URL.
+     */
+    public function getYoutubeEmbedUrlAttribute(): ?string
+    {
+        if (empty($this->video_url)) {
+            return null;
+        }
+
+        if (preg_match('/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})/', $this->video_url, $matches)) {
+            return 'https://www.youtube.com/embed/' . $matches[1];
+        }
+
+        return null;
+    }
+
+    /**
      * Validation rules for single item store/update.
      */
     public static function validationRules(int $id = null): array
@@ -64,8 +109,8 @@ class GalleryItem extends Model
         return [
             'gallery_album_id' => 'required|exists:gallery_albums,id',
             'caption' => 'nullable|string|max:190',
-            'image' => ($id ? 'nullable' : 'required') . '|image|mimes:jpeg,png,jpg,webp,svg|max:5120',
-            'video_url' => 'nullable|url|max:255',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp,svg|max:5120',
+            'video_url' => 'nullable|string|max:255',
             'sort_order' => 'nullable|integer',
             'is_active' => 'nullable|boolean',
         ];

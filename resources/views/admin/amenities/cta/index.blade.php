@@ -13,32 +13,6 @@
             <span>New CTA Banner</span>
         </a>
     </div>
-
-    <!-- Stats summary badges -->
-    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
-        <div class="rounded-xl border border-slate-200 bg-white p-4 shadow-2xs">
-            <div class="text-xs font-medium text-slate-500">Banner Eyebrow</div>
-            <div class="text-xs font-bold text-amber-500 mt-2 tracking-wide uppercase">JOIN THE JRS JOURNEY</div>
-        </div>
-        <div class="rounded-xl border border-slate-200 bg-white p-4 shadow-2xs">
-            <div class="text-xs font-medium text-slate-500">Primary Button</div>
-            <div class="text-xs font-mono font-bold text-jrs-red mt-2 flex items-center gap-1">
-                <span>Book a Campus Tour &rarr;</span>
-            </div>
-        </div>
-        <div class="rounded-xl border border-slate-200 bg-white p-4 shadow-2xs">
-            <div class="text-xs font-medium text-slate-500">Secondary Button</div>
-            <div class="text-xs font-mono font-bold text-slate-700 mt-2">Contact School</div>
-        </div>
-        <div class="rounded-xl border border-slate-200 bg-white p-4 shadow-2xs">
-            <div class="text-xs font-medium text-slate-500">Active Status</div>
-            <div class="text-xs font-bold text-emerald-600 mt-2 flex items-center gap-1.5">
-                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                <span>{{ $activeCta ? 'Live on Amenities Page' : 'None Active' }}</span>
-            </div>
-        </div>
-    </div>
-
     <!-- CTA Banners Table -->
     <div class="rounded-xl border border-slate-200 bg-white shadow-xs overflow-hidden">
         <div class="p-4 border-b border-slate-200 bg-slate-50/75 flex items-center justify-between">
@@ -50,10 +24,8 @@
             <table class="w-full caption-bottom text-sm text-left">
                 <thead>
                     <tr class="border-b border-slate-200 bg-slate-50/50 text-slate-500 font-medium text-xs">
-                        <th class="h-10 px-4 w-28">Artwork</th>
                         <th class="h-10 px-4 min-w-[260px]">Badge & Headline</th>
                         <th class="h-10 px-4 min-w-[240px]">Description Excerpt</th>
-                        <th class="h-10 px-4 min-w-[180px]">Action Buttons</th>
                         <th class="h-10 px-4 w-24 text-center">Status</th>
                         <th class="h-10 px-4 w-32 text-right">Actions</th>
                     </tr>
@@ -61,13 +33,6 @@
                 <tbody class="divide-y divide-slate-100 text-slate-700">
                     @forelse($ctas as $item)
                         <tr class="transition-colors hover:bg-slate-50/60 {{ $item->is_active ? 'bg-emerald-50/20' : 'opacity-80' }}">
-                            <!-- Artwork Thumbnail -->
-                            <td class="p-4 align-middle">
-                                <div class="relative w-24 h-12 rounded-md overflow-hidden border border-slate-200 bg-slate-900 shadow-2xs group cursor-pointer" onclick="openImageModal('{{ $item->image_full_url }}', '{{ addslashes($item->title) }}')">
-                                    <img src="{{ $item->image_full_url }}" alt="CTA" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200">
-                                </div>
-                            </td>
-
                             <!-- Badge & Headline -->
                             <td class="p-4 align-middle">
                                 <div class="space-y-1">
@@ -88,22 +53,6 @@
                                 <p class="text-xs text-slate-600 line-clamp-2 leading-relaxed max-w-sm">
                                     {{ $item->description }}
                                 </p>
-                            </td>
-
-                            <!-- Action Buttons -->
-                            <td class="p-4 align-middle">
-                                <div class="space-y-1 text-xs">
-                                    <div class="flex items-center gap-1.5 font-mono text-slate-800">
-                                        <span class="w-2 h-2 rounded-full bg-jrs-red"></span>
-                                        <span>{{ $item->primary_button_text }}</span>
-                                    </div>
-                                    @if($item->secondary_button_text)
-                                        <div class="flex items-center gap-1.5 font-mono text-slate-500">
-                                            <span class="w-2 h-2 rounded-full bg-slate-600"></span>
-                                            <span>{{ $item->secondary_button_text }}</span>
-                                        </div>
-                                    @endif
-                                </div>
                             </td>
 
                             <!-- Status Toggle -->
@@ -131,7 +80,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="6" class="p-8 text-center text-slate-500">
+                            <td colspan="4" class="p-8 text-center text-slate-500">
                                 <p class="text-sm font-medium">No Amenities CTA banner found.</p>
                                 <a href="{{ route('admin.amenities-cta.create') }}" class="mt-3 inline-flex items-center text-xs font-semibold text-jrs-red hover:underline">
                                     Create first CTA banner &rarr;
@@ -173,17 +122,6 @@
     </div>
 </div>
 
-<!-- Image Preview Modal -->
-<div id="imageModal" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4" onclick="closeImageModal()">
-    <div class="relative max-w-3xl w-full bg-slate-900 rounded-2xl overflow-hidden border border-white/10 shadow-2xl" onclick="event.stopPropagation()">
-        <div class="p-3 border-b border-white/10 flex items-center justify-between text-white">
-            <span id="imageModalTitle" class="text-xs font-medium truncate"></span>
-            <button type="button" onclick="closeImageModal()" class="p-1 rounded-md text-white/60 hover:text-white hover:bg-white/10">&times;</button>
-        </div>
-        <img id="imageModalImg" src="" alt="Preview" class="w-full max-h-[80vh] object-contain bg-slate-950">
-    </div>
-</div>
-
 <script>
     function confirmDelete(id, title) {
         document.getElementById('deleteItemTitle').textContent = '"' + title + '"';
@@ -192,14 +130,6 @@
     }
     function closeDeleteModal() {
         document.getElementById('deleteModal').classList.add('hidden');
-    }
-    function openImageModal(url, title) {
-        document.getElementById('imageModalImg').src = url;
-        document.getElementById('imageModalTitle').textContent = title;
-        document.getElementById('imageModal').classList.remove('hidden');
-    }
-    function closeImageModal() {
-        document.getElementById('imageModal').classList.add('hidden');
     }
 </script>
 @endsection

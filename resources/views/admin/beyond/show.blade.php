@@ -39,26 +39,17 @@
     <!-- Main Detail Grid -->
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-        <!-- Photo & Badge Card -->
+        <!-- Photo Card -->
         <div class="lg:col-span-1 rounded-xl border border-slate-200 bg-white p-6 shadow-xs space-y-4">
-            <h3 class="text-sm font-bold text-jrs-navy uppercase tracking-wider">Activity Portrait</h3>
-            <div class="relative aspect-[4/5] rounded-xl overflow-hidden bg-slate-900 border border-slate-200 shadow-sm">
+            <h3 class="text-sm font-bold text-jrs-navy uppercase tracking-wider">Activity Photograph</h3>
+            <div class="relative aspect-video rounded-xl overflow-hidden bg-slate-900 border border-slate-200 shadow-sm">
                 @if($activity->image_full_url)
                     <img src="{{ $activity->image_full_url }}" alt="{{ $activity->title }}" class="w-full h-full object-cover">
                 @else
                     <div class="w-full h-full flex items-center justify-center text-xs text-slate-400">No Image Uploaded</div>
                 @endif
-                <div class="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-black/80 to-transparent">
-                    <div class="flex items-center gap-2 px-3 py-1.5 rounded-lg text-white font-bold text-xs" style="background-color: {{ $activity->color ?? '#15803d' }}">
-                        <span>{{ $activity->title }}</span>
-                    </div>
-                </div>
             </div>
             <div class="space-y-2 pt-2 text-xs text-slate-500">
-                <div class="flex items-center justify-between">
-                    <span>Sort Order:</span>
-                    <span class="font-mono font-bold text-slate-700">{{ $activity->sort_order }}</span>
-                </div>
                 <div class="flex items-center justify-between">
                     <span>Created At:</span>
                     <span class="text-slate-700">{{ $activity->created_at->format('M d, Y H:i') }}</span>
@@ -73,38 +64,76 @@
         <!-- Information Details -->
         <div class="lg:col-span-2 space-y-6">
             <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-xs space-y-5">
-                <h3 class="text-base font-bold text-jrs-navy font-heading border-b border-slate-100 pb-3">Details & Configuration</h3>
+                <h3 class="text-base font-bold text-jrs-navy font-heading border-b border-slate-100 pb-3">Activity Details</h3>
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     <div>
-                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block">Title</span>
-                        <p class="text-sm font-bold text-jrs-navy mt-1">{{ $activity->title }}</p>
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block">Normal Text / Title</span>
+                        <p class="text-base font-bold text-jrs-navy mt-1">{{ $activity->title }}</p>
                     </div>
 
                     <div>
-                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block">Category / Tag</span>
-                        <p class="text-sm text-slate-700 mt-1">{{ $activity->category ?? '—' }}</p>
-                    </div>
-
-                    <div>
-                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block">Theme / Badge Color</span>
-                        <div class="flex items-center gap-2 mt-1">
-                            <span class="w-4 h-4 rounded-full border border-slate-300 shadow-2xs" style="background-color: {{ $activity->color ?? '#15803d' }}"></span>
-                            <span class="font-mono text-xs font-bold text-slate-700">{{ $activity->color ?? '#15803d' }}</span>
-                        </div>
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block">Badge Text</span>
+                        @if($activity->category)
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold text-slate-700 bg-white border border-slate-200 mt-1">
+                                {{ $activity->category }}
+                            </span>
+                        @else
+                            <p class="text-sm text-slate-400 mt-1">—</p>
+                        @endif
                     </div>
 
                     <div>
                         <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block">Icon</span>
-                        <span class="inline-block mt-1 font-mono text-xs px-2.5 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200">{{ $activity->icon ?? 'trophy' }}</span>
+                        @php
+                            $iconClass = $activity->icon ?? 'bi bi-trophy-fill';
+                            $aliasMap = [
+                                'trophy' => 'bi bi-trophy-fill',
+                                'sports' => 'bi bi-trophy-fill',
+                                'palette' => 'bi bi-palette-fill',
+                                'art' => 'bi bi-palette-fill',
+                                'music' => 'bi bi-music-note-beamed',
+                                'dance' => 'bi bi-person-arms-up',
+                                'shield' => 'bi bi-shield-shaded',
+                                'karate' => 'bi bi-shield-shaded',
+                                'heart' => 'bi bi-heart-fill',
+                                'yoga' => 'bi bi-heart-fill',
+                                'skating' => 'bi bi-lightning-charge-fill',
+                                'flask' => 'bi bi-flask',
+                                'science' => 'bi bi-flask',
+                                'robot' => 'bi bi-robot',
+                                'compass' => 'bi bi-compass',
+                                'tours' => 'bi bi-compass',
+                                'users' => 'bi bi-people-fill',
+                                'people' => 'bi bi-people-fill',
+                                'leadership' => 'bi bi-people-fill',
+                                'camera' => 'bi bi-camera-reels-fill',
+                                'book' => 'bi bi-book-half',
+                                'mic' => 'bi bi-mic-fill',
+                            ];
+                            if (isset($aliasMap[$iconClass])) {
+                                $iconClass = $aliasMap[$iconClass];
+                            } elseif (!str_contains($iconClass, ' ') && !str_contains($iconClass, '-')) {
+                                $iconClass = 'bi bi-' . $iconClass;
+                            }
+                        @endphp
+                        <div class="flex items-center gap-3 mt-1.5">
+                            <div class="w-10 h-10 rounded-xl bg-white border border-slate-200 text-slate-800 flex items-center justify-center text-xl shrink-0 shadow-2xs">
+                                <i class="{{ $iconClass }}"></i>
+                            </div>
+                            <span class="font-mono text-xs text-slate-600 bg-slate-100 px-2 py-1 rounded border border-slate-200">{{ $activity->icon ?? 'bi bi-trophy-fill' }}</span>
+                        </div>
                     </div>
-                </div>
 
-                <div>
-                    <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-1">Description</span>
-                    <p class="text-sm text-slate-600 leading-relaxed bg-slate-50 p-4 rounded-lg border border-slate-200/80">
-                        {{ $activity->description ?? 'No description provided.' }}
-                    </p>
+                    <div>
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block">Status</span>
+                        <div class="mt-1.5">
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold {{ $activity->is_active ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-slate-100 text-slate-600 border border-slate-200' }}">
+                                <span class="w-1.5 h-1.5 rounded-full mr-1.5 {{ $activity->is_active ? 'bg-emerald-500' : 'bg-slate-400' }}"></span>
+                                {{ $activity->is_active ? 'Active' : 'Disabled' }}
+                            </span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

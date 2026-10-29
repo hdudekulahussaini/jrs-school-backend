@@ -6,7 +6,7 @@
 @section('content')
 <div class="space-y-6 w-full">
 
-    <!-- Header -->
+    <!-- Header / Breadcrumbs -->
     <div class="flex items-center justify-between">
         <div class="space-y-1">
             <div class="flex items-center gap-2">
@@ -16,124 +16,218 @@
             </div>
             <h2 class="text-2xl font-bold tracking-tight text-jrs-navy font-heading">Add Benefit Card</h2>
             <p class="text-xs text-slate-500">
-                Create a card highlighting an aspect of school work culture (e.g. Collaborative Community, Continuous Growth).
+                Create a card highlighting an aspect of school work culture with icon, heading, and description.
             </p>
         </div>
+        <a href="{{ route('admin.careers-benefits.index') }}" class="inline-flex items-center justify-center rounded-md text-xs font-medium border border-slate-200 bg-white px-3 h-8 text-slate-700 hover:bg-slate-50 transition-colors">
+            &larr; Back to list
+        </a>
     </div>
 
-    <!-- Form -->
-    <form action="{{ route('admin.careers-benefits.store') }}" method="POST" class="space-y-6">
-        @csrf
+    <!-- Main Card Container -->
+    <div class="rounded-xl border border-slate-200 bg-white shadow-xs">
+        <div class="p-6 border-b border-slate-100">
+            <h3 class="text-lg font-semibold leading-none tracking-tight text-slate-900 font-heading">New Benefit Card</h3>
+            <p class="text-sm text-slate-500 mt-1.5">
+                Fill in the icon, heading, and description for the Work Culture & Benefits section.
+            </p>
+        </div>
 
-        <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-xs space-y-5">
-            <h3 class="text-sm font-bold text-jrs-navy font-heading border-b border-slate-100 pb-3">
-                Card Information
-            </h3>
+        <form action="{{ route('admin.careers-benefits.store') }}" method="POST" class="p-6 space-y-6">
+            @csrf
 
-            <!-- Title -->
-            <div class="space-y-1.5">
-                <label for="title" class="text-xs font-semibold text-slate-700">
-                    Card Title <span class="text-jrs-red">*</span>
+            <!-- 1. Heading -->
+            <div class="space-y-2">
+                <label for="title" class="text-sm font-semibold text-slate-800">
+                    Heading <span class="text-rose-500">*</span>
                 </label>
                 <input type="text" 
                        id="title" 
                        name="title" 
                        value="{{ old('title') }}"
-                       placeholder="e.g. Collaborative Community"
+                       placeholder="e.g. Collaborative Community or Continuous Growth"
                        required
-                       class="w-full px-3 py-2 text-sm rounded-md border border-slate-200 focus:outline-none focus:ring-2 focus:ring-jrs-red/20 focus:border-jrs-red">
+                       class="flex h-11 w-full rounded-lg border @error('title') border-rose-500 @else border-slate-200 @enderror bg-white px-3.5 py-2 text-sm text-slate-800 shadow-xs transition-colors placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 focus-visible:border-transparent">
                 @error('title')
-                    <p class="text-xs text-red-600">{{ $message }}</p>
+                    <p class="text-xs text-rose-600 font-medium">{{ $message }}</p>
                 @enderror
             </div>
 
-            <!-- Icon Selector -->
-            <div class="space-y-1.5">
-                <label for="icon" class="text-xs font-semibold text-slate-700">
-                    Icon Preset <span class="text-jrs-red">*</span>
-                </label>
-                <select id="icon" 
-                        name="icon" 
-                        required
-                        class="w-full px-3 py-2 text-sm rounded-md border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-jrs-red/20 focus:border-jrs-red">
-                    @foreach($icons as $key => $label)
-                        <option value="{{ $key }}" {{ old('icon') == $key ? 'selected' : '' }}>
-                            {{ $label }} ({{ $key }})
-                        </option>
-                    @endforeach
-                </select>
-                <p class="text-[11px] text-slate-500">Renders as a crisp white vector icon centered in a deep-navy circle matching the site design.</p>
+            <!-- Divider -->
+            <div class="border-t border-slate-100"></div>
+
+            <!-- 2. Icon (Remaining Pages Design) -->
+            <div class="space-y-4">
+                <div class="space-y-1">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+                        <label for="icon" class="text-sm font-semibold text-slate-800">
+                            Icon <span class="text-rose-500">*</span>
+                        </label>
+                        <span class="text-xs text-slate-400">Bootstrap Icon (e.g. bi bi-people-fill, bi bi-mortarboard-fill)</span>
+                    </div>
+                    <p class="text-xs text-slate-500">Pick from quick presets or enter any Bootstrap icon class.</p>
+                </div>
+
+                <!-- Input row with Icon Preview Badge -->
+                <div class="flex items-center gap-3">
+                    <div id="icon-preview-box" class="w-11 h-11 rounded-xl bg-rose-50/80 border border-rose-200/80 flex items-center justify-center text-rose-600 text-xl shrink-0 shadow-2xs transition-all">
+                        <i id="icon-preview" class="bi bi-people-fill"></i>
+                    </div>
+                    <div class="flex-1">
+                        <input type="text" 
+                               name="icon" 
+                               id="icon" 
+                               value="{{ old('icon', 'bi bi-people-fill') }}" 
+                               placeholder="bi bi-people-fill or bi bi-mortarboard-fill" 
+                               required
+                               class="flex h-11 w-full rounded-lg border @error('icon') border-rose-500 @else border-slate-200 @enderror bg-white px-3.5 py-2 text-sm text-slate-800 shadow-xs transition-colors placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 focus-visible:border-transparent font-mono">
+                    </div>
+                </div>
                 @error('icon')
-                    <p class="text-xs text-red-600">{{ $message }}</p>
+                    <p class="text-xs text-rose-600 font-medium">{{ $message }}</p>
                 @enderror
+
+                <!-- Quick Presets for Culture & Benefits -->
+                <div class="space-y-2 pt-1">
+                    <div class="text-xs font-semibold text-slate-600">Quick Presets for Work Culture & Benefits</div>
+                    <div class="flex flex-wrap gap-2" id="icon-presets">
+                        <button type="button" data-icon="bi bi-people-fill" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
+                            <i class="bi bi-people-fill text-slate-600"></i>
+                            <span>Collaborative Community</span>
+                        </button>
+                        <button type="button" data-icon="bi bi-mortarboard-fill" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
+                            <i class="bi bi-mortarboard-fill text-slate-600"></i>
+                            <span>Continuous Growth</span>
+                        </button>
+                        <button type="button" data-icon="bi bi-lightbulb-fill" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
+                            <i class="bi bi-lightbulb-fill text-slate-600"></i>
+                            <span>Innovative Teaching</span>
+                        </button>
+                        <button type="button" data-icon="bi bi-star-fill" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
+                            <i class="bi bi-star-fill text-slate-600"></i>
+                            <span>Make A Difference</span>
+                        </button>
+                        <button type="button" data-icon="bi bi-heart-fill" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
+                            <i class="bi bi-heart-fill text-slate-600"></i>
+                            <span>Wellness & Care</span>
+                        </button>
+                        <button type="button" data-icon="bi bi-trophy-fill" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
+                            <i class="bi bi-trophy-fill text-slate-600"></i>
+                            <span>Merit & Recognition</span>
+                        </button>
+                        <button type="button" data-icon="bi bi-stars" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
+                            <i class="bi bi-stars text-slate-600"></i>
+                            <span>Inspiration</span>
+                        </button>
+                        <button type="button" data-icon="bi bi-shield-check" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
+                            <i class="bi bi-shield-check text-slate-600"></i>
+                            <span>Security & Stability</span>
+                        </button>
+                        <button type="button" data-icon="bi bi-briefcase-fill" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
+                            <i class="bi bi-briefcase-fill text-slate-600"></i>
+                            <span>Career Growth</span>
+                        </button>
+                        <button type="button" data-icon="bi bi-laptop" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
+                            <i class="bi bi-laptop text-slate-600"></i>
+                            <span>Digital Infrastructure</span>
+                        </button>
+                    </div>
+                </div>
             </div>
 
-            <!-- Description -->
-            <div class="space-y-1.5">
-                <label for="description" class="text-xs font-semibold text-slate-700">
-                    Description <span class="text-jrs-red">*</span>
+            <!-- Divider -->
+            <div class="border-t border-slate-100"></div>
+
+            <!-- 3. Description -->
+            <div class="space-y-2">
+                <label for="description" class="text-sm font-semibold text-slate-800">
+                    Description <span class="text-rose-500">*</span>
                 </label>
                 <textarea id="description" 
                           name="description" 
-                          rows="3"
+                          rows="4"
                           required
-                          placeholder="e.g. Work with passionate educators and supportive leadership."
-                          class="w-full px-3 py-2 text-sm rounded-md border border-slate-200 focus:outline-none focus:ring-2 focus:ring-jrs-red/20 focus:border-jrs-red">{{ old('description') }}</textarea>
+                          placeholder="e.g. Work alongside passionate educators and supportive leadership in an environment that fosters teamwork and lifelong learning."
+                          class="flex w-full rounded-lg border @error('description') border-rose-500 @else border-slate-200 @enderror bg-white px-3.5 py-2.5 text-sm text-slate-800 shadow-xs transition-colors placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 focus-visible:border-transparent">{{ old('description') }}</textarea>
                 @error('description')
-                    <p class="text-xs text-red-600">{{ $message }}</p>
+                    <p class="text-xs text-rose-600 font-medium">{{ $message }}</p>
                 @enderror
             </div>
 
-            <!-- Section Badge -->
-            <div class="space-y-1.5">
-                <label for="badge" class="text-xs font-semibold text-slate-700">
-                    Section Badge Reference
-                </label>
-                <input type="text" 
-                       id="badge" 
-                       name="badge" 
-                       value="{{ old('badge', 'WORK CULTURE & BENEFITS') }}"
-                       class="w-full px-3 py-2 text-sm rounded-md border border-slate-200 focus:outline-none focus:ring-2 focus:ring-jrs-red/20 focus:border-jrs-red">
-                <p class="text-[11px] text-slate-500">Default: WORK CULTURE & BENEFITS</p>
-                @error('badge')
-                    <p class="text-xs text-red-600">{{ $message }}</p>
-                @enderror
+            <!-- Form Actions -->
+            <div class="flex items-center justify-end gap-3 pt-4 border-t border-slate-100">
+                <a href="{{ route('admin.careers-benefits.index') }}" class="inline-flex items-center justify-center rounded-lg border border-slate-200 bg-white px-4 py-2 text-xs font-medium text-slate-700 hover:bg-slate-50 transition-colors">
+                    Cancel
+                </a>
+                <button type="submit" class="inline-flex items-center justify-center rounded-lg bg-jrs-red hover:bg-red-700 px-5 py-2 text-xs font-medium text-white shadow-xs transition-colors">
+                    Save Benefit Card
+                </button>
             </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-                <!-- Sort Order -->
-                <div class="space-y-1.5">
-                    <label for="sort_order" class="text-xs font-semibold text-slate-700">Display Order</label>
-                    <input type="number" 
-                           id="sort_order" 
-                           name="sort_order" 
-                           value="{{ old('sort_order', $nextOrder) }}" 
-                           min="0"
-                           class="w-full px-3 py-2 text-sm rounded-md border border-slate-200 focus:outline-none focus:ring-2 focus:ring-jrs-red/20 focus:border-jrs-red">
-                    <p class="text-[11px] text-slate-500">Lower numbers display first (e.g. 1, 2, 3, 4)</p>
-                </div>
-
-                <!-- Is Active -->
-                <div class="flex items-center sm:pt-6">
-                    <label class="relative inline-flex items-center gap-2 cursor-pointer select-none">
-                        <input type="checkbox" name="is_active" value="1" class="sr-only peer" {{ old('is_active', true) ? 'checked' : '' }}>
-                        <div class="w-9 h-5 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-emerald-600"></div>
-                        <span class="text-xs font-semibold text-slate-700">Display Live on Careers Page</span>
-                    </label>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="flex items-center justify-end gap-3">
-            <a href="{{ route('admin.careers-benefits.index') }}" class="px-4 py-2 text-xs font-semibold rounded-md border border-slate-200 text-slate-700 hover:bg-slate-50">
-                Cancel
-            </a>
-            <button type="submit" class="px-5 py-2 text-xs font-semibold rounded-md bg-jrs-red text-white hover:opacity-90 shadow-xs">
-                Save Benefit Card
-            </button>
-        </div>
-    </form>
+        </form>
+    </div>
 
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const iconInput = document.getElementById('icon');
+    const previewBox = document.getElementById('icon-preview-box');
+    const presetBtns = document.querySelectorAll('.icon-preset-btn');
+
+    function updatePreview(val) {
+        val = (val || '').trim();
+        if (!val) {
+            previewBox.innerHTML = '<i class="bi bi-people-fill"></i>';
+            return;
+        }
+
+        let iconClass = val;
+        const aliasMap = {
+            'users': 'bi bi-people-fill',
+            'graduation-cap': 'bi bi-mortarboard-fill',
+            'lightbulb': 'bi bi-lightbulb-fill',
+            'star': 'bi bi-star-fill',
+            'heart': 'bi bi-heart-fill',
+            'trophy': 'bi bi-trophy-fill',
+            'sparkles': 'bi bi-stars',
+            'shield-check': 'bi bi-shield-check',
+            'briefcase': 'bi bi-briefcase-fill',
+            'laptop': 'bi bi-laptop',
+        };
+
+        if (aliasMap[val]) {
+            iconClass = aliasMap[val];
+        } else if (!val.includes(' ') && !val.includes('-')) {
+            iconClass = 'bi bi-' + val;
+        }
+
+        previewBox.innerHTML = '<i class="' + iconClass + '"></i>';
+
+        presetBtns.forEach(btn => {
+            const dataIcon = btn.getAttribute('data-icon');
+            if (dataIcon === val || dataIcon === iconClass) {
+                btn.classList.add('bg-rose-50', 'border-rose-300', 'text-rose-700', 'font-semibold');
+                btn.classList.remove('bg-white', 'text-slate-700');
+            } else {
+                btn.classList.remove('bg-rose-50', 'border-rose-300', 'text-rose-700', 'font-semibold');
+                btn.classList.add('bg-white', 'text-slate-700');
+            }
+        });
+    }
+
+    presetBtns.forEach(btn => {
+        btn.addEventListener('click', function () {
+            const iconVal = this.getAttribute('data-icon');
+            iconInput.value = iconVal;
+            updatePreview(iconVal);
+        });
+    });
+
+    iconInput.addEventListener('input', function () {
+        updatePreview(this.value);
+    });
+
+    updatePreview(iconInput.value);
+});
+</script>
 @endsection

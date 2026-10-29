@@ -17,7 +17,7 @@
             </div>
             <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-jrs-navy font-heading">Edit Teaching Section Copy</h2>
             <p class="text-xs sm:text-sm text-slate-500">
-                Update headline, red highlighted phrases, description, and school campus photograph.
+                Update heading, paragraph, and campus photograph.
             </p>
         </div>
     </div>
@@ -28,77 +28,41 @@
             @csrf
             @method('PUT')
 
-            <!-- Typography & Headlines Card -->
+            <!-- Content Card -->
             <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-xs space-y-5">
                 <div class="border-b border-slate-100 pb-3">
-                    <h3 class="text-base font-bold text-jrs-navy font-heading">Headline & Highlights</h3>
-                    <p class="text-xs text-slate-500">Configure top red badge, headline, and red emphasized words.</p>
+                    <h3 class="text-base font-bold text-jrs-navy font-heading">Section Content</h3>
+                    <p class="text-xs text-slate-500">Enter the main heading and description paragraph.</p>
                 </div>
 
-                <!-- Badge & Full Title -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                        <label for="badge" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                            Top Red Pill Badge
-                        </label>
-                        <input type="text" name="badge" id="badge" value="{{ old('badge', $section->badge) }}" class="flex h-9 w-full rounded-md border border-slate-200 bg-white px-3 py-1 text-xs sm:text-sm shadow-xs">
-                    </div>
-
-                    <div>
-                        <label for="title" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                            Full Headline <span class="text-jrs-red">*</span>
-                        </label>
-                        <input type="text" name="title" id="title" value="{{ old('title', $section->title) }}" required class="flex h-9 w-full rounded-md border {{ $errors->has('title') ? 'border-jrs-red ring-1 ring-jrs-red' : 'border-slate-200' }} bg-white px-3 py-1 text-xs sm:text-sm shadow-xs">
-                    </div>
+                <!-- Heading -->
+                <div>
+                    <label for="title" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                        Heading <span class="text-jrs-red">*</span>
+                    </label>
+                    <input type="text" name="title" id="title" value="{{ old('title', $section->title) }}" required class="flex h-9 w-full rounded-md border {{ $errors->has('title') ? 'border-jrs-red ring-1 ring-jrs-red' : 'border-slate-200' }} bg-white px-3 py-1 text-xs sm:text-sm shadow-xs placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-jrs-navy">
+                    @error('title')
+                        <p class="text-xs text-jrs-red mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
 
-                <!-- Red Highlights -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                        <label for="highlight_1" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                            Highlight 1 (Rendered in Red)
-                        </label>
-                        <input type="text" name="highlight_1" id="highlight_1" value="{{ old('highlight_1', $section->highlight_1) }}" class="flex h-9 w-full rounded-md border border-slate-200 bg-white px-3 py-1 text-xs sm:text-sm shadow-xs">
-                    </div>
-
-                    <div>
-                        <label for="highlight_2" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                            Highlight 2 (Rendered in Red)
-                        </label>
-                        <input type="text" name="highlight_2" id="highlight_2" value="{{ old('highlight_2', $section->highlight_2) }}" class="flex h-9 w-full rounded-md border border-slate-200 bg-white px-3 py-1 text-xs sm:text-sm shadow-xs">
-                    </div>
-                </div>
-
-                <!-- Description -->
+                <!-- Paragraph Description -->
                 <div>
                     <label for="description" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                        Description Paragraph <span class="text-jrs-red">*</span>
+                        Paragraph <span class="text-jrs-red">*</span>
                     </label>
-                    <textarea name="description" id="description" rows="5" required class="flex w-full rounded-md border border-slate-200 bg-white p-3 text-xs sm:text-sm shadow-xs">{{ old('description', $section->description) }}</textarea>
+                    <textarea name="description" id="description" rows="5" required class="flex w-full rounded-md border {{ $errors->has('description') ? 'border-jrs-red ring-1 ring-jrs-red' : 'border-slate-200' }} bg-white p-3 text-xs sm:text-sm shadow-xs placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-jrs-navy">{{ old('description', $section->description) }}</textarea>
+                    @error('description')
+                        <p class="text-xs text-jrs-red mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
             </div>
 
-            <!-- Contact & Image Card -->
-            <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-xs space-y-5">
+            <!-- Image Card -->
+            <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-xs space-y-4">
                 <div class="border-b border-slate-100 pb-3">
-                    <h3 class="text-base font-bold text-jrs-navy font-heading">Artwork & Resume Contact</h3>
-                    <p class="text-xs text-slate-500">Campus photograph and contact details for applicants.</p>
-                </div>
-
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                        <label for="apply_email" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                            Resume Submission Email
-                        </label>
-                        <input type="email" name="apply_email" id="apply_email" value="{{ old('apply_email', $section->apply_email) }}" class="flex h-9 w-full rounded-md border border-slate-200 bg-white px-3 py-1 text-xs sm:text-sm shadow-xs font-mono">
-                    </div>
-
-                    <div>
-                        <label for="apply_phone" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                            HR / Contact Phone
-                        </label>
-                        <input type="text" name="apply_phone" id="apply_phone" value="{{ old('apply_phone', $section->apply_phone) }}" class="flex h-9 w-full rounded-md border border-slate-200 bg-white px-3 py-1 text-xs sm:text-sm shadow-xs">
-                    </div>
+                    <h3 class="text-base font-bold text-jrs-navy font-heading">Campus Image</h3>
+                    <p class="text-xs text-slate-500">Upload an image for the Teaching at JRS section.</p>
                 </div>
 
                 <div>
@@ -110,13 +74,6 @@
                         'aspect' => 'landscape',
                         'help' => 'Upload a new photo to replace current photo. Leave blank to keep existing.',
                     ])
-                </div>
-
-                <div class="pt-3 border-t border-slate-100 flex items-center gap-3">
-                    <input type="checkbox" name="is_active" id="is_active" value="1" {{ old('is_active', $section->is_active) ? 'checked' : '' }} class="w-4 h-4 rounded text-jrs-navy border-slate-300 focus:ring-jrs-navy cursor-pointer">
-                    <label for="is_active" class="text-sm font-semibold text-slate-700 cursor-pointer">
-                        Set as Active Section on Careers Page
-                    </label>
                 </div>
             </div>
 

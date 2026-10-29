@@ -17,7 +17,7 @@
             </div>
             <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-jrs-navy font-heading">Edit CTA Banner</h2>
             <p class="text-xs sm:text-sm text-slate-500">
-                Update headline, highlight accent phrase, action buttons, and student montage artwork.
+                Update headline, highlight accent phrase, badge tag, description, and banner artwork.
             </p>
         </div>
     </div>
@@ -32,7 +32,7 @@
             <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-xs space-y-5">
                 <div class="border-b border-slate-100 pb-3">
                     <h3 class="text-base font-bold text-jrs-navy font-heading">Banner Headline & Messaging</h3>
-                    <p class="text-xs text-slate-500">Primary headline, highlight accent text, and subheading description.</p>
+                    <p class="text-xs text-slate-500">Primary headline, highlight accent text, badge tag, and subheading description.</p>
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -57,24 +57,12 @@
                     </div>
                 </div>
 
-                <!-- Badge Tag & Background Color -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                        <label for="badge" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                            Badge Tag (Optional)
-                        </label>
-                        <input type="text" name="badge" id="badge" value="{{ old('badge', $cta->badge) }}" placeholder="e.g. Admissions Open 2026-27" class="flex h-9 w-full rounded-md border border-slate-200 bg-white px-3 py-1 text-xs sm:text-sm shadow-xs transition-colors placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-jrs-navy">
-                    </div>
-
-                    <div>
-                        <label for="bg_color" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                            Background Dark Navy Hex
-                        </label>
-                        <div class="flex items-center gap-2">
-                            <input type="color" id="bg_color_picker" value="{{ old('bg_color', $cta->bg_color ?? '#031c3f') }}" onchange="document.getElementById('bg_color').value = this.value" class="w-9 h-9 rounded border border-slate-200 cursor-pointer p-0.5">
-                            <input type="text" name="bg_color" id="bg_color" value="{{ old('bg_color', $cta->bg_color ?? '#031c3f') }}" oninput="document.getElementById('bg_color_picker').value = this.value" class="flex h-9 w-full rounded-md border border-slate-200 bg-white px-3 py-1 text-xs sm:text-sm font-mono shadow-xs">
-                        </div>
-                    </div>
+                <!-- Badge Tag -->
+                <div>
+                    <label for="badge" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                        Badge Tag (Optional)
+                    </label>
+                    <input type="text" name="badge" id="badge" value="{{ old('badge', $cta->badge) }}" placeholder="e.g. Admissions Open 2026-27" class="flex h-9 w-full rounded-md border border-slate-200 bg-white px-3 py-1 text-xs sm:text-sm shadow-xs transition-colors placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-jrs-navy">
                 </div>
 
                 <!-- Description -->
@@ -86,48 +74,8 @@
                 </div>
             </div>
 
-            <!-- Call-to-Action Buttons Card -->
-            <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-xs space-y-5">
-                <div class="border-b border-slate-100 pb-3">
-                    <h3 class="text-base font-bold text-jrs-navy font-heading">Call to Action Buttons</h3>
-                    <p class="text-xs text-slate-500">Configure primary (solid red) and secondary (dark outline) buttons.</p>
-                </div>
-
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <!-- Primary Button -->
-                    <div class="p-4 rounded-lg bg-red-50/50 border border-red-100 space-y-3">
-                        <span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-bold uppercase tracking-wider bg-jrs-red text-white">
-                            Primary Button (Red Solid)
-                        </span>
-                        <div>
-                            <label for="primary_button_text" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Button Label *</label>
-                            <input type="text" name="primary_button_text" id="primary_button_text" value="{{ old('primary_button_text', $cta->primary_button_text) }}" required class="flex h-8 w-full rounded-md border border-slate-200 bg-white px-3 text-xs shadow-xs">
-                        </div>
-                        <div>
-                            <label for="primary_button_url" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Target Link URL *</label>
-                            <input type="text" name="primary_button_url" id="primary_button_url" value="{{ old('primary_button_url', $cta->primary_button_url) }}" required class="flex h-8 w-full rounded-md border border-slate-200 bg-white px-3 text-xs font-mono shadow-xs">
-                        </div>
-                    </div>
-
-                    <!-- Secondary Button -->
-                    <div class="p-4 rounded-lg bg-slate-50 border border-slate-200 space-y-3">
-                        <span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-bold uppercase tracking-wider bg-slate-800 text-white">
-                            Secondary Button (Navy Outline)
-                        </span>
-                        <div>
-                            <label for="secondary_button_text" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Button Label</label>
-                            <input type="text" name="secondary_button_text" id="secondary_button_text" value="{{ old('secondary_button_text', $cta->secondary_button_text) }}" class="flex h-8 w-full rounded-md border border-slate-200 bg-white px-3 text-xs shadow-xs">
-                        </div>
-                        <div>
-                            <label for="secondary_button_url" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Target Link URL</label>
-                            <input type="text" name="secondary_button_url" id="secondary_button_url" value="{{ old('secondary_button_url', $cta->secondary_button_url) }}" class="flex h-8 w-full rounded-md border border-slate-200 bg-white px-3 text-xs font-mono shadow-xs">
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Artwork & Status Card -->
-            <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-xs space-y-5">
+            <!-- Artwork & Visibility Card -->
+            <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-xs space-y-4">
                 <div class="border-b border-slate-100 pb-3">
                     <h3 class="text-base font-bold text-jrs-navy font-heading">Artwork & Visibility</h3>
                     <p class="text-xs text-slate-500">Current artwork or upload a replacement banner photograph.</p>
@@ -143,14 +91,6 @@
                         'help' => 'Leave blank to keep current artwork. Upload a file to replace.',
                     ])
                 </div>
-
-                <!-- Active Toggle -->
-                <div class="pt-3 border-t border-slate-100 flex items-center gap-3">
-                    <input type="checkbox" name="is_active" id="is_active" value="1" {{ old('is_active', $cta->is_active) ? 'checked' : '' }} class="w-4 h-4 rounded text-jrs-navy border-slate-300 focus:ring-jrs-navy cursor-pointer">
-                    <label for="is_active" class="text-sm font-semibold text-slate-700 cursor-pointer">
-                        Set as Active Banner (Will be served on Beyond Classroom page)
-                    </label>
-                </div>
             </div>
 
             <!-- Submit Buttons -->
@@ -165,17 +105,4 @@
         </form>
     </div>
 </div>
-
-<script>
-function previewImage(input) {
-    if (input.files && input.files[0]) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            document.getElementById('imagePreview').src = e.target.result;
-            document.getElementById('imagePreviewContainer').classList.remove('hidden');
-        }
-        reader.readAsDataURL(input.files[0]);
-    }
-}
-</script>
 @endsection

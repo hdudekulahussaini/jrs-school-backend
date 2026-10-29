@@ -1,7 +1,7 @@
 @extends('admin.layout')
 
-@section('title', 'Add Gallery Album Section | JRS School Admin')
-@section('header', 'Add Gallery Album')
+@section('title', 'Add Gallery Photos | JRS School Admin')
+@section('header', 'Add Gallery Photos')
 
 @section('content')
 <div class="space-y-6 w-full">
@@ -15,126 +15,54 @@
                     <span>Back to Albums</span>
                 </a>
                 <span class="text-slate-300">/</span>
-                <span class="text-xs text-slate-700 font-medium">New Album Section</span>
+                <span class="text-xs text-slate-700 font-medium">New Gallery Section</span>
             </div>
-            <h2 class="text-2xl font-bold tracking-tight text-slate-900 font-heading">Add Gallery Album Section</h2>
+            <h2 class="text-2xl font-bold tracking-tight text-slate-900 font-heading">Add Gallery Photos</h2>
         </div>
     </div>
 
     <!-- Create Form -->
-    <form action="{{ route('admin.gallery-albums.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
+    <form action="{{ route('admin.gallery-albums.store') }}" method="POST" enctype="multipart/form-data" id="galleryForm" class="space-y-6">
         @csrf
 
-        <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-xs space-y-6">
+        <!-- Photo Gallery Box -->
+        <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-xs space-y-5">
 
-            <!-- Section 1: Basic Information -->
-            <div>
-                <h3 class="text-sm font-bold text-jrs-navy uppercase tracking-wider font-heading mb-4 flex items-center gap-2">
-                    <span class="w-2 h-2 rounded-full bg-jrs-red"></span>
-                    Album Header & Titles
-                </h3>
-
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div class="sm:col-span-2 space-y-1.5">
-                        <label for="badge" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider">
-                            Badge / Category Tag
-                        </label>
-                        <input type="text" name="badge" id="badge" value="{{ old('badge') }}" placeholder="e.g. CAMPUS INFRASTRUCTURE & OPEN AIR ARENA, ANNUAL DAY HIGHLIGHTS" class="flex h-10 w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2 text-xs sm:text-sm shadow-xs transition-colors placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-jrs-navy @error('badge') border-red-500 @enderror">
-                        @error('badge') <p class="text-[11px] text-red-600 font-medium">{{ $message }}</p> @enderror
-                    </div>
-
-                    <div class="space-y-1.5">
-                        <label for="title" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider">
-                            Main Title <span class="text-jrs-red">*</span>
-                        </label>
-                        <input type="text" name="title" id="title" value="{{ old('title') }}" required placeholder="e.g. Amphitheatre Open-Air Arena" class="flex h-10 w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2 text-xs sm:text-sm shadow-xs transition-colors placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-jrs-navy @error('title') border-red-500 @enderror">
-                        @error('title') <p class="text-[11px] text-red-600 font-medium">{{ $message }}</p> @enderror
-                    </div>
-
-                    <div class="space-y-1.5">
-                        <label for="highlight_text" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider">
-                            Highlighted Word/Text (Styled in Red)
-                        </label>
-                        <input type="text" name="highlight_text" id="highlight_text" value="{{ old('highlight_text') }}" placeholder="e.g. Open-Air Arena, Celebrations" class="flex h-10 w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2 text-xs sm:text-sm shadow-xs transition-colors placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-jrs-navy @error('highlight_text') border-red-500 @enderror">
-                        <p class="text-[10px] text-slate-400">The specific substring that appears highlighted in red in the heading.</p>
-                        @error('highlight_text') <p class="text-[11px] text-red-600 font-medium">{{ $message }}</p> @enderror
-                    </div>
-
-                    <div class="sm:col-span-2 space-y-1.5">
-                        <label for="description" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider">
-                            Subtitle / Description
-                        </label>
-                        <textarea name="description" id="description" rows="3" placeholder="A world-class architectural amphitheatre surrounded by lush manicured greenery..." class="flex w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2 text-xs sm:text-sm shadow-xs transition-colors placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-jrs-navy @error('description') border-red-500 @enderror">{{ old('description') }}</textarea>
-                        @error('description') <p class="text-[11px] text-red-600 font-medium">{{ $message }}</p> @enderror
-                    </div>
+            <!-- Section Header -->
+            <div class="flex items-start justify-between gap-4">
+                <div class="space-y-1">
+                    <h3 class="text-sm font-bold text-slate-800 uppercase tracking-wider flex items-center gap-2">
+                        <span class="w-2.5 h-0.5 bg-rose-500 rounded-full inline-block"></span>
+                        <span>PHOTO GALLERY</span>
+                    </h3>
+                    <p class="text-xs text-slate-500">
+                        Upload gallery photos for this section. Each photo can be added or removed individually.
+                    </p>
                 </div>
+
+                <!-- Hidden file input -->
+                <input type="file" id="photoFileInput" name="gallery_photos[]" multiple accept="image/*" class="hidden">
+
+                <!-- Add Photo Button -->
+                <button type="button" id="addPhotoBtn" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg border border-rose-200 bg-rose-50/70 hover:bg-rose-100 text-rose-700 text-xs font-semibold shadow-2xs transition-all cursor-pointer shrink-0">
+                    <svg class="w-3.5 h-3.5 text-rose-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+                    <span>Add Photo</span>
+                </button>
             </div>
 
-            <hr class="border-slate-100">
-
-            <!-- Section 2: Media Type & Cover Image -->
-            <div>
-                <h3 class="text-sm font-bold text-jrs-navy uppercase tracking-wider font-heading mb-4 flex items-center gap-2">
-                    <span class="w-2 h-2 rounded-full bg-jrs-navy"></span>
-                    Media Type & Cover Photo
-                </h3>
-
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div class="space-y-1.5">
-                        <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider">
-                            Section Media Type <span class="text-jrs-red">*</span>
-                        </label>
-                        <div class="grid grid-cols-2 gap-3 pt-1">
-                            <label class="flex items-center gap-3 p-3 rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-50 transition-colors">
-                                <input type="radio" name="media_type" value="image" {{ old('media_type', 'image') === 'image' ? 'checked' : '' }} class="text-jrs-red focus:ring-jrs-navy">
-                                <div>
-                                    <p class="text-xs font-bold text-slate-900">Photo Gallery</p>
-                                    <p class="text-[10px] text-slate-500">Image grids & captions</p>
-                                </div>
-                            </label>
-                            <label class="flex items-center gap-3 p-3 rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-50 transition-colors">
-                                <input type="radio" name="media_type" value="video" {{ old('media_type') === 'video' ? 'checked' : '' }} class="text-jrs-red focus:ring-jrs-navy">
-                                <div>
-                                    <p class="text-xs font-bold text-slate-900">Video Gallery</p>
-                                    <p class="text-[10px] text-slate-500">Video cards & plays</p>
-                                </div>
-                            </label>
-                        </div>
-                        @error('media_type') <p class="text-[11px] text-red-600 font-medium">{{ $message }}</p> @enderror
-                    </div>
-
-                    <div>
-                        @include('admin.partials.image-upload', [
-                            'name' => 'cover_image',
-                            'id' => 'cover_image',
-                            'label' => 'Album Cover Image (Optional)',
-                            'aspect' => 'video',
-                            'help' => 'Upload album cover photo (JPG, PNG, WEBP, Max 10MB). If omitted, the first photo inside this album will be used as preview.',
-                        ])
-                    </div>
-                </div>
+            <!-- Photos Grid -->
+            <div id="photosGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 pt-1">
+                <!-- Dynamically populated photo cards -->
             </div>
 
-            <hr class="border-slate-100">
-
-            <!-- Section 3: Ordering & Status -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div class="space-y-1.5">
-                    <label for="sort_order" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider">
-                        Display Order
-                    </label>
-                    <input type="number" name="sort_order" id="sort_order" value="{{ old('sort_order', $nextOrder) }}" class="flex h-10 w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2 text-xs sm:text-sm shadow-xs focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-jrs-navy">
-                    <p class="text-[10px] text-slate-400">Controls the sequence of albums on the Gallery page (lowest first).</p>
-                </div>
-
-                <div class="flex items-center pt-6">
-                    <label class="flex items-center gap-3 cursor-pointer">
-                        <input type="checkbox" name="is_active" value="1" {{ old('is_active', true) ? 'checked' : '' }} class="w-4 h-4 rounded text-jrs-red focus:ring-jrs-navy border-slate-300">
-                        <div>
-                            <span class="text-xs font-bold text-slate-800">Publish Immediately</span>
-                            <p class="text-[10px] text-slate-400">Make this album section visible to the public.</p>
-                        </div>
-                    </label>
+            <!-- Empty State Placeholder -->
+            <div id="emptyPhotosState" class="py-14 text-center rounded-xl border border-dashed border-slate-200 bg-slate-50/50">
+                <div class="max-w-xs mx-auto space-y-2">
+                    <div class="w-10 h-10 rounded-full bg-rose-50 text-rose-600 mx-auto flex items-center justify-center">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                    </div>
+                    <p class="text-xs font-semibold text-slate-700">No photos added yet</p>
+                    <p class="text-[11px] text-slate-400">Click "+ Add Photo" to select images from your computer.</p>
                 </div>
             </div>
 
@@ -147,11 +75,91 @@
             </a>
             <button type="submit" class="inline-flex items-center justify-center rounded-xl text-xs sm:text-sm font-semibold transition-all bg-jrs-red hover:opacity-95 text-white shadow-xs h-9 px-6 py-2 gap-2 cursor-pointer">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
-                <span>Save Album Section</span>
+                <span>Save Gallery Photos</span>
             </button>
         </div>
 
     </form>
 
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const addBtn = document.getElementById('addPhotoBtn');
+        const fileInput = document.getElementById('photoFileInput');
+        const grid = document.getElementById('photosGrid');
+        const emptyState = document.getElementById('emptyPhotosState');
+
+        // Maintain list of uploaded files via DataTransfer
+        const dt = new DataTransfer();
+
+        addBtn.addEventListener('click', function () {
+            fileInput.click();
+        });
+
+        fileInput.addEventListener('change', function () {
+            const files = Array.from(fileInput.files);
+            if (!files.length) return;
+
+            files.forEach(file => {
+                if (!file.type.startsWith('image/')) return;
+
+                const fileIdx = dt.items.length;
+                dt.items.add(file);
+
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const card = document.createElement('div');
+                    card.className = 'relative rounded-2xl overflow-hidden border border-slate-200/90 shadow-2xs bg-slate-900 group aspect-4/3 transition-all animate-in fade-in duration-200';
+                    card.dataset.fileIdx = fileIdx;
+
+                    card.innerHTML = `
+                        <img src="${e.target.result}" alt="${file.name}" class="w-full h-full object-cover">
+                        <button type="button" class="remove-photo-btn absolute top-2.5 right-2.5 inline-flex items-center gap-1 rounded-md bg-[#dc2626] hover:bg-red-700 text-white text-xs font-semibold px-2.5 py-1 shadow-sm transition-all cursor-pointer">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                            <span>Remove</span>
+                        </button>
+                        <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 via-black/45 to-transparent px-3 py-2 pointer-events-none">
+                            <p class="text-xs text-white/95 font-mono truncate">${file.name}</p>
+                        </div>
+                    `;
+
+                    // Remove handler
+                    card.querySelector('.remove-photo-btn').addEventListener('click', function () {
+                        // Rebuild DataTransfer omitting this file
+                        const targetName = file.name;
+                        const targetSize = file.size;
+                        const newDt = new DataTransfer();
+                        for (let i = 0; i < dt.files.length; i++) {
+                            const cur = dt.files[i];
+                            if (cur.name === targetName && cur.size === targetSize) {
+                                continue;
+                            }
+                            newDt.items.add(cur);
+                        }
+                        // Replace dt contents
+                        while (dt.items.length > 0) {
+                            dt.items.remove(0);
+                        }
+                        for (let i = 0; i < newDt.files.length; i++) {
+                            dt.items.add(newDt.files[i]);
+                        }
+                        fileInput.files = dt.files;
+
+                        card.remove();
+                        if (grid.children.length === 0) {
+                            emptyState.classList.remove('hidden');
+                        }
+                    });
+
+                    grid.appendChild(card);
+                    emptyState.classList.add('hidden');
+                };
+                reader.readAsDataURL(file);
+            });
+
+            fileInput.files = dt.files;
+        });
+    });
+</script>
 @endsection

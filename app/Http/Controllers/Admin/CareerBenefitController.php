@@ -39,8 +39,8 @@ class CareerBenefitController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate(CareerBenefit::validationRules());
-        $validated['is_active'] = $request->has('is_active');
-        $validated['sort_order'] = $validated['sort_order'] ?? 0;
+        $validated['is_active'] = $request->has('is_active') ? $request->boolean('is_active') : true;
+        $validated['sort_order'] = $validated['sort_order'] ?? ((CareerBenefit::max('sort_order') ?? 0) + 1);
 
         CareerBenefit::create($validated);
 
@@ -66,8 +66,12 @@ class CareerBenefitController extends Controller
     public function update(Request $request, CareerBenefit $careers_benefit)
     {
         $validated = $request->validate(CareerBenefit::validationRules($careers_benefit->id));
-        $validated['is_active'] = $request->has('is_active');
-        $validated['sort_order'] = $validated['sort_order'] ?? 0;
+        if ($request->has('is_active')) {
+            $validated['is_active'] = $request->boolean('is_active');
+        }
+        if (!isset($validated['sort_order'])) {
+            $validated['sort_order'] = $careers_benefit->sort_order ?? 0;
+        }
 
         $careers_benefit->update($validated);
 

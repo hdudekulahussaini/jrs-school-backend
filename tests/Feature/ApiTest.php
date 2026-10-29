@@ -263,6 +263,16 @@ test('GET /api/admission-hero, /api/admission-process, /api/admission-criteria, 
         ->assertJsonStructure(['success', 'data']);
 });
 
+test('GET /api/admission-brochure and /api/brochure', function () {
+    $this->getJson('/api/admission-brochure')
+        ->assertStatus(200)
+        ->assertJsonStructure(['success', 'message']);
+
+    $this->getJson('/api/brochure')
+        ->assertStatus(200)
+        ->assertJsonStructure(['success', 'message']);
+});
+
 test('GET /api/contact and /api/contact/grades', function () {
     $this->getJson('/api/contact')
         ->assertStatus(200)
@@ -358,234 +368,51 @@ test('POST /api/admission-enquiries successfully submits an admission enquiry', 
 
 /*
 |--------------------------------------------------------------------------
-| Section 3: Full CRUD API Operations (GET, POST, PUT, PATCH, DELETE)
+| Section 3: Verified Disabled Mutation Routes & Resource Fetch Endpoints
 |--------------------------------------------------------------------------
 */
 
-test('Full CRUD on News Tickers: POST, GET, PUT, PATCH toggle, DELETE', function () {
-    // 1. POST (Create)
-    $createResponse = $this->postJson('/api/news-tickers', [
-        'title' => 'Automated Test News Ticker Title',
-        'badge_text' => 'TEST',
-        'link_url' => 'https://example.com/ticker-test',
-        'sort_order' => 99,
-        'is_active' => true,
-    ]);
-    $createResponse->assertStatus(201);
-    $id = $createResponse->json('data.id');
-
-    $this->assertDatabaseHas('news_tickers', ['id' => $id, 'title' => 'Automated Test News Ticker Title']);
-
-    // 2. GET by ID
-    $this->getJson("/api/news-tickers/{$id}")
-        ->assertStatus(200)
-        ->assertJsonPath('data.title', 'Automated Test News Ticker Title');
-
-    // 3. PUT (Update)
-    $this->putJson("/api/news-tickers/{$id}", [
-        'title' => 'Updated Test News Ticker Title',
-        'badge_text' => 'UPDATED',
-        'is_active' => true,
-    ])->assertStatus(200)
-      ->assertJsonPath('data.title', 'Updated Test News Ticker Title');
-
-    $this->assertDatabaseHas('news_tickers', ['id' => $id, 'title' => 'Updated Test News Ticker Title']);
-
-    // 4. PATCH toggle
-    $this->patchJson("/api/news-tickers/{$id}/toggle")
-        ->assertStatus(200)
-        ->assertJsonPath('data.is_active', false);
-
-    // 5. DELETE
-    $this->deleteJson("/api/news-tickers/{$id}")
-        ->assertStatus(200)
-        ->assertJson(['success' => true]);
-
-    $this->assertDatabaseMissing('news_tickers', ['id' => $id]);
+test('Mutation API routes (POST/PUT/PATCH/DELETE) are removed or restricted', function () {
+    // Attempting to post/put/delete on former CRUD endpoints should fail with 404 or 405
+    $this->postJson('/api/news-tickers', ['title' => 'test'])->assertStatus(405);
+    $this->postJson('/api/sliders', ['title' => 'test'])->assertStatus(405);
+    $this->deleteJson('/api/sliders/1')->assertStatus(405);
+    $this->postJson('/api/admin/facilities', ['title' => 'test'])->assertStatus(404);
+    $this->deleteJson('/api/admin/programs/1')->assertStatus(404);
 });
 
-test('Full CRUD on Hero Sliders: POST, GET, PUT, PATCH toggle, DELETE', function () {
-    // 1. POST (Create)
-    $createResponse = $this->postJson('/api/sliders', [
-        'title' => 'API Test Hero Slider',
-        'highlight_text' => 'Test Highlight',
-        'description' => 'Test hero slider description.',
-        'sort_order' => 99,
-        'is_active' => true,
-    ]);
-    $createResponse->assertStatus(201);
-    $id = $createResponse->json('data.id');
-
-    $this->assertDatabaseHas('hero_sliders', ['id' => $id, 'title' => 'API Test Hero Slider']);
-
-    // 2. GET by ID
-    $this->getJson("/api/sliders/{$id}")
-        ->assertStatus(200)
-        ->assertJsonPath('data.title', 'API Test Hero Slider');
-
-    // 3. PUT (Update)
-    $this->putJson("/api/sliders/{$id}", [
-        'title' => 'Updated Hero Slider Title',
-        'highlight_text' => 'Updated Highlight',
-        'is_active' => true,
-    ])->assertStatus(200)
-      ->assertJsonPath('data.title', 'Updated Hero Slider Title');
-
-    $this->assertDatabaseHas('hero_sliders', ['id' => $id, 'title' => 'Updated Hero Slider Title']);
-
-    // 4. PATCH toggle
-    $this->patchJson("/api/sliders/{$id}/toggle")
-        ->assertStatus(200)
-        ->assertJsonPath('data.is_active', false);
-
-    // 5. DELETE
-    $this->deleteJson("/api/sliders/{$id}")
-        ->assertStatus(200)
-        ->assertJson(['success' => true]);
-
-    $this->assertDatabaseMissing('hero_sliders', ['id' => $id]);
-});
-
-test('Full CRUD on Facilities / Amenities: POST, GET, PUT, PATCH toggle, DELETE', function () {
-    // 1. POST (Create)
-    $createResponse = $this->postJson('/api/admin/facilities', [
-        'title' => 'API Test Facility',
-        'description' => 'Facility for automated testing.',
-        'icon' => 'building',
-        'sort_order' => 99,
-        'is_active' => true,
-    ]);
-    $createResponse->assertStatus(201);
-    $id = $createResponse->json('data.id');
-
-    $this->assertDatabaseHas('facilities', ['id' => $id, 'title' => 'API Test Facility']);
-
-    // 2. GET by ID
-    $this->getJson("/api/admin/facilities/{$id}")
-        ->assertStatus(200)
-        ->assertJsonPath('data.title', 'API Test Facility');
-
-    // 3. PUT (Update)
-    $this->putJson("/api/admin/facilities/{$id}", [
-        'title' => 'Updated Facility Title',
-        'description' => 'Updated facility description.',
-        'is_active' => true,
-    ])->assertStatus(200)
-      ->assertJsonPath('data.title', 'Updated Facility Title');
-
-    $this->assertDatabaseHas('facilities', ['id' => $id, 'title' => 'Updated Facility Title']);
-
-    // 4. PATCH toggle
-    $this->patchJson("/api/admin/facilities/{$id}/toggle")
-        ->assertStatus(200)
-        ->assertJsonPath('data.is_active', false);
-
-    // 5. DELETE
-    $this->deleteJson("/api/admin/facilities/{$id}")
-        ->assertStatus(200)
-        ->assertJson(['success' => true]);
-
-    $this->assertDatabaseMissing('facilities', ['id' => $id]);
-});
-
-test('Full CRUD on Academic Programs: POST, GET, PUT, PATCH toggle, DELETE', function () {
-    // 1. POST (Create)
-    $createResponse = $this->postJson('/api/admin/programs', [
-        'stage_badge' => 'STAGE 99',
-        'title' => 'API Test Academic Program',
-        'subtitle' => 'Test Grades',
-        'description' => 'Test description for program.',
-        'highlights' => ['Highlight 1', 'Highlight 2'],
-        'sort_order' => 99,
-        'is_active' => true,
-    ]);
-    $createResponse->assertStatus(201);
-    $id = $createResponse->json('data.id');
-
-    $this->assertDatabaseHas('academic_programs', ['id' => $id, 'title' => 'API Test Academic Program']);
-
-    // 2. GET by ID
-    $this->getJson("/api/admin/programs/{$id}")
-        ->assertStatus(200)
-        ->assertJsonPath('data.title', 'API Test Academic Program');
-
-    // 3. PUT (Update)
-    $this->putJson("/api/admin/programs/{$id}", [
-        'title' => 'Updated Academic Program Title',
-        'is_active' => true,
-    ])->assertStatus(200)
-      ->assertJsonPath('data.title', 'Updated Academic Program Title');
-
-    $this->assertDatabaseHas('academic_programs', ['id' => $id, 'title' => 'Updated Academic Program Title']);
-
-    // 4. PATCH toggle
-    $this->patchJson("/api/admin/programs/{$id}/toggle")
-        ->assertStatus(200)
-        ->assertJsonPath('data.is_active', false);
-
-    // 5. DELETE
-    $this->deleteJson("/api/admin/programs/{$id}")
-        ->assertStatus(200)
-        ->assertJson(['success' => true]);
-
-    $this->assertDatabaseMissing('academic_programs', ['id' => $id]);
-});
-
-test('Full CRUD on Breadcrumb Banners: POST, GET, PUT, DELETE', function () {
-    $existingSlugs = BreadcrumbBanner::pluck('page_slug')->toArray();
-    $supported = collect(BreadcrumbBanner::supportedPages());
-    $availablePage = $supported->first(fn ($p) => !in_array($p['slug'], $existingSlugs));
-
-    if (!$availablePage) {
-        $existing = BreadcrumbBanner::first();
-        $this->getJson("/api/breadcrumb-banners/{$existing->id}")
+test('GET resource by ID or slug endpoints function properly', function () {
+    $existingTicker = NewsTicker::first();
+    if ($existingTicker) {
+        $this->getJson("/api/news-tickers/{$existingTicker->id}")
             ->assertStatus(200)
-            ->assertJsonPath('data.id', $existing->id);
-        return;
+            ->assertJsonPath('data.id', $existingTicker->id);
     }
 
-    // 1. POST (Create)
-    $createResponse = $this->postJson('/api/breadcrumb-banners', [
-        'page_name' => $availablePage['name'],
-        'page_slug' => $availablePage['slug'],
-        'breadcrumb_title' => $availablePage['breadcrumb_title'],
-        'title' => 'Test Banner Title',
-        'highlighted_title' => 'Test Highlight',
-        'subtitle' => 'Test subtitle.',
-        'description' => 'Test banner description.',
-    ]);
-    $createResponse->assertStatus(201);
-    $id = $createResponse->json('data.id');
+    $existingSlider = HeroSlider::first();
+    if ($existingSlider) {
+        $this->getJson("/api/sliders/{$existingSlider->id}")
+            ->assertStatus(200)
+            ->assertJsonPath('data.id', $existingSlider->id);
+    }
 
-    $this->assertDatabaseHas('breadcrumb_banners', ['id' => $id, 'page_slug' => $availablePage['slug']]);
+    $existingFacility = Facility::first();
+    if ($existingFacility) {
+        $this->getJson("/api/facilities/{$existingFacility->id}")
+            ->assertStatus(200)
+            ->assertJsonPath('data.id', $existingFacility->id);
+    }
 
-    // 2. GET by ID & slug
-    $this->getJson("/api/breadcrumb-banners/{$id}")
-        ->assertStatus(200)
-        ->assertJsonPath('data.id', $id);
+    $existingBanner = BreadcrumbBanner::first();
+    if ($existingBanner) {
+        $this->getJson("/api/breadcrumb-banners/{$existingBanner->id}")
+            ->assertStatus(200)
+            ->assertJsonPath('data.id', $existingBanner->id);
 
-    $this->getJson("/api/breadcrumb-banners/{$availablePage['slug']}")
-        ->assertStatus(200)
-        ->assertJsonPath('data.id', $id);
-
-    // 3. PUT (Update)
-    $this->putJson("/api/breadcrumb-banners/{$id}", [
-        'page_name' => $availablePage['name'],
-        'page_slug' => $availablePage['slug'],
-        'breadcrumb_title' => $availablePage['breadcrumb_title'],
-        'title' => 'Updated Banner Title',
-        'highlighted_title' => 'Updated Highlight',
-    ])->assertStatus(200)
-      ->assertJsonPath('data.title', 'Updated Banner Title');
-
-    $this->assertDatabaseHas('breadcrumb_banners', ['id' => $id, 'title' => 'Updated Banner Title']);
-
-    // 4. DELETE
-    $this->deleteJson("/api/breadcrumb-banners/{$id}")
-        ->assertStatus(200)
-        ->assertJson(['success' => true]);
-
-    $this->assertDatabaseMissing('breadcrumb_banners', ['id' => $id]);
+        $this->getJson("/api/breadcrumb-banners/{$existingBanner->page_slug}")
+            ->assertStatus(200)
+            ->assertJsonPath('data.id', $existingBanner->id);
+    }
 });
 
 /*

@@ -103,94 +103,17 @@
         "responses": {
           "200": { "description": "Full list of ticker items" }
         }
-      },
-      "post": {
-        "tags": ["News Ticker (REST CRUD)"],
-        "summary": "Create a new marquee announcement",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": ["title"],
-                "properties": {
-                  "title": { "type": "string", "example": "Admissions Open 2026-27" },
-                  "badge_text": { "type": "string", "example": "NEWS" },
-                  "link_url": { "type": "string", "example": "/admissions" },
-                  "sort_order": { "type": "integer", "example": 1 },
-                  "is_active": { "type": "boolean", "example": true }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": { "description": "Ticker created successfully" }
-        }
       }
     },
     "/news-tickers/{id}": {
       "get": {
-        "tags": ["News Ticker (REST CRUD)"],
+        "tags": ["News Ticker (Frontend)"],
         "summary": "Get specific news ticker item by ID",
         "parameters": [
           { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
         ],
         "responses": {
           "200": { "description": "Ticker item details" },
-          "404": { "description": "Ticker not found" }
-        }
-      },
-      "put": {
-        "tags": ["News Ticker (REST CRUD)"],
-        "summary": "Update an existing news ticker item",
-        "parameters": [
-          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "title": { "type": "string" },
-                  "badge_text": { "type": "string" },
-                  "link_url": { "type": "string" },
-                  "sort_order": { "type": "integer" },
-                  "is_active": { "type": "boolean" }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": { "description": "Ticker updated successfully" },
-          "404": { "description": "Ticker not found" }
-        }
-      },
-      "delete": {
-        "tags": ["News Ticker (REST CRUD)"],
-        "summary": "Delete a news ticker item",
-        "parameters": [
-          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
-        ],
-        "responses": {
-          "200": { "description": "Ticker deleted successfully" },
-          "404": { "description": "Ticker not found" }
-        }
-      }
-    },
-    "/news-tickers/{id}/toggle": {
-      "patch": {
-        "tags": ["News Ticker (REST CRUD)"],
-        "summary": "Toggle active/inactive status of a news ticker",
-        "parameters": [
-          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
-        ],
-        "responses": {
-          "200": { "description": "Ticker status toggled" },
           "404": { "description": "Ticker not found" }
         }
       }
@@ -247,65 +170,14 @@
           { "name": "active", "in": "query", "description": "Filter by status (true or false)", "required": false, "schema": { "type": "boolean" } }
         ],
         "responses": { "200": { "description": "Full list of slides" } }
-      },
-      "post": {
-        "tags": ["Hero Slider (REST CRUD)"],
-        "summary": "Create a new hero slide",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "type": "object",
-                "required": ["title"],
-                "properties": {
-                  "title": { "type": "string", "example": "Empowering" },
-                  "highlight_text": { "type": "string", "example": "Future Leaders" },
-                  "badge_title": { "type": "string", "example": "NURTURING BRIGHT MINDS" },
-                  "description": { "type": "string" },
-                  "primary_button_text": { "type": "string", "example": "Admissions 2026-27" },
-                  "primary_button_url": { "type": "string" },
-                  "secondary_button_text": { "type": "string", "example": "Take a Virtual Tour" },
-                  "secondary_button_url": { "type": "string" },
-                  "image": { "type": "string", "format": "binary" },
-                  "image_url": { "type": "string" },
-                  "contact_phone": { "type": "string", "example": "+91 91574 04321" },
-                  "sort_order": { "type": "integer", "example": 1 },
-                  "is_active": { "type": "boolean", "example": true }
-                }
-              }
-            }
-          }
-        },
-        "responses": { "201": { "description": "Hero slide created successfully" } }
       }
     },
     "/sliders/{id}": {
       "get": {
-        "tags": ["Hero Slider (REST CRUD)"],
+        "tags": ["Hero Slider (Frontend)"],
         "summary": "Get specific hero slide by ID",
         "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
         "responses": { "200": { "description": "Hero slide details" } }
-      },
-      "put": {
-        "tags": ["Hero Slider (REST CRUD)"],
-        "summary": "Update hero slide by ID",
-        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
-        "responses": { "200": { "description": "Hero slide updated successfully" } }
-      },
-      "delete": {
-        "tags": ["Hero Slider (REST CRUD)"],
-        "summary": "Delete hero slide by ID",
-        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
-        "responses": { "200": { "description": "Hero slide deleted successfully" } }
-      }
-    },
-    "/sliders/{id}/toggle": {
-      "patch": {
-        "tags": ["Hero Slider (REST CRUD)"],
-        "summary": "Toggle active status of hero slide",
-        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
-        "responses": { "200": { "description": "Status toggled" } }
       }
     },
     "/features": {
@@ -440,30 +312,6 @@
         "tags": ["Amenities & Facilities (Frontend)"],
         "summary": "Get active campus facilities array (alias for /amenities)",
         "responses": { "200": { "description": "List of active facilities" } }
-      },
-      "post": {
-        "tags": ["Amenities & Facilities (REST CRUD)"],
-        "summary": "Create facility (alias for /admin/facilities)",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": ["title"],
-                "properties": {
-                  "title": { "type": "string", "example": "Robotics & AI Innovation Lab" },
-                  "description": { "type": "string" },
-                  "icon": { "type": "string", "example": "bi bi-cpu-fill" },
-                  "destination_url": { "type": "string", "example": "/facilities/robotics-lab" },
-                  "sort_order": { "type": "integer", "example": 1 },
-                  "is_active": { "type": "boolean", "example": true }
-                }
-              }
-            }
-          }
-        },
-        "responses": { "201": { "description": "Facility created" } }
       }
     },
     "/facilities/{id}": {
@@ -472,18 +320,6 @@
         "summary": "Get facility details by ID",
         "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
         "responses": { "200": { "description": "Facility details" } }
-      },
-      "put": {
-        "tags": ["Amenities & Facilities (REST CRUD)"],
-        "summary": "Update facility by ID",
-        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
-        "responses": { "200": { "description": "Facility updated" } }
-      },
-      "delete": {
-        "tags": ["Amenities & Facilities (REST CRUD)"],
-        "summary": "Delete facility by ID",
-        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
-        "responses": { "200": { "description": "Facility deleted" } }
       }
     },
     "/campus/facilities": {
@@ -491,70 +327,6 @@
         "tags": ["Amenities & Facilities (Frontend)"],
         "summary": "Get active campus facilities",
         "responses": { "200": { "description": "List of active facilities" } }
-      }
-    },
-    "/admin/facilities": {
-      "get": {
-        "tags": ["Amenities & Facilities (REST CRUD)"],
-        "summary": "List all facilities with optional active filter",
-        "parameters": [
-          { "name": "active", "in": "query", "description": "Filter by status (true or false)", "required": false, "schema": { "type": "boolean" } }
-        ],
-        "responses": { "200": { "description": "Full list of facilities" } }
-      },
-      "post": {
-        "tags": ["Amenities & Facilities (REST CRUD)"],
-        "summary": "Create a new facility card",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "type": "object",
-                "required": ["title"],
-                "properties": {
-                  "title": { "type": "string", "example": "Smart Classrooms" },
-                  "description": { "type": "string", "example": "Air-conditioned tech-enabled interactive learning spaces." },
-                  "icon": { "type": "string", "example": "bi bi-display-fill" },
-                  "image": { "type": "string", "format": "binary" },
-                  "image_url": { "type": "string" },
-                  "destination_url": { "type": "string", "example": "/facilities/smart-classrooms" },
-                  "sort_order": { "type": "integer", "example": 1 },
-                  "is_active": { "type": "boolean", "example": true }
-                }
-              }
-            }
-          }
-        },
-        "responses": { "201": { "description": "Facility created successfully" } }
-      }
-    },
-    "/admin/facilities/{id}": {
-      "get": {
-        "tags": ["Amenities & Facilities (REST CRUD)"],
-        "summary": "Get specific facility details by ID",
-        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
-        "responses": { "200": { "description": "Facility details" } }
-      },
-      "put": {
-        "tags": ["Amenities & Facilities (REST CRUD)"],
-        "summary": "Update facility by ID",
-        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
-        "responses": { "200": { "description": "Facility updated successfully" } }
-      },
-      "delete": {
-        "tags": ["Amenities & Facilities (REST CRUD)"],
-        "summary": "Delete facility by ID",
-        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
-        "responses": { "200": { "description": "Facility deleted successfully" } }
-      }
-    },
-    "/admin/facilities/{id}/toggle": {
-      "patch": {
-        "tags": ["Amenities & Facilities (REST CRUD)"],
-        "summary": "Toggle active status of facility",
-        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
-        "responses": { "200": { "description": "Facility status toggled" } }
       }
     },
     "/academic-programs": {
@@ -586,11 +358,6 @@
             }
           }
         }
-      },
-      "post": {
-        "tags": ["Academic Programs (REST CRUD)"],
-        "summary": "Create academic program (alias for /admin/programs)",
-        "responses": { "201": { "description": "Academic program created" } }
       }
     },
     "/academics": {
@@ -598,84 +365,6 @@
         "tags": ["Academic Programs (Frontend)"],
         "summary": "Alias endpoint for /academic-programs",
         "responses": { "200": { "description": "List of active academic programmes" } }
-      }
-    },
-    "/academic-programs/{id}": {
-      "put": {
-        "tags": ["Academic Programs (REST CRUD)"],
-        "summary": "Update academic program by ID",
-        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
-        "responses": { "200": { "description": "Programme updated" } }
-      },
-      "delete": {
-        "tags": ["Academic Programs (REST CRUD)"],
-        "summary": "Delete academic program by ID",
-        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
-        "responses": { "200": { "description": "Programme deleted" } }
-      }
-    },
-    "/admin/programs": {
-      "get": {
-        "tags": ["Academic Programs (REST CRUD)"],
-        "summary": "List all academic programmes with optional active filter",
-        "parameters": [
-          { "name": "active", "in": "query", "description": "Filter by status (true or false)", "required": false, "schema": { "type": "boolean" } }
-        ],
-        "responses": { "200": { "description": "Full list of academic programmes" } }
-      },
-      "post": {
-        "tags": ["Academic Programs (REST CRUD)"],
-        "summary": "Create a new academic stage programme",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "type": "object",
-                "required": ["title"],
-                "properties": {
-                  "stage_badge": { "type": "string", "example": "STAGE 01 • EARLY YEARS" },
-                  "title": { "type": "string", "example": "Pre-Primary" },
-                  "subtitle": { "type": "string", "example": "NURSERY, LKG & UKG" },
-                  "description": { "type": "string" },
-                  "image": { "type": "string", "format": "binary" },
-                  "image_url": { "type": "string" },
-                  "sort_order": { "type": "integer", "example": 1 },
-                  "is_active": { "type": "boolean", "example": true }
-                }
-              }
-            }
-          }
-        },
-        "responses": { "201": { "description": "Programme created successfully" } }
-      }
-    },
-    "/admin/programs/{id}": {
-      "get": {
-        "tags": ["Academic Programs (REST CRUD)"],
-        "summary": "Get specific academic programme details by ID",
-        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
-        "responses": { "200": { "description": "Academic programme details" } }
-      },
-      "put": {
-        "tags": ["Academic Programs (REST CRUD)"],
-        "summary": "Update academic programme by ID",
-        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
-        "responses": { "200": { "description": "Programme updated successfully" } }
-      },
-      "delete": {
-        "tags": ["Academic Programs (REST CRUD)"],
-        "summary": "Delete an academic programme by ID",
-        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
-        "responses": { "200": { "description": "Programme deleted successfully" } }
-      }
-    },
-    "/admin/programs/{id}/toggle": {
-      "patch": {
-        "tags": ["Academic Programs (REST CRUD)"],
-        "summary": "Toggle active status of academic programme",
-        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
-        "responses": { "200": { "description": "Programme status toggled" } }
       }
     },
     "/academic-journeys": {
@@ -1363,6 +1052,108 @@
         }
       }
     },
+    "/admission-brochure": {
+      "get": {
+        "tags": ["Admissions (Frontend)"],
+        "summary": "Get Admission Brochure details and download link for React site",
+        "description": "Returns brochure title, uploaded PDF file path, direct download URL, external link, file size, and active status.",
+        "responses": {
+          "200": {
+            "description": "Successful response with admission brochure details",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": true,
+                  "message": "Admission brochure retrieved successfully",
+                  "data": {
+                    "id": 1,
+                    "title": "JRS International School Brochure",
+                    "pdf_path": "/uploads/admissions/brochure/jrs_brochure_1793267149_pokala-mallikarjuna-reddy-resume.pdf",
+                    "brochure_link": "https://jrsinternationalschooluppal.com/wp-content/uploads/2022/01/Brochure-2020-JRS.pdf",
+                    "file_size": "73.2 KB",
+                    "is_active": true,
+                    "pdf_full_url": "http://127.0.0.1:8000/uploads/admissions/brochure/jrs_brochure_1793267149_pokala-mallikarjuna-reddy-resume.pdf",
+                    "download_url": "http://127.0.0.1:8000/uploads/admissions/brochure/jrs_brochure_1793267149_pokala-mallikarjuna-reddy-resume.pdf",
+                    "has_file": true,
+                    "created_at": "2026-10-29T09:40:37.000000Z",
+                    "updated_at": "2026-10-29T10:12:29.000000Z"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/brochure": {
+      "get": {
+        "tags": ["Admissions (Frontend)"],
+        "summary": "Alias endpoint for /admission-brochure",
+        "responses": {
+          "200": {
+            "description": "Admission brochure details"
+          }
+        }
+      }
+    },
+    "/admission-popup": {
+      "get": {
+        "tags": ["Admissions (Frontend)"],
+        "summary": "Get Admission Promotional Popup modal configuration",
+        "description": "Returns popup modal active status, background image, badges, affiliation text, academic year highlight, description, green checklist features, and call buttons.",
+        "responses": {
+          "200": {
+            "description": "Successful response with admission popup modal configuration",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": true,
+                  "data": {
+                    "id": 1,
+                    "is_active": true,
+                    "image_url": "http://127.0.0.1:8000/uploads/admission-popup/popup.jpg",
+                    "badge_text": "ADMISSIONS OPEN",
+                    "cbse_affiliation_text": "CBSE AFFILIATION: 3630478 • SCHOOL CODE: 56725",
+                    "school_name": "JRS International School",
+                    "school_location": "Narapally, Near Uppal, Hyderabad",
+                    "academic_year_badge": "Academic Year 2027 – 2028",
+                    "title_prefix": "Admissions Open For",
+                    "academic_year_highlight": "2027 – 2028",
+                    "description": "Enrolling students from Nursery to Grade XII (Admissions open for 11th & 12th Standard also). Give your child the foundation for academic excellence, character development, and global leadership.",
+                    "features": [
+                      "CBSE Curriculum with experiential, inquiry-based learning",
+                      "STEM, Robotics & Cognospace innovation labs",
+                      "World-Class Sports & Co-curricular clubs",
+                      "Safe GPS-Enabled Fleet & 100% CCTV secured campus"
+                    ],
+                    "phone_number": "+91 92814 09674",
+                    "primary_button": {
+                      "text": "Enquire / Apply Online"
+                    },
+                    "secondary_button": {
+                      "text": "Call: +91 92814 09674",
+                      "phone": "+91 92814 09674"
+                    },
+                    "updated_at": "2026-10-29T16:40:00.000000Z"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/popup": {
+      "get": {
+        "tags": ["Admissions (Frontend)"],
+        "summary": "Alias endpoint for /admission-popup",
+        "responses": {
+          "200": {
+            "description": "Admission popup modal configuration"
+          }
+        }
+      }
+    },
     "/contact": {
       "get": {
         "tags": ["Contact Us (Frontend)"],
@@ -1513,36 +1304,6 @@
           { "name": "search", "in": "query", "schema": { "type": "string" }, "description": "Filter by title or page" }
         ],
         "responses": { "200": { "description": "List of banners" } }
-      },
-      "post": {
-        "tags": ["Breadcrumb Banners (Admin / API)"],
-        "summary": "Create a new breadcrumb banner",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": ["page_name", "page_slug", "breadcrumb_title", "title"],
-                "properties": {
-                  "page_name": { "type": "string", "example": "About JRS" },
-                  "page_slug": { "type": "string", "example": "about" },
-                  "breadcrumb_title": { "type": "string", "example": "About JRS" },
-                  "title": { "type": "string", "example": "About" },
-                  "highlighted_title": { "type": "string", "example": "JRS" },
-                  "subtitle": { "type": "string", "example": "Learning Today. Leading Tomorrow." },
-                  "description": { "type": "string", "example": "At JRS International School, we are dedicated to providing a transformative educational experience..." },
-                  "primary_button_text": { "type": "string", "example": "Our Story" },
-                  "primary_button_url": { "type": "string", "example": "#our-story" },
-                  "secondary_button_text": { "type": "string", "example": "Watch Campus Video" },
-                  "secondary_button_url": { "type": "string", "example": "#campus-video" },
-                  "is_active": { "type": "boolean", "example": true }
-                }
-              }
-            }
-          }
-        },
-        "responses": { "201": { "description": "Banner created successfully" } }
       }
     },
     "/breadcrumb-banners/{idOrSlug}": {
@@ -1553,30 +1314,6 @@
           { "name": "idOrSlug", "in": "path", "required": true, "schema": { "type": "string" } }
         ],
         "responses": { "200": { "description": "Banner record" } }
-      },
-      "put": {
-        "tags": ["Breadcrumb Banners (Admin / API)"],
-        "summary": "Update existing banner",
-        "parameters": [
-          { "name": "idOrSlug", "in": "path", "required": true, "schema": { "type": "string" } }
-        ],
-        "responses": { "200": { "description": "Banner updated" } }
-      },
-      "patch": {
-        "tags": ["Breadcrumb Banners (Admin / API)"],
-        "summary": "Patch update existing banner",
-        "parameters": [
-          { "name": "idOrSlug", "in": "path", "required": true, "schema": { "type": "string" } }
-        ],
-        "responses": { "200": { "description": "Banner updated" } }
-      },
-      "delete": {
-        "tags": ["Breadcrumb Banners (Admin / API)"],
-        "summary": "Delete banner",
-        "parameters": [
-          { "name": "idOrSlug", "in": "path", "required": true, "schema": { "type": "string" } }
-        ],
-        "responses": { "200": { "description": "Banner deleted" } }
       }
     }
   }

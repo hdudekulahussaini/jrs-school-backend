@@ -34,7 +34,9 @@
   "paths": {
     "/top-bar": {
       "get": {
-        "tags": ["Header Top Bar (Frontend)"],
+        "tags": [
+          "Header Top Bar (Frontend)"
+        ],
         "summary": "Get global header Top Bar settings and documents",
         "description": "Returns contact telephone numbers, email address, CBSE Affiliation badge, and School Prospectus document link for the global site header.",
         "responses": {
@@ -45,15 +47,40 @@
                 "example": {
                   "success": true,
                   "data": {
-                    "phone": { "label": "+91 915740 43210", "href": "tel:+9191574043210", "highlight_color": "#e31e24" },
-                    "phone_2": { "label": "+91 915740 43211", "href": "tel:+9191574043211", "highlight_color": "#e31e24" },
+                    "phone": {
+                      "label": "+91 915740 43210",
+                      "href": "tel:+9191574043210",
+                      "highlight_color": "#e31e24"
+                    },
+                    "phone_2": {
+                      "label": "+91 915740 43211",
+                      "href": "tel:+9191574043211",
+                      "highlight_color": "#e31e24"
+                    },
                     "phones": [
-                      { "label": "+91 915740 43210", "href": "tel:+9191574043210", "highlight_color": "#e31e24" },
-                      { "label": "+91 915740 43211", "href": "tel:+9191574043211", "highlight_color": "#e31e24" }
+                      {
+                        "label": "+91 915740 43210",
+                        "href": "tel:+9191574043210",
+                        "highlight_color": "#e31e24"
+                      },
+                      {
+                        "label": "+91 915740 43211",
+                        "href": "tel:+9191574043211",
+                        "highlight_color": "#e31e24"
+                      }
                     ],
-                    "email": { "label": "info@jrsinternationalschool.com", "href": "mailto:info@jrsinternationalschool.com" },
-                    "affiliation": { "label": "CBSE Affiliated School" },
-                    "school_prospectus": { "label": "School Prospectus", "url": "https://jrsinternationalschool.com/school-prospectus.pdf", "is_file": false },
+                    "email": {
+                      "label": "info@jrsinternationalschool.com",
+                      "href": "mailto:info@jrsinternationalschool.com"
+                    },
+                    "affiliation": {
+                      "label": "CBSE Affiliated School"
+                    },
+                    "school_prospectus": {
+                      "label": "School Prospectus",
+                      "url": "https://jrsinternationalschool.com/school-prospectus.pdf",
+                      "is_file": false
+                    },
                     "is_active": true
                   }
                 }
@@ -65,7 +92,9 @@
     },
     "/news-ticker": {
       "get": {
-        "tags": ["News Ticker (Frontend)"],
+        "tags": [
+          "News Ticker (Frontend)"
+        ],
         "summary": "Get active marquee ticker announcements for React site",
         "description": "Returns all active announcements sorted by sort_order for the homepage top red marquee banner.",
         "responses": {
@@ -95,109 +124,59 @@
     },
     "/news-tickers": {
       "get": {
-        "tags": ["News Ticker (REST CRUD)"],
+        "tags": [
+          "News Ticker (REST CRUD)"
+        ],
         "summary": "List all news ticker announcements with optional active filter",
         "parameters": [
-          { "name": "active", "in": "query", "description": "Filter by status (true or false)", "required": false, "schema": { "type": "boolean" } }
-        ],
-        "responses": {
-          "200": { "description": "Full list of ticker items" }
-        }
-      },
-      "post": {
-        "tags": ["News Ticker (REST CRUD)"],
-        "summary": "Create a new marquee announcement",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": ["title"],
-                "properties": {
-                  "title": { "type": "string", "example": "Admissions Open 2026-27" },
-                  "badge_text": { "type": "string", "example": "NEWS" },
-                  "link_url": { "type": "string", "example": "/admissions" },
-                  "sort_order": { "type": "integer", "example": 1 },
-                  "is_active": { "type": "boolean", "example": true }
-                }
-              }
+          {
+            "name": "active",
+            "in": "query",
+            "description": "Filter by status (true or false)",
+            "required": false,
+            "schema": {
+              "type": "boolean"
             }
           }
-        },
+        ],
         "responses": {
-          "201": { "description": "Ticker created successfully" }
+          "200": {
+            "description": "Full list of ticker items"
+          }
         }
       }
     },
     "/news-tickers/{id}": {
       "get": {
-        "tags": ["News Ticker (REST CRUD)"],
+        "tags": [
+          "News Ticker (Frontend)"
+        ],
         "summary": "Get specific news ticker item by ID",
         "parameters": [
-          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
-        ],
-        "responses": {
-          "200": { "description": "Ticker item details" },
-          "404": { "description": "Ticker not found" }
-        }
-      },
-      "put": {
-        "tags": ["News Ticker (REST CRUD)"],
-        "summary": "Update an existing news ticker item",
-        "parameters": [
-          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "title": { "type": "string" },
-                  "badge_text": { "type": "string" },
-                  "link_url": { "type": "string" },
-                  "sort_order": { "type": "integer" },
-                  "is_active": { "type": "boolean" }
-                }
-              }
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
             }
           }
-        },
-        "responses": {
-          "200": { "description": "Ticker updated successfully" },
-          "404": { "description": "Ticker not found" }
-        }
-      },
-      "delete": {
-        "tags": ["News Ticker (REST CRUD)"],
-        "summary": "Delete a news ticker item",
-        "parameters": [
-          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
         ],
         "responses": {
-          "200": { "description": "Ticker deleted successfully" },
-          "404": { "description": "Ticker not found" }
-        }
-      }
-    },
-    "/news-tickers/{id}/toggle": {
-      "patch": {
-        "tags": ["News Ticker (REST CRUD)"],
-        "summary": "Toggle active/inactive status of a news ticker",
-        "parameters": [
-          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
-        ],
-        "responses": {
-          "200": { "description": "Ticker status toggled" },
-          "404": { "description": "Ticker not found" }
+          "200": {
+            "description": "Ticker item details"
+          },
+          "404": {
+            "description": "Ticker not found"
+          }
         }
       }
     },
     "/hero-slider": {
       "get": {
-        "tags": ["Hero Slider (Frontend)"],
+        "tags": [
+          "Hero Slider (Frontend)"
+        ],
         "summary": "Get active hero slider slides for React homepage banner",
         "description": "Returns all published hero banner slides sorted by sort_order including titles, gold highlights, button links, and background photos.",
         "responses": {
@@ -234,83 +213,69 @@
     },
     "/hero-sliders": {
       "get": {
-        "tags": ["Hero Slider (Frontend)"],
+        "tags": [
+          "Hero Slider (Frontend)"
+        ],
         "summary": "Alias endpoint for /hero-slider",
-        "responses": { "200": { "description": "List of active hero slides" } }
+        "responses": {
+          "200": {
+            "description": "List of active hero slides"
+          }
+        }
       }
     },
     "/sliders": {
       "get": {
-        "tags": ["Hero Slider (REST CRUD)"],
+        "tags": [
+          "Hero Slider (REST CRUD)"
+        ],
         "summary": "List all hero slides",
         "parameters": [
-          { "name": "active", "in": "query", "description": "Filter by status (true or false)", "required": false, "schema": { "type": "boolean" } }
-        ],
-        "responses": { "200": { "description": "Full list of slides" } }
-      },
-      "post": {
-        "tags": ["Hero Slider (REST CRUD)"],
-        "summary": "Create a new hero slide",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "type": "object",
-                "required": ["title"],
-                "properties": {
-                  "title": { "type": "string", "example": "Empowering" },
-                  "highlight_text": { "type": "string", "example": "Future Leaders" },
-                  "badge_title": { "type": "string", "example": "NURTURING BRIGHT MINDS" },
-                  "description": { "type": "string" },
-                  "primary_button_text": { "type": "string", "example": "Admissions 2026-27" },
-                  "primary_button_url": { "type": "string" },
-                  "secondary_button_text": { "type": "string", "example": "Take a Virtual Tour" },
-                  "secondary_button_url": { "type": "string" },
-                  "image": { "type": "string", "format": "binary" },
-                  "image_url": { "type": "string" },
-                  "contact_phone": { "type": "string", "example": "+91 91574 04321" },
-                  "sort_order": { "type": "integer", "example": 1 },
-                  "is_active": { "type": "boolean", "example": true }
-                }
-              }
+          {
+            "name": "active",
+            "in": "query",
+            "description": "Filter by status (true or false)",
+            "required": false,
+            "schema": {
+              "type": "boolean"
             }
           }
-        },
-        "responses": { "201": { "description": "Hero slide created successfully" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Full list of slides"
+          }
+        }
       }
     },
     "/sliders/{id}": {
       "get": {
-        "tags": ["Hero Slider (REST CRUD)"],
+        "tags": [
+          "Hero Slider (Frontend)"
+        ],
         "summary": "Get specific hero slide by ID",
-        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
-        "responses": { "200": { "description": "Hero slide details" } }
-      },
-      "put": {
-        "tags": ["Hero Slider (REST CRUD)"],
-        "summary": "Update hero slide by ID",
-        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
-        "responses": { "200": { "description": "Hero slide updated successfully" } }
-      },
-      "delete": {
-        "tags": ["Hero Slider (REST CRUD)"],
-        "summary": "Delete hero slide by ID",
-        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
-        "responses": { "200": { "description": "Hero slide deleted successfully" } }
-      }
-    },
-    "/sliders/{id}/toggle": {
-      "patch": {
-        "tags": ["Hero Slider (REST CRUD)"],
-        "summary": "Toggle active status of hero slide",
-        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
-        "responses": { "200": { "description": "Status toggled" } }
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Hero slide details"
+          }
+        }
       }
     },
     "/features": {
       "get": {
-        "tags": ["Key Features (Frontend)"],
+        "tags": [
+          "Key Features (Frontend)"
+        ],
         "summary": "Get active Key Features cards for React homepage",
         "description": "Returns all published core feature cards (e.g. CBSE Curriculum, Sports & Arts, Holistic Development, Safe Campus) sorted by sort_order.",
         "responses": {
@@ -342,22 +307,45 @@
     },
     "/home-features": {
       "get": {
-        "tags": ["Key Features (Frontend)"],
+        "tags": [
+          "Key Features (Frontend)"
+        ],
         "summary": "Alias endpoint for /features",
-        "responses": { "200": { "description": "List of active feature cards" } }
+        "responses": {
+          "200": {
+            "description": "List of active feature cards"
+          }
+        }
       }
     },
     "/features/{id}": {
       "get": {
-        "tags": ["Key Features (Frontend)"],
+        "tags": [
+          "Key Features (Frontend)"
+        ],
         "summary": "Get specific Key Feature details by ID",
-        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
-        "responses": { "200": { "description": "Feature details" } }
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Feature details"
+          }
+        }
       }
     },
     "/stats": {
       "get": {
-        "tags": ["Stats Section (Frontend)"],
+        "tags": [
+          "Stats Section (Frontend)"
+        ],
         "summary": "Get active homepage counter stats cards",
         "description": "Returns all published homepage counter metrics (Year of Establishment, Happy Students, Experienced Faculty, Co-curricular Activities) sorted by sort_order.",
         "responses": {
@@ -369,10 +357,42 @@
                   "success": true,
                   "count": 4,
                   "data": [
-                    { "id": 1, "value": "2021", "title": "Year of Establishment", "icon": "bi bi-calendar-check-fill", "color": "#eab308", "sort_order": 1, "is_active": true },
-                    { "id": 2, "value": "1000+", "title": "Happy Students", "icon": "bi bi-people-fill", "color": "#eab308", "sort_order": 2, "is_active": true },
-                    { "id": 3, "value": "50+", "title": "Experienced Faculty", "icon": "bi bi-award-fill", "color": "#eab308", "sort_order": 3, "is_active": true },
-                    { "id": 4, "value": "100+", "title": "Co-curricular Activities", "icon": "bi bi-trophy-fill", "color": "#eab308", "sort_order": 4, "is_active": true }
+                    {
+                      "id": 1,
+                      "value": "2021",
+                      "title": "Year of Establishment",
+                      "icon": "bi bi-calendar-check-fill",
+                      "color": "#eab308",
+                      "sort_order": 1,
+                      "is_active": true
+                    },
+                    {
+                      "id": 2,
+                      "value": "1000+",
+                      "title": "Happy Students",
+                      "icon": "bi bi-people-fill",
+                      "color": "#eab308",
+                      "sort_order": 2,
+                      "is_active": true
+                    },
+                    {
+                      "id": 3,
+                      "value": "50+",
+                      "title": "Experienced Faculty",
+                      "icon": "bi bi-award-fill",
+                      "color": "#eab308",
+                      "sort_order": 3,
+                      "is_active": true
+                    },
+                    {
+                      "id": 4,
+                      "value": "100+",
+                      "title": "Co-curricular Activities",
+                      "icon": "bi bi-trophy-fill",
+                      "color": "#eab308",
+                      "sort_order": 4,
+                      "is_active": true
+                    }
                   ]
                 }
               }
@@ -383,183 +403,170 @@
     },
     "/home-stats": {
       "get": {
-        "tags": ["Stats Section (Frontend)"],
+        "tags": [
+          "Stats Section (Frontend)"
+        ],
         "summary": "Alias endpoint for /stats",
-        "responses": { "200": { "description": "List of active stats" } }
+        "responses": {
+          "200": {
+            "description": "List of active stats"
+          }
+        }
       }
     },
     "/stats/{id}": {
       "get": {
-        "tags": ["Stats Section (Frontend)"],
+        "tags": [
+          "Stats Section (Frontend)"
+        ],
         "summary": "Get specific stat item by ID",
-        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
-        "responses": { "200": { "description": "Stat details" } }
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Stat details"
+          }
+        }
       }
     },
     "/amenities-page": {
       "get": {
-        "tags": ["Amenities & Facilities (Frontend)"],
+        "tags": [
+          "Amenities & Facilities (Frontend)"
+        ],
         "summary": "Get campus amenities page metadata, facility cards and CTA banner",
         "description": "Returns 'OUR CAMPUS' badge, headline, and facility cards (Athletics Track & Pool, Playgrounds, Canteen, Transport, CCTV Security, Medical, Infrastructure, Computing Wi-Fi).",
         "responses": {
-          "200": { "description": "Amenities page payload with facility cards and CTA" }
+          "200": {
+            "description": "Amenities page payload with facility cards and CTA"
+          }
         }
       }
     },
     "/amenities-cta": {
       "get": {
-        "tags": ["Amenities & Facilities (Frontend)"],
+        "tags": [
+          "Amenities & Facilities (Frontend)"
+        ],
         "summary": "Get active Amenities CTA banner",
-        "responses": { "200": { "description": "Amenities CTA banner data" } }
+        "responses": {
+          "200": {
+            "description": "Amenities CTA banner data"
+          }
+        }
       }
     },
     "/amenities/cta": {
       "get": {
-        "tags": ["Amenities & Facilities (Frontend)"],
+        "tags": [
+          "Amenities & Facilities (Frontend)"
+        ],
         "summary": "Alias endpoint for /amenities-cta",
-        "responses": { "200": { "description": "Amenities CTA banner data" } }
+        "responses": {
+          "200": {
+            "description": "Amenities CTA banner data"
+          }
+        }
       }
     },
     "/amenities": {
       "get": {
-        "tags": ["Amenities & Facilities (Frontend)"],
+        "tags": [
+          "Amenities & Facilities (Frontend)"
+        ],
         "summary": "Get active campus amenities array",
-        "responses": { "200": { "description": "List of active amenities" } }
+        "responses": {
+          "200": {
+            "description": "List of active amenities"
+          }
+        }
       }
     },
     "/amenities/{id}": {
       "get": {
-        "tags": ["Amenities & Facilities (Frontend)"],
+        "tags": [
+          "Amenities & Facilities (Frontend)"
+        ],
         "summary": "Get specific amenity by ID",
-        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
-        "responses": { "200": { "description": "Amenity record" } }
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Amenity record"
+          }
+        }
       }
     },
     "/facilities": {
       "get": {
-        "tags": ["Amenities & Facilities (Frontend)"],
+        "tags": [
+          "Amenities & Facilities (Frontend)"
+        ],
         "summary": "Get active campus facilities array (alias for /amenities)",
-        "responses": { "200": { "description": "List of active facilities" } }
-      },
-      "post": {
-        "tags": ["Amenities & Facilities (REST CRUD)"],
-        "summary": "Create facility (alias for /admin/facilities)",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": ["title"],
-                "properties": {
-                  "title": { "type": "string", "example": "Robotics & AI Innovation Lab" },
-                  "description": { "type": "string" },
-                  "icon": { "type": "string", "example": "bi bi-cpu-fill" },
-                  "destination_url": { "type": "string", "example": "/facilities/robotics-lab" },
-                  "sort_order": { "type": "integer", "example": 1 },
-                  "is_active": { "type": "boolean", "example": true }
-                }
-              }
-            }
+        "responses": {
+          "200": {
+            "description": "List of active facilities"
           }
-        },
-        "responses": { "201": { "description": "Facility created" } }
+        }
       }
     },
     "/facilities/{id}": {
       "get": {
-        "tags": ["Amenities & Facilities (Frontend)"],
+        "tags": [
+          "Amenities & Facilities (Frontend)"
+        ],
         "summary": "Get facility details by ID",
-        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
-        "responses": { "200": { "description": "Facility details" } }
-      },
-      "put": {
-        "tags": ["Amenities & Facilities (REST CRUD)"],
-        "summary": "Update facility by ID",
-        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
-        "responses": { "200": { "description": "Facility updated" } }
-      },
-      "delete": {
-        "tags": ["Amenities & Facilities (REST CRUD)"],
-        "summary": "Delete facility by ID",
-        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
-        "responses": { "200": { "description": "Facility deleted" } }
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Facility details"
+          }
+        }
       }
     },
     "/campus/facilities": {
       "get": {
-        "tags": ["Amenities & Facilities (Frontend)"],
-        "summary": "Get active campus facilities",
-        "responses": { "200": { "description": "List of active facilities" } }
-      }
-    },
-    "/admin/facilities": {
-      "get": {
-        "tags": ["Amenities & Facilities (REST CRUD)"],
-        "summary": "List all facilities with optional active filter",
-        "parameters": [
-          { "name": "active", "in": "query", "description": "Filter by status (true or false)", "required": false, "schema": { "type": "boolean" } }
+        "tags": [
+          "Amenities & Facilities (Frontend)"
         ],
-        "responses": { "200": { "description": "Full list of facilities" } }
-      },
-      "post": {
-        "tags": ["Amenities & Facilities (REST CRUD)"],
-        "summary": "Create a new facility card",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "type": "object",
-                "required": ["title"],
-                "properties": {
-                  "title": { "type": "string", "example": "Smart Classrooms" },
-                  "description": { "type": "string", "example": "Air-conditioned tech-enabled interactive learning spaces." },
-                  "icon": { "type": "string", "example": "bi bi-display-fill" },
-                  "image": { "type": "string", "format": "binary" },
-                  "image_url": { "type": "string" },
-                  "destination_url": { "type": "string", "example": "/facilities/smart-classrooms" },
-                  "sort_order": { "type": "integer", "example": 1 },
-                  "is_active": { "type": "boolean", "example": true }
-                }
-              }
-            }
+        "summary": "Get active campus facilities",
+        "responses": {
+          "200": {
+            "description": "List of active facilities"
           }
-        },
-        "responses": { "201": { "description": "Facility created successfully" } }
-      }
-    },
-    "/admin/facilities/{id}": {
-      "get": {
-        "tags": ["Amenities & Facilities (REST CRUD)"],
-        "summary": "Get specific facility details by ID",
-        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
-        "responses": { "200": { "description": "Facility details" } }
-      },
-      "put": {
-        "tags": ["Amenities & Facilities (REST CRUD)"],
-        "summary": "Update facility by ID",
-        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
-        "responses": { "200": { "description": "Facility updated successfully" } }
-      },
-      "delete": {
-        "tags": ["Amenities & Facilities (REST CRUD)"],
-        "summary": "Delete facility by ID",
-        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
-        "responses": { "200": { "description": "Facility deleted successfully" } }
-      }
-    },
-    "/admin/facilities/{id}/toggle": {
-      "patch": {
-        "tags": ["Amenities & Facilities (REST CRUD)"],
-        "summary": "Toggle active status of facility",
-        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
-        "responses": { "200": { "description": "Facility status toggled" } }
+        }
       }
     },
     "/academic-programs": {
       "get": {
-        "tags": ["Academic Programs (Frontend)"],
+        "tags": [
+          "Academic Programs (Frontend)"
+        ],
         "summary": "Get active academic curriculum stages for React site",
         "description": "Returns all published academic program cards (Pre-Primary, Primary School, Middle School, Senior Secondary) sorted by sort_order.",
         "responses": {
@@ -586,101 +593,26 @@
             }
           }
         }
-      },
-      "post": {
-        "tags": ["Academic Programs (REST CRUD)"],
-        "summary": "Create academic program (alias for /admin/programs)",
-        "responses": { "201": { "description": "Academic program created" } }
       }
     },
     "/academics": {
       "get": {
-        "tags": ["Academic Programs (Frontend)"],
-        "summary": "Alias endpoint for /academic-programs",
-        "responses": { "200": { "description": "List of active academic programmes" } }
-      }
-    },
-    "/academic-programs/{id}": {
-      "put": {
-        "tags": ["Academic Programs (REST CRUD)"],
-        "summary": "Update academic program by ID",
-        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
-        "responses": { "200": { "description": "Programme updated" } }
-      },
-      "delete": {
-        "tags": ["Academic Programs (REST CRUD)"],
-        "summary": "Delete academic program by ID",
-        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
-        "responses": { "200": { "description": "Programme deleted" } }
-      }
-    },
-    "/admin/programs": {
-      "get": {
-        "tags": ["Academic Programs (REST CRUD)"],
-        "summary": "List all academic programmes with optional active filter",
-        "parameters": [
-          { "name": "active", "in": "query", "description": "Filter by status (true or false)", "required": false, "schema": { "type": "boolean" } }
+        "tags": [
+          "Academic Programs (Frontend)"
         ],
-        "responses": { "200": { "description": "Full list of academic programmes" } }
-      },
-      "post": {
-        "tags": ["Academic Programs (REST CRUD)"],
-        "summary": "Create a new academic stage programme",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "type": "object",
-                "required": ["title"],
-                "properties": {
-                  "stage_badge": { "type": "string", "example": "STAGE 01 • EARLY YEARS" },
-                  "title": { "type": "string", "example": "Pre-Primary" },
-                  "subtitle": { "type": "string", "example": "NURSERY, LKG & UKG" },
-                  "description": { "type": "string" },
-                  "image": { "type": "string", "format": "binary" },
-                  "image_url": { "type": "string" },
-                  "sort_order": { "type": "integer", "example": 1 },
-                  "is_active": { "type": "boolean", "example": true }
-                }
-              }
-            }
+        "summary": "Alias endpoint for /academic-programs",
+        "responses": {
+          "200": {
+            "description": "List of active academic programmes"
           }
-        },
-        "responses": { "201": { "description": "Programme created successfully" } }
-      }
-    },
-    "/admin/programs/{id}": {
-      "get": {
-        "tags": ["Academic Programs (REST CRUD)"],
-        "summary": "Get specific academic programme details by ID",
-        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
-        "responses": { "200": { "description": "Academic programme details" } }
-      },
-      "put": {
-        "tags": ["Academic Programs (REST CRUD)"],
-        "summary": "Update academic programme by ID",
-        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
-        "responses": { "200": { "description": "Programme updated successfully" } }
-      },
-      "delete": {
-        "tags": ["Academic Programs (REST CRUD)"],
-        "summary": "Delete an academic programme by ID",
-        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
-        "responses": { "200": { "description": "Programme deleted successfully" } }
-      }
-    },
-    "/admin/programs/{id}/toggle": {
-      "patch": {
-        "tags": ["Academic Programs (REST CRUD)"],
-        "summary": "Toggle active status of academic programme",
-        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
-        "responses": { "200": { "description": "Programme status toggled" } }
+        }
       }
     },
     "/academic-journeys": {
       "get": {
-        "tags": ["Academic Journeys (Frontend)"],
+        "tags": [
+          "Academic Journeys (Frontend)"
+        ],
         "summary": "Get active Academic Journey stages for Academics curriculum page",
         "description": "Returns all active Academic Journey curriculum sections (e.g. Butterflies Programme, Pre-Primary, Young Buddies, Honey Bees) sorted by sort_order.",
         "responses": {
@@ -716,40 +648,84 @@
     },
     "/journeys": {
       "get": {
-        "tags": ["Academic Journeys (Frontend)"],
+        "tags": [
+          "Academic Journeys (Frontend)"
+        ],
         "summary": "Alias endpoint for /academic-journeys",
-        "responses": { "200": { "description": "List of active academic journeys" } }
+        "responses": {
+          "200": {
+            "description": "List of active academic journeys"
+          }
+        }
       }
     },
     "/academics/journeys": {
       "get": {
-        "tags": ["Academic Journeys (Frontend)"],
+        "tags": [
+          "Academic Journeys (Frontend)"
+        ],
         "summary": "Alias endpoint for /academic-journeys",
-        "responses": { "200": { "description": "List of active academic journeys" } }
+        "responses": {
+          "200": {
+            "description": "List of active academic journeys"
+          }
+        }
       }
     },
     "/academic-journeys/{id}": {
       "get": {
-        "tags": ["Academic Journeys (Frontend)"],
+        "tags": [
+          "Academic Journeys (Frontend)"
+        ],
         "summary": "Get specific Academic Journey details by ID or slug",
-        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
-          "200": { "description": "Academic journey details" },
-          "404": { "description": "Academic journey not found" }
+          "200": {
+            "description": "Academic journey details"
+          },
+          "404": {
+            "description": "Academic journey not found"
+          }
         }
       }
     },
     "/academics/journeys/{id}": {
       "get": {
-        "tags": ["Academic Journeys (Frontend)"],
+        "tags": [
+          "Academic Journeys (Frontend)"
+        ],
         "summary": "Alias endpoint for /academic-journeys/{id}",
-        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }],
-        "responses": { "200": { "description": "Academic journey details" } }
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Academic journey details"
+          }
+        }
       }
     },
     "/about": {
       "get": {
-        "tags": ["About JRS (Frontend)"],
+        "tags": [
+          "About JRS (Frontend)"
+        ],
         "summary": "Get About JRS Section details for React homepage",
         "description": "Returns the badge, main heading, philosophy description paragraph, bullet highlights, statistics counter, and photo URLs for the homepage About section.",
         "responses": {
@@ -777,14 +753,22 @@
     },
     "/about-us": {
       "get": {
-        "tags": ["About JRS (Frontend)"],
+        "tags": [
+          "About JRS (Frontend)"
+        ],
         "summary": "Alias endpoint for /about",
-        "responses": { "200": { "description": "About section details" } }
+        "responses": {
+          "200": {
+            "description": "About section details"
+          }
+        }
       }
     },
     "/vision-mission": {
       "get": {
-        "tags": ["Vision & Mission (Frontend)"],
+        "tags": [
+          "Vision & Mission (Frontend)"
+        ],
         "summary": "Get Vision, Mission, and Core Values cards for React site",
         "description": "Returns Vision card, Mission card, and Core Values list cards with brand colors and icons.",
         "responses": {
@@ -796,8 +780,22 @@
                   "success": true,
                   "count": 3,
                   "data": [
-                    { "id": 1, "card_type": "vision", "title": "Our Vision", "description": "To be a beacon of holistic excellence nurturing innovative, globally responsible citizens.", "icon": "bi bi-eye-fill", "color": "#031c3f" },
-                    { "id": 2, "card_type": "mission", "title": "Our Mission", "description": "Empowering learners through experiential CBSE education, creative arts, and strong ethical grounding.", "icon": "bi bi-compass-fill", "color": "#e31e24" }
+                    {
+                      "id": 1,
+                      "card_type": "vision",
+                      "title": "Our Vision",
+                      "description": "To be a beacon of holistic excellence nurturing innovative, globally responsible citizens.",
+                      "icon": "bi bi-eye-fill",
+                      "color": "#031c3f"
+                    },
+                    {
+                      "id": 2,
+                      "card_type": "mission",
+                      "title": "Our Mission",
+                      "description": "Empowering learners through experiential CBSE education, creative arts, and strong ethical grounding.",
+                      "icon": "bi bi-compass-fill",
+                      "color": "#e31e24"
+                    }
                   ]
                 }
               }
@@ -808,77 +806,138 @@
     },
     "/beyond-classroom-page": {
       "get": {
-        "tags": ["Beyond Classroom (Frontend)"],
+        "tags": [
+          "Beyond Classroom (Frontend)"
+        ],
         "summary": "Get dedicated Beyond Classroom page metadata, activities and CTA banner",
         "description": "Returns page title, badge, description, all 10 co-curricular activities, and the active CTA banner for the standalone Beyond Classroom page.",
         "responses": {
-          "200": { "description": "Beyond Classroom page payload" }
+          "200": {
+            "description": "Beyond Classroom page payload"
+          }
         }
       }
     },
     "/beyond-page": {
       "get": {
-        "tags": ["Beyond Classroom (Frontend)"],
+        "tags": [
+          "Beyond Classroom (Frontend)"
+        ],
         "summary": "Alias endpoint for /beyond-classroom-page",
-        "responses": { "200": { "description": "Beyond Classroom page payload" } }
+        "responses": {
+          "200": {
+            "description": "Beyond Classroom page payload"
+          }
+        }
       }
     },
     "/beyond-classroom-cta": {
       "get": {
-        "tags": ["Beyond Classroom (Frontend)"],
+        "tags": [
+          "Beyond Classroom (Frontend)"
+        ],
         "summary": "Get dedicated Beyond Classroom CTA banner",
-        "responses": { "200": { "description": "CTA banner payload" } }
+        "responses": {
+          "200": {
+            "description": "CTA banner payload"
+          }
+        }
       }
     },
     "/beyond-cta": {
       "get": {
-        "tags": ["Beyond Classroom (Frontend)"],
+        "tags": [
+          "Beyond Classroom (Frontend)"
+        ],
         "summary": "Alias endpoint for /beyond-classroom-cta",
-        "responses": { "200": { "description": "CTA banner payload" } }
+        "responses": {
+          "200": {
+            "description": "CTA banner payload"
+          }
+        }
       }
     },
     "/beyond-classrooms": {
       "get": {
-        "tags": ["Beyond Classroom (Frontend)"],
+        "tags": [
+          "Beyond Classroom (Frontend)"
+        ],
         "summary": "Get active Beyond Classroom co-curricular activities",
         "description": "Returns all 10 published Beyond Classroom activities (Art & Painting, Music, Dance, Karate, Yoga, Skating, Games & Sports, Project Work, Excursions, Clubs) sorted by sort_order.",
         "responses": {
-          "200": { "description": "List of active activities" }
+          "200": {
+            "description": "List of active activities"
+          }
         }
       }
     },
     "/beyond-classroom": {
       "get": {
-        "tags": ["Beyond Classroom (Frontend)"],
+        "tags": [
+          "Beyond Classroom (Frontend)"
+        ],
         "summary": "Alias endpoint for /beyond-classrooms",
-        "responses": { "200": { "description": "List of active activities" } }
+        "responses": {
+          "200": {
+            "description": "List of active activities"
+          }
+        }
       }
     },
     "/beyond": {
       "get": {
-        "tags": ["Beyond Classroom (Frontend)"],
+        "tags": [
+          "Beyond Classroom (Frontend)"
+        ],
         "summary": "Alias endpoint for /beyond-classrooms",
-        "responses": { "200": { "description": "List of active activities" } }
+        "responses": {
+          "200": {
+            "description": "List of active activities"
+          }
+        }
       }
     },
     "/beyond/activities": {
       "get": {
-        "tags": ["Beyond Classroom (Frontend)"],
+        "tags": [
+          "Beyond Classroom (Frontend)"
+        ],
         "summary": "Alias endpoint for /beyond-classrooms",
-        "responses": { "200": { "description": "List of active activities" } }
+        "responses": {
+          "200": {
+            "description": "List of active activities"
+          }
+        }
       }
     },
     "/beyond-classrooms/{id}": {
       "get": {
-        "tags": ["Beyond Classroom (Frontend)"],
+        "tags": [
+          "Beyond Classroom (Frontend)"
+        ],
         "summary": "Get specific Beyond Classroom activity details by ID",
-        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }],
-        "responses": { "200": { "description": "Activity details" } }
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Activity details"
+          }
+        }
       }
     },
     "/events": {
       "get": {
-        "tags": ["Latest Events (Frontend)"],
+        "tags": [
+          "Latest Events (Frontend)"
+        ],
         "summary": "Get published school events & celebrations for React homepage",
         "description": "Returns upcoming and past event cards (Republic Day, Science Fair, Annual Sports Meet, Cultural Fiesta) with dates, venues, highlights, and images.",
         "responses": {
@@ -910,254 +969,500 @@
     },
     "/latest-events": {
       "get": {
-        "tags": ["Latest Events (Frontend)"],
+        "tags": [
+          "Latest Events (Frontend)"
+        ],
         "summary": "Alias endpoint for /events",
-        "responses": { "200": { "description": "List of school events" } }
+        "responses": {
+          "200": {
+            "description": "List of school events"
+          }
+        }
       }
     },
     "/events/{id}": {
       "get": {
-        "tags": ["Latest Events (Frontend)"],
+        "tags": [
+          "Latest Events (Frontend)"
+        ],
         "summary": "Get specific school event details by ID",
-        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
-        "responses": { "200": { "description": "Event details" } }
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Event details"
+          }
+        }
       }
     },
     "/campus-tour": {
       "get": {
-        "tags": ["Campus Tour & Life (Frontend)"],
+        "tags": [
+          "Campus Tour & Life (Frontend)"
+        ],
         "summary": "Get active Campus Tour & Life cards and section details",
         "description": "Returns active campus tour cards (Beyond Classroom, Sports Excellence, Visual & Performing Arts, Campus Infrastructure) with section headers, CTA links, and full image URLs for the React frontend.",
         "responses": {
-          "200": { "description": "Campus tour cards retrieved successfully" }
+          "200": {
+            "description": "Campus tour cards retrieved successfully"
+          }
         }
       }
     },
     "/campus-life": {
       "get": {
-        "tags": ["Campus Tour & Life (Frontend)"],
+        "tags": [
+          "Campus Tour & Life (Frontend)"
+        ],
         "summary": "Alias endpoint for /campus-tour",
-        "responses": { "200": { "description": "Campus tour cards retrieved successfully" } }
+        "responses": {
+          "200": {
+            "description": "Campus tour cards retrieved successfully"
+          }
+        }
       }
     },
     "/why-choose": {
       "get": {
-        "tags": ["Why Choose JRS (Frontend)"],
+        "tags": [
+          "Why Choose JRS (Frontend)"
+        ],
         "summary": "Get 'What Makes JRS Different?' features and statistics",
         "description": "Returns the section header, all 6 distinction cards (Holistic Pedagogy, World-Class Amenities, STEAM Integration, Sports Academy, Safety & Transport, Global Perspectives), and highlight numbers.",
         "responses": {
-          "200": { "description": "Why Choose JRS data retrieved successfully" }
+          "200": {
+            "description": "Why Choose JRS data retrieved successfully"
+          }
         }
       }
     },
     "/pta-members": {
       "get": {
-        "tags": ["Parent Teacher Association - PTA (Frontend)"],
+        "tags": [
+          "Parent Teacher Association - PTA (Frontend)"
+        ],
         "summary": "Get active PTA Committee Members list",
         "description": "Returns all 11 executive and parent/teacher committee members (Chairman, Vice Chairman, Secretary, Joint Secretary, Members) with designations, addresses, phone contacts, and photo URLs for the React website.",
         "responses": {
-          "200": { "description": "PTA members list retrieved successfully" }
+          "200": {
+            "description": "PTA members list retrieved successfully"
+          }
         }
       }
     },
     "/pta": {
       "get": {
-        "tags": ["Parent Teacher Association - PTA (Frontend)"],
+        "tags": [
+          "Parent Teacher Association - PTA (Frontend)"
+        ],
         "summary": "Alias endpoint for /pta-members",
-        "responses": { "200": { "description": "PTA members list retrieved successfully" } }
+        "responses": {
+          "200": {
+            "description": "PTA members list retrieved successfully"
+          }
+        }
       }
     },
     "/careers-page": {
       "get": {
-        "tags": ["Careers Page (Frontend)"],
+        "tags": [
+          "Careers Page (Frontend)"
+        ],
         "summary": "Get complete Careers page bundle (teaching section, benefits, hiring process, active job vacancies)",
-        "responses": { "200": { "description": "Careers page bundle" } }
+        "responses": {
+          "200": {
+            "description": "Careers page bundle"
+          }
+        }
       }
     },
     "/careers/teaching": {
       "get": {
-        "tags": ["Careers Page (Frontend)"],
+        "tags": [
+          "Careers Page (Frontend)"
+        ],
         "summary": "Get 'Teaching At JRS' philosophy & highlights",
-        "responses": { "200": { "description": "Teaching at JRS details" } }
+        "responses": {
+          "200": {
+            "description": "Teaching at JRS details"
+          }
+        }
       }
     },
     "/careers/benefits": {
       "get": {
-        "tags": ["Careers Page (Frontend)"],
+        "tags": [
+          "Careers Page (Frontend)"
+        ],
         "summary": "Get career benefits & employee perks list",
-        "responses": { "200": { "description": "Employee benefits list" } }
+        "responses": {
+          "200": {
+            "description": "Employee benefits list"
+          }
+        }
       }
     },
     "/careers/why-join": {
       "get": {
-        "tags": ["Careers Page (Frontend)"],
+        "tags": [
+          "Careers Page (Frontend)"
+        ],
         "summary": "Alias endpoint for /careers/benefits",
-        "responses": { "200": { "description": "Employee benefits list" } }
+        "responses": {
+          "200": {
+            "description": "Employee benefits list"
+          }
+        }
       }
     },
     "/careers/how-to-apply": {
       "get": {
-        "tags": ["Careers Page (Frontend)"],
+        "tags": [
+          "Careers Page (Frontend)"
+        ],
         "summary": "Get 4-step job application process instructions",
-        "responses": { "200": { "description": "Application process details" } }
+        "responses": {
+          "200": {
+            "description": "Application process details"
+          }
+        }
       }
     },
     "/careers/openings": {
       "get": {
-        "tags": ["Careers Page (Frontend)"],
+        "tags": [
+          "Careers Page (Frontend)"
+        ],
         "summary": "Get active job openings list",
-        "responses": { "200": { "description": "List of active job vacancies" } }
+        "responses": {
+          "200": {
+            "description": "List of active job vacancies"
+          }
+        }
       }
     },
     "/careers": {
       "get": {
-        "tags": ["Careers Page (Frontend)"],
+        "tags": [
+          "Careers Page (Frontend)"
+        ],
         "summary": "Alias endpoint for /careers/openings",
-        "responses": { "200": { "description": "List of active job vacancies" } }
+        "responses": {
+          "200": {
+            "description": "List of active job vacancies"
+          }
+        }
       }
     },
     "/careers/openings/{id}": {
       "get": {
-        "tags": ["Careers Page (Frontend)"],
+        "tags": [
+          "Careers Page (Frontend)"
+        ],
         "summary": "Get specific job vacancy details by ID",
-        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
-        "responses": { "200": { "description": "Job opening details" } }
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Job opening details"
+          }
+        }
       }
     },
     "/admission-banner": {
       "get": {
-        "tags": ["Admission CTA Banner (About Page)"],
+        "tags": [
+          "Admission CTA Banner (About Page)"
+        ],
         "summary": "Get active Admission & Campus Tour CTA banner for About page",
         "description": "Returns banner title, subtitle, admissions phone, campus tour link, and background artwork.",
-        "responses": { "200": { "description": "Admission banner data" } }
+        "responses": {
+          "200": {
+            "description": "Admission banner data"
+          }
+        }
       }
     },
     "/chairman": {
       "get": {
-        "tags": ["Leadership (Chairman of JRS)"],
+        "tags": [
+          "Leadership (Chairman of JRS)"
+        ],
         "summary": "Get Chairman message, profile, bio and quotes",
         "description": "Returns Sri J. R. Sagar (Chairman) profile, inspirational quote, message paragraphs, and portrait photo.",
-        "responses": { "200": { "description": "Chairman message details" } }
+        "responses": {
+          "200": {
+            "description": "Chairman message details"
+          }
+        }
       }
     },
     "/leadership/chairman": {
       "get": {
-        "tags": ["Leadership (Chairman of JRS)"],
+        "tags": [
+          "Leadership (Chairman of JRS)"
+        ],
         "summary": "Alias endpoint for /chairman",
-        "responses": { "200": { "description": "Chairman message details" } }
+        "responses": {
+          "200": {
+            "description": "Chairman message details"
+          }
+        }
       }
     },
     "/principal": {
       "get": {
-        "tags": ["Leadership (Principal of JRS)"],
+        "tags": [
+          "Leadership (Principal of JRS)"
+        ],
         "summary": "Get Principal message, profile, credentials and message to parents",
         "description": "Returns Principal's welcome message, educational vision, credentials, and official photo for the Leadership page.",
-        "responses": { "200": { "description": "Principal message details" } }
+        "responses": {
+          "200": {
+            "description": "Principal message details"
+          }
+        }
       }
     },
     "/leadership/principal": {
       "get": {
-        "tags": ["Leadership (Principal of JRS)"],
+        "tags": [
+          "Leadership (Principal of JRS)"
+        ],
         "summary": "Alias endpoint for /principal",
-        "responses": { "200": { "description": "Principal message details" } }
+        "responses": {
+          "200": {
+            "description": "Principal message details"
+          }
+        }
       }
     },
     "/educational-society": {
       "get": {
-        "tags": ["Educational Society"],
+        "tags": [
+          "Educational Society"
+        ],
         "summary": "Get Educational Society Managing Committee members",
         "description": "Returns J.R. Educational Society registration info and managing committee members (President, Vice-President, General Secretary, Joint Secretary, Treasurer, Members).",
-        "responses": { "200": { "description": "Educational Society members list" } }
+        "responses": {
+          "200": {
+            "description": "Educational Society members list"
+          }
+        }
       }
     },
     "/school-management-committee": {
       "get": {
-        "tags": ["School Management Committee - SMC"],
+        "tags": [
+          "School Management Committee - SMC"
+        ],
         "summary": "Get School Management Committee (SMC) members",
         "description": "Returns all 15 SMC members (President, Member Secretary/Principal, Parent Representatives, Teacher Representatives, Educationist, Trust Nominees) as mandated by CBSE.",
-        "responses": { "200": { "description": "School Management Committee members list" } }
+        "responses": {
+          "200": {
+            "description": "School Management Committee members list"
+          }
+        }
       }
     },
     "/gallery-page": {
       "get": {
-        "tags": ["Gallery Page (Frontend)"],
+        "tags": [
+          "Gallery Page (Frontend)"
+        ],
         "summary": "Get complete Gallery page bundle (albums with active media)",
         "description": "Returns all active albums (Amphitheatre, Annual Days, Science Experiments, Life Skills, Republic Day) with their image/video items for the React frontend.",
-        "responses": { "200": { "description": "Gallery albums with items retrieved successfully" } }
+        "responses": {
+          "200": {
+            "description": "Gallery albums with items retrieved successfully"
+          }
+        }
       }
     },
     "/gallery": {
       "get": {
-        "tags": ["Gallery Page (Frontend)"],
+        "tags": [
+          "Gallery Page (Frontend)"
+        ],
         "summary": "Alias endpoint for /gallery-page",
-        "responses": { "200": { "description": "Gallery albums with items retrieved successfully" } }
+        "responses": {
+          "200": {
+            "description": "Gallery albums with items retrieved successfully"
+          }
+        }
       }
     },
     "/gallery-albums": {
       "get": {
-        "tags": ["Gallery Page (Frontend)"],
+        "tags": [
+          "Gallery Page (Frontend)"
+        ],
         "summary": "Get list of active gallery albums",
-        "responses": { "200": { "description": "Active albums list" } }
+        "responses": {
+          "200": {
+            "description": "Active albums list"
+          }
+        }
       }
     },
     "/gallery-albums/{idOrSlug}": {
       "get": {
-        "tags": ["Gallery Page (Frontend)"],
+        "tags": [
+          "Gallery Page (Frontend)"
+        ],
         "summary": "Get specific album with its photos/videos by ID or slug",
-        "parameters": [{ "name": "idOrSlug", "in": "path", "required": true, "schema": { "type": "string" } }],
-        "responses": { "200": { "description": "Album details with media items" } }
+        "parameters": [
+          {
+            "name": "idOrSlug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Album details with media items"
+          }
+        }
       }
     },
     "/gallery-items": {
       "get": {
-        "tags": ["Gallery Page (Frontend)"],
+        "tags": [
+          "Gallery Page (Frontend)"
+        ],
         "summary": "Get gallery photo/video items (filterable by ?album_id=)",
-        "parameters": [{ "name": "album_id", "in": "query", "required": false, "schema": { "type": "integer" } }],
-        "responses": { "200": { "description": "Gallery items list" } }
+        "parameters": [
+          {
+            "name": "album_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Gallery items list"
+          }
+        }
       }
     },
     "/media-page": {
       "get": {
-        "tags": ["News & Media (Frontend)"],
+        "tags": [
+          "News & Media (Frontend)"
+        ],
         "summary": "Get complete News & Media page bundle",
         "description": "Returns header, achievements_section (featured press cards with Telugu headlines), campus_news_section (latest press clippings), and CTA banner.",
-        "responses": { "200": { "description": "News & Media page payload" } }
+        "responses": {
+          "200": {
+            "description": "News & Media page payload"
+          }
+        }
       }
     },
     "/news-media": {
       "get": {
-        "tags": ["News & Media (Frontend)"],
+        "tags": [
+          "News & Media (Frontend)"
+        ],
         "summary": "Get press coverage clippings (filterable by ?type=featured or ?type=latest)",
-        "parameters": [{ "name": "type", "in": "query", "required": false, "schema": { "type": "string", "enum": ["featured", "latest"] } }],
-        "responses": { "200": { "description": "List of press coverage articles" } }
+        "parameters": [
+          {
+            "name": "type",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "featured",
+                "latest"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of press coverage articles"
+          }
+        }
       }
     },
     "/news-media/{id}": {
       "get": {
-        "tags": ["News & Media (Frontend)"],
+        "tags": [
+          "News & Media (Frontend)"
+        ],
         "summary": "Get specific press coverage article by ID",
-        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
-        "responses": { "200": { "description": "Press coverage article details" } }
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Press coverage article details"
+          }
+        }
       }
     },
     "/mandatory-disclosure": {
       "get": {
-        "tags": ["Mandatory Disclosure (CBSE Compliance)"],
+        "tags": [
+          "Mandatory Disclosure (CBSE Compliance)"
+        ],
         "summary": "Get CBSE Mandatory Public Disclosure details, documents, infrastructure & SMC",
         "description": "Returns header metadata, General Information (Table 1), Documents & Information (Table 2 with statutory download links), School Infrastructure (Table 3), and SMC Committee (Table 4).",
-        "responses": { "200": { "description": "Mandatory Disclosure payload retrieved successfully" } }
+        "responses": {
+          "200": {
+            "description": "Mandatory Disclosure payload retrieved successfully"
+          }
+        }
       }
     },
     "/mandatory-disclosures": {
       "get": {
-        "tags": ["Mandatory Disclosure (CBSE Compliance)"],
+        "tags": [
+          "Mandatory Disclosure (CBSE Compliance)"
+        ],
         "summary": "Alias endpoint for /mandatory-disclosure",
-        "responses": { "200": { "description": "Mandatory Disclosure payload retrieved successfully" } }
+        "responses": {
+          "200": {
+            "description": "Mandatory Disclosure payload retrieved successfully"
+          }
+        }
       }
     },
     "/admission-hero": {
       "get": {
-        "tags": ["Admissions (Frontend)"],
+        "tags": [
+          "Admissions (Frontend)"
+        ],
         "summary": "Get Admission Open Hero Header for React site",
         "description": "Returns top admission banner details: location tag, title, academic year, description, contact numbers, 3 highlight features (CBSE, Holistic, Faculty), and trust badges.",
         "responses": {
@@ -1176,11 +1481,26 @@
                     "phone": "+91 915740 43210",
                     "email": "info@jrsinternationalschool.com",
                     "features": [
-                      { "title": "CBSE Curriculum", "subtitle": "National standards", "icon": "bi bi-mortarboard-fill" },
-                      { "title": "Holistic Growth", "subtitle": "Arts, sports & STEM", "icon": "bi bi-stars" },
-                      { "title": "Top Faculty", "subtitle": "Caring mentorship", "icon": "bi bi-award-fill" }
+                      {
+                        "title": "CBSE Curriculum",
+                        "subtitle": "National standards",
+                        "icon": "bi bi-mortarboard-fill"
+                      },
+                      {
+                        "title": "Holistic Growth",
+                        "subtitle": "Arts, sports & STEM",
+                        "icon": "bi bi-stars"
+                      },
+                      {
+                        "title": "Top Faculty",
+                        "subtitle": "Caring mentorship",
+                        "icon": "bi bi-award-fill"
+                      }
                     ],
-                    "trust_badges": ["100% Confidential", "Quick 24-hr Response"]
+                    "trust_badges": [
+                      "100% Confidential",
+                      "Quick 24-hr Response"
+                    ]
                   }
                 }
               }
@@ -1191,14 +1511,22 @@
     },
     "/admission-open": {
       "get": {
-        "tags": ["Admissions (Frontend)"],
+        "tags": [
+          "Admissions (Frontend)"
+        ],
         "summary": "Alias endpoint for /admission-hero",
-        "responses": { "200": { "description": "Admission hero data" } }
+        "responses": {
+          "200": {
+            "description": "Admission hero data"
+          }
+        }
       }
     },
     "/admission-enquiries": {
       "post": {
-        "tags": ["Admissions (Frontend)"],
+        "tags": [
+          "Admissions (Frontend)"
+        ],
         "summary": "Submit Admission Enquiry Form from React site",
         "description": "Creates a new admission enquiry when a parent submits the Enquiry Form on the website.",
         "requestBody": {
@@ -1239,13 +1567,17 @@
               }
             }
           },
-          "422": { "description": "Validation error" }
+          "422": {
+            "description": "Validation error"
+          }
         }
       }
     },
     "/admission-enquiries/options": {
       "get": {
-        "tags": ["Admissions (Frontend)"],
+        "tags": [
+          "Admissions (Frontend)"
+        ],
         "summary": "Get Enquiry Form dropdown options (academic years, admission types)",
         "responses": {
           "200": {
@@ -1255,8 +1587,15 @@
                 "example": {
                   "success": true,
                   "data": {
-                    "academic_years": ["2026-2027", "2027-2028"],
-                    "admission_types": ["DAY SCHOLAR", "DAY BOARDING", "RESIDENTIAL"]
+                    "academic_years": [
+                      "2026-2027",
+                      "2027-2028"
+                    ],
+                    "admission_types": [
+                      "DAY SCHOLAR",
+                      "DAY BOARDING",
+                      "RESIDENTIAL"
+                    ]
                   }
                 }
               }
@@ -1267,7 +1606,9 @@
     },
     "/admission-process": {
       "get": {
-        "tags": ["Admissions (Frontend)"],
+        "tags": [
+          "Admissions (Frontend)"
+        ],
         "summary": "Get Admission Process Steps (6 Steps) for React site",
         "description": "Returns section heading and all 6 sequential admission process cards (Meet Admission Officer, Procure Application Form, Register With Us, Appear For Admission Test, Personal Interview, Pay Fee) for the admissions page.",
         "responses": {
@@ -1284,12 +1625,48 @@
                   },
                   "count": 6,
                   "data": [
-                    { "id": 1, "step_number": 1, "title": "Meet The Admission Officer", "description": "Visit the school campus and meet our admission officer for guidance.", "icon": "bi bi-person-badge-fill" },
-                    { "id": 2, "step_number": 2, "title": "Procure The Application Form", "description": "Collect the application form from the school or download it as provided.", "icon": "bi bi-file-earmark-text-fill" },
-                    { "id": 3, "step_number": 3, "title": "Register With Us", "description": "Submit the completed application form with the required details.", "icon": "bi bi-person-vcard-fill" },
-                    { "id": 4, "step_number": 4, "title": "Appear For The Admission Test", "description": "The student needs to appear for the admission test as per the grade.", "icon": "bi bi-pencil-square" },
-                    { "id": 5, "step_number": 5, "title": "Appear For The Personal Interview", "description": "The student and parents may be called for a personal interview.", "icon": "bi bi-chat-quote-fill" },
-                    { "id": 6, "step_number": 6, "title": "Pay Fee", "description": "Upon selection, complete the fee payment to confirm admission.", "icon": "bi bi-credit-card-2-front-fill" }
+                    {
+                      "id": 1,
+                      "step_number": 1,
+                      "title": "Meet The Admission Officer",
+                      "description": "Visit the school campus and meet our admission officer for guidance.",
+                      "icon": "bi bi-person-badge-fill"
+                    },
+                    {
+                      "id": 2,
+                      "step_number": 2,
+                      "title": "Procure The Application Form",
+                      "description": "Collect the application form from the school or download it as provided.",
+                      "icon": "bi bi-file-earmark-text-fill"
+                    },
+                    {
+                      "id": 3,
+                      "step_number": 3,
+                      "title": "Register With Us",
+                      "description": "Submit the completed application form with the required details.",
+                      "icon": "bi bi-person-vcard-fill"
+                    },
+                    {
+                      "id": 4,
+                      "step_number": 4,
+                      "title": "Appear For The Admission Test",
+                      "description": "The student needs to appear for the admission test as per the grade.",
+                      "icon": "bi bi-pencil-square"
+                    },
+                    {
+                      "id": 5,
+                      "step_number": 5,
+                      "title": "Appear For The Personal Interview",
+                      "description": "The student and parents may be called for a personal interview.",
+                      "icon": "bi bi-chat-quote-fill"
+                    },
+                    {
+                      "id": 6,
+                      "step_number": 6,
+                      "title": "Pay Fee",
+                      "description": "Upon selection, complete the fee payment to confirm admission.",
+                      "icon": "bi bi-credit-card-2-front-fill"
+                    }
                   ]
                 }
               }
@@ -1300,14 +1677,22 @@
     },
     "/admission-steps": {
       "get": {
-        "tags": ["Admissions (Frontend)"],
+        "tags": [
+          "Admissions (Frontend)"
+        ],
         "summary": "Alias endpoint for /admission-process",
-        "responses": { "200": { "description": "Admission process steps" } }
+        "responses": {
+          "200": {
+            "description": "Admission process steps"
+          }
+        }
       }
     },
     "/admission-criteria": {
       "get": {
-        "tags": ["Admissions (Frontend)"],
+        "tags": [
+          "Admissions (Frontend)"
+        ],
         "summary": "Get Admission Criteria & Guidelines (4 Cards) for React site",
         "description": "Returns section heading and all 4 admission criteria cards (Nursery Admission, Competency Level Test, Seat Allocation & Waitlist Policy, Admissions Appeals & Support) with tags, points checklist, and notes for the admissions page.",
         "responses": {
@@ -1324,8 +1709,24 @@
                   },
                   "count": 4,
                   "data": [
-                    { "id": 1, "step_number": 1, "watermark": "01", "badge_tag": "Early Years (Age 2+)", "title": "Nursery Admission", "description": "You can apply for a place in our Nursery by filling in an application form available from the school office or online.", "icon": "bi bi-stars" },
-                    { "id": 2, "step_number": 2, "watermark": "02", "badge_tag": "Grades 1 to 12", "title": "Competency Level Test (CLT)", "description": "Applicants seeking admission to Grades 1 to 12 will be required to appear for a Competency Level Test (CLT).", "icon": "bi bi-clipboard-check-fill" }
+                    {
+                      "id": 1,
+                      "step_number": 1,
+                      "watermark": "01",
+                      "badge_tag": "Early Years (Age 2+)",
+                      "title": "Nursery Admission",
+                      "description": "You can apply for a place in our Nursery by filling in an application form available from the school office or online.",
+                      "icon": "bi bi-stars"
+                    },
+                    {
+                      "id": 2,
+                      "step_number": 2,
+                      "watermark": "02",
+                      "badge_tag": "Grades 1 to 12",
+                      "title": "Competency Level Test (CLT)",
+                      "description": "Applicants seeking admission to Grades 1 to 12 will be required to appear for a Competency Level Test (CLT).",
+                      "icon": "bi bi-clipboard-check-fill"
+                    }
                   ]
                 }
               }
@@ -1336,7 +1737,9 @@
     },
     "/admission-faqs": {
       "get": {
-        "tags": ["Admissions (Frontend)"],
+        "tags": [
+          "Admissions (Frontend)"
+        ],
         "summary": "Get Admission Frequently Asked Questions (FAQs) for React site",
         "description": "Returns section heading and all 13 frequently asked questions with answers for the admissions page accordion.",
         "responses": {
@@ -1353,8 +1756,16 @@
                   },
                   "count": 13,
                   "data": [
-                    { "id": 1, "question": "What is the admission procedure?", "answer": "The admission procedure begins with obtaining and filling out the application form either online or at the school office, followed by an interaction/competency assessment, document verification, and fee payment." },
-                    { "id": 2, "question": "Is admission guaranteed?", "answer": "Admission is offered strictly on a first-come, first-served basis, subject to availability of seats and meeting the admission criteria." }
+                    {
+                      "id": 1,
+                      "question": "What is the admission procedure?",
+                      "answer": "The admission procedure begins with obtaining and filling out the application form either online or at the school office, followed by an interaction/competency assessment, document verification, and fee payment."
+                    },
+                    {
+                      "id": 2,
+                      "question": "Is admission guaranteed?",
+                      "answer": "Admission is offered strictly on a first-come, first-served basis, subject to availability of seats and meeting the admission criteria."
+                    }
                   ]
                 }
               }
@@ -1363,9 +1774,121 @@
         }
       }
     },
+    "/admission-brochure": {
+      "get": {
+        "tags": [
+          "Admissions (Frontend)"
+        ],
+        "summary": "Get Admission Brochure details and download link for React site",
+        "description": "Returns brochure title, uploaded PDF file path, direct download URL, external link, file size, and active status.",
+        "responses": {
+          "200": {
+            "description": "Successful response with admission brochure details",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": true,
+                  "message": "Admission brochure retrieved successfully",
+                  "data": {
+                    "id": 1,
+                    "title": "JRS International School Brochure",
+                    "pdf_path": "/uploads/admissions/brochure/jrs_brochure_1793267149_pokala-mallikarjuna-reddy-resume.pdf",
+                    "brochure_link": "https://jrsinternationalschooluppal.com/wp-content/uploads/2022/01/Brochure-2020-JRS.pdf",
+                    "file_size": "73.2 KB",
+                    "is_active": true,
+                    "pdf_full_url": "http://127.0.0.1:8000/uploads/admissions/brochure/jrs_brochure_1793267149_pokala-mallikarjuna-reddy-resume.pdf",
+                    "download_url": "http://127.0.0.1:8000/uploads/admissions/brochure/jrs_brochure_1793267149_pokala-mallikarjuna-reddy-resume.pdf",
+                    "has_file": true,
+                    "created_at": "2026-10-29T09:40:37.000000Z",
+                    "updated_at": "2026-10-29T10:12:29.000000Z"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/brochure": {
+      "get": {
+        "tags": [
+          "Admissions (Frontend)"
+        ],
+        "summary": "Alias endpoint for /admission-brochure",
+        "responses": {
+          "200": {
+            "description": "Admission brochure details"
+          }
+        }
+      }
+    },
+    "/admission-popup": {
+      "get": {
+        "tags": [
+          "Admissions (Frontend)"
+        ],
+        "summary": "Get Admission Promotional Popup modal configuration",
+        "description": "Returns popup modal active status, background image, badges, affiliation text, academic year highlight, description, green checklist features, and call-to-action buttons.",
+        "responses": {
+          "200": {
+            "description": "Successful response with admission popup modal configuration",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": true,
+                  "data": {
+                    "id": 1,
+                    "is_active": true,
+                    "image_url": "http://127.0.0.1:8000/uploads/admission-popup/popup.jpg",
+                    "badge_text": "ADMISSIONS OPEN",
+                    "cbse_affiliation_text": "CBSE AFFILIATION: 3630478 • SCHOOL CODE: 56725",
+                    "school_name": "JRS International School",
+                    "school_location": "Narapally, Near Uppal, Hyderabad",
+                    "academic_year_badge": "Academic Year 2027 – 2028",
+                    "title_prefix": "Admissions Open For",
+                    "academic_year_highlight": "2027 – 2028",
+                    "description": "Enrolling students from Nursery to Grade XII (Admissions open for 11th & 12th Standard also). Give your child the foundation for academic excellence, character development, and global leadership.",
+                    "features": [
+                      "CBSE Curriculum with experiential, inquiry-based learning",
+                      "STEM, Robotics & Cognospace innovation labs",
+                      "World-Class Sports & Co-curricular clubs",
+                      "Safe GPS-Enabled Fleet & 100% CCTV secured campus"
+                    ],
+                    "phone_number": "+91 92814 09674",
+                    "primary_button": {
+                      "text": "Enquire / Apply Online"
+                    },
+                    "secondary_button": {
+                      "text": "Call: +91 92814 09674",
+                      "phone": "+91 92814 09674"
+                    },
+                    "updated_at": "2026-10-29T16:40:00.000000Z"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/popup": {
+      "get": {
+        "tags": [
+          "Admissions (Frontend)"
+        ],
+        "summary": "Alias endpoint for /admission-popup",
+        "responses": {
+          "200": {
+            "description": "Admission popup modal configuration"
+          }
+        }
+      }
+    },
     "/contact": {
       "get": {
-        "tags": ["Contact Us (Frontend)"],
+        "tags": [
+          "Contact Us (Frontend)"
+        ],
         "summary": "Get Official Contact Information & Campus Map for React site",
         "description": "Returns school address, phone, email, and Google Maps direct link & embed URL.",
         "responses": {
@@ -1396,14 +1919,22 @@
     },
     "/contact-us": {
       "get": {
-        "tags": ["Contact Us (Frontend)"],
+        "tags": [
+          "Contact Us (Frontend)"
+        ],
         "summary": "Alias endpoint for /contact",
-        "responses": { "200": { "description": "Contact details" } }
+        "responses": {
+          "200": {
+            "description": "Contact details"
+          }
+        }
       }
     },
     "/contact/grades": {
       "get": {
-        "tags": ["Contact Us (Frontend)"],
+        "tags": [
+          "Contact Us (Frontend)"
+        ],
         "summary": "Get grade dropdown options for the Contact Us inquiry form",
         "description": "Returns list of grades available for selection in the Contact Us page inquiry dropdown.",
         "responses": {
@@ -1413,7 +1944,24 @@
               "application/json": {
                 "example": {
                   "success": true,
-                  "data": ["Play Group", "Nursery", "LKG", "UKG", "Grade 1", "Grade 2", "Grade 3", "Grade 4", "Grade 5", "Grade 6", "Grade 7", "Grade 8", "Grade 9", "Grade 10", "Grade 11", "Grade 12"]
+                  "data": [
+                    "Play Group",
+                    "Nursery",
+                    "LKG",
+                    "UKG",
+                    "Grade 1",
+                    "Grade 2",
+                    "Grade 3",
+                    "Grade 4",
+                    "Grade 5",
+                    "Grade 6",
+                    "Grade 7",
+                    "Grade 8",
+                    "Grade 9",
+                    "Grade 10",
+                    "Grade 11",
+                    "Grade 12"
+                  ]
                 }
               }
             }
@@ -1423,7 +1971,9 @@
     },
     "/contact/inquiry": {
       "post": {
-        "tags": ["Contact Us (Frontend)"],
+        "tags": [
+          "Contact Us (Frontend)"
+        ],
         "summary": "Submit Online Inquiry (Send Us A Message)",
         "description": "Submit inquiry from the Contact Us page. Also available at alias POST /api/contact-inquiries. Supports both snake_case and camelCase parameters.",
         "requestBody": {
@@ -1432,13 +1982,33 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["parent_name", "phone", "message"],
+                "required": [
+                  "parent_name",
+                  "phone",
+                  "message"
+                ],
                 "properties": {
-                  "parent_name": { "type": "string", "example": "Ramesh Reddy" },
-                  "phone": { "type": "string", "example": "+91 98765 43210" },
-                  "grade": { "type": "string", "example": "Grade 5" },
-                  "email": { "type": "string", "format": "email", "example": "name@example.com" },
-                  "message": { "type": "string", "example": "Tell us what you'd like to know about JRS..." }
+                  "parent_name": {
+                    "type": "string",
+                    "example": "Ramesh Reddy"
+                  },
+                  "phone": {
+                    "type": "string",
+                    "example": "+91 98765 43210"
+                  },
+                  "grade": {
+                    "type": "string",
+                    "example": "Grade 5"
+                  },
+                  "email": {
+                    "type": "string",
+                    "format": "email",
+                    "example": "name@example.com"
+                  },
+                  "message": {
+                    "type": "string",
+                    "example": "Tell us what you'd like to know about JRS..."
+                  }
                 }
               }
             }
@@ -1465,118 +2035,139 @@
               }
             }
           },
-          "422": { "description": "Validation error" }
+          "422": {
+            "description": "Validation error"
+          }
         }
       }
     },
     "/contact-inquiries": {
       "post": {
-        "tags": ["Contact Us (Frontend)"],
+        "tags": [
+          "Contact Us (Frontend)"
+        ],
         "summary": "Alias endpoint for /contact/inquiry",
-        "responses": { "201": { "description": "Inquiry submitted successfully" } }
+        "responses": {
+          "201": {
+            "description": "Inquiry submitted successfully"
+          }
+        }
       }
     },
     "/breadcrumb-banners/pages": {
       "get": {
-        "tags": ["Breadcrumb Banners (Frontend)"],
+        "tags": [
+          "Breadcrumb Banners (Frontend)"
+        ],
         "summary": "List all supported website pages & their configuration status",
-        "responses": { "200": { "description": "Supported pages list" } }
+        "responses": {
+          "200": {
+            "description": "Supported pages list"
+          }
+        }
       }
     },
     "/breadcrumb-banners/page/{slug}": {
       "get": {
-        "tags": ["Breadcrumb Banners (Frontend)"],
+        "tags": [
+          "Breadcrumb Banners (Frontend)"
+        ],
         "summary": "Get dynamic breadcrumb banner by page slug",
         "description": "Returns the active breadcrumb banner (title, orange highlight, subtitle, description, buttons, background artwork, and stats cards) for any page slug (e.g. about, principals-message, educational-society, school-management-committee).",
         "parameters": [
-          { "name": "slug", "in": "path", "required": true, "description": "The page slug", "schema": { "type": "string", "example": "principals-message" } }
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "description": "The page slug",
+            "schema": {
+              "type": "string",
+              "example": "principals-message"
+            }
+          }
         ],
-        "responses": { "200": { "description": "Active breadcrumb banner data" } }
+        "responses": {
+          "200": {
+            "description": "Active breadcrumb banner data"
+          }
+        }
       }
     },
     "/breadcrumb-banners/by-slug/{slug}": {
       "get": {
-        "tags": ["Breadcrumb Banners (Frontend)"],
+        "tags": [
+          "Breadcrumb Banners (Frontend)"
+        ],
         "summary": "Alias endpoint for /breadcrumb-banners/page/{slug}",
         "parameters": [
-          { "name": "slug", "in": "path", "required": true, "schema": { "type": "string" } }
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
         ],
-        "responses": { "200": { "description": "Active breadcrumb banner data" } }
+        "responses": {
+          "200": {
+            "description": "Active breadcrumb banner data"
+          }
+        }
       }
     },
     "/breadcrumb-banners": {
       "get": {
-        "tags": ["Breadcrumb Banners (Frontend)"],
+        "tags": [
+          "Breadcrumb Banners (Frontend)"
+        ],
         "summary": "List all active breadcrumb banners",
         "parameters": [
-          { "name": "all", "in": "query", "schema": { "type": "boolean" }, "description": "Set to 1 to include inactive banners" },
-          { "name": "search", "in": "query", "schema": { "type": "string" }, "description": "Filter by title or page" }
-        ],
-        "responses": { "200": { "description": "List of banners" } }
-      },
-      "post": {
-        "tags": ["Breadcrumb Banners (Admin / API)"],
-        "summary": "Create a new breadcrumb banner",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": ["page_name", "page_slug", "breadcrumb_title", "title"],
-                "properties": {
-                  "page_name": { "type": "string", "example": "About JRS" },
-                  "page_slug": { "type": "string", "example": "about" },
-                  "breadcrumb_title": { "type": "string", "example": "About JRS" },
-                  "title": { "type": "string", "example": "About" },
-                  "highlighted_title": { "type": "string", "example": "JRS" },
-                  "subtitle": { "type": "string", "example": "Learning Today. Leading Tomorrow." },
-                  "description": { "type": "string", "example": "At JRS International School, we are dedicated to providing a transformative educational experience..." },
-                  "primary_button_text": { "type": "string", "example": "Our Story" },
-                  "primary_button_url": { "type": "string", "example": "#our-story" },
-                  "secondary_button_text": { "type": "string", "example": "Watch Campus Video" },
-                  "secondary_button_url": { "type": "string", "example": "#campus-video" },
-                  "is_active": { "type": "boolean", "example": true }
-                }
-              }
-            }
+          {
+            "name": "all",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            },
+            "description": "Set to 1 to include inactive banners"
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by title or page"
           }
-        },
-        "responses": { "201": { "description": "Banner created successfully" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of banners"
+          }
+        }
       }
     },
     "/breadcrumb-banners/{idOrSlug}": {
       "get": {
-        "tags": ["Breadcrumb Banners (Frontend)"],
+        "tags": [
+          "Breadcrumb Banners (Frontend)"
+        ],
         "summary": "Get banner by ID or Slug",
         "parameters": [
-          { "name": "idOrSlug", "in": "path", "required": true, "schema": { "type": "string" } }
+          {
+            "name": "idOrSlug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
         ],
-        "responses": { "200": { "description": "Banner record" } }
-      },
-      "put": {
-        "tags": ["Breadcrumb Banners (Admin / API)"],
-        "summary": "Update existing banner",
-        "parameters": [
-          { "name": "idOrSlug", "in": "path", "required": true, "schema": { "type": "string" } }
-        ],
-        "responses": { "200": { "description": "Banner updated" } }
-      },
-      "patch": {
-        "tags": ["Breadcrumb Banners (Admin / API)"],
-        "summary": "Patch update existing banner",
-        "parameters": [
-          { "name": "idOrSlug", "in": "path", "required": true, "schema": { "type": "string" } }
-        ],
-        "responses": { "200": { "description": "Banner updated" } }
-      },
-      "delete": {
-        "tags": ["Breadcrumb Banners (Admin / API)"],
-        "summary": "Delete banner",
-        "parameters": [
-          { "name": "idOrSlug", "in": "path", "required": true, "schema": { "type": "string" } }
-        ],
-        "responses": { "200": { "description": "Banner deleted" } }
+        "responses": {
+          "200": {
+            "description": "Banner record"
+          }
+        }
       }
     }
   }

@@ -43,6 +43,7 @@ use App\Http\Controllers\Admin\EducationalSocietyController;
 use App\Http\Controllers\Admin\SchoolManagementCommitteeController;
 use App\Http\Controllers\Admin\MandatoryDisclosureController;
 use App\Http\Controllers\Admin\BreadcrumbBannerController;
+use App\Http\Controllers\Admin\AdmissionPopupController;
 use App\Http\Controllers\Admin\ProfileController;
 
 /*
@@ -146,6 +147,11 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     // Admission Brochure (PDF & Link)
     Route::get('/admission-brochure', [AdmissionBrochureController::class, 'index'])->name('admin.admission-brochure.index');
     Route::put('/admission-brochure', [AdmissionBrochureController::class, 'update'])->name('admin.admission-brochure.update');
+
+    // Admission Popup (Modal Design)
+    Route::get('/admission-popup', [AdmissionPopupController::class, 'index'])->name('admin.admission-popup.index');
+    Route::put('/admission-popup', [AdmissionPopupController::class, 'update'])->name('admin.admission-popup.update');
+    Route::post('/admission-popup/toggle', [AdmissionPopupController::class, 'toggle'])->name('admin.admission-popup.toggle');
 
     // Admission Form Enquiries CRM
     Route::resource('/admission-enquiries', AdmissionEnquiryController::class)->only(['index', 'update', 'destroy'])->names('admin.admission-enquiries');

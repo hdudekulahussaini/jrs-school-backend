@@ -278,20 +278,16 @@ class BreadcrumbBannerController extends Controller
     public function toggle($id)
     {
         $this->ensureTableExists();
-
         $banner = BreadcrumbBanner::findOrFail($id);
-        $banner->is_active = !$banner->is_active;
-        $banner->save();
 
         if (request()->wantsJson()) {
             return response()->json([
                 'success' => true,
-                'is_active' => $banner->is_active,
-                'message' => 'Banner status updated to ' . ($banner->is_active ? 'Active' : 'Inactive') . '.',
+                'message' => 'Breadcrumb banners are permanent and always active.',
             ]);
         }
 
         return redirect()->back()
-            ->with('success', 'Status toggled successfully for ' . $banner->page_name . '.');
+            ->with('info', 'Breadcrumb banner for "' . $banner->page_name . '" is permanent and always active.');
     }
 }

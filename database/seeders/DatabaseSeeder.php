@@ -45,6 +45,7 @@ class DatabaseSeeder extends Seeder
             AdmissionEnquirySeeder::class,
             ContactInquirySeeder::class,
             BreadcrumbBannerSeeder::class,
+            MandatoryDisclosureSeeder::class,
         ]);
     }
 }

@@ -15,12 +15,12 @@ class AcademicJourney extends Model
     protected $fillable = [
         'title',
         'age_group',
-        'slug',
+        'lead_text',
         'description',
+        'highlights',
         'icon',
         'icon_svg',
         'image_path',
-        'link_url',
         'sort_order',
         'is_active',
     ];
@@ -28,6 +28,7 @@ class AcademicJourney extends Model
     protected $casts = [
         'sort_order' => 'integer',
         'is_active' => 'boolean',
+        'highlights' => 'array',
     ];
 
     protected $appends = [
@@ -58,13 +59,14 @@ class AcademicJourney extends Model
         return [
             'title' => 'required|string|max:190',
             'age_group' => 'nullable|string|max:100',
-            'slug' => 'nullable|string|max:190',
+            'lead_text' => 'nullable|string',
             'description' => 'required|string',
+            'highlights' => 'nullable|array',
+            'highlights.*' => 'nullable|string|max:255',
             'icon' => 'nullable|string|max:190',
             'icon_svg' => 'nullable|string',
             'image' => $id ? 'nullable|image|mimes:jpeg,png,jpg,webp,svg|max:4096' : 'nullable|image|mimes:jpeg,png,jpg,webp,svg|max:4096',
             'image_path' => 'nullable|string|max:255',
-            'link_url' => 'nullable|string|max:255',
             'sort_order' => 'nullable|integer|min:0',
             'is_active' => 'nullable|boolean',
         ];

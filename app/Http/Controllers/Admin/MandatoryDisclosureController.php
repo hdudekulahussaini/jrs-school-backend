@@ -15,11 +15,12 @@ class MandatoryDisclosureController extends Controller
      */
     public function index(Request $request)
     {
-        $query = MandatoryDisclosure::query();
-
-        if ($request->filled('category')) {
-            $query->where('category', $request->category);
+        $activeTab = $request->query('table', $request->query('tab', 'general_info'));
+        if (!in_array($activeTab, ['general_info', 'document', 'infrastructure', 'smc'])) {
+            $activeTab = 'general_info';
         }
+
+        $query = MandatoryDisclosure::query()->where('category', $activeTab);
 
         if ($request->filled('search')) {
             $term = $request->search;
@@ -73,7 +74,8 @@ class MandatoryDisclosureController extends Controller
             'documentCount',
             'infrastructureCount',
             'smcCount',
-            'activeCount'
+            'activeCount',
+            'activeTab'
         ));
     }
 
@@ -82,10 +84,21 @@ class MandatoryDisclosureController extends Controller
      */
     public function create(Request $request)
     {
-        $category = $request->query('category', 'general_info');
+        $category = $request->query('table', $request->query('category'));
+        $type = $request->query('type');
+
+        if (!$category) {
+            $category = ($type === 'feature') ? 'document' : 'general_info';
+        }
+
+        if (!in_array($category, ['general_info', 'document', 'infrastructure', 'smc'])) {
+            $category = 'general_info';
+        }
+
+        $type = in_array($category, ['document', 'smc']) ? 'feature' : 'table';
         $nextOrder = (MandatoryDisclosure::where('category', $category)->max('sort_order') ?? 0) + 1;
 
-        return view('admin.mandatory-disclosure.create', compact('category', 'nextOrder'));
+        return view('admin.mandatory-disclosure.create', compact('category', 'type', 'nextOrder'));
     }
 
     /**
@@ -110,11 +123,25 @@ class MandatoryDisclosureController extends Controller
 
         unset($validated['file_upload']);
 
+        if ($validated['category'] === 'general_info') {
+            $validated['button_label'] = null;
+            $validated['file_path'] = null;
+            $validated['file_url'] = null;
+            $validated['is_active'] = true;
+        } elseif ($validated['category'] === 'document') {
+            $validated['value'] = null;
+            $validated['button_label'] = null;
+            $validated['file_url'] = null;
+            $validated['is_active'] = true;
+        } elseif ($validated['category'] === 'infrastructure') {
+            $validated['is_active'] = true;
+        }
+
         MandatoryDisclosure::create($validated);
 
         flash()->success('Mandatory Disclosure entry created successfully.', 'Entry Created');
 
-        return redirect()->route('admin.mandatory-disclosure.index')
+        return redirect()->route('admin.mandatory-disclosure.index', ['table' => $validated['category']])
             ->with('success', 'Mandatory Disclosure entry created successfully.');
     }
 
@@ -124,7 +151,8 @@ class MandatoryDisclosureController extends Controller
     public function edit(string $id)
     {
         $item = MandatoryDisclosure::findOrFail($id);
-        return view('admin.mandatory-disclosure.edit', compact('item'));
+        $type = in_array($item->category, ['document', 'smc']) ? 'feature' : 'table';
+        return view('admin.mandatory-disclosure.edit', compact('item', 'type'));
     }
 
     /**
@@ -154,11 +182,25 @@ class MandatoryDisclosureController extends Controller
 
         unset($validated['file_upload']);
 
+        if ($validated['category'] === 'general_info') {
+            $validated['button_label'] = null;
+            $validated['file_path'] = null;
+            $validated['file_url'] = null;
+            $validated['is_active'] = true;
+        } elseif ($validated['category'] === 'document') {
+            $validated['value'] = null;
+            $validated['button_label'] = null;
+            $validated['file_url'] = null;
+            $validated['is_active'] = true;
+        } elseif ($validated['category'] === 'infrastructure') {
+            $validated['is_active'] = true;
+        }
+
         $item->update($validated);
 
         flash()->success('Mandatory Disclosure entry updated successfully.', 'Entry Updated');
 
-        return redirect()->route('admin.mandatory-disclosure.index')
+        return redirect()->route('admin.mandatory-disclosure.index', ['table' => $item->category])
             ->with('success', 'Mandatory Disclosure entry updated successfully.');
     }
 
@@ -168,6 +210,7 @@ class MandatoryDisclosureController extends Controller
     public function destroy(string $id)
     {
         $item = MandatoryDisclosure::findOrFail($id);
+        $category = $item->category;
 
         if ($item->file_path && File::exists(public_path(ltrim($item->file_path, '/')))) {
             File::delete(public_path(ltrim($item->file_path, '/')));
@@ -177,7 +220,7 @@ class MandatoryDisclosureController extends Controller
 
         flash()->info('Mandatory Disclosure entry deleted successfully.', 'Entry Removed');
 
-        return redirect()->route('admin.mandatory-disclosure.index')
+        return redirect()->route('admin.mandatory-disclosure.index', ['table' => $category])
             ->with('success', 'Mandatory Disclosure entry deleted successfully.');
     }
 

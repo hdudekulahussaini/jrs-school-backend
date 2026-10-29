@@ -272,3 +272,147 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 </script>
 @endsection
+                    <input type="number" name="sort_order" id="sort_order" min="0" value="{{ old('sort_order', $nextOrder) }}" class="flex h-9 w-full rounded-md border border-slate-200 bg-white px-3 py-1 text-sm shadow-xs transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-950">
+                </div>
+            </div>
+
+            <!-- Form Actions -->
+            <div class="border-t border-slate-100 pt-5 flex items-center justify-end gap-3">
+                <a href="{{ route('admin.why-choose.index') }}" class="inline-flex items-center justify-center rounded-md text-sm font-medium border border-slate-200 bg-white px-4 py-2 text-slate-700 hover:bg-slate-50 transition-colors">
+                    Cancel
+                </a>
+                <button type="submit" class="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors bg-slate-900 text-white shadow-xs hover:bg-slate-800 h-9 px-4 py-2 gap-2">
+                    <span>Save Feature Item</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const titleInput = document.getElementById('title');
+    const iconInput = document.getElementById('icon');
+    const previewBox = document.getElementById('icon-preview-box');
+    const iconCards = document.querySelectorAll('.icon-card');
+    const searchInput = document.getElementById('iconSearchInput');
+    const catPills = document.querySelectorAll('.cat-pill');
+
+    function updatePreview(val) {
+        val = (val || '').trim();
+        if (!val) {
+            previewBox.innerHTML = '<i class="bi bi-stars"></i>';
+            return;
+        }
+
+        // If user entered raw HTML tag like <i class="..." style="..."></i> or <svg>
+        if (val.startsWith('<')) {
+            previewBox.innerHTML = val;
+            return;
+        }
+
+        let iconClass = val;
+        const aliasMap = {
+            'trophy': 'bi bi-trophy-fill',
+            'share': 'bi bi-share-fill',
+            'building': 'bi bi-buildings-fill',
+            'user': 'bi bi-person-heart',
+            'shield': 'bi bi-shield-check',
+            'users': 'bi bi-people-fill',
+            'monitor': 'bi bi-laptop',
+            'certificate': 'bi bi-patch-check-fill',
+            'book': 'bi bi-book-half',
+            'bus': 'bi bi-bus-front-fill',
+            'target': 'bi bi-compass-fill',
+            'palette': 'bi bi-palette-fill',
+            'medal': 'bi bi-award-fill',
+        };
+
+        if (aliasMap[val]) {
+            iconClass = aliasMap[val];
+        } else if (!val.includes(' ') && !val.includes('-')) {
+            iconClass = 'bi bi-' + val;
+        }
+
+        previewBox.innerHTML = '<i class="' + iconClass + '"></i>';
+
+        // Highlight active icon card
+        iconCards.forEach(card => {
+            const cardIcon = card.getAttribute('data-icon');
+            if (cardIcon === val || cardIcon === iconClass) {
+                card.classList.add('border-rose-600', 'ring-2', 'ring-rose-200', 'bg-rose-50/50');
+                card.classList.remove('border-slate-200', 'bg-white');
+            } else {
+                card.classList.remove('border-rose-600', 'ring-2', 'ring-rose-200', 'bg-rose-50/50');
+                card.classList.add('border-slate-200', 'bg-white');
+            }
+        });
+    }
+
+    // Icon Card Click
+    iconCards.forEach(card => {
+        card.addEventListener('click', function () {
+            const iconVal = this.getAttribute('data-icon');
+            const titleVal = this.getAttribute('data-title');
+
+            if (iconVal) {
+                iconInput.value = iconVal;
+                updatePreview(iconVal);
+            }
+            if (titleVal && titleInput && (!titleInput.value || titleInput.value.trim() === '')) {
+                titleInput.value = titleVal;
+            }
+        });
+    });
+
+    // Manual Icon Input
+    if (iconInput) {
+        iconInput.addEventListener('input', function () {
+            updatePreview(this.value);
+        });
+    }
+
+    // Category Filter
+    catPills.forEach(pill => {
+        pill.addEventListener('click', function () {
+            catPills.forEach(p => {
+                p.className = 'cat-pill px-2.5 py-1 rounded-md text-xs font-medium bg-slate-100 text-slate-700 hover:bg-slate-200 cursor-pointer transition-colors';
+            });
+            this.className = 'cat-pill px-2.5 py-1 rounded-md text-xs font-semibold bg-slate-900 text-white cursor-pointer transition-colors shadow-2xs';
+
+            const cat = this.getAttribute('data-category');
+            filterIcons();
+        });
+    });
+
+    // Search Filter
+    if (searchInput) {
+        searchInput.addEventListener('input', filterIcons);
+    }
+
+    function filterIcons() {
+        const query = (searchInput ? searchInput.value : '').toLowerCase().trim();
+        const activeCatBtn = document.querySelector('.cat-pill.bg-slate-900');
+        const activeCat = activeCatBtn ? activeCatBtn.getAttribute('data-category') : 'all';
+
+        iconCards.forEach(card => {
+            const cardText = card.textContent.toLowerCase();
+            const cardIcon = (card.getAttribute('data-icon') || '').toLowerCase();
+            const cardCat = card.getAttribute('data-category') || '';
+
+            const matchesQuery = !query || cardText.includes(query) || cardIcon.includes(query);
+            const matchesCat = activeCat === 'all' || cardCat === activeCat;
+
+            if (matchesQuery && matchesCat) {
+                card.style.display = '';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
+
+    // Initial load
+    updatePreview(iconInput ? iconInput.value : 'bi bi-trophy-fill');
+});
+</script>
+@endsection

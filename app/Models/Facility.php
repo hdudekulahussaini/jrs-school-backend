@@ -14,6 +14,9 @@ class Facility extends Model
     protected $fillable = [
         'title',
         'description',
+        'overview_description',
+        'highlights',
+        'gallery_images',
         'image_path',
         'icon',
         'sort_order',
@@ -23,10 +26,13 @@ class Facility extends Model
     protected $casts = [
         'is_active' => 'boolean',
         'sort_order' => 'integer',
+        'highlights' => 'array',
+        'gallery_images' => 'array',
     ];
 
     protected $appends = [
         'image_full_url',
+        'gallery_images_full_urls',
     ];
 
     /**
@@ -43,5 +49,25 @@ class Facility extends Model
         }
 
         return url($this->image_path);
+    }
+
+    /**
+     * Compute full URLs for gallery images.
+     */
+    public function getGalleryImagesFullUrlsAttribute(): array
+    {
+        if (empty($this->gallery_images) || !is_array($this->gallery_images)) {
+            return [];
+        }
+
+        return array_map(function ($path) {
+            if (empty($path)) {
+                return null;
+            }
+            if (str_starts_with($path, 'http://') || str_starts_with($path, 'https://')) {
+                return $path;
+            }
+            return url($path);
+        }, $this->gallery_images);
     }
 }

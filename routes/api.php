@@ -109,8 +109,8 @@ Route::delete('/academic-programs/{id}', [AcademicProgramApiController::class, '
 Route::get('/academic-journeys', [AcademicJourneyApiController::class, 'index']);
 Route::get('/journeys', [AcademicJourneyApiController::class, 'index']);
 Route::get('/academics/journeys', [AcademicJourneyApiController::class, 'index']);
-Route::get('/academic-journeys/{idOrSlug}', [AcademicJourneyApiController::class, 'show']);
-Route::get('/academics/journeys/{idOrSlug}', [AcademicJourneyApiController::class, 'show']);
+Route::get('/academic-journeys/{id}', [AcademicJourneyApiController::class, 'show']);
+Route::get('/academics/journeys/{id}', [AcademicJourneyApiController::class, 'show']);
 
 // About JRS Homepage Section GET Endpoint
 Route::get('/about', [AboutApiController::class, 'getAbout']);

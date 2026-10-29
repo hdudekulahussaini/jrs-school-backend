@@ -127,10 +127,24 @@
                                             {{ $facility->description }}
                                         </p>
                                     @endif
-                                    @if($facility->destination_url)
-                                        <div class="flex items-center gap-1 text-[11px] text-blue-600 font-mono pt-0.5 truncate max-w-md">
-                                            <svg class="w-3 h-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-                                            <a href="{{ $facility->destination_url }}" target="_blank" rel="noopener noreferrer" class="hover:underline truncate" onclick="event.stopPropagation()">{{ $facility->destination_url }}</a>
+                                    @php
+                                        $hlCount = is_array($facility->highlights) ? count($facility->highlights) : 0;
+                                        $galCount = is_array($facility->gallery_images) ? count($facility->gallery_images) : 0;
+                                    @endphp
+                                    @if($hlCount > 0 || $galCount > 0)
+                                        <div class="flex items-center gap-2 pt-1">
+                                            @if($hlCount > 0)
+                                                <span class="inline-flex items-center gap-1 text-[10px] font-semibold text-rose-700 bg-rose-50 px-2 py-0.5 rounded border border-rose-200">
+                                                    <svg class="w-2.5 h-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                                                    {{ $hlCount }} Highlights
+                                                </span>
+                                            @endif
+                                            @if($galCount > 0)
+                                                <span class="inline-flex items-center gap-1 text-[10px] font-semibold text-slate-700 bg-slate-100 px-2 py-0.5 rounded border border-slate-200">
+                                                    <svg class="w-2.5 h-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                                                    {{ $galCount }} Photos
+                                                </span>
+                                            @endif
                                         </div>
                                     @endif
                                 </div>

@@ -9,14 +9,38 @@ use Illuminate\Http\Request;
 class AboutSectionController extends Controller
 {
     /**
-     * [READ - Index] Display the current About Section with live visual preview.
+     * [READ - Index] Display all About Section configurations in a tabular list.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $about = AboutSection::where('is_active', true)->first() ?? AboutSection::first();
-        $allSections = AboutSection::orderBy('id', 'desc')->get();
+        $query = AboutSection::query();
 
-        return view('admin.about.index', compact('about', 'allSections'));
+        if ($request->filled('status')) {
+            if ($request->status === 'active') {
+                $query->where('is_active', true);
+            } elseif ($request->status === 'inactive') {
+                $query->where('is_active', false);
+            }
+        }
+
+        if ($request->filled('search')) {
+            $search = trim($request->search);
+            $query->where(function ($q) use ($search) {
+                $q->where('title', 'like', "%{$search}%")
+                  ->orWhere('tagline', 'like', "%{$search}%")
+                  ->orWhere('title_highlight', 'like', "%{$search}%")
+                  ->orWhere('description_p1', 'like', "%{$search}%")
+                  ->orWhere('video_title', 'like', "%{$search}%");
+            });
+        }
+
+        $allSections = $query->orderBy('is_active', 'desc')->orderBy('id', 'desc')->paginate(10)->withQueryString();
+        $totalCount = AboutSection::count();
+        $activeCount = AboutSection::where('is_active', true)->count();
+        $inactiveCount = AboutSection::where('is_active', false)->count();
+        $about = AboutSection::where('is_active', true)->first() ?? AboutSection::first();
+
+        return view('admin.about.index', compact('about', 'allSections', 'totalCount', 'activeCount', 'inactiveCount'));
     }
 
     /**
@@ -141,5 +165,27 @@ class AboutSectionController extends Controller
 
         return redirect()->route('admin.about.index')
             ->with('success', 'About section entry deleted.');
+    }
+
+    /**
+     * [UPDATE - Toggle] Toggle active status (making active section live on homepage).
+     */
+    public function toggle($id)
+    {
+        $section = AboutSection::findOrFail($id);
+        $section->is_active = !$section->is_active;
+
+        if ($section->is_active) {
+            // Only one active section allowed for homepage
+            AboutSection::where('id', '!=', $id)->update(['is_active' => false]);
+            $section->save();
+            flash()->success('About section set as Live on homepage.', 'Section Activated');
+        } else {
+            $section->save();
+            flash()->warning('About section set as Inactive.', 'Section Deactivated');
+        }
+
+        return redirect()->back()
+            ->with('success', 'About section status updated.');
     }
 }

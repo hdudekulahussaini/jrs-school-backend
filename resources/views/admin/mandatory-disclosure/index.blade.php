@@ -4,38 +4,103 @@
 @section('header', 'Mandatory Disclosure (About Page)')
 
 @section('content')
-<div class="space-y-8">
+<div class="space-y-6">
 
-    <!-- Top Action: Add Options (Aligned Right) -->
-    <div class="flex flex-wrap items-center justify-end gap-2">
-            <a href="{{ route('admin.mandatory-disclosure.create', ['category' => 'general_info']) }}" class="inline-flex items-center justify-center rounded-xl text-xs font-semibold transition-all border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 shadow-xs h-9 px-3.5 gap-1.5">
-                <svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-                <span>Add General Info</span>
-            </a>
-            <a href="{{ route('admin.mandatory-disclosure.create', ['category' => 'document']) }}" class="inline-flex items-center justify-center rounded-xl text-xs font-semibold transition-all border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 shadow-xs h-9 px-3.5 gap-1.5">
-                <svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-                <span>Add Certificate / Doc</span>
-            </a>
-            <a href="{{ route('admin.mandatory-disclosure.create', ['category' => 'infrastructure']) }}" class="inline-flex items-center justify-center rounded-xl text-xs font-semibold transition-all border border-blue-200 bg-blue-50/70 hover:bg-blue-100 text-jrs-navy shadow-xs h-9 px-3.5 gap-1.5">
-                <svg class="w-3.5 h-3.5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
-                <span>Add Infrastructure</span>
-            </a>
-            <a href="{{ route('admin.mandatory-disclosure.create', ['category' => 'smc']) }}" class="inline-flex items-center justify-center rounded-xl text-xs font-semibold transition-all bg-jrs-red hover:opacity-95 text-white shadow-xs h-9 px-3.5 gap-1.5">
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
-                <span>Add SMC Doc</span>
-            </a>
+    <!-- Top Bar: Header & Actions -->
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div>
+            <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-slate-900 font-heading">
+                @if($activeTab === 'general_info')
+                    Table 1: General Information
+                @elseif($activeTab === 'document')
+                    Table 2: Documents &amp; Information
+                @elseif($activeTab === 'infrastructure')
+                    Table 3: School Infrastructure
+                @elseif($activeTab === 'smc')
+                    Table 4: School Management Committee (SMC)
+                @endif
+            </h2>
+            <p class="text-xs sm:text-sm text-slate-500 mt-0.5">
+                @if($activeTab === 'general_info')
+                    School affiliation, registration code, contacts, and campus principal details.
+                @elseif($activeTab === 'document')
+                    CBSE statutory certificates, NOC, building/fire safety, and regulatory PDFs.
+                @elseif($activeTab === 'infrastructure')
+                    School campus area, classrooms, science/computer labs, and inspection video tour.
+                @elseif($activeTab === 'smc')
+                    School Management Committee and Parents Teachers Association documents.
+                @endif
+            </p>
         </div>
 
+        <!-- Add Actions -->
+        <div class="flex flex-wrap items-center gap-2.5">
+            @if($activeTab === 'general_info')
+                <a href="{{ route('admin.mandatory-disclosure.create', ['type' => 'table', 'table' => 'general_info', 'category' => 'general_info']) }}" class="inline-flex items-center justify-center rounded-xl text-xs sm:text-sm font-semibold transition-all bg-jrs-navy hover:bg-slate-800 text-white shadow-xs h-9 px-4 gap-2">
+                    <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                    <span>+ Add General Info Item</span>
+                </a>
+            @elseif($activeTab === 'document')
+                <a href="{{ route('admin.mandatory-disclosure.create', ['type' => 'feature', 'table' => 'document', 'category' => 'document']) }}" class="inline-flex items-center justify-center rounded-xl text-xs sm:text-sm font-semibold transition-all bg-jrs-navy hover:bg-slate-800 text-white shadow-xs h-9 px-4 gap-2">
+                    <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                    <span>+ Add Certificate / Document</span>
+                </a>
+            @elseif($activeTab === 'infrastructure')
+                <a href="{{ route('admin.mandatory-disclosure.create', ['type' => 'table', 'table' => 'infrastructure', 'category' => 'infrastructure']) }}" class="inline-flex items-center justify-center rounded-xl text-xs sm:text-sm font-semibold transition-all bg-jrs-navy hover:bg-slate-800 text-white shadow-xs h-9 px-4 gap-2">
+                    <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                    <span>+ Add Infrastructure Item</span>
+                </a>
+            @elseif($activeTab === 'smc')
+                <a href="{{ route('admin.mandatory-disclosure.create', ['type' => 'feature', 'table' => 'smc', 'category' => 'smc']) }}" class="inline-flex items-center justify-center rounded-xl text-xs sm:text-sm font-semibold transition-all bg-jrs-navy hover:bg-slate-800 text-white shadow-xs h-9 px-4 gap-2">
+                    <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                    <span>+ Add SMC Item</span>
+                </a>
+            @endif
+        </div>
+    </div>
+
+    <!-- 4 Separate Tables Navigation Tabs -->
+    <div class="flex flex-wrap items-center gap-2 border-b border-slate-200 pb-3">
+        <a href="{{ route('admin.mandatory-disclosure.index', ['table' => 'general_info']) }}" 
+           class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all {{ ($activeTab === 'general_info') ? 'bg-jrs-navy text-white shadow-xs' : 'bg-white border border-slate-200 text-slate-600 hover:bg-slate-50' }}">
+            <span class="w-2 h-2 rounded-full bg-blue-500"></span>
+            <span>1. General Information</span>
+            <span class="px-1.5 py-0.5 rounded-full text-[10px] {{ ($activeTab === 'general_info') ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-600' }}">{{ $generalCount }}</span>
+        </a>
+
+        <a href="{{ route('admin.mandatory-disclosure.index', ['table' => 'document']) }}" 
+           class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all {{ ($activeTab === 'document') ? 'bg-jrs-navy text-white shadow-xs' : 'bg-white border border-slate-200 text-slate-600 hover:bg-slate-50' }}">
+            <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+            <span>2. Documents &amp; Info</span>
+            <span class="px-1.5 py-0.5 rounded-full text-[10px] {{ ($activeTab === 'document') ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-600' }}">{{ $documentCount }}</span>
+        </a>
+
+        <a href="{{ route('admin.mandatory-disclosure.index', ['table' => 'infrastructure']) }}" 
+           class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all {{ ($activeTab === 'infrastructure') ? 'bg-jrs-navy text-white shadow-xs' : 'bg-white border border-slate-200 text-slate-600 hover:bg-slate-50' }}">
+            <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+            <span>3. Infrastructure</span>
+            <span class="px-1.5 py-0.5 rounded-full text-[10px] {{ ($activeTab === 'infrastructure') ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-600' }}">{{ $infrastructureCount }}</span>
+        </a>
+
+        <a href="{{ route('admin.mandatory-disclosure.index', ['table' => 'smc']) }}" 
+           class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all {{ ($activeTab === 'smc') ? 'bg-jrs-navy text-white shadow-xs' : 'bg-white border border-slate-200 text-slate-600 hover:bg-slate-50' }}">
+            <span class="w-2 h-2 rounded-full bg-purple-500"></span>
+            <span>4. SMC Committee</span>
+            <span class="px-1.5 py-0.5 rounded-full text-[10px] {{ ($activeTab === 'smc') ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-600' }}">{{ $smcCount }}</span>
+        </a>
+    </div>
 
     <!-- Section 1: General Information Table -->
+    @if($activeTab === 'general_info')
     <div class="space-y-3">
         <div class="flex items-center justify-between">
             <div class="flex items-center gap-2.5">
-                <span class="w-1.5 h-6 rounded-full bg-jrs-red"></span>
+                <span class="w-1.5 h-6 rounded-full bg-blue-500"></span>
                 <h3 class="text-base sm:text-lg font-bold text-slate-900 font-heading">General Information</h3>
                 <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-slate-100 text-slate-600">{{ $generalCount }} items</span>
-             <a href="{{ route('admin.mandatory-disclosure.create', ['category' => 'general_info']) }}" class="text-xs font-semibold text-jrs-navy hover:text-jrs-red transition-colors flex items-center gap-1">
-                <span>+ Add Item</span>
+            </div>
+            <a href="{{ route('admin.mandatory-disclosure.create', ['type' => 'table', 'table' => 'general_info', 'category' => 'general_info']) }}" class="text-xs font-semibold text-jrs-navy hover:text-jrs-red transition-colors flex items-center gap-1">
+                <span>+ Add Table Item</span>
             </a>
         </div>
 
@@ -47,7 +112,6 @@
                             <th class="h-10 px-4 w-20 text-center">S. NO.</th>
                             <th class="h-10 px-4 w-1/3">INFORMATION</th>
                             <th class="h-10 px-4">DETAILS</th>
-                            <th class="h-10 px-4 w-24 text-center">Status</th>
                             <th class="h-10 px-4 w-28 text-right">Actions</th>
                         </tr>
                     </thead>
@@ -63,15 +127,6 @@
                                 <td class="p-4 text-xs sm:text-sm text-slate-600">
                                     {{ $info->value }}
                                 </td>
-                                <td class="p-4 text-center whitespace-nowrap">
-                                    <form action="{{ route('admin.mandatory-disclosure.toggle', $info->id) }}" method="POST">
-                                        @csrf
-                                        <button type="submit" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold transition-all {{ $info->is_active ? 'bg-emerald-50 text-emerald-700 hover:bg-emerald-100' : 'bg-slate-100 text-slate-500 hover:bg-slate-200' }}">
-                                            <span class="w-1.5 h-1.5 rounded-full {{ $info->is_active ? 'bg-emerald-500' : 'bg-slate-400' }}"></span>
-                                            <span>{{ $info->is_active ? 'Active' : 'Draft' }}</span>
-                                        </button>
-                                    </form>
-                                </td>
                                 <td class="p-4 text-right whitespace-nowrap">
                                     <div class="flex items-center justify-end gap-1.5">
                                         <a href="{{ route('admin.mandatory-disclosure.edit', $info->id) }}" class="inline-flex items-center justify-center w-8 h-8 rounded-lg text-slate-500 hover:text-jrs-navy hover:bg-slate-100 transition-colors" title="Edit">
@@ -85,12 +140,12 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="5" class="p-8 text-center">
+                                <td colspan="4" class="p-8 text-center">
                                     <h4 class="text-xs sm:text-sm font-semibold text-slate-700">No General Information added yet</h4>
                                     <p class="text-xs text-slate-400 mt-1">Add school details (Name, Affiliation No, School Code, Email, Contacts).</p>
                                     <div class="mt-3">
-                                        <a href="{{ route('admin.mandatory-disclosure.create', ['category' => 'general_info']) }}" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-jrs-navy text-white hover:opacity-95 shadow-xs">
-                                            <span>+ Add General Info</span>
+                                        <a href="{{ route('admin.mandatory-disclosure.create', ['type' => 'table', 'table' => 'general_info', 'category' => 'general_info']) }}" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-jrs-navy text-white hover:opacity-95 shadow-xs">
+                                            <span>+ Add Table Item</span>
                                         </a>
                                     </div>
                                 </td>
@@ -101,17 +156,19 @@
             </div>
         </div>
     </div>
+    @endif
 
     <!-- Section 2: Documents And Information Table -->
+    @if($activeTab === 'document')
     <div class="space-y-3">
         <div class="flex items-center justify-between">
             <div class="flex items-center gap-2.5">
-                <span class="w-1.5 h-6 rounded-full bg-jrs-red"></span>
+                <span class="w-1.5 h-6 rounded-full bg-amber-500"></span>
                 <h3 class="text-base sm:text-lg font-bold text-slate-900 font-heading">Documents And Information</h3>
                 <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-slate-100 text-slate-600">{{ $documentCount }} documents</span>
             </div>
-            <a href="{{ route('admin.mandatory-disclosure.create', ['category' => 'document']) }}" class="text-xs font-semibold text-jrs-navy hover:text-jrs-red transition-colors flex items-center gap-1">
-                <span>+ Add Document</span>
+            <a href="{{ route('admin.mandatory-disclosure.create', ['type' => 'feature', 'table' => 'document', 'category' => 'document']) }}" class="text-xs font-semibold text-jrs-navy hover:text-jrs-red transition-colors flex items-center gap-1">
+                <span>+ Add Feature / Document</span>
             </a>
         </div>
 
@@ -123,7 +180,6 @@
                             <th class="h-10 px-4 w-20 text-center">S. NO.</th>
                             <th class="h-10 px-4">DOCUMENTS / INFORMATION</th>
                             <th class="h-10 px-4 w-64">UPLOAD DOCUMENTS</th>
-                            <th class="h-10 px-4 w-24 text-center">Status</th>
                             <th class="h-10 px-4 w-28 text-right">Actions</th>
                         </tr>
                     </thead>
@@ -137,23 +193,17 @@
                                     {{ $doc->title }}
                                 </td>
                                 <td class="p-4 whitespace-nowrap">
-                                    @if($doc->download_link)
-                                        <a href="{{ $doc->download_link }}" target="_blank" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-semibold bg-blue-50 text-jrs-navy border border-blue-200/60 hover:bg-blue-100 transition-colors">
-                                            <svg class="w-3.5 h-3.5 text-blue-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-                                            <span>{{ $doc->button_label ?: 'View Document' }}</span>
+                                    @if($doc->file_path || $doc->download_link)
+                                        <a href="{{ $doc->download_link }}" target="_blank" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-semibold bg-rose-50 text-rose-700 border border-rose-200/60 hover:bg-rose-100 transition-colors">
+                                            <svg class="w-3.5 h-3.5 text-rose-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+                                            <span>View PDF</span>
                                         </a>
                                     @else
-                                        <span class="text-xs text-slate-400 italic">No file uploaded</span>
+                                        <a href="{{ route('admin.mandatory-disclosure.edit', $doc->id) }}" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200 transition-colors">
+                                            <svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+                                            <span>+ Upload PDF</span>
+                                        </a>
                                     @endif
-                                </td>
-                                <td class="p-4 text-center whitespace-nowrap">
-                                    <form action="{{ route('admin.mandatory-disclosure.toggle', $doc->id) }}" method="POST">
-                                        @csrf
-                                        <button type="submit" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold transition-all {{ $doc->is_active ? 'bg-emerald-50 text-emerald-700 hover:bg-emerald-100' : 'bg-slate-100 text-slate-500 hover:bg-slate-200' }}">
-                                            <span class="w-1.5 h-1.5 rounded-full {{ $doc->is_active ? 'bg-emerald-500' : 'bg-slate-400' }}"></span>
-                                            <span>{{ $doc->is_active ? 'Active' : 'Draft' }}</span>
-                                        </button>
-                                    </form>
                                 </td>
                                 <td class="p-4 text-right whitespace-nowrap">
                                     <div class="flex items-center justify-end gap-1.5">
@@ -168,12 +218,12 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="5" class="p-8 text-center">
+                                <td colspan="4" class="p-8 text-center">
                                     <h4 class="text-xs sm:text-sm font-semibold text-slate-700">No Documents or Certificates added yet</h4>
                                     <p class="text-xs text-slate-400 mt-1">Upload Affiliation letter, Society Registration, NOC, Safety Certificates, etc.</p>
                                     <div class="mt-3">
-                                        <a href="{{ route('admin.mandatory-disclosure.create', ['category' => 'document']) }}" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-jrs-red text-white hover:opacity-95 shadow-xs">
-                                            <span>+ Add Certificate / Doc</span>
+                                        <a href="{{ route('admin.mandatory-disclosure.create', ['type' => 'feature', 'table' => 'document', 'category' => 'document']) }}" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-jrs-navy text-white hover:opacity-95 shadow-xs">
+                                            <span>+ Add Feature / Document</span>
                                         </a>
                                     </div>
                                 </td>
@@ -184,17 +234,19 @@
             </div>
         </div>
     </div>
+    @endif
 
     <!-- Section 3: School Infrastructure Table -->
+    @if($activeTab === 'infrastructure')
     <div class="space-y-3">
         <div class="flex items-center justify-between">
             <div class="flex items-center gap-2.5">
-                <span class="w-1.5 h-6 rounded-full bg-jrs-red"></span>
+                <span class="w-1.5 h-6 rounded-full bg-emerald-500"></span>
                 <h3 class="text-base sm:text-lg font-bold text-slate-900 font-heading">School Infrastructure</h3>
                 <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-slate-100 text-slate-600">{{ $infrastructureCount }} records</span>
             </div>
-            <a href="{{ route('admin.mandatory-disclosure.create', ['category' => 'infrastructure']) }}" class="text-xs font-semibold text-jrs-navy hover:text-jrs-red transition-colors flex items-center gap-1">
-                <span>+ Add Item</span>
+            <a href="{{ route('admin.mandatory-disclosure.create', ['type' => 'table', 'table' => 'infrastructure', 'category' => 'infrastructure']) }}" class="text-xs font-semibold text-jrs-navy hover:text-jrs-red transition-colors flex items-center gap-1">
+                <span>+ Add Table Item</span>
             </a>
         </div>
 
@@ -206,16 +258,11 @@
                             <th class="h-10 px-4 w-20 text-center">S.NO.</th>
                             <th class="h-10 px-4 w-1/3">INFORMATION</th>
                             <th class="h-10 px-4">DETAILS</th>
-                            <th class="h-10 px-4 w-52">ACTION / LINK</th>
-                            <th class="h-10 px-4 w-24 text-center">Status</th>
                             <th class="h-10 px-4 w-28 text-right">Actions</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-slate-100">
                         @forelse($infrastructures as $infra)
-                            @php
-                                $isVideo = Str::contains(strtolower($infra->button_label . ' ' . $infra->title . ' ' . $infra->file_url), ['video', 'youtube', 'youtu.be']);
-                            @endphp
                             <tr class="hover:bg-slate-50/60 transition-colors">
                                 <td class="p-4 text-center font-mono text-xs font-semibold text-slate-500">
                                     {{ $infra->s_no ?: ($loop->index + 1) }}
@@ -223,34 +270,29 @@
                                 <td class="p-4 font-semibold text-slate-900 text-xs sm:text-sm">
                                     {{ $infra->title }}
                                 </td>
-                                <td class="p-4 text-xs sm:text-sm text-slate-600">
-                                    {{ $infra->value ?: '-' }}
-                                </td>
-                                <td class="p-4 whitespace-nowrap">
-                                    @if($infra->download_link || $infra->button_label)
-                                        @if($isVideo)
-                                            <a href="{{ $infra->download_link ?: '#' }}" target="_blank" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-red-50 text-red-600 border border-red-200 hover:bg-red-100 transition-colors">
-                                                <svg class="w-3.5 h-3.5 text-red-600 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                                                <span>{{ $infra->button_label ?: 'Watch Video' }}</span>
-                                            </a>
-                                        @else
-                                            <a href="{{ $infra->download_link ?: '#' }}" target="_blank" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-semibold bg-blue-50 text-jrs-navy border border-blue-200/60 hover:bg-blue-100 transition-colors">
-                                                <svg class="w-3.5 h-3.5 text-blue-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-                                                <span>{{ $infra->button_label ?: 'View Document' }}</span>
-                                            </a>
+                                <td class="p-4 text-xs sm:text-sm text-slate-700">
+                                    <div class="flex flex-wrap items-center justify-between gap-3">
+                                        @if($infra->value)
+                                            <span class="font-medium text-slate-800">{{ $infra->value }}</span>
                                         @endif
-                                    @else
-                                        <span class="text-xs text-slate-300">-</span>
-                                    @endif
-                                </td>
-                                <td class="p-4 text-center whitespace-nowrap">
-                                    <form action="{{ route('admin.mandatory-disclosure.toggle', $infra->id) }}" method="POST">
-                                        @csrf
-                                        <button type="submit" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold transition-all {{ $infra->is_active ? 'bg-emerald-50 text-emerald-700 hover:bg-emerald-100' : 'bg-slate-100 text-slate-500 hover:bg-slate-200' }}">
-                                            <span class="w-1.5 h-1.5 rounded-full {{ $infra->is_active ? 'bg-emerald-500' : 'bg-slate-400' }}"></span>
-                                            <span>{{ $infra->is_active ? 'Active' : 'Draft' }}</span>
-                                        </button>
-                                    </form>
+
+                                        @if($infra->download_link || $infra->button_label)
+                                            @php
+                                                $isVideo = Str::contains(strtolower($infra->button_label . ' ' . $infra->title . ' ' . $infra->file_url), ['video', 'youtube', 'youtu.be']);
+                                            @endphp
+                                            @if($isVideo)
+                                                <a href="{{ $infra->download_link ?: '#' }}" target="_blank" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-rose-50 text-rose-600 border border-rose-200/80 hover:bg-rose-100 transition-colors shrink-0">
+                                                    <svg class="w-3.5 h-3.5 text-rose-600 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                                                    <span>{{ $infra->button_label ?: 'Watch Video' }}</span>
+                                                </a>
+                                            @else
+                                                <a href="{{ $infra->download_link ?: '#' }}" target="_blank" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-semibold bg-blue-50 text-jrs-navy border border-blue-200/60 hover:bg-blue-100 transition-colors shrink-0">
+                                                    <svg class="w-3.5 h-3.5 text-blue-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                                                    <span>{{ $infra->button_label ?: 'Land Certificate' }}</span>
+                                                </a>
+                                            @endif
+                                        @endif
+                                    </div>
                                 </td>
                                 <td class="p-4 text-right whitespace-nowrap">
                                     <div class="flex items-center justify-end gap-1.5">
@@ -265,12 +307,12 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="6" class="p-8 text-center">
+                                <td colspan="4" class="p-8 text-center">
                                     <h4 class="text-xs sm:text-sm font-semibold text-slate-700">No School Infrastructure details added yet</h4>
                                     <p class="text-xs text-slate-400 mt-1">Add campus area, number of classrooms, laboratories, toilets, and YouTube inspection video link.</p>
                                     <div class="mt-3">
-                                        <a href="{{ route('admin.mandatory-disclosure.create', ['category' => 'infrastructure']) }}" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-jrs-navy text-white hover:opacity-95 shadow-xs">
-                                            <span>+ Add Infrastructure Item</span>
+                                        <a href="{{ route('admin.mandatory-disclosure.create', ['type' => 'table', 'table' => 'infrastructure', 'category' => 'infrastructure']) }}" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-jrs-navy text-white hover:opacity-95 shadow-xs">
+                                            <span>+ Add Table Item</span>
                                         </a>
                                     </div>
                                 </td>
@@ -281,17 +323,19 @@
             </div>
         </div>
     </div>
+    @endif
 
     <!-- Section 4: School Management Committee Table -->
+    @if($activeTab === 'smc')
     <div class="space-y-3">
         <div class="flex items-center justify-between">
             <div class="flex items-center gap-2.5">
-                <span class="w-1.5 h-6 rounded-full bg-jrs-red"></span>
+                <span class="w-1.5 h-6 rounded-full bg-purple-500"></span>
                 <h3 class="text-base sm:text-lg font-bold text-slate-900 font-heading">School Management Committee</h3>
                 <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-slate-100 text-slate-600">{{ $smcCount }} records</span>
             </div>
-            <a href="{{ route('admin.mandatory-disclosure.create', ['category' => 'smc']) }}" class="text-xs font-semibold text-jrs-navy hover:text-jrs-red transition-colors flex items-center gap-1">
-                <span>+ Add SMC Item</span>
+            <a href="{{ route('admin.mandatory-disclosure.create', ['type' => 'feature', 'table' => 'smc', 'category' => 'smc']) }}" class="text-xs font-semibold text-jrs-navy hover:text-jrs-red transition-colors flex items-center gap-1">
+                <span>+ Add Feature / Document</span>
             </a>
         </div>
 
@@ -323,7 +367,7 @@
                                             <span>{{ $smc->button_label ?: 'View SMC Details' }}</span>
                                         </a>
                                     @else
-                                        <span class="text-xs text-slate-400 italic">No document attached</span>
+                                        <span class="text-xs text-slate-400 italic">No file attached</span>
                                     @endif
                                 </td>
                                 <td class="p-4 text-center whitespace-nowrap">
@@ -352,8 +396,8 @@
                                     <h4 class="text-xs sm:text-sm font-semibold text-slate-700">No School Management Committee details added yet</h4>
                                     <p class="text-xs text-slate-400 mt-1">Add School Management Committee document or link for the public disclosure page.</p>
                                     <div class="mt-3">
-                                        <a href="{{ route('admin.mandatory-disclosure.create', ['category' => 'smc']) }}" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-jrs-red text-white hover:opacity-95 shadow-xs">
-                                            <span>+ Add SMC Item</span>
+                                        <a href="{{ route('admin.mandatory-disclosure.create', ['type' => 'feature', 'table' => 'smc', 'category' => 'smc']) }}" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-jrs-navy text-white hover:opacity-95 shadow-xs">
+                                            <span>+ Add Feature / Document</span>
                                         </a>
                                     </div>
                                 </td>
@@ -364,6 +408,7 @@
             </div>
         </div>
     </div>
+    @endif
 
 </div>
 

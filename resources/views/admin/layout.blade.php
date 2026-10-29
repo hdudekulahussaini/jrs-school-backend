@@ -123,6 +123,10 @@
             if (e) e.stopPropagation();
             toggleDropdown('committeeDropdownMenu', 'committeeDropdownArrow');
         }
+        function toggleMandatoryDropdown(e) {
+            if (e) e.stopPropagation();
+            toggleDropdown('mandatoryDropdownMenu', 'mandatoryDropdownArrow');
+        }
         function toggleGalleryDropdown() { toggleDropdown('galleryDropdownMenu', 'galleryDropdownArrow'); }
 
     </script>

@@ -17,19 +17,45 @@ class MandatoryDisclosureApiController extends Controller
             ->where('is_active', true)
             ->orderBy('sort_order', 'asc')
             ->orderBy('id', 'asc')
-            ->get();
+            ->get()
+            ->map(function ($item) {
+                return [
+                    'id'    => $item->id,
+                    's_no'  => $item->s_no,
+                    'title' => $item->title,
+                    'value' => $item->value,
+                ];
+            });
 
         $documents = MandatoryDisclosure::where('category', 'document')
             ->where('is_active', true)
             ->orderBy('sort_order', 'asc')
             ->orderBy('id', 'asc')
-            ->get();
+            ->get()
+            ->map(function ($item) {
+                return [
+                    'id'            => $item->id,
+                    's_no'          => $item->s_no,
+                    'title'         => $item->title,
+                    'download_link' => $item->download_link,
+                ];
+            });
 
         $infrastructure = MandatoryDisclosure::where('category', 'infrastructure')
             ->where('is_active', true)
             ->orderBy('sort_order', 'asc')
             ->orderBy('id', 'asc')
-            ->get();
+            ->get()
+            ->map(function ($item) {
+                return [
+                    'id'            => $item->id,
+                    's_no'          => $item->s_no,
+                    'title'         => $item->title,
+                    'value'         => $item->value,
+                    'button_label'  => $item->button_label,
+                    'download_link' => $item->download_link,
+                ];
+            });
 
         $smc = MandatoryDisclosure::where('category', 'smc')
             ->where('is_active', true)

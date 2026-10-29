@@ -28,13 +28,11 @@ class AcademicJourneyApiController extends Controller
     }
 
     /**
-     * Get a specific academic journey by ID or slug.
+     * Get a specific academic journey by ID.
      */
-    public function show(string $idOrSlug): JsonResponse
+    public function show($id): JsonResponse
     {
-        $journey = AcademicJourney::where('id', $idOrSlug)
-            ->orWhere('slug', $idOrSlug)
-            ->first();
+        $journey = AcademicJourney::find($id);
 
         if (!$journey) {
             return response()->json([

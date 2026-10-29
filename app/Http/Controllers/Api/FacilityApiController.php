@@ -114,6 +114,10 @@ class FacilityApiController extends Controller
             $validated['is_active'] = true;
         }
 
+        if ($request->has('highlights') && is_array($request->input('highlights'))) {
+            $validated['highlights'] = array_values(array_filter(array_map('trim', $request->input('highlights'))));
+        }
+
         if ($request->hasFile('image')) {
             $file = $request->file('image');
             $uploadDir = public_path('uploads/facilities');
@@ -125,6 +129,20 @@ class FacilityApiController extends Controller
             $validated['image_path'] = 'uploads/facilities/' . $filename;
         } elseif (!empty($validated['image_url'])) {
             $validated['image_path'] = $validated['image_url'];
+        }
+
+        if ($request->hasFile('gallery_images')) {
+            $galleryDir = public_path('uploads/facilities/gallery');
+            if (!File::exists($galleryDir)) {
+                File::makeDirectory($galleryDir, 0755, true);
+            }
+            $galleryImages = [];
+            foreach ($request->file('gallery_images') as $img) {
+                $gFilename = 'gallery_' . time() . '_' . Str::random(6) . '.' . $img->getClientOriginalExtension();
+                $img->move($galleryDir, $gFilename);
+                $galleryImages[] = 'uploads/facilities/gallery/' . $gFilename;
+            }
+            $validated['gallery_images'] = $galleryImages;
         }
 
         $facility = Facility::create($validated);
@@ -172,6 +190,10 @@ class FacilityApiController extends Controller
 
         $validated = $request->validated();
 
+        if ($request->has('highlights') && is_array($request->input('highlights'))) {
+            $validated['highlights'] = array_values(array_filter(array_map('trim', $request->input('highlights'))));
+        }
+
         if ($request->hasFile('image')) {
             $this->deletePhysicalImage($facility->image_path);
             $file = $request->file('image');
@@ -184,6 +206,22 @@ class FacilityApiController extends Controller
             $validated['image_path'] = 'uploads/facilities/' . $filename;
         } elseif (!empty($validated['image_url'])) {
             $validated['image_path'] = $validated['image_url'];
+        }
+
+        if ($request->hasFile('gallery_images')) {
+            $existing = $request->input('existing_gallery_images', is_array($facility->gallery_images) ? $facility->gallery_images : []);
+            $galleryDir = public_path('uploads/facilities/gallery');
+            if (!File::exists($galleryDir)) {
+                File::makeDirectory($galleryDir, 0755, true);
+            }
+            foreach ($request->file('gallery_images') as $img) {
+                $gFilename = 'gallery_' . time() . '_' . Str::random(6) . '.' . $img->getClientOriginalExtension();
+                $img->move($galleryDir, $gFilename);
+                $existing[] = 'uploads/facilities/gallery/' . $gFilename;
+            }
+            $validated['gallery_images'] = $existing;
+        } elseif ($request->has('existing_gallery_images')) {
+            $validated['gallery_images'] = is_array($request->input('existing_gallery_images')) ? array_values($request->input('existing_gallery_images')) : [];
         }
 
         $facility->update($validated);

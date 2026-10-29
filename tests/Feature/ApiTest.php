@@ -587,3 +587,19 @@ test('Full CRUD on Breadcrumb Banners: POST, GET, PUT, DELETE', function () {
 
     $this->assertDatabaseMissing('breadcrumb_banners', ['id' => $id]);
 });
+
+/*
+|--------------------------------------------------------------------------
+| Section 7: Swagger Documentation & OpenAPI Spec Endpoints
+|--------------------------------------------------------------------------
+*/
+
+test('GET /swagger returns Swagger UI documentation page', function () {
+    $response = $this->get('/swagger');
+    $response->assertStatus(200)
+        ->assertSee('swagger-ui')
+        ->assertSee('Swagger API Docs')
+        ->assertSee('spec: spec', false);
+});
+
+

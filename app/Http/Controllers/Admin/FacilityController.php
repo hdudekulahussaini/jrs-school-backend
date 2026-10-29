@@ -64,6 +64,12 @@ class FacilityController extends Controller
         $validated['is_active'] = $request->has('is_active') ? $request->boolean('is_active') : true;
         $validated['sort_order'] = $request->input('sort_order', (Facility::max('sort_order') ?? 0) + 1);
 
+        if ($request->has('highlights') && is_array($request->input('highlights'))) {
+            $validated['highlights'] = array_values(array_filter(array_map('trim', $request->input('highlights'))));
+        } else {
+            $validated['highlights'] = [];
+        }
+
         if ($request->hasFile('image')) {
             $file = $request->file('image');
             $uploadDir = public_path('uploads/facilities');
@@ -76,6 +82,20 @@ class FacilityController extends Controller
         } elseif (!empty($validated['image_url'])) {
             $validated['image_path'] = $validated['image_url'];
         }
+
+        $galleryImages = [];
+        if ($request->hasFile('gallery_images')) {
+            $galleryDir = public_path('uploads/facilities/gallery');
+            if (!File::exists($galleryDir)) {
+                File::makeDirectory($galleryDir, 0755, true);
+            }
+            foreach ($request->file('gallery_images') as $img) {
+                $gFilename = 'gallery_' . time() . '_' . Str::random(6) . '.' . $img->getClientOriginalExtension();
+                $img->move($galleryDir, $gFilename);
+                $galleryImages[] = 'uploads/facilities/gallery/' . $gFilename;
+            }
+        }
+        $validated['gallery_images'] = $galleryImages;
 
         Facility::create($validated);
 
@@ -114,6 +134,12 @@ class FacilityController extends Controller
             $validated['is_active'] = $request->boolean('is_active');
         }
 
+        if ($request->has('highlights') && is_array($request->input('highlights'))) {
+            $validated['highlights'] = array_values(array_filter(array_map('trim', $request->input('highlights'))));
+        } else {
+            $validated['highlights'] = [];
+        }
+
         if ($request->has('remove_image') && $request->remove_image == '1') {
             $this->deletePhysicalImage($facility->image_path);
             $validated['image_path'] = null;
@@ -132,6 +158,32 @@ class FacilityController extends Controller
         } elseif (!empty($validated['image_url'])) {
             $validated['image_path'] = $validated['image_url'];
         }
+
+        // Manage Gallery Images
+        $existing = $request->input('existing_gallery_images', []);
+        if (!is_array($existing)) {
+            $existing = [];
+        }
+        $oldGallery = is_array($facility->gallery_images) ? $facility->gallery_images : [];
+        foreach ($oldGallery as $oldImg) {
+            if (!in_array($oldImg, $existing)) {
+                $this->deletePhysicalImage($oldImg);
+            }
+        }
+        $galleryImages = array_values($existing);
+
+        if ($request->hasFile('gallery_images')) {
+            $galleryDir = public_path('uploads/facilities/gallery');
+            if (!File::exists($galleryDir)) {
+                File::makeDirectory($galleryDir, 0755, true);
+            }
+            foreach ($request->file('gallery_images') as $img) {
+                $gFilename = 'gallery_' . time() . '_' . Str::random(6) . '.' . $img->getClientOriginalExtension();
+                $img->move($galleryDir, $gFilename);
+                $galleryImages[] = 'uploads/facilities/gallery/' . $gFilename;
+            }
+        }
+        $validated['gallery_images'] = $galleryImages;
 
         $facility->update($validated);
 
@@ -167,6 +219,13 @@ class FacilityController extends Controller
     {
         $facility = Facility::findOrFail($id);
         $this->deletePhysicalImage($facility->image_path);
+
+        if (is_array($facility->gallery_images)) {
+            foreach ($facility->gallery_images as $gImg) {
+                $this->deletePhysicalImage($gImg);
+            }
+        }
+
         $facility->delete();
 
         flash()->info('Facility card deleted successfully.', 'Facility Removed');

@@ -222,10 +222,45 @@
                         <span>Admission Banner</span>
                     </a>
 
-                    <a href="{{ route('admin.mandatory-disclosure.index') }}" class="flex items-center gap-2.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors {{ request()->routeIs('admin.mandatory-disclosure.*') ? 'bg-jrs-red text-white font-semibold shadow-xs' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
-                        <span class="w-1.5 h-1.5 rounded-full {{ request()->routeIs('admin.mandatory-disclosure.*') ? 'bg-white ring-2 ring-white/30' : 'bg-white/40' }}"></span>
-                        <span>Mandatory Disclosure</span>
-                    </a>
+                    <!-- Mandatory Disclosure Sub-Dropdown -->
+                    @php
+                        $isMandatoryActive = request()->routeIs('admin.mandatory-disclosure.*');
+                        $currentTable = request()->query('table');
+                    @endphp
+                    <div class="space-y-1">
+                        <button type="button" 
+                                id="mandatoryDropdownBtn"
+                                onclick="toggleMandatoryDropdown(event)" 
+                                class="w-full flex items-center justify-between px-3 py-1.5 rounded-md text-xs font-medium transition-colors {{ $isMandatoryActive ? 'bg-white/15 text-white font-semibold' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
+                            <div class="flex items-center gap-2">
+                                <svg class="w-3.5 h-3.5 shrink-0 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                                <span>Mandatory Disclosure</span>
+                            </div>
+                            <svg id="mandatoryDropdownArrow" class="w-3 h-3 shrink-0 transition-transform duration-200 {{ $isMandatoryActive ? 'rotate-180 text-white' : 'text-white/60' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                        </button>
+
+                        <div id="mandatoryDropdownMenu" class="{{ $isMandatoryActive ? '' : 'hidden' }} pl-3 pr-1 py-1 space-y-1 border-l border-white/10 ml-3">
+                            <a href="{{ route('admin.mandatory-disclosure.index', ['table' => 'general_info']) }}" class="flex items-center gap-2 px-2.5 py-1.5 rounded-md text-[11px] font-medium transition-colors {{ ($isMandatoryActive && ($currentTable === 'general_info' || empty($currentTable))) ? 'bg-jrs-red text-white font-semibold shadow-xs' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
+                                <span class="w-1.5 h-1.5 rounded-full {{ ($isMandatoryActive && ($currentTable === 'general_info' || empty($currentTable))) ? 'bg-white ring-2 ring-white/30' : 'bg-white/40' }}"></span>
+                                <span>1. General Information</span>
+                            </a>
+
+                            <a href="{{ route('admin.mandatory-disclosure.index', ['table' => 'document']) }}" class="flex items-center gap-2 px-2.5 py-1.5 rounded-md text-[11px] font-medium transition-colors {{ ($isMandatoryActive && $currentTable === 'document') ? 'bg-jrs-red text-white font-semibold shadow-xs' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
+                                <span class="w-1.5 h-1.5 rounded-full {{ ($isMandatoryActive && $currentTable === 'document') ? 'bg-white ring-2 ring-white/30' : 'bg-white/40' }}"></span>
+                                <span>2. Documents & Info</span>
+                            </a>
+
+                            <a href="{{ route('admin.mandatory-disclosure.index', ['table' => 'infrastructure']) }}" class="flex items-center gap-2 px-2.5 py-1.5 rounded-md text-[11px] font-medium transition-colors {{ ($isMandatoryActive && $currentTable === 'infrastructure') ? 'bg-jrs-red text-white font-semibold shadow-xs' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
+                                <span class="w-1.5 h-1.5 rounded-full {{ ($isMandatoryActive && $currentTable === 'infrastructure') ? 'bg-white ring-2 ring-white/30' : 'bg-white/40' }}"></span>
+                                <span>3. Infrastructure</span>
+                            </a>
+
+                            <a href="{{ route('admin.mandatory-disclosure.index', ['table' => 'smc']) }}" class="flex items-center gap-2 px-2.5 py-1.5 rounded-md text-[11px] font-medium transition-colors {{ ($isMandatoryActive && $currentTable === 'smc') ? 'bg-jrs-red text-white font-semibold shadow-xs' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
+                                <span class="w-1.5 h-1.5 rounded-full {{ ($isMandatoryActive && $currentTable === 'smc') ? 'bg-white ring-2 ring-white/30' : 'bg-white/40' }}"></span>
+                                <span>4. School Committee (SMC)</span>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -468,18 +503,6 @@
                 <span>Contact Us Settings</span>
             </a>
         </div>
-
-        <!-- SECTION 4: DEVELOPER & SYSTEM -->
-        <div class="space-y-1">
-            <div class="px-3 pb-1 text-[10px] font-bold uppercase tracking-wider text-white/40">Developer & System</div>
-
-            <a href="{{ route('admin.swagger') }}" 
-               class="flex items-center gap-3 px-3 py-2 rounded-lg text-xs sm:text-sm font-medium transition-all {{ request()->routeIs('admin.swagger') ? 'bg-jrs-red text-white font-semibold shadow-xs' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
-                <svg class="w-4 h-4 shrink-0 text-amber-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
-                <span>Swagger API Docs</span>
-            </a>
-        </div>
-
     </div>
 
     <!-- User Footer Info & Logout -->

@@ -61,7 +61,7 @@ Route::get('/admin/login', [AdminAuthController::class, 'showLogin'])->name('log
 Route::post('/admin/login', [AdminAuthController::class, 'login'])->name('admin.login.submit');
 Route::post('/admin/logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
 
-// Direct Swagger Documentation Route
+// Swagger API Documentation (http://127.0.0.1:8000/swagger)
 Route::get('/swagger', function () {
     return view('admin.swagger');
 })->name('swagger');
@@ -104,6 +104,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
 
     // About JRS Section Full CRUD Resource
     Route::resource('/about', AboutSectionController::class)->names('admin.about');
+    Route::post('/about/{id}/toggle', [AboutSectionController::class, 'toggle'])->name('admin.about.toggle');
 
     // Vision & Mission Full CRUD Resource
     Route::resource('/vision-mission', VisionMissionController::class)->names('admin.vision-mission');
@@ -166,7 +167,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::post('/programs/{id}/toggle', [AcademicProgramController::class, 'toggle'])->name('admin.programs.toggle');
 
     // Academics Page (Academic Journeys) Full CRUD Resource
-    Route::resource('/academic-journeys', AcademicJourneyController::class)->names('admin.academic-journeys');
+    Route::resource('/academic-journeys', AcademicJourneyController::class)->except(['show'])->names('admin.academic-journeys');
     Route::post('/academic-journeys/{id}/toggle', [AcademicJourneyController::class, 'toggle'])->name('admin.academic-journeys.toggle');
 
     // Beyond Classroom Full CRUD Resource
@@ -216,10 +217,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::post('/breadcrumb-banners/{id}/toggle', [BreadcrumbBannerController::class, 'toggle'])->name('admin.breadcrumb-banners.toggle');
     Route::resource('/breadcrumb-banners', BreadcrumbBannerController::class)->names('admin.breadcrumb-banners');
 
-    // Admin Swagger Documentation
-    Route::get('/swagger', function () {
-        return view('admin.swagger');
-    })->name('admin.swagger');
+
 
 });
 

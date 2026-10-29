@@ -59,8 +59,8 @@ class AcademicJourneyController extends Controller
     {
         $data = $request->validated();
 
-        if (empty($data['slug'])) {
-            $data['slug'] = Str::slug($data['title']);
+        if (isset($data['highlights']) && is_array($data['highlights'])) {
+            $data['highlights'] = array_values(array_filter(array_map('trim', $data['highlights']), fn($val) => $val !== ''));
         }
 
         if ($request->hasFile('image')) {
@@ -85,12 +85,11 @@ class AcademicJourneyController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Show page removed: redirect to edit form.
      */
     public function show(int $id)
     {
-        $journey = AcademicJourney::findOrFail($id);
-        return view('admin.academic_journeys.show', compact('journey'));
+        return redirect()->route('admin.academic-journeys.edit', $id);
     }
 
     /**
@@ -110,8 +109,8 @@ class AcademicJourneyController extends Controller
         $journey = AcademicJourney::findOrFail($id);
         $data = $request->validated();
 
-        if (empty($data['slug'])) {
-            $data['slug'] = Str::slug($data['title']);
+        if (isset($data['highlights']) && is_array($data['highlights'])) {
+            $data['highlights'] = array_values(array_filter(array_map('trim', $data['highlights']), fn($val) => $val !== ''));
         }
 
         if ($request->hasFile('image')) {

@@ -26,6 +26,13 @@ class FacilityRequest extends FormRequest
         return [
             'title' => 'required|string|min:2|max:255',
             'description' => 'nullable|string|max:1000',
+            'overview_description' => 'nullable|string',
+            'highlights' => 'nullable|array',
+            'highlights.*' => 'nullable|string|max:500',
+            'gallery_images' => 'nullable|array',
+            'gallery_images.*' => 'nullable|image|mimes:jpeg,png,jpg,webp,svg|max:6144',
+            'existing_gallery_images' => 'nullable|array',
+            'existing_gallery_images.*' => 'nullable|string',
             'icon' => 'nullable|string|max:255',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,webp,svg|max:6144',
             'image_url' => 'nullable|string|max:1000',

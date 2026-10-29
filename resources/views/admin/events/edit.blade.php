@@ -18,13 +18,6 @@
             <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-jrs-navy font-heading">Edit: {{ $event->title }}</h2>
             <p class="text-xs sm:text-sm text-slate-500">
                 Update event title, dates, badge day/month, photo, and ordering.
-            </p>
-        </div>
-        <div class="flex items-center gap-2">
-            <a href="{{ route('admin.events.show', $event->id) }}" class="inline-flex items-center justify-center rounded-md text-xs sm:text-sm font-semibold border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 shadow-xs h-9 px-3 py-1.5 gap-1.5">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
-                <span>View Details</span>
-            </a>
         </div>
     </div>
 
@@ -113,30 +106,6 @@
                     'urlName' => 'image_url',
                     'urlValue' => old('image_url'),
                 ])
-            </div>
-
-            <!-- Target Link Card -->
-            <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-xs space-y-4">
-                <div class="border-b border-slate-100 pb-3">
-                    <h3 class="text-base font-bold text-jrs-navy font-heading">Call to Action Link</h3>
-                    <p class="text-xs text-slate-500">Configure link button at the bottom of the event card.</p>
-                </div>
-
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                        <label for="link_text" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                            Link Label
-                        </label>
-                        <input type="text" name="link_text" id="link_text" value="{{ old('link_text', $event->link_text) }}" class="flex h-9 w-full rounded-md border border-slate-200 bg-white px-3 py-1 text-xs sm:text-sm shadow-xs focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-jrs-navy">
-                    </div>
-
-                    <div>
-                        <label for="link_url" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                            Target URL / Route
-                        </label>
-                        <input type="text" name="link_url" id="link_url" value="{{ old('link_url', $event->link_url) }}" class="flex h-9 w-full rounded-md border border-slate-200 bg-white px-3 py-1 text-xs sm:text-sm shadow-xs focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-jrs-navy">
-                    </div>
-                </div>
             </div>
 
             <!-- Publishing Settings Card -->

@@ -65,8 +65,6 @@ class AcademicProgramController extends Controller
         $validated = $request->validated();
         $validated['is_active'] = $request->has('is_active');
         $validated['sort_order'] = $request->input('sort_order', 0);
-        $validated['button_text'] = $request->filled('button_text') ? $request->input('button_text') : null;
-        $validated['button_url'] = $request->filled('button_url') ? $request->input('button_url') : null;
 
         // Parse highlights array
         $validated['highlights'] = $this->parseHighlights($request->input('highlights'));
@@ -99,7 +97,7 @@ class AcademicProgramController extends Controller
     public function show($id)
     {
         $program = AcademicProgram::findOrFail($id);
-        return view('admin.programs.show', compact('program'));
+        return redirect()->route('admin.programs.edit', $program->id);
     }
 
     /**
@@ -121,8 +119,6 @@ class AcademicProgramController extends Controller
 
         $validated['is_active'] = $request->has('is_active');
         $validated['sort_order'] = $request->input('sort_order', 0);
-        $validated['button_text'] = $request->filled('button_text') ? $request->input('button_text') : null;
-        $validated['button_url'] = $request->filled('button_url') ? $request->input('button_url') : null;
 
         // Parse highlights array
         $validated['highlights'] = $this->parseHighlights($request->input('highlights'));

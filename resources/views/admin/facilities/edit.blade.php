@@ -16,9 +16,6 @@
             <span class="text-slate-900 font-medium">Edit #{{ $facility->id }}</span>
         </div>
         <div class="flex items-center space-x-2">
-            <a href="{{ route('admin.facilities.show', $facility->id) }}" class="inline-flex items-center justify-center rounded-md text-xs font-medium border border-slate-200 bg-white px-3 h-8 text-slate-700 hover:bg-slate-50 transition-colors">
-                View Details
-            </a>
             <a href="{{ route('admin.facilities.index') }}" class="inline-flex items-center justify-center rounded-md text-xs font-medium border border-slate-200 bg-white px-3 h-8 text-slate-700 hover:bg-slate-50 transition-colors">
                 &larr; Back to list
             </a>
@@ -75,153 +72,142 @@
             <!-- Divider -->
             <div class="border-t border-slate-100"></div>
 
-            @php
-                $rawIcon = old('icon', $facility->icon ?? 'bi bi-laptop');
-                $legacyMap = [
-                    'monitor' => 'bi bi-laptop',
-                    'flask' => 'bi bi-flask',
-                    'book' => 'bi bi-book-half',
-                    'trophy' => 'bi bi-trophy-fill',
-                    'bus' => 'bi bi-bus-front-fill',
-                    'school' => 'bi bi-buildings-fill',
-                ];
-                $displayIcon = $legacyMap[$rawIcon] ?? $rawIcon;
-                if (!\Illuminate\Support\Str::startsWith($displayIcon, ['bi ', 'bi-', 'fa-']) && !str_starts_with($displayIcon, '<')) {
-                    $displayIcon = 'bi bi-' . $displayIcon;
-                }
-            @endphp
-
-            <!-- Section 2: Visual Styling & Icon -->
+            <!-- Section 2: Badge Icon (Bootstrap Icon) -->
             <div class="space-y-4">
                 <div class="space-y-1">
-                    <h4 class="text-xs font-semibold uppercase tracking-wider text-slate-500">2. Card Design & Floating Icon</h4>
-                    <p class="text-xs text-slate-500">Matches the curved bottom wave and floating circular icon in the website design.</p>
+                    <h4 class="text-xs font-semibold uppercase tracking-wider text-slate-500">2. Badge Icon (Bootstrap Icon)</h4>
+                    <p class="text-xs text-slate-500">Overlapping badge icon displayed on the facility card.</p>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <!-- Wave Accent Color -->
-                    <div class="space-y-2">
-                        <label class="text-sm font-medium leading-none text-slate-700">Bottom Wave Accent Color</label>
-                        <div class="grid grid-cols-2 gap-3 pt-1">
-                            <label class="relative flex items-center gap-3 p-3 rounded-lg border border-slate-200 cursor-pointer hover:bg-slate-50 transition-colors has-[:checked]:border-slate-900 has-[:checked]:ring-1 has-[:checked]:ring-slate-900">
-                                <input type="radio" name="theme_color" value="navy" {{ old('theme_color', $facility->theme_color) === 'navy' ? 'checked' : '' }} class="text-slate-900">
-                                <div class="flex items-center gap-2">
-                                    <span class="w-4 h-4 rounded-full bg-jrs-navy shrink-0"></span>
-                                    <span class="text-xs font-semibold text-slate-800">Navy Wave</span>
-                                </div>
+                <div class="space-y-4">
+                    <!-- Badge Icon (Bootstrap Icon) with Live Preview Box -->
+                    <div class="space-y-3">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+                            <label for="icon" class="text-sm font-semibold text-slate-800">
+                                Badge Icon (Bootstrap Icon) <span class="text-rose-500">*</span>
                             </label>
-
-                            <label class="relative flex items-center gap-3 p-3 rounded-lg border border-slate-200 cursor-pointer hover:bg-slate-50 transition-colors has-[:checked]:border-slate-900 has-[:checked]:ring-1 has-[:checked]:ring-slate-900">
-                                <input type="radio" name="theme_color" value="red" {{ old('theme_color', $facility->theme_color) === 'red' ? 'checked' : '' }} class="text-slate-900">
-                                <div class="flex items-center gap-2">
-                                    <span class="w-4 h-4 rounded-full bg-red-600 shrink-0"></span>
-                                    <span class="text-xs font-semibold text-slate-800">Red Wave</span>
-                                </div>
-                            </label>
+                            <span class="text-xs text-slate-400">Overlapping badge icon displayed on the facility card</span>
                         </div>
-                    </div>
 
-                    <!-- Badge Icon Input with Live Preview Box -->
-                    <div class="space-y-1.5">
-                        <div class="flex items-center justify-between">
-                            <label for="icon" class="text-sm font-medium leading-none text-slate-700">
-                                Badge Icon (Bootstrap Icon) <span class="text-red-500">*</span>
-                            </label>
-                            <span class="text-[11px] text-slate-400">Overlapping badge icon on card</span>
-                        </div>
+                        <!-- Input row with Icon Preview Badge -->
                         <div class="flex items-center gap-3">
-                            <div id="icon-preview-box" class="w-10 h-10 rounded-lg flex items-center justify-center text-white text-lg shrink-0 shadow-xs transition-colors duration-200 {{ old('theme_color', $facility->theme_color) === 'red' ? 'bg-red-600' : 'bg-jrs-navy' }}">
-                                <i id="icon-preview" class="{{ $displayIcon }}"></i>
+                            <div id="icon-preview-box" class="w-11 h-11 rounded-xl bg-rose-50/80 border border-rose-200/80 flex items-center justify-center text-rose-600 text-xl shrink-0 shadow-2xs transition-all">
+                                <i id="icon-preview" class="bi bi-display"></i>
                             </div>
                             <div class="flex-1">
-                                <input type="text" name="icon" id="icon" value="{{ old('icon', $displayIcon) }}" placeholder="e.g. bi bi-laptop" class="flex h-10 w-full rounded-md border border-slate-200 bg-white px-3.5 py-2 text-sm text-slate-800 shadow-xs transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-950 font-mono">
+                                <input type="text" name="icon" id="icon" value="{{ old('icon', $facility->icon ?? 'bi bi-display') }}" placeholder="bi bi-display or bi bi-laptop" class="flex h-11 w-full rounded-lg border border-slate-200 bg-white px-3.5 py-2 text-sm text-slate-800 shadow-xs transition-colors placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 focus-visible:border-transparent font-mono">
                             </div>
                         </div>
                         @error('icon')
-                            <p class="text-xs text-red-600 font-medium">{{ $message }}</p>
+                            <p class="text-xs text-rose-600 mt-1">{{ $message }}</p>
                         @enderror
-                    </div>
-                </div>
 
-                <!-- Quick Presets -->
-                <div class="space-y-2 pt-1">
-                    <div class="text-xs font-semibold text-slate-600 flex items-center justify-between">
-                        <span>Quick Presets</span>
-                        <span class="text-[11px] text-slate-400 font-normal">Click any preset to apply icon</span>
-                    </div>
-                    <div class="flex flex-wrap gap-2" id="icon-presets">
-                        <button type="button" data-icon="bi bi-laptop" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
-                            <i class="bi bi-laptop text-slate-600"></i>
-                            <span>Smart Classrooms</span>
-                        </button>
-                        <button type="button" data-icon="bi bi-flask" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
-                            <i class="bi bi-flask text-slate-600"></i>
-                            <span>Science Labs</span>
-                        </button>
-                        <button type="button" data-icon="bi bi-book-half" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
-                            <i class="bi bi-book-half text-slate-600"></i>
-                            <span>Library & Books</span>
-                        </button>
-                        <button type="button" data-icon="bi bi-trophy-fill" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
-                            <i class="bi bi-trophy-fill text-slate-600"></i>
-                            <span>Sports & Athletics</span>
-                        </button>
-                        <button type="button" data-icon="bi bi-bus-front-fill" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
-                            <i class="bi bi-bus-front-fill text-slate-600"></i>
-                            <span>School Transport</span>
-                        </button>
-                        <button type="button" data-icon="bi bi-buildings-fill" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
-                            <i class="bi bi-buildings-fill text-slate-600"></i>
-                            <span>Campus & Infrastructure</span>
-                        </button>
-                        <button type="button" data-icon="bi bi-mortarboard-fill" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
-                            <i class="bi bi-mortarboard-fill text-slate-600"></i>
-                            <span>Academic Excellence</span>
-                        </button>
-                        <button type="button" data-icon="bi bi-calendar-check-fill" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
-                            <i class="bi bi-calendar-check-fill text-slate-600"></i>
-                            <span>Year of Establishment</span>
-                        </button>
-                        <button type="button" data-icon="bi bi-people-fill" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
-                            <i class="bi bi-people-fill text-slate-600"></i>
-                            <span>Happy Students</span>
-                        </button>
-                        <button type="button" data-icon="bi bi-award-fill" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
-                            <i class="bi bi-award-fill text-slate-600"></i>
-                            <span>Expert Teachers</span>
-                        </button>
-                        <button type="button" data-icon="bi bi-shield-check" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
-                            <i class="bi bi-shield-check text-slate-600"></i>
-                            <span>Safe & Secure</span>
-                        </button>
-                        <button type="button" data-icon="bi bi-person-badge-fill" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
-                            <i class="bi bi-person-badge-fill text-slate-600"></i>
-                            <span>1:25 Ratio</span>
-                        </button>
-                        <button type="button" data-icon="bi bi-lightbulb-fill" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
-                            <i class="bi bi-lightbulb-fill text-slate-600"></i>
-                            <span>STEM & Innovation</span>
-                        </button>
-                        <button type="button" data-icon="bi bi-tree-fill" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
-                            <i class="bi bi-tree-fill text-slate-600"></i>
-                            <span>Eco Campus</span>
-                        </button>
-                        <button type="button" data-icon="bi bi-palette-fill" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
-                            <i class="bi bi-palette-fill text-slate-600"></i>
-                            <span>Performing Arts</span>
-                        </button>
-                        <button type="button" data-icon="bi bi-globe2" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
-                            <i class="bi bi-globe2 text-slate-600"></i>
-                            <span>Global Vision</span>
-                        </button>
-                        <button type="button" data-icon="bi bi-heart-pulse-fill" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
-                            <i class="bi bi-heart-pulse-fill text-slate-600"></i>
-                            <span>Health & Wellness</span>
-                        </button>
-                        <button type="button" data-icon="bi bi-stars" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
-                            <i class="bi bi-stars text-slate-600"></i>
-                            <span>Values & Ethos</span>
-                        </button>
+                        <!-- Quick Presets -->
+                        <div class="space-y-2 pt-1">
+                            <div class="text-xs font-semibold text-slate-600">Quick Presets</div>
+                            <div class="flex flex-wrap gap-2" id="icon-presets">
+                                <button type="button" data-icon="bi bi-display" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
+                                    <i class="bi bi-display text-slate-600"></i>
+                                    <span>Smart Classrooms</span>
+                                </button>
+                                <button type="button" data-icon="bi bi-flask" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
+                                    <i class="bi bi-flask text-slate-600"></i>
+                                    <span>Science Labs</span>
+                                </button>
+                                <button type="button" data-icon="bi bi-book-half" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
+                                    <i class="bi bi-book-half text-slate-600"></i>
+                                    <span>Resource Media / Library</span>
+                                </button>
+                                <button type="button" data-icon="bi bi-trophy-fill" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
+                                    <i class="bi bi-trophy-fill text-slate-600"></i>
+                                    <span>Sports Education</span>
+                                </button>
+                                <button type="button" data-icon="bi bi-bus-front-fill" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
+                                    <i class="bi bi-bus-front-fill text-slate-600"></i>
+                                    <span>Field Trips / Transport</span>
+                                </button>
+                                <button type="button" data-icon="bi bi-buildings-fill" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
+                                    <i class="bi bi-buildings-fill text-slate-600"></i>
+                                    <span>Best Infrastructure</span>
+                                </button>
+                                <button type="button" data-icon="bi bi-mortarboard-fill" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
+                                    <i class="bi bi-mortarboard-fill text-slate-600"></i>
+                                    <span>Academic Excellence</span>
+                                </button>
+                                <button type="button" data-icon="bi bi-share-fill" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
+                                    <i class="bi bi-share-fill text-slate-600"></i>
+                                    <span>Holistic Development</span>
+                                </button>
+                                <button type="button" data-icon="bi bi-person-heart" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
+                                    <i class="bi bi-person-heart text-slate-600"></i>
+                                    <span>Personal Attention</span>
+                                </button>
+                                <button type="button" data-icon="bi bi-shield-check" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
+                                    <i class="bi bi-shield-check text-slate-600"></i>
+                                    <span>Safe & Secure</span>
+                                </button>
+                                <button type="button" data-icon="bi bi-people-fill" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
+                                    <i class="bi bi-people-fill text-slate-600"></i>
+                                    <span>1:25 Ratio</span>
+                                </button>
+                                <button type="button" data-icon="bi bi-laptop" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
+                                    <i class="bi bi-laptop text-slate-600"></i>
+                                    <span>Professional Dev</span>
+                                </button>
+                                <button type="button" data-icon="bi bi-patch-check-fill" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
+                                    <i class="bi bi-patch-check-fill text-slate-600"></i>
+                                    <span>Qualitative Assessment</span>
+                                </button>
+                                <button type="button" data-icon="bi bi-compass-fill" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
+                                    <i class="bi bi-compass-fill text-slate-600"></i>
+                                    <span>Career Guidance</span>
+                                </button>
+                                <button type="button" data-icon="bi bi-palette-fill" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
+                                    <i class="bi bi-palette-fill text-slate-600"></i>
+                                    <span>Performing Arts</span>
+                                </button>
+                                <button type="button" data-icon="bi bi-tree-fill" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
+                                    <i class="bi bi-tree-fill text-slate-600"></i>
+                                    <span>Eco Campus</span>
+                                </button>
+                                <button type="button" data-icon="bi bi-lightbulb-fill" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
+                                    <i class="bi bi-lightbulb-fill text-slate-600"></i>
+                                    <span>STEM & Innovation</span>
+                                </button>
+                                <button type="button" data-icon="bi bi-music-note-beamed" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
+                                    <i class="bi bi-music-note-beamed text-slate-600"></i>
+                                    <span>Music & Band</span>
+                                </button>
+                                <button type="button" data-icon="bi bi-globe-americas" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
+                                    <i class="bi bi-globe-americas text-slate-600"></i>
+                                    <span>Global Vision</span>
+                                </button>
+                                <button type="button" data-icon="bi bi-heart-pulse-fill" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
+                                    <i class="bi bi-heart-pulse-fill text-slate-600"></i>
+                                    <span>Health & Wellness</span>
+                                </button>
+                                <button type="button" data-icon="bi bi-cup-hot-fill" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
+                                    <i class="bi bi-cup-hot-fill text-slate-600"></i>
+                                    <span>Dining & Nutrition</span>
+                                </button>
+                                <button type="button" data-icon="bi bi-activity" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
+                                    <i class="bi bi-activity text-slate-600"></i>
+                                    <span>Martial Arts & Skating</span>
+                                </button>
+                                <button type="button" data-icon="bi bi-robot" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
+                                    <i class="bi bi-robot text-slate-600"></i>
+                                    <span>Robotics & AI</span>
+                                </button>
+                                <button type="button" data-icon="bi bi-chat-quote-fill" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
+                                    <i class="bi bi-chat-quote-fill text-slate-600"></i>
+                                    <span>Public Speaking</span>
+                                </button>
+                                <button type="button" data-icon="bi bi-stars" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
+                                    <i class="bi bi-stars text-slate-600"></i>
+                                    <span>Values & Ethos</span>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -298,91 +284,76 @@
 </div>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const iconInput = document.getElementById('icon');
-        const iconPreviewBox = document.getElementById('icon-preview-box');
-        const presetButtons = document.querySelectorAll('.icon-preset-btn');
-        const themeRadios = document.querySelectorAll('input[name="theme_color"]');
+document.addEventListener('DOMContentLoaded', function () {
+    const iconInput = document.getElementById('icon');
+    const previewBox = document.getElementById('icon-preview-box');
+    const presetBtns = document.querySelectorAll('.icon-preset-btn');
 
-        function updateIconPreview(val) {
-            if (!iconPreviewBox) return;
-            if (!val || !val.trim()) {
-                iconPreviewBox.innerHTML = '<i class="bi bi-laptop"></i>';
-                return;
-            }
-            val = val.trim();
-            if (val.startsWith('<')) {
-                iconPreviewBox.innerHTML = val;
+    function updatePreview(val) {
+        val = (val || '').trim();
+        if (!val) {
+            previewBox.innerHTML = '<i class="bi bi-display"></i>';
+            return;
+        }
+
+        // If user entered raw HTML tag like <i class="..." style="..."></i> or <svg>
+        if (val.startsWith('<')) {
+            previewBox.innerHTML = val;
+            return;
+        }
+
+        let iconClass = val;
+        const aliasMap = {
+            'monitor': 'bi bi-display',
+            'smart-classroom': 'bi bi-display',
+            'laptop': 'bi bi-laptop',
+            'flask': 'bi bi-flask',
+            'science': 'bi bi-flask',
+            'book': 'bi bi-book-half',
+            'library': 'bi bi-book-half',
+            'trophy': 'bi bi-trophy-fill',
+            'sports': 'bi bi-trophy-fill',
+            'bus': 'bi bi-bus-front-fill',
+            'transport': 'bi bi-bus-front-fill',
+            'school': 'bi bi-buildings-fill',
+            'infrastructure': 'bi bi-buildings-fill',
+            'tree': 'bi bi-tree-fill',
+            'eco': 'bi bi-tree-fill',
+        };
+
+        if (aliasMap[val]) {
+            iconClass = aliasMap[val];
+        } else if (!val.includes(' ') && !val.includes('-')) {
+            iconClass = 'bi bi-' + val;
+        }
+
+        previewBox.innerHTML = '<i class="' + iconClass + '"></i>';
+
+        presetBtns.forEach(btn => {
+            const dataIcon = btn.getAttribute('data-icon');
+            if (dataIcon === val || dataIcon === iconClass) {
+                btn.classList.add('bg-rose-50', 'border-rose-300', 'text-rose-700', 'font-semibold');
+                btn.classList.remove('bg-white', 'text-slate-700');
             } else {
-                let cls = val;
-                const legacyMap = {
-                    'monitor': 'bi bi-laptop',
-                    'flask': 'bi bi-flask',
-                    'book': 'bi bi-book-half',
-                    'trophy': 'bi bi-trophy-fill',
-                    'bus': 'bi bi-bus-front-fill',
-                    'school': 'bi bi-buildings-fill'
-                };
-                if (legacyMap[cls]) {
-                    cls = legacyMap[cls];
-                } else if (!cls.startsWith('bi ') && !cls.startsWith('fa-')) {
-                    cls = 'bi bi-' + cls;
-                }
-                iconPreviewBox.innerHTML = '<i class="' + cls + '"></i>';
+                btn.classList.remove('bg-rose-50', 'border-rose-300', 'text-rose-700', 'font-semibold');
+                btn.classList.add('bg-white', 'text-slate-700');
             }
-        }
-
-        function highlightActivePreset(currentVal) {
-            if (!currentVal) return;
-            const clean = currentVal.trim();
-            presetButtons.forEach(btn => {
-                const btnIcon = btn.getAttribute('data-icon');
-                if (btnIcon === clean) {
-                    btn.classList.add('border-rose-400', 'bg-rose-50', 'text-rose-700');
-                    btn.classList.remove('border-slate-200', 'bg-white', 'text-slate-700');
-                } else {
-                    btn.classList.remove('border-rose-400', 'bg-rose-50', 'text-rose-700');
-                    btn.classList.add('border-slate-200', 'bg-white', 'text-slate-700');
-                }
-            });
-        }
-
-        function updateBoxThemeColor() {
-            if (!iconPreviewBox) return;
-            const selected = document.querySelector('input[name="theme_color"]:checked');
-            if (selected && selected.value === 'red') {
-                iconPreviewBox.classList.remove('bg-jrs-navy');
-                iconPreviewBox.classList.add('bg-red-600');
-            } else {
-                iconPreviewBox.classList.remove('bg-red-600');
-                iconPreviewBox.classList.add('bg-jrs-navy');
-            }
-        }
-
-        if (iconInput) {
-            iconInput.addEventListener('input', function() {
-                updateIconPreview(this.value);
-                highlightActivePreset(this.value);
-            });
-            updateIconPreview(iconInput.value);
-            highlightActivePreset(iconInput.value);
-        }
-
-        themeRadios.forEach(radio => {
-            radio.addEventListener('change', updateBoxThemeColor);
         });
-        updateBoxThemeColor();
+    }
 
-        presetButtons.forEach(btn => {
-            btn.addEventListener('click', function() {
-                const iconVal = this.getAttribute('data-icon');
-                if (iconInput) {
-                    iconInput.value = iconVal;
-                    updateIconPreview(iconVal);
-                    highlightActivePreset(iconVal);
-                }
-            });
+    presetBtns.forEach(btn => {
+        btn.addEventListener('click', function () {
+            const iconVal = this.getAttribute('data-icon');
+            iconInput.value = iconVal;
+            updatePreview(iconVal);
         });
     });
+
+    iconInput.addEventListener('input', function () {
+        updatePreview(this.value);
+    });
+
+    updatePreview(iconInput.value);
+});
 </script>
 @endsection

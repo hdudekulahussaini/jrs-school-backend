@@ -155,23 +155,6 @@
                         ])
                     </div>
 
-                    <!-- Button Text & URL -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div>
-                            <label for="button_text" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                                Button Text
-                            </label>
-                            <input type="text" name="button_text" id="button_text" value="{{ old('button_text', $program->button_text) }}" class="flex h-9 w-full rounded-md border border-slate-200 bg-white px-3 py-1 text-xs sm:text-sm shadow-xs focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-jrs-navy">
-                        </div>
-
-                        <div>
-                            <label for="button_url" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                                Target Link URL
-                            </label>
-                            <input type="text" name="button_url" id="button_url" value="{{ old('button_url', $program->button_url) }}" class="flex h-9 w-full rounded-md border border-slate-200 bg-white px-3 py-1 text-xs sm:text-sm shadow-xs focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-jrs-navy">
-                        </div>
-                    </div>
-
                     <!-- Sort Order & Active -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 border-t border-slate-100">
                         <div>

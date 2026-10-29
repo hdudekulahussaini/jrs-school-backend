@@ -19,8 +19,6 @@ class SchoolEvent extends Model
         'badge_month',
         'description',
         'image_path',
-        'link_url',
-        'link_text',
         'sort_order',
         'is_active',
     ];
@@ -96,8 +94,6 @@ class SchoolEvent extends Model
             'badge_day' => 'nullable|string|max:10',
             'badge_month' => 'nullable|string|max:10',
             'description' => 'nullable|string',
-            'link_url' => 'nullable|string|max:1000',
-            'link_text' => 'nullable|string|max:255',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,webp,svg|max:5120',
             'image_path' => 'nullable|string|max:1000',
             'sort_order' => 'nullable|integer|min:0',

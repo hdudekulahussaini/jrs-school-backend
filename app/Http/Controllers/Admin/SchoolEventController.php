@@ -66,8 +66,6 @@ class SchoolEventController extends Controller
         $validated = $request->validated();
         $validated['is_active'] = $request->has('is_active');
         $validated['sort_order'] = $request->input('sort_order', 0);
-        $validated['link_url'] = $request->filled('link_url') ? $request->input('link_url') : null;
-        $validated['link_text'] = $request->filled('link_text') ? $request->input('link_text') : null;
 
         // Derive badge day and month from event_date if not explicitly provided
         if (!empty($validated['event_date'])) {
@@ -103,12 +101,12 @@ class SchoolEventController extends Controller
     }
 
     /**
-     * [READ - Show] Display event details.
+     * [READ - Show] Display event details (redirects to edit).
      */
     public function show($id)
     {
         $event = SchoolEvent::findOrFail($id);
-        return view('admin.events.show', compact('event'));
+        return redirect()->route('admin.events.edit', $event->id);
     }
 
     /**
@@ -130,8 +128,6 @@ class SchoolEventController extends Controller
 
         $validated['is_active'] = $request->has('is_active');
         $validated['sort_order'] = $request->input('sort_order', 0);
-        $validated['link_url'] = $request->filled('link_url') ? $request->input('link_url') : null;
-        $validated['link_text'] = $request->filled('link_text') ? $request->input('link_text') : null;
 
         // Derive badge day and month from event_date if provided
         if (!empty($validated['event_date'])) {

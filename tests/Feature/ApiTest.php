@@ -452,7 +452,6 @@ test('Full CRUD on Facilities / Amenities: POST, GET, PUT, PATCH toggle, DELETE'
         'title' => 'API Test Facility',
         'description' => 'Facility for automated testing.',
         'icon' => 'building',
-        'theme_color' => 'navy',
         'sort_order' => 99,
         'is_active' => true,
     ]);

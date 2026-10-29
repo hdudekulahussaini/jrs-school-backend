@@ -18,7 +18,6 @@ return new class extends Migration
                 $table->text('description')->nullable()->comment('Short description e.g. Modern and interactive learning spaces');
                 $table->string('image_path')->nullable()->comment('Uploaded facility image or URL');
                 $table->string('icon')->nullable()->default('school')->comment('Lucide/SVG Icon identifier (e.g. monitor, flask, book, trophy, bus)');
-                $table->string('theme_color')->nullable()->default('navy')->comment('Card wave color accent: navy (#031c3f) or red (#e31e24)');
                 $table->integer('sort_order')->default(0);
                 $table->boolean('is_active')->default(true);
                 $table->timestamps();

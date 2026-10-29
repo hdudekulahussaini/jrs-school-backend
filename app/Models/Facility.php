@@ -16,8 +16,6 @@ class Facility extends Model
         'description',
         'image_path',
         'icon',
-        'destination_url',
-        'theme_color',
         'sort_order',
         'is_active',
     ];

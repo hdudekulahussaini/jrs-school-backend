@@ -4,7 +4,7 @@
 @section('header', 'Create Facility')
 
 @section('content')
-<div class="space-y-6 max-w-4xl">
+<div class="space-y-6 w-full">
 
     <!-- Breadcrumb (shadcn/ui style) -->
     <div class="flex items-center justify-between">
@@ -50,6 +50,15 @@
                     <label for="description" class="text-sm font-medium leading-none text-slate-700">Short Description</label>
                     <textarea name="description" id="description" rows="2" placeholder="e.g. Modern and interactive learning spaces" class="flex min-h-[70px] w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm shadow-xs placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-950">{{ old('description') }}</textarea>
                     <p class="text-xs text-slate-500">Brief one-line summary displayed beneath the facility card title.</p>
+                </div>
+
+                <div class="space-y-2">
+                    <label for="destination_url" class="text-sm font-medium leading-none text-slate-700">Destination URL</label>
+                    <input type="text" name="destination_url" id="destination_url" value="{{ old('destination_url') }}" placeholder="e.g. /facilities/smart-classrooms or https://..." class="flex h-9 w-full rounded-md border @error('destination_url') border-red-500 @else border-slate-200 @enderror bg-white px-3 py-1 text-sm shadow-xs transition-colors placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-950 font-mono">
+                    <p class="text-xs text-slate-500">Optional internal path or external link when users click this facility card.</p>
+                    @error('destination_url')
+                        <p class="text-xs text-red-600 font-medium">{{ $message }}</p>
+                    @enderror
                 </div>
             </div>
 

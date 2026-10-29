@@ -4,7 +4,7 @@
 @section('header', 'Edit Benefit Card')
 
 @section('content')
-<div class="space-y-6 max-w-4xl">
+<div class="space-y-6 w-full">
 
     <!-- Header -->
     <div class="flex items-center justify-between">

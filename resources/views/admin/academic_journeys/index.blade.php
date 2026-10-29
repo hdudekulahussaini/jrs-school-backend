@@ -83,7 +83,9 @@
                                     @endif
                                     <!-- Circular Blue Badge (matching design) -->
                                     <div class="absolute -bottom-1.5 -left-1.5 w-6 h-6 rounded-full bg-jrs-navy text-white flex items-center justify-center shadow-xs border-2 border-white">
-                                        @if($item->icon === 'baby')
+                                        @if(Str::startsWith($item->icon ?? '', ['bi ', 'bi-', 'fa', 'fas ', 'far ']))
+                                            <i class="{{ $item->icon }} text-[10px]"></i>
+                                        @elseif($item->icon === 'baby')
                                             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="8" r="5"/><path d="M12 13v8M9 17h6"/></svg>
                                         @elseif($item->icon === 'users')
                                             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
@@ -91,8 +93,12 @@
                                             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
                                         @elseif($item->icon === 'heart')
                                             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+                                        @elseif($item->icon === 'book')
+                                            <i class="bi bi-book-half text-[10px]"></i>
+                                        @elseif($item->icon === 'award')
+                                            <i class="bi bi-award-fill text-[10px]"></i>
                                         @else
-                                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>
+                                            <i class="{{ $item->icon ? 'bi bi-' . $item->icon : 'bi bi-mortarboard-fill' }} text-[10px]"></i>
                                         @endif
                                     </div>
                                 </div>

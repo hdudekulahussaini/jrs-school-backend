@@ -4,7 +4,7 @@
 @section('header', 'Add Breadcrumb Banner')
 
 @section('content')
-<div class="space-y-6 max-w-5xl">
+<div class="space-y-6 w-full">
 
     <!-- Breadcrumb / Back Link -->
     <div class="flex items-center justify-between">

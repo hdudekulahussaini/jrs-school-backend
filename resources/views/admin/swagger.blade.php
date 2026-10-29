@@ -287,6 +287,174 @@
                             responses: { "200": { description: "Feature details" } }
                         }
                     },
+                    "/stats": {
+                        get: {
+                            tags: ["Stats Section (Frontend)"],
+                            summary: "Get active homepage counter stats cards",
+                            description: "Returns all published homepage counter metrics (Year of Establishment, Happy Students, Experienced Faculty, Co-curricular Activities, etc.) sorted by sort_order. Badges use brand default Yellow (#eab308) and Bootstrap Icon classes.",
+                            responses: {
+                                "200": {
+                                    description: "List of active stat cards",
+                                    content: {
+                                        "application/json": {
+                                            schema: {
+                                                type: "object",
+                                                properties: {
+                                                    success: { type: "boolean", example: true },
+                                                    count: { type: "integer", example: 4 },
+                                                    data: {
+                                                        type: "array",
+                                                        items: {
+                                                            type: "object",
+                                                            properties: {
+                                                                id: { type: "integer", example: 1 },
+                                                                value: { type: "string", example: "2021" },
+                                                                title: { type: "string", example: "Year of Establishment" },
+                                                                icon: { type: "string", example: "bi bi-calendar-check-fill" },
+                                                                color: { type: "string", example: "#eab308" },
+                                                                description: { type: "string", nullable: true, example: "Founded with a vision for world-class holistic education." },
+                                                                sort_order: { type: "integer", example: 1 },
+                                                                is_active: { type: "boolean", example: true },
+                                                                created_at: { type: "string", format: "date-time" },
+                                                                updated_at: { type: "string", format: "date-time" }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            },
+                                            example: {
+                                                success: true,
+                                                count: 4,
+                                                data: [
+                                                    {
+                                                        id: 1,
+                                                        value: "2021",
+                                                        title: "Year of Establishment",
+                                                        icon: "bi bi-calendar-check-fill",
+                                                        color: "#eab308",
+                                                        description: "Founded with a vision for world-class holistic education.",
+                                                        sort_order: 1,
+                                                        is_active: true
+                                                    },
+                                                    {
+                                                        id: 2,
+                                                        value: "1000+",
+                                                        title: "Happy Students",
+                                                        icon: "bi bi-people-fill",
+                                                        color: "#eab308",
+                                                        description: "Nurturing bright young minds across all grade levels.",
+                                                        sort_order: 2,
+                                                        is_active: true
+                                                    },
+                                                    {
+                                                        id: 3,
+                                                        value: "50+",
+                                                        title: "Experienced Faculty",
+                                                        icon: "bi bi-award-fill",
+                                                        color: "#eab308",
+                                                        description: "Dedicated and passionate educators shaping tomorrow.",
+                                                        sort_order: 3,
+                                                        is_active: true
+                                                    },
+                                                    {
+                                                        id: 4,
+                                                        value: "100+",
+                                                        title: "Co-curricular Activities",
+                                                        icon: "bi bi-trophy-fill",
+                                                        color: "#eab308",
+                                                        description: "Wide array of sports, arts, robotics, and clubs.",
+                                                        sort_order: 4,
+                                                        is_active: true
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "/home-stats": {
+                        get: {
+                            tags: ["Stats Section (Frontend)"],
+                            summary: "Get active homepage counter stats cards (Alias)",
+                            description: "Identical alias to /stats for React frontend integration. Returns active metrics with sort_order, values, labels, Bootstrap icons, and default yellow badge color.",
+                            responses: {
+                                "200": {
+                                    description: "List of active stat cards",
+                                    content: {
+                                        "application/json": {
+                                            example: {
+                                                success: true,
+                                                count: 4,
+                                                data: [
+                                                    {
+                                                        id: 1,
+                                                        value: "2021",
+                                                        title: "Year of Establishment",
+                                                        icon: "bi bi-calendar-check-fill",
+                                                        color: "#eab308",
+                                                        description: "Founded with a vision for world-class holistic education.",
+                                                        sort_order: 1,
+                                                        is_active: true
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "/stats/{id}": {
+                        get: {
+                            tags: ["Stats Section (Frontend)"],
+                            summary: "Get specific stat card details by ID",
+                            description: "Returns the detailed data of a single stat card record.",
+                            parameters: [
+                                {
+                                    name: "id",
+                                    in: "path",
+                                    required: true,
+                                    description: "Stat card ID",
+                                    schema: { type: "integer", example: 1 }
+                                }
+                            ],
+                            responses: {
+                                "200": {
+                                    description: "Stat card record",
+                                    content: {
+                                        "application/json": {
+                                            example: {
+                                                success: true,
+                                                data: {
+                                                    id: 1,
+                                                    value: "2021",
+                                                    title: "Year of Establishment",
+                                                    icon: "bi bi-calendar-check-fill",
+                                                    color: "#eab308",
+                                                    description: "Founded with a vision for world-class holistic education.",
+                                                    sort_order: 1,
+                                                    is_active: true
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "404": {
+                                    description: "Stat card not found",
+                                    content: {
+                                        "application/json": {
+                                            example: {
+                                                success: false,
+                                                message: "Stat card not found."
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
                     "/facilities": {
                         get: {
                             tags: ["Facilities (Public Frontend)"],
@@ -309,7 +477,6 @@
                                                         image_path: "uploads/facilities/smart_classrooms.jpg",
                                                         image_url: "http://127.0.0.1:8000/uploads/facilities/smart_classrooms.jpg",
                                                         icon: "monitor",
-                                                        theme_color: "navy",
                                                         sort_order: 1,
                                                         is_active: true
                                                     }
@@ -455,17 +622,15 @@
                                                         stage_badge: "STAGE 01 • EARLY YEARS",
                                                         title: "Pre-Primary",
                                                         slug: "pre-primary",
-                                                        subtitle: "NURSERY, LKG & UKG",
+                                                        subtitle: "NURSERY, PP1 & PP2",
                                                         description: "Feel grounded and supported in an environment where early learners are encouraged to participate, share ideas, explore phonics, and build confidence through play.",
                                                         highlights: [
                                                             "Phonics-based English language & early communication",
                                                             "Montessori-inspired sensorial and tactile activities",
                                                             "Early numeracy, number sense and playful logical thinking"
                                                         ],
-                                                        image: "images/programs/pre-primary.jpg",
-                                                        image_url: "http://127.0.0.1:8000/images/programs/pre-primary.jpg",
-                                                        button_text: "Explore More",
-                                                        button_link: "https://jrs-school.vercel.app/academics/pre-primary",
+                                                        image: "/images/pre-primary-learning.jpg",
+                                                        image_url: "http://127.0.0.1:8000/images/pre-primary-learning.jpg",
                                                         sort_order: 1,
                                                         is_active: true
                                                     }
@@ -513,8 +678,6 @@
                                                 },
                                                 image: { type: "string", format: "binary" },
                                                 image_url: { type: "string" },
-                                                button_text: { type: "string", example: "Explore More" },
-                                                button_link: { type: "string" },
                                                 sort_order: { type: "integer", example: 1 },
                                                 is_active: { type: "boolean", example: true }
                                             },
@@ -607,8 +770,6 @@
                                                         description: "Students showcased patriotic fervor in traditional costumes, march past and cultural performances.",
                                                         image_path: "/images/events/republic-day.jpg",
                                                         image_full_url: "http://localhost:8000/images/events/republic-day.jpg",
-                                                        link_url: "/gallery",
-                                                        link_text: "Explore event",
                                                         sort_order: 1,
                                                         is_active: true
                                                     }
@@ -2366,7 +2527,6 @@ id: 1,
                                                         image_path: "uploads/facilities/smart_classrooms.jpg",
                                                         image_url: "http://127.0.0.1:8000/uploads/facilities/smart_classrooms.jpg",
                                                         icon: "monitor",
-                                                        theme_color: "navy",
                                                         sort_order: 1,
                                                         is_active: true
                                                     }
@@ -2521,8 +2681,6 @@ id: 1,
                                                         ],
                                                         image: "images/programs/pre-primary.jpg",
                                                         image_url: "http://127.0.0.1:8000/images/programs/pre-primary.jpg",
-                                                        button_text: "Explore More",
-                                                        button_link: "https://jrs-school.vercel.app/academics/pre-primary",
                                                         sort_order: 1,
                                                         is_active: true
                                                     }
@@ -2570,8 +2728,6 @@ id: 1,
                                                 },
                                                 image: { type: "string", format: "binary" },
                                                 image_url: { type: "string" },
-                                                button_text: { type: "string", example: "Explore More" },
-                                                button_link: { type: "string" },
                                                 sort_order: { type: "integer", example: 1 },
                                                 is_active: { type: "boolean", example: true }
                                             },
@@ -2643,33 +2799,16 @@ id: 1,
                         get: {
                             tags: ["Latest Events (Frontend)"],
                             summary: "Get active Latest Events for homepage What's Happening section",
-                            description: "Returns all published school event cards (Republic Day, Annual Day, Sports Day) with date badges (e.g. 26 JAN), description, and photos.",
+                            description: "Section removed from frontend. Returns an empty dataset so the section is automatically hidden on the frontend.",
                             responses: {
                                 "200": {
-                                    description: "List of active events",
+                                    description: "Empty list of events (section disabled on frontend)",
                                     content: {
                                         "application/json": {
                                             example: {
                                                 success: true,
-                                                count: 3,
-                                                data: [
-                                                    {
-                                                        id: 1,
-                                                        title: "Republic Day Celebrations",
-                                                        event_date: "2026-01-26",
-                                                        badge_day: "26",
-                                                        badge_month: "JAN",
-                                                        display_day: "26",
-                                                        display_month: "JAN",
-                                                        description: "Students showcased patriotic fervor in traditional costumes, march past and cultural performances.",
-                                                        image_path: "/images/events/republic-day.jpg",
-                                                        image_full_url: "http://localhost:8000/images/events/republic-day.jpg",
-                                                        link_url: "/gallery",
-                                                        link_text: "Explore event",
-                                                        sort_order: 1,
-                                                        is_active: true
-                                                    }
-                                                ]
+                                                count: 0,
+                                                data: []
                                             }
                                         }
                                     }

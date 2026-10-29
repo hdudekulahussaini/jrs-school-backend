@@ -55,7 +55,7 @@
                         <th class="h-10 px-4 w-16 text-center">Order</th>
                         <th class="h-10 px-4 w-24">Photo</th>
                         <th class="h-10 px-4 min-w-[200px]">Facility & Description</th>
-                        <th class="h-10 px-4 w-28 text-center">Wave Theme</th>
+                        <th class="h-10 px-4 w-28 text-center">Icon</th>
                         <th class="h-10 px-4 w-24 text-center">Status</th>
                         <th class="h-10 px-4 w-32 text-right">Actions</th>
                     </tr>
@@ -79,18 +79,38 @@
                                         <div class="w-full h-full flex items-center justify-center text-[10px] text-slate-400 font-medium">No Photo</div>
                                     @endif
 
-                                    <!-- Mini Badge Icon overlay matching screenshot -->
-                                    <div class="absolute bottom-1 right-1 w-5 h-5 rounded-full {{ $facility->theme_color === 'red' ? 'bg-red-600' : 'bg-jrs-navy' }} text-white flex items-center justify-center text-[9px] shadow-xs">
-                                        @if($facility->icon === 'flask')
-                                            🧪
-                                        @elseif($facility->icon === 'book')
-                                            📖
-                                        @elseif($facility->icon === 'trophy')
-                                            🏃
-                                        @elseif($facility->icon === 'bus')
-                                            🚌
+                                    <!-- Mini Badge Icon overlay -->
+                                    <div class="absolute bottom-1 right-1 w-5 h-5 rounded-full bg-rose-600 text-white flex items-center justify-center text-[10px] shadow-xs">
+                                        @php
+                                            $rawIcon = trim($facility->icon ?? '');
+                                            $iconClass = $rawIcon;
+                                            $aliasMap = [
+                                                'monitor' => 'bi bi-display',
+                                                'smart-classroom' => 'bi bi-display',
+                                                'laptop' => 'bi bi-laptop',
+                                                'flask' => 'bi bi-flask',
+                                                'science' => 'bi bi-flask',
+                                                'book' => 'bi bi-book-half',
+                                                'library' => 'bi bi-book-half',
+                                                'trophy' => 'bi bi-trophy-fill',
+                                                'sports' => 'bi bi-trophy-fill',
+                                                'bus' => 'bi bi-bus-front-fill',
+                                                'transport' => 'bi bi-bus-front-fill',
+                                                'school' => 'bi bi-buildings-fill',
+                                                'infrastructure' => 'bi bi-buildings-fill',
+                                                'tree' => 'bi bi-tree-fill',
+                                                'eco' => 'bi bi-tree-fill',
+                                            ];
+                                            if (isset($aliasMap[$rawIcon])) {
+                                                $iconClass = $aliasMap[$rawIcon];
+                                            } elseif ($rawIcon && !str_contains($rawIcon, ' ') && !str_contains($rawIcon, '<')) {
+                                                $iconClass = 'bi bi-' . $rawIcon;
+                                            }
+                                        @endphp
+                                        @if(str_starts_with($rawIcon, '<'))
+                                            {!! $rawIcon !!}
                                         @else
-                                            🖥️
+                                            <i class="{{ $iconClass ?: 'bi bi-display' }}"></i>
                                         @endif
                                     </div>
                                 </div>
@@ -110,19 +130,12 @@
                                 </div>
                             </td>
 
-                            <!-- Wave Color Accent Pill -->
+                            <!-- Badge Icon Pill -->
                             <td class="p-4 align-middle text-center">
-                                @if($facility->theme_color === 'red')
-                                    <span class="inline-flex items-center gap-1.5 rounded-full border border-red-200 bg-red-50 px-2.5 py-0.5 text-xs font-semibold text-red-700">
-                                        <span class="w-1.5 h-1.5 rounded-full bg-red-600"></span>
-                                        <span>Red Wave</span>
-                                    </span>
-                                @else
-                                    <span class="inline-flex items-center gap-1.5 rounded-full border border-blue-200 bg-blue-50 px-2.5 py-0.5 text-xs font-semibold text-blue-800">
-                                        <span class="w-1.5 h-1.5 rounded-full bg-jrs-navy"></span>
-                                        <span>Navy Wave</span>
-                                    </span>
-                                @endif
+                                <span class="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-slate-50 px-2.5 py-0.5 text-xs font-medium text-slate-700">
+                                    <i class="{{ $iconClass ?: 'bi bi-display' }} text-rose-600 text-xs"></i>
+                                    <span class="font-mono text-[11px] truncate max-w-[100px]">{{ str_replace('bi bi-', '', $iconClass ?: 'display') }}</span>
+                                </span>
                             </td>
 
                             <!-- Status -->
@@ -136,10 +149,6 @@
                             <!-- Actions -->
                             <td class="p-4 align-middle text-right">
                                 <div class="flex items-center justify-end gap-1">
-                                    <a href="{{ route('admin.facilities.show', $facility->id) }}" title="View details" class="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-slate-100 hover:text-slate-900 h-8 w-8 text-slate-500">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
-                                    </a>
-
                                     <a href="{{ route('admin.facilities.edit', $facility->id) }}" title="Edit facility" class="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-slate-100 hover:text-slate-900 h-8 w-8 text-slate-500">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
                                     </a>

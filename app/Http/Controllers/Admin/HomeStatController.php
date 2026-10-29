@@ -63,7 +63,7 @@ class HomeStatController extends Controller
         $validated = $request->validated();
         $validated['is_active'] = $request->has('is_active');
         $validated['sort_order'] = $request->input('sort_order', 0);
-        $validated['color'] = $request->filled('color') ? $request->input('color') : null;
+        $validated['color'] = $request->filled('color') ? $request->input('color') : '#eab308';
         $validated['icon'] = $request->filled('icon') ? $request->input('icon') : null;
         $validated['description'] = $request->input('description', null);
 
@@ -103,7 +103,7 @@ class HomeStatController extends Controller
 
         $validated['is_active'] = $request->has('is_active');
         $validated['sort_order'] = $request->input('sort_order', 0);
-        $validated['color'] = $request->filled('color') ? $request->input('color') : null;
+        $validated['color'] = $request->filled('color') ? $request->input('color') : '#eab308';
         $validated['icon'] = $request->filled('icon') ? $request->input('icon') : null;
         $validated['description'] = $request->input('description', null);
 

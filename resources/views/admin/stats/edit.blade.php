@@ -77,58 +77,33 @@
                     $currentColor = old('color', $stat->color ?? '#eab308');
                 @endphp
 
-                <!-- Theme Color & Badge Icon (Bootstrap Icon) -->
-                <div class="space-y-4 pt-2">
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <!-- Icon Badge Color -->
-                        <div>
-                            <label for="color" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                                Icon Badge Color <span class="text-rose-500">*</span>
-                            </label>
-                            <div class="flex items-center gap-2">
-                                <input type="color" id="colorPicker" value="{{ $currentColor }}" oninput="setColor(this.value)" class="h-10 w-11 p-1 rounded-lg border border-slate-200 cursor-pointer bg-white shrink-0">
-                                <input type="text" name="color" id="color" value="{{ $currentColor }}" oninput="setColor(this.value)" class="flex h-10 w-full rounded-lg border border-slate-200 bg-white px-3 py-1 text-xs sm:text-sm font-mono shadow-xs focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-jrs-navy">
-                            </div>
-                            <div class="flex flex-wrap items-center gap-1.5 mt-2.5">
-                                <span class="text-[10px] text-slate-400 font-semibold uppercase mr-1">Palette:</span>
-                                <button type="button" onclick="setColor('#eab308')" class="w-5 h-5 rounded-full bg-[#eab308] border border-black/10 hover:scale-110 transition-transform shadow-2xs" title="Gold/Amber"></button>
-                                <button type="button" onclick="setColor('#e31e24')" class="w-5 h-5 rounded-full bg-[#e31e24] border border-black/10 hover:scale-110 transition-transform shadow-2xs" title="JRS Red"></button>
-                                <button type="button" onclick="setColor('#059669')" class="w-5 h-5 rounded-full bg-[#059669] border border-black/10 hover:scale-110 transition-transform shadow-2xs" title="Emerald Green"></button>
-                                <button type="button" onclick="setColor('#2563eb')" class="w-5 h-5 rounded-full bg-[#2563eb] border border-black/10 hover:scale-110 transition-transform shadow-2xs" title="Royal Blue"></button>
-                                <button type="button" onclick="setColor('#4f46e5')" class="w-5 h-5 rounded-full bg-[#4f46e5] border border-black/10 hover:scale-110 transition-transform shadow-2xs" title="Indigo"></button>
-                                <button type="button" onclick="setColor('#9333ea')" class="w-5 h-5 rounded-full bg-[#9333ea] border border-black/10 hover:scale-110 transition-transform shadow-2xs" title="Purple"></button>
-                                <button type="button" onclick="setColor('#0284c7')" class="w-5 h-5 rounded-full bg-[#0284c7] border border-black/10 hover:scale-110 transition-transform shadow-2xs" title="Sky Blue"></button>
-                                <button type="button" onclick="setColor('#0f172a')" class="w-5 h-5 rounded-full bg-[#0f172a] border border-black/10 hover:scale-110 transition-transform shadow-2xs" title="Deep Slate"></button>
-                            </div>
-                            @error('color')
-                                <p class="text-xs text-jrs-red mt-1">{{ $message }}</p>
-                            @enderror
-                        </div>
+                <!-- Hidden Color Field (Fixed to Brand Yellow) -->
+                <input type="hidden" name="color" id="color" value="{{ $currentColor }}">
 
-                        <!-- Badge Icon Input with Live Preview Box -->
-                        <div class="space-y-1.5">
-                            <div class="flex items-center justify-between">
-                                <label for="icon" class="block text-xs font-bold text-slate-700 uppercase tracking-wider">
-                                    Badge Icon (Bootstrap Icon) <span class="text-rose-500">*</span>
-                                </label>
-                                <span class="text-[11px] text-slate-400">Overlapping badge icon on counter card</span>
-                            </div>
-                            <div class="flex items-center gap-3">
-                                <div id="icon-preview-box" class="w-11 h-11 rounded-xl flex items-center justify-center text-white text-xl shrink-0 shadow-xs transition-all duration-200" style="background-color: {{ $currentColor }}">
-                                    @if(str_contains($currentIcon, '<'))
-                                        {!! $currentIcon !!}
-                                    @else
-                                        <i id="icon-preview" class="{{ str_starts_with($currentIcon, 'bi ') || str_starts_with($currentIcon, 'fa-') ? $currentIcon : ('bi bi-' . $currentIcon) }}"></i>
-                                    @endif
-                                </div>
-                                <div class="flex-1">
-                                    <input type="text" name="icon" id="icon" value="{{ $currentIcon }}" class="flex h-11 w-full rounded-lg border border-slate-200 bg-white px-3.5 py-2 text-sm text-slate-800 shadow-xs transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 focus-visible:border-transparent font-mono">
-                                </div>
-                            </div>
-                            @error('icon')
-                                <p class="text-xs text-jrs-red mt-1">{{ $message }}</p>
-                            @enderror
+                <!-- Badge Icon (Bootstrap Icon) with Live Preview Box -->
+                <div class="space-y-4 pt-2">
+                    <div class="space-y-1.5">
+                        <div class="flex items-center justify-between">
+                            <label for="icon" class="block text-xs font-bold text-slate-700 uppercase tracking-wider">
+                                Badge Icon (Bootstrap Icon) <span class="text-rose-500">*</span>
+                            </label>
+                            <span class="text-[11px] text-slate-400">Overlapping badge icon on counter card</span>
                         </div>
+                        <div class="flex items-center gap-3">
+                            <div id="icon-preview-box" class="w-11 h-11 rounded-xl flex items-center justify-center text-white text-xl shrink-0 shadow-xs transition-all duration-200" style="background-color: {{ $currentColor }}">
+                                @if(str_contains($currentIcon, '<'))
+                                    {!! $currentIcon !!}
+                                @else
+                                    <i id="icon-preview" class="{{ str_starts_with($currentIcon, 'bi ') || str_starts_with($currentIcon, 'fa-') ? $currentIcon : ('bi bi-' . $currentIcon) }}"></i>
+                                @endif
+                            </div>
+                            <div class="flex-1">
+                                <input type="text" name="icon" id="icon" value="{{ $currentIcon }}" class="flex h-11 w-full rounded-lg border border-slate-200 bg-white px-3.5 py-2 text-sm text-slate-800 shadow-xs transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 focus-visible:border-transparent font-mono">
+                            </div>
+                        </div>
+                        @error('icon')
+                            <p class="text-xs text-jrs-red mt-1">{{ $message }}</p>
+                        @enderror
                     </div>
 
                     <!-- Quick Presets -->

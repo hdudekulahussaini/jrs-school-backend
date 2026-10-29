@@ -105,30 +105,6 @@
                 ])
             </div>
 
-            <!-- Target Link Card -->
-            <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-xs space-y-4">
-                <div class="border-b border-slate-100 pb-3">
-                    <h3 class="text-base font-bold text-jrs-navy font-heading">Call to Action Link</h3>
-                    <p class="text-xs text-slate-500">Configure link button at the bottom of the event card.</p>
-                </div>
-
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                        <label for="link_text" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                            Link Label
-                        </label>
-                        <input type="text" name="link_text" id="link_text" value="{{ old('link_text') }}" class="flex h-9 w-full rounded-md border border-slate-200 bg-white px-3 py-1 text-xs sm:text-sm shadow-xs focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-jrs-navy">
-                    </div>
-
-                    <div>
-                        <label for="link_url" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                            Target URL / Route
-                        </label>
-                        <input type="text" name="link_url" id="link_url" value="{{ old('link_url') }}" class="flex h-9 w-full rounded-md border border-slate-200 bg-white px-3 py-1 text-xs sm:text-sm shadow-xs focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-jrs-navy">
-                    </div>
-                </div>
-            </div>
-
             <!-- Publishing Settings Card -->
             <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-xs space-y-4">
                 <div class="border-b border-slate-100 pb-3">

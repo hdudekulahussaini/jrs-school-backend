@@ -146,6 +146,7 @@ Route::get('/features/{id}', [HomeFeatureApiController::class, 'show']);
 Route::get('/stats', [HomeStatApiController::class, 'getActiveStats']);
 Route::get('/home-stats', [HomeStatApiController::class, 'getActiveStats']);
 Route::get('/stats/{id}', [HomeStatApiController::class, 'show']);
+Route::get('/home-stats/{id}', [HomeStatApiController::class, 'show']);
 
 // Careers Page GET Endpoints (Read-Only GET for React site & Careers page)
 Route::get('/careers-page', [CareerApiController::class, 'getPageData']);

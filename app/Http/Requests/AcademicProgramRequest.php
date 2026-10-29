@@ -27,8 +27,6 @@ class AcademicProgramRequest extends FormRequest
             'subtitle' => 'nullable|string|max:255',
             'description' => 'nullable|string',
             'highlights' => 'nullable',
-            'button_text' => 'nullable|string|max:255',
-            'button_url' => 'nullable|string|max:1000',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,webp,svg|max:5120',
             'image_url' => 'nullable|string|max:1000',
             'sort_order' => 'nullable|integer|min:0',
@@ -47,8 +45,6 @@ class AcademicProgramRequest extends FormRequest
             'subtitle' => 'Sub-heading / Grades',
             'description' => 'Program Description',
             'highlights' => 'Curriculum Highlights',
-            'button_text' => 'Button Text',
-            'button_url' => 'Button URL',
             'image' => 'Student / Program Photo',
             'sort_order' => 'Sort Order',
         ];

@@ -25,8 +25,6 @@ class SchoolEventRequest extends FormRequest
             'badge_day' => 'nullable|string|max:10',
             'badge_month' => 'nullable|string|max:10',
             'description' => 'nullable|string',
-            'link_url' => 'nullable|string|max:1000',
-            'link_text' => 'nullable|string|max:255',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,webp,svg|max:5120',
             'image_url' => 'nullable|string|max:1000',
             'sort_order' => 'nullable|integer|min:0',
@@ -45,8 +43,6 @@ class SchoolEventRequest extends FormRequest
             'badge_day' => 'Badge Day',
             'badge_month' => 'Badge Month',
             'description' => 'Event Description',
-            'link_url' => 'Event Link URL',
-            'link_text' => 'Button / Link Text',
             'image' => 'Event Photo',
             'sort_order' => 'Sort Order',
         ];

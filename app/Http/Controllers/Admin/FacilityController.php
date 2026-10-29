@@ -63,7 +63,6 @@ class FacilityController extends Controller
         $validated = $request->validated();
         $validated['is_active'] = $request->has('is_active');
         $validated['sort_order'] = $request->input('sort_order', 0);
-        $validated['theme_color'] = $request->input('theme_color', 'navy');
 
         if ($request->hasFile('image')) {
             $file = $request->file('image');
@@ -87,12 +86,12 @@ class FacilityController extends Controller
     }
 
     /**
-     * [READ - Show] Display facility details.
+     * [READ - Show] Display facility details (redirects to edit).
      */
     public function show($id)
     {
         $facility = Facility::findOrFail($id);
-        return view('admin.facilities.show', compact('facility'));
+        return redirect()->route('admin.facilities.edit', $facility->id);
     }
 
     /**
@@ -112,7 +111,6 @@ class FacilityController extends Controller
         $facility = Facility::findOrFail($id);
         $validated = $request->validated();
         $validated['is_active'] = $request->has('is_active');
-        $validated['theme_color'] = $request->input('theme_color', 'navy');
 
         if ($request->has('remove_image') && $request->remove_image == '1') {
             $this->deletePhysicalImage($facility->image_path);

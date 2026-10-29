@@ -54,10 +54,12 @@
 
             <!-- Home Page Dropdown -->
             @php
+                $isFacilitiesActive = request()->routeIs('admin.facilities.*') || request()->routeIs('admin.amenities.*');
                 $isHomeActive = request()->routeIs('admin.tickers.*') || 
                                 request()->routeIs('admin.sliders.*') || 
                                 request()->routeIs('admin.features.*') || 
                                 request()->routeIs('admin.stats.*') || 
+                                $isFacilitiesActive || 
                                 request()->routeIs('admin.programs.*') || 
                                 request()->routeIs('admin.events.*');
             @endphp
@@ -92,6 +94,11 @@
                     <a href="{{ route('admin.stats.index') }}" class="flex items-center gap-2.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors {{ request()->routeIs('admin.stats.*') ? 'bg-jrs-red text-white font-semibold shadow-xs' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
                         <span class="w-1.5 h-1.5 rounded-full {{ request()->routeIs('admin.stats.*') ? 'bg-white ring-2 ring-white/30' : 'bg-white/40' }}"></span>
                         <span>Stats Section</span>
+                    </a>
+
+                    <a href="{{ route('admin.facilities.index') }}" class="flex items-center gap-2.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors {{ $isFacilitiesActive ? 'bg-jrs-red text-white font-semibold shadow-xs' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
+                        <span class="w-1.5 h-1.5 rounded-full {{ $isFacilitiesActive ? 'bg-white ring-2 ring-white/30' : 'bg-white/40' }}"></span>
+                        <span>Facilities</span>
                     </a>
 
                     <a href="{{ route('admin.programs.index') }}" class="flex items-center gap-2.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors {{ request()->routeIs('admin.programs.*') ? 'bg-jrs-red text-white font-semibold shadow-xs' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
@@ -271,10 +278,6 @@
                 </button>
 
                 <div id="amenitiesDropdownMenu" class="{{ $isAmenitiesActive ? '' : 'hidden' }} pl-4 pr-1 py-1 space-y-1 border-l border-white/10 ml-5">
-                    <a href="{{ route('admin.facilities.index') }}" class="flex items-center gap-2.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors {{ $isFacilitiesActive ? 'bg-jrs-red text-white font-semibold shadow-xs' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
-                        <span class="w-1.5 h-1.5 rounded-full {{ $isFacilitiesActive ? 'bg-white ring-2 ring-white/30' : 'bg-white/40' }}"></span>
-                        <span>Facilities (8 Cards)</span>
-                    </a>
                     <a href="{{ route('admin.amenities-cta.index') }}" class="flex items-center gap-2.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors {{ $isAmenitiesCtaActive ? 'bg-jrs-red text-white font-semibold shadow-xs' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
                         <span class="w-1.5 h-1.5 rounded-full {{ $isAmenitiesCtaActive ? 'bg-white ring-2 ring-white/30' : 'bg-white/40' }}"></span>
                         <span>CTA Banner Section</span>

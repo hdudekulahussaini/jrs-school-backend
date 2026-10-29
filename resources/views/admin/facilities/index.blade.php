@@ -1,16 +1,20 @@
 @extends('admin.layout')
 
-@section('title', 'Amenities Page')
+@section('title', 'Amenities Page - Facilities')
 @section('header', 'Amenities Page')
 
 @section('content')
 <div class="space-y-6">
 
     <!-- Top Action: Add Button (Aligned Right) -->
-    <div class="flex items-center justify-end">
+    <div class="flex items-center justify-between">
+        <div>
+            <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-slate-900 font-heading">Facilities Section</h2>
+            <p class="text-xs sm:text-sm text-slate-500 mt-0.5">Manage campus state-of-the-art facilities with icons and text.</p>
+        </div>
         <a href="{{ route('admin.facilities.create') }}" class="inline-flex items-center justify-center rounded-lg text-xs sm:text-sm font-semibold bg-jrs-red hover:bg-red-700 text-white shadow-xs h-9 px-4 py-2 gap-2 transition-colors">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
-            <span>Add Amenity</span>
+            <span>Add Facility</span>
         </a>
     </div>
 
@@ -53,11 +57,10 @@
                 <thead>
                     <tr class="border-b border-slate-200 bg-slate-50/75 text-slate-500 font-medium text-xs">
                         <th class="h-10 px-4 w-16 text-center">Order</th>
-                        <th class="h-10 px-4 w-24">Photo</th>
-                        <th class="h-10 px-4 min-w-[200px]">Facility & Description</th>
-                        <th class="h-10 px-4 w-28 text-center">Icon</th>
+                        <th class="h-10 px-4 w-20 text-center">Icon</th>
+                        <th class="h-10 px-4 min-w-[240px]">Facility Title</th>
                         <th class="h-10 px-4 w-24 text-center">Status</th>
-                        <th class="h-10 px-4 w-32 text-right">Actions</th>
+                        <th class="h-10 px-4 w-28 text-right">Actions</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-slate-100 text-slate-700">
@@ -70,78 +73,54 @@
                                 </span>
                             </td>
 
-                            <!-- Image Thumbnail with Floating Circular Icon -->
-                            <td class="p-4 align-middle">
-                                <div class="relative w-16 h-12 rounded-lg overflow-hidden border border-slate-200 bg-slate-100 shadow-2xs group cursor-pointer" onclick="openImageModal('{{ $facility->image_full_url ?? '' }}', '{{ addslashes($facility->title) }}')">
-                                    @if($facility->image_full_url)
-                                        <img src="{{ $facility->image_full_url }}" alt="{{ $facility->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200">
-                                    @else
-                                        <div class="w-full h-full flex items-center justify-center text-[10px] text-slate-400 font-medium">No Photo</div>
-                                    @endif
-
-                                    <!-- Mini Badge Icon overlay -->
-                                    <div class="absolute bottom-1 right-1 w-5 h-5 rounded-full bg-rose-600 text-white flex items-center justify-center text-[10px] shadow-xs">
-                                        @php
-                                            $rawIcon = trim($facility->icon ?? '');
-                                            $iconClass = $rawIcon;
-                                            $aliasMap = [
-                                                'monitor' => 'bi bi-display',
-                                                'smart-classroom' => 'bi bi-display',
-                                                'laptop' => 'bi bi-laptop',
-                                                'flask' => 'bi bi-flask',
-                                                'science' => 'bi bi-flask',
-                                                'book' => 'bi bi-book-half',
-                                                'library' => 'bi bi-book-half',
-                                                'trophy' => 'bi bi-trophy-fill',
-                                                'sports' => 'bi bi-trophy-fill',
-                                                'bus' => 'bi bi-bus-front-fill',
-                                                'transport' => 'bi bi-bus-front-fill',
-                                                'school' => 'bi bi-buildings-fill',
-                                                'infrastructure' => 'bi bi-buildings-fill',
-                                                'tree' => 'bi bi-tree-fill',
-                                                'eco' => 'bi bi-tree-fill',
-                                            ];
-                                            if (isset($aliasMap[$rawIcon])) {
-                                                $iconClass = $aliasMap[$rawIcon];
-                                            } elseif ($rawIcon && !str_contains($rawIcon, ' ') && !str_contains($rawIcon, '<')) {
-                                                $iconClass = 'bi bi-' . $rawIcon;
-                                            }
-                                        @endphp
-                                        @if(str_starts_with($rawIcon, '<'))
-                                            {!! $rawIcon !!}
-                                        @else
-                                            <i class="{{ $iconClass ?: 'bi bi-display' }}"></i>
-                                        @endif
-                                    </div>
-                                </div>
-                            </td>
-
-                            <!-- Facility Title & Description -->
-                            <td class="p-4 align-middle">
-                                <div class="space-y-0.5">
-                                    <div class="font-semibold text-slate-900 leading-snug font-heading text-sm">
-                                        {{ $facility->title }}
-                                    </div>
-                                    @if($facility->description)
-                                        <p class="text-xs text-slate-500 line-clamp-1 max-w-md">
-                                            {{ $facility->description }}
-                                        </p>
-                                    @endif
-                                    @if($facility->destination_url)
-                                        <div class="flex items-center gap-1 text-[11px] text-blue-600 font-mono pt-0.5 truncate max-w-md">
-                                            <svg class="w-3 h-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-                                            <a href="{{ $facility->destination_url }}" target="_blank" rel="noopener noreferrer" class="hover:underline truncate" onclick="event.stopPropagation()">{{ $facility->destination_url }}</a>
-                                        </div>
-                                    @endif
-                                </div>
-                            </td>
-
-                            <!-- Badge Icon Pill -->
+                            <!-- Icon Preview -->
                             <td class="p-4 align-middle text-center">
-                                <span class="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-slate-50 px-2.5 py-0.5 text-xs font-medium text-slate-700">
-                                    <i class="{{ $iconClass ?: 'bi bi-display' }} text-rose-600 text-xs"></i>
-                                    <span class="font-mono text-[11px] truncate max-w-[100px]">{{ str_replace('bi bi-', '', $iconClass ?: 'display') }}</span>
-                                </span>
+                                @php
+                                    $rawIcon = trim($facility->icon ?? '');
+                                    $iconClass = $rawIcon;
+                                    $aliasMap = [
+                                        'monitor' => 'bi bi-display',
+                                        'smart-classroom' => 'bi bi-display',
+                                        'laptop' => 'bi bi-laptop',
+                                        'flask' => 'bi bi-flask',
+                                        'science' => 'bi bi-flask',
+                                        'book' => 'bi bi-book-half',
+                                        'library' => 'bi bi-book-half',
+                                        'trophy' => 'bi bi-trophy-fill',
+                                        'sports' => 'bi bi-trophy-fill',
+                                        'bus' => 'bi bi-bus-front-fill',
+                                        'transport' => 'bi bi-bus-front-fill',
+                                        'school' => 'bi bi-buildings-fill',
+                                        'building' => 'bi bi-buildings-fill',
+                                        'infrastructure' => 'bi bi-buildings-fill',
+                                        'tree' => 'bi bi-tree-fill',
+                                        'eco' => 'bi bi-tree-fill',
+                                        'waves' => 'bi bi-water',
+                                        'utensils' => 'bi bi-cup-hot-fill',
+                                        'shield' => 'bi bi-shield-check',
+                                        'heart-pulse' => 'bi bi-heart-pulse-fill',
+                                        'wifi' => 'bi bi-wifi',
+                                    ];
+                                    if (isset($aliasMap[$rawIcon])) {
+                                        $iconClass = $aliasMap[$rawIcon];
+                                    } elseif ($rawIcon && !str_contains($rawIcon, ' ') && !str_contains($rawIcon, '<')) {
+                                        $iconClass = 'bi bi-' . $rawIcon;
+                                    }
+                                @endphp
+                                <div class="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-rose-50 border border-rose-200/80 text-rose-600 text-lg shadow-2xs">
+                                    @if(str_starts_with($rawIcon, '<'))
+                                        {!! $rawIcon !!}
+                                    @else
+                                        <i class="{{ $iconClass ?: 'bi bi-display' }}"></i>
+                                    @endif
+                                </div>
+                            </td>
+
+                            <!-- Facility Title -->
+                            <td class="p-4 align-middle">
+                                <div class="font-semibold text-slate-900 leading-snug font-heading text-sm">
+                                    {{ $facility->title }}
+                                </div>
                             </td>
 
                             <!-- Status -->
@@ -167,14 +146,14 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="6" class="p-12 text-center text-slate-500">
+                            <td colspan="5" class="p-12 text-center text-slate-500">
                                 <div class="max-w-sm mx-auto space-y-3">
                                     <div class="w-10 h-10 rounded-full border border-slate-200 bg-slate-50 text-slate-400 mx-auto flex items-center justify-center">
                                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.75"><path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
                                     </div>
                                     <div class="space-y-1">
                                         <p class="font-medium text-slate-900 text-sm">No facilities found</p>
-                                        <p class="text-xs text-slate-500">Add the school's smart classrooms, labs, sports, or transport facilities.</p>
+                                        <p class="text-xs text-slate-500">Add campus facilities with icons and text.</p>
                                     </div>
                                     <a href="{{ route('admin.facilities.create') }}" class="inline-flex items-center justify-center rounded-md text-xs font-medium bg-slate-900 text-white shadow hover:bg-slate-800 h-8 px-3">
                                         Add First Facility
@@ -201,7 +180,7 @@
         <div class="space-y-2">
             <h4 class="text-lg font-semibold leading-none tracking-tight text-slate-900 font-heading">Delete Facility</h4>
             <p class="text-sm text-slate-500 leading-relaxed">
-                Are you sure you want to delete <strong id="deleteFacilityTitle" class="text-slate-900"></strong>? This facility card will no longer appear in the World-Class Infrastructure section.
+                Are you sure you want to delete <strong id="deleteFacilityTitle" class="text-slate-900"></strong>? This facility item will be permanently removed.
             </p>
         </div>
         <form id="deleteForm" method="POST" action="">
@@ -216,17 +195,6 @@
                 </button>
             </div>
         </form>
-    </div>
-</div>
-
-<!-- Image Lightbox Modal -->
-<div id="imageLightboxModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-xs hidden items-center justify-center p-4" onclick="closeImageModal()">
-    <div class="relative max-w-2xl max-h-[90vh] p-2 bg-slate-950 rounded-xl border border-slate-800 shadow-2xl overflow-hidden" onclick="event.stopPropagation()">
-        <img id="lightboxImg" src="" alt="Facility Preview" class="w-full h-auto max-h-[80vh] object-contain rounded-lg">
-        <div class="p-3 text-white text-xs font-medium flex items-center justify-between">
-            <span id="lightboxCaption" class="truncate font-mono text-slate-300"></span>
-            <button onclick="closeImageModal()" class="inline-flex items-center justify-center rounded-md border border-slate-700 text-xs text-slate-300 hover:text-white hover:bg-slate-800 px-3 py-1 transition-colors">Close (Esc)</button>
-        </div>
     </div>
 </div>
 
@@ -246,25 +214,9 @@
         modal.classList.add('hidden');
     }
 
-    function openImageModal(url, title) {
-        if (!url) return;
-        document.getElementById('lightboxImg').src = url;
-        document.getElementById('lightboxCaption').textContent = title;
-        const modal = document.getElementById('imageLightboxModal');
-        modal.classList.remove('hidden');
-        modal.classList.add('flex');
-    }
-
-    function closeImageModal() {
-        const modal = document.getElementById('imageLightboxModal');
-        modal.classList.remove('flex');
-        modal.classList.add('hidden');
-    }
-
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {
             closeDeleteModal();
-            closeImageModal();
         }
     });
 </script>

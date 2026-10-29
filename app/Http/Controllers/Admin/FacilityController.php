@@ -61,8 +61,8 @@ class FacilityController extends Controller
     public function store(FacilityRequest $request)
     {
         $validated = $request->validated();
-        $validated['is_active'] = $request->has('is_active');
-        $validated['sort_order'] = $request->input('sort_order', 0);
+        $validated['is_active'] = $request->has('is_active') ? $request->boolean('is_active') : true;
+        $validated['sort_order'] = $request->input('sort_order', (Facility::max('sort_order') ?? 0) + 1);
 
         if ($request->hasFile('image')) {
             $file = $request->file('image');
@@ -110,7 +110,9 @@ class FacilityController extends Controller
     {
         $facility = Facility::findOrFail($id);
         $validated = $request->validated();
-        $validated['is_active'] = $request->has('is_active');
+        if ($request->has('is_active')) {
+            $validated['is_active'] = $request->boolean('is_active');
+        }
 
         if ($request->has('remove_image') && $request->remove_image == '1') {
             $this->deletePhysicalImage($facility->image_path);

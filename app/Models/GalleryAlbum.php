@@ -88,15 +88,19 @@ class GalleryAlbum extends Model
     public static function validationRules(int $id = null): array
     {
         return [
-            'title' => 'required|string|max:190',
+            'title' => 'nullable|string|max:190',
             'slug' => 'nullable|string|max:190|unique:gallery_albums,slug,' . $id,
             'badge' => 'nullable|string|max:190',
             'highlight_text' => 'nullable|string|max:190',
             'description' => 'nullable|string',
-            'media_type' => 'required|in:image,video',
+            'media_type' => 'nullable|string|in:image,video',
             'cover_image' => 'nullable|image|mimes:jpeg,png,jpg,webp,svg|max:5120',
             'sort_order' => 'nullable|integer',
             'is_active' => 'nullable|boolean',
+            'gallery_photos' => 'nullable|array',
+            'gallery_photos.*' => 'image|mimes:jpeg,png,jpg,webp,svg|max:10240',
+            'removed_item_ids' => 'nullable|array',
+            'removed_item_ids.*' => 'integer',
         ];
     }
 }

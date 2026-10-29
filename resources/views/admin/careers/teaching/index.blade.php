@@ -26,9 +26,8 @@
                 <thead>
                     <tr class="border-b border-slate-200 bg-slate-50/50 text-slate-500 font-medium text-xs">
                         <th class="h-10 px-4 w-28">Campus Photo</th>
-                        <th class="h-10 px-4 min-w-[240px]">Headline & Highlights</th>
-                        <th class="h-10 px-4 min-w-[260px]">Description Excerpt</th>
-                        <th class="h-10 px-4 min-w-[160px]">Resume Contact</th>
+                        <th class="h-10 px-4 min-w-[240px]">Heading</th>
+                        <th class="h-10 px-4 min-w-[260px]">Paragraph</th>
                         <th class="h-10 px-4 w-24 text-center">Status</th>
                         <th class="h-10 px-4 w-32 text-right">Actions</th>
                     </tr>
@@ -43,44 +42,18 @@
                                 </div>
                             </td>
 
-                            <!-- Headline & Highlights -->
+                            <!-- Heading -->
                             <td class="p-4 align-middle">
-                                <div class="space-y-1">
-                                    @if($item->badge)
-                                        <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold tracking-wider uppercase text-jrs-red bg-red-50 border border-red-200">
-                                            {{ $item->badge }}
-                                        </span>
-                                    @endif
-                                    <div class="font-bold text-sm text-jrs-navy leading-snug">
-                                        {{ $item->title }}
-                                    </div>
-                                    @if($item->highlight_1 || $item->highlight_2)
-                                        <div class="flex items-center gap-1.5 text-xs">
-                                            <span class="text-slate-400">Highlights:</span>
-                                            @if($item->highlight_1)
-                                                <span class="font-semibold text-jrs-red">"{{ $item->highlight_1 }}"</span>
-                                            @endif
-                                            @if($item->highlight_2)
-                                                <span class="font-semibold text-jrs-red">"{{ $item->highlight_2 }}"</span>
-                                            @endif
-                                        </div>
-                                    @endif
+                                <div class="font-bold text-sm text-jrs-navy leading-snug">
+                                    {{ $item->title }}
                                 </div>
                             </td>
 
-                            <!-- Description -->
+                            <!-- Paragraph -->
                             <td class="p-4 align-middle">
                                 <p class="text-xs text-slate-600 line-clamp-3 leading-relaxed max-w-md">
                                     {{ $item->description }}
                                 </p>
-                            </td>
-
-                            <!-- Contact -->
-                            <td class="p-4 align-middle text-xs">
-                                <div class="space-y-1">
-                                    <div class="font-mono text-slate-700 font-medium">{{ $item->apply_email ?? '—' }}</div>
-                                    <div class="text-slate-500">{{ $item->apply_phone ?? '—' }}</div>
-                                </div>
                             </td>
 
                             <!-- Status Toggle -->
@@ -110,7 +83,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="6" class="p-8 text-center text-slate-500">
+                            <td colspan="5" class="p-8 text-center text-slate-500">
                                 <p class="text-sm font-semibold text-slate-700">No Teaching at JRS section content found</p>
                                 <p class="text-xs text-slate-500 mt-1">Click "New Section Copy" above to create one.</p>
                             </td>

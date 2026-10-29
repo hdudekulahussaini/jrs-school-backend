@@ -27,7 +27,6 @@
                     <tr class="border-b border-slate-200 bg-slate-50/50 text-slate-500 font-medium text-xs">
                         <th class="h-10 px-4 w-28">Artwork</th>
                         <th class="h-10 px-4 min-w-[220px]">Headline & Highlight</th>
-                        <th class="h-10 px-4 min-w-[180px]">Action Buttons</th>
                         <th class="h-10 px-4 w-24 text-center">Status</th>
                         <th class="h-10 px-4 w-32 text-right">Actions</th>
                     </tr>
@@ -54,22 +53,6 @@
                                     <p class="text-xs text-slate-500 line-clamp-1 max-w-sm">
                                         {{ $item->description }}
                                     </p>
-                                </div>
-                            </td>
-
-                            <!-- Action Buttons -->
-                            <td class="p-4 align-middle">
-                                <div class="space-y-1 text-xs">
-                                    <div class="flex items-center gap-1 font-mono text-slate-700">
-                                        <span class="w-2 h-2 rounded-full bg-jrs-red"></span>
-                                        <span>{{ $item->primary_button_text }}</span>
-                                    </div>
-                                    @if($item->secondary_button_text)
-                                        <div class="flex items-center gap-1 font-mono text-slate-500">
-                                            <span class="w-2 h-2 rounded-full bg-slate-700"></span>
-                                            <span>{{ $item->secondary_button_text }}</span>
-                                        </div>
-                                    @endif
                                 </div>
                             </td>
 
@@ -100,7 +83,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="5" class="p-8 text-center text-slate-500">
+                            <td colspan="4" class="p-8 text-center text-slate-500">
                                 <p class="text-sm font-semibold text-slate-700">No CTA banners found</p>
                                 <p class="text-xs text-slate-500 mt-1">Click "New CTA Banner" above to configure one.</p>
                             </td>

@@ -85,7 +85,14 @@ class CareerSectionController extends Controller
     {
         $section = CareerSection::findOrFail($id);
         $validated = $request->validate(CareerSection::validationRules());
-        $validated['is_active'] = $request->has('is_active') ? (bool)$request->is_active : false;
+
+        if ($request->has('is_active')) {
+            $isActive = (bool)$request->is_active;
+            $validated['is_active'] = $isActive;
+            if ($isActive) {
+                CareerSection::where('id', '!=', $id)->update(['is_active' => false]);
+            }
+        }
 
         if ($request->hasFile('image_file')) {
             if ($section->image_path && str_starts_with($section->image_path, '/uploads/')) {
@@ -102,10 +109,6 @@ class CareerSectionController extends Controller
         }
 
         unset($validated['image_file']);
-
-        if ($validated['is_active']) {
-            CareerSection::where('id', '!=', $id)->update(['is_active' => false]);
-        }
 
         $section->update($validated);
 

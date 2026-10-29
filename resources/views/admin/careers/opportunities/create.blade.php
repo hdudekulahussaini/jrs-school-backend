@@ -34,26 +34,13 @@
                     <span>Left Column: Career Opportunities</span>
                 </h3>
 
-                <!-- Badge -->
+                <!-- Heading -->
                 <div class="space-y-1.5">
-                    <label for="badge" class="text-xs font-semibold text-slate-700">Badge Tag</label>
-                    <input type="text" 
-                           id="badge" 
-                           name="badge" 
-                           value="{{ old('badge', 'CAREER OPPORTUNITIES') }}" 
-                           class="w-full px-3 py-2 text-sm rounded-md border border-slate-200 focus:outline-none focus:ring-2 focus:ring-jrs-red/20 focus:border-jrs-red">
-                    @error('badge')
-                        <p class="text-xs text-red-600">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <!-- Title Line 1 -->
-                <div class="space-y-1.5">
-                    <label for="title" class="text-xs font-semibold text-slate-700">Headline Line 1 <span class="text-jrs-red">*</span></label>
+                    <label for="title" class="text-xs font-semibold text-slate-700">Heading <span class="text-jrs-red">*</span></label>
                     <input type="text" 
                            id="title" 
                            name="title" 
-                           value="{{ old('title', 'Who Are Passionate About Their Field –') }}" 
+                           value="{{ old('title', 'Who Are Passionate About Their Field – A Great Future Awaits You At JRS') }}" 
                            required
                            class="w-full px-3 py-2 text-sm rounded-md border border-slate-200 focus:outline-none focus:ring-2 focus:ring-jrs-red/20 focus:border-jrs-red">
                     @error('title')
@@ -61,22 +48,9 @@
                     @enderror
                 </div>
 
-                <!-- Highlight Title (Red) -->
+                <!-- Description / Paragraph -->
                 <div class="space-y-1.5">
-                    <label for="highlight_title" class="text-xs font-semibold text-slate-700">Headline Red Highlight</label>
-                    <input type="text" 
-                           id="highlight_title" 
-                           name="highlight_title" 
-                           value="{{ old('highlight_title', 'A Great Future Awaits You At JRS') }}" 
-                           class="w-full px-3 py-2 text-sm rounded-md border border-slate-200 focus:outline-none focus:ring-2 focus:ring-jrs-red/20 focus:border-jrs-red">
-                    @error('highlight_title')
-                        <p class="text-xs text-red-600">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <!-- Description -->
-                <div class="space-y-1.5">
-                    <label for="description" class="text-xs font-semibold text-slate-700">Paragraph Text <span class="text-jrs-red">*</span></label>
+                    <label for="description" class="text-xs font-semibold text-slate-700">Paragraph <span class="text-jrs-red">*</span></label>
                     <textarea id="description" 
                               name="description" 
                               rows="6"
@@ -95,19 +69,9 @@
                     <span>Right Card: How To Apply Card</span>
                 </h3>
 
-                <!-- Card Badge -->
+                <!-- Heading -->
                 <div class="space-y-1.5">
-                    <label for="card_badge" class="text-xs font-semibold text-slate-700">Card Header Tag</label>
-                    <input type="text" 
-                           id="card_badge" 
-                           name="card_badge" 
-                           value="{{ old('card_badge', 'APPLICATION PROCESS') }}" 
-                           class="w-full px-3 py-2 text-sm rounded-md border border-slate-200 focus:outline-none focus:ring-2 focus:ring-jrs-red/20 focus:border-jrs-red">
-                </div>
-
-                <!-- Card Title -->
-                <div class="space-y-1.5">
-                    <label for="card_title" class="text-xs font-semibold text-slate-700">Card Title <span class="text-jrs-red">*</span></label>
+                    <label for="card_title" class="text-xs font-semibold text-slate-700">Heading <span class="text-jrs-red">*</span></label>
                     <input type="text" 
                            id="card_title" 
                            name="card_title" 
@@ -116,9 +80,9 @@
                            class="w-full px-3 py-2 text-sm rounded-md border border-slate-200 focus:outline-none focus:ring-2 focus:ring-jrs-red/20 focus:border-jrs-red">
                 </div>
 
-                <!-- Card Description -->
+                <!-- Paragraph -->
                 <div class="space-y-1.5">
-                    <label for="card_description" class="text-xs font-semibold text-slate-700">Intro Instruction</label>
+                    <label for="card_description" class="text-xs font-semibold text-slate-700">Paragraph</label>
                     <input type="text" 
                            id="card_description" 
                            name="card_description" 
@@ -126,9 +90,9 @@
                            class="w-full px-3 py-2 text-sm rounded-md border border-slate-200 focus:outline-none focus:ring-2 focus:ring-jrs-red/20 focus:border-jrs-red">
                 </div>
 
-                <!-- Email -->
+                <!-- Mail -->
                 <div class="space-y-1.5">
-                    <label for="email" class="text-xs font-semibold text-slate-700">HR Resume Email <span class="text-jrs-red">*</span></label>
+                    <label for="email" class="text-xs font-semibold text-slate-700">Mail <span class="text-jrs-red">*</span></label>
                     <input type="email" 
                            id="email" 
                            name="email" 
@@ -140,20 +104,10 @@
                     @enderror
                 </div>
 
-                <!-- Checklist Header -->
-                <div class="space-y-1.5">
-                    <label for="checklist_title" class="text-xs font-semibold text-slate-700">Checklist Header</label>
-                    <input type="text" 
-                           id="checklist_title" 
-                           name="checklist_title" 
-                           value="{{ old('checklist_title', 'Please Ensure You Mention:') }}" 
-                           class="w-full px-3 py-2 text-sm rounded-md border border-slate-200 focus:outline-none focus:ring-2 focus:ring-jrs-red/20 focus:border-jrs-red">
-                </div>
-
-                <!-- Checklist Items -->
+                <!-- Tick Points -->
                 <div class="space-y-1.5">
                     <label for="checklist_text" class="text-xs font-semibold text-slate-700">
-                        Checklist Requirements (One item per line)
+                        Tick Points (One item per line)
                     </label>
                     <textarea id="checklist_text" 
                               name="checklist_text" 

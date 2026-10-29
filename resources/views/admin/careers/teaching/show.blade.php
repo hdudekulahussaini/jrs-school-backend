@@ -40,51 +40,16 @@
                 <h3 class="text-base font-bold text-jrs-navy font-heading border-b border-slate-100 pb-3">Typography & Messaging</h3>
                 
                 <div class="space-y-4 text-xs sm:text-sm">
-                    @if($section->badge)
-                        <div>
-                            <span class="block text-xs font-bold text-slate-400 uppercase tracking-wider">Badge</span>
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded text-xs font-bold uppercase tracking-wider text-jrs-red bg-red-50 border border-red-200 mt-1">
-                                {{ $section->badge }}
-                            </span>
-                        </div>
-                    @endif
-
                     <div>
-                        <span class="block text-xs font-bold text-slate-400 uppercase tracking-wider">Headline</span>
+                        <span class="block text-xs font-bold text-slate-400 uppercase tracking-wider">Heading</span>
                         <p class="font-bold text-lg text-jrs-navy mt-1 leading-snug">
                             {{ $section->title }}
                         </p>
                     </div>
 
-                    @if($section->highlight_1 || $section->highlight_2)
-                        <div>
-                            <span class="block text-xs font-bold text-slate-400 uppercase tracking-wider">Red Highlight Phrases</span>
-                            <div class="flex items-center gap-2 mt-1">
-                                @if($section->highlight_1)
-                                    <span class="px-2.5 py-1 rounded bg-red-50 text-jrs-red font-semibold border border-red-200">{{ $section->highlight_1 }}</span>
-                                @endif
-                                @if($section->highlight_2)
-                                    <span class="px-2.5 py-1 rounded bg-red-50 text-jrs-red font-semibold border border-red-200">{{ $section->highlight_2 }}</span>
-                                @endif
-                            </div>
-                        </div>
-                    @endif
-
                     <div>
-                        <span class="block text-xs font-bold text-slate-400 uppercase tracking-wider">Description</span>
+                        <span class="block text-xs font-bold text-slate-400 uppercase tracking-wider">Paragraph</span>
                         <p class="text-slate-700 mt-1 leading-relaxed text-sm whitespace-pre-line">{{ $section->description }}</p>
-                    </div>
-
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-3 border-t border-slate-100">
-                        <div class="p-3 rounded-lg bg-slate-50 border border-slate-200 space-y-1">
-                            <span class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Resume Email</span>
-                            <div class="font-bold text-sm text-slate-900 font-mono">{{ $section->apply_email ?? '—' }}</div>
-                        </div>
-
-                        <div class="p-3 rounded-lg bg-slate-50 border border-slate-200 space-y-1">
-                            <span class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">HR Phone</span>
-                            <div class="font-bold text-sm text-slate-900">{{ $section->apply_phone ?? '—' }}</div>
-                        </div>
                     </div>
                 </div>
             </div>

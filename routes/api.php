@@ -20,6 +20,7 @@ use App\Http\Controllers\Api\GalleryApiController;
 use App\Http\Controllers\Api\NewsMediaApiController;
 use App\Http\Controllers\Api\TopBarApiController;
 use App\Http\Controllers\Api\AdmissionBannerApiController;
+use App\Http\Controllers\Api\AdmissionBrochureApiController;
 use App\Http\Controllers\Api\ChairmanMessageApiController;
 use App\Http\Controllers\Api\PrincipalMessageApiController;
 use App\Http\Controllers\Api\EducationalSocietyApiController;
@@ -218,6 +219,10 @@ Route::get('/admission-criteria', [AdmissionCriterionApiController::class, 'inde
 
 // Admission FAQs - Admission Page
 Route::get('/admission-faqs', [AdmissionFaqApiController::class, 'index']);
+
+// Admission Brochure (PDF & Link) - Admission Page
+Route::get('/admission-brochure', [AdmissionBrochureApiController::class, 'index']);
+Route::get('/brochure', [AdmissionBrochureApiController::class, 'index']);
 
 // Contact Us & Campus Location
 Route::get('/contact', [ContactApiController::class, 'index']);

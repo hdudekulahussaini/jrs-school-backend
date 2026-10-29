@@ -62,10 +62,10 @@ class BeyondClassroomController extends Controller
     public function store(BeyondClassroomRequest $request)
     {
         $validated = $request->validated();
-        $validated['is_active'] = $request->has('is_active');
-        $validated['sort_order'] = $request->input('sort_order', 0);
-        $validated['color'] = $request->filled('color') ? $request->input('color') : null;
-        $validated['icon'] = $request->filled('icon') ? $request->input('icon') : null;
+        $validated['is_active'] = $request->has('is_active') ? $request->boolean('is_active') : true;
+        $validated['sort_order'] = $request->input('sort_order', (BeyondClassroom::max('sort_order') ?? 0) + 1);
+        $validated['color'] = $request->filled('color') ? $request->input('color') : '#15803d';
+        $validated['icon'] = $request->filled('icon') ? $request->input('icon') : 'bi bi-trophy-fill';
 
         // Handle Image Upload
         if ($request->hasFile('image')) {
@@ -115,10 +115,14 @@ class BeyondClassroomController extends Controller
         $activity = BeyondClassroom::findOrFail($id);
         $validated = $request->validated();
 
-        $validated['is_active'] = $request->has('is_active');
-        $validated['sort_order'] = $request->input('sort_order', 0);
-        $validated['color'] = $request->filled('color') ? $request->input('color') : null;
-        $validated['icon'] = $request->filled('icon') ? $request->input('icon') : null;
+        if ($request->has('is_active')) {
+            $validated['is_active'] = $request->boolean('is_active');
+        }
+        if ($request->has('sort_order')) {
+            $validated['sort_order'] = $request->input('sort_order');
+        }
+        $validated['color'] = $request->filled('color') ? $request->input('color') : $activity->color;
+        $validated['icon'] = $request->filled('icon') ? $request->input('icon') : $activity->icon;
 
         // Handle Image Replacement
         if ($request->hasFile('image')) {

@@ -54,12 +54,10 @@
 
             <!-- Home Page Dropdown -->
             @php
-                $isFacilitiesActive = request()->routeIs('admin.facilities.*') || request()->routeIs('admin.amenities.*');
                 $isHomeActive = request()->routeIs('admin.tickers.*') || 
                                 request()->routeIs('admin.sliders.*') || 
                                 request()->routeIs('admin.features.*') || 
                                 request()->routeIs('admin.stats.*') || 
-                                $isFacilitiesActive || 
                                 request()->routeIs('admin.programs.*') || 
                                 request()->routeIs('admin.events.*');
             @endphp
@@ -96,10 +94,6 @@
                         <span>Stats Section</span>
                     </a>
 
-                    <a href="{{ route('admin.facilities.index') }}" class="flex items-center gap-2.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors {{ $isFacilitiesActive ? 'bg-jrs-red text-white font-semibold shadow-xs' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
-                        <span class="w-1.5 h-1.5 rounded-full {{ $isFacilitiesActive ? 'bg-white ring-2 ring-white/30' : 'bg-white/40' }}"></span>
-                        <span>Facilities</span>
-                    </a>
 
                     <a href="{{ route('admin.programs.index') }}" class="flex items-center gap-2.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors {{ request()->routeIs('admin.programs.*') ? 'bg-jrs-red text-white font-semibold shadow-xs' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
                         <span class="w-1.5 h-1.5 rounded-full {{ request()->routeIs('admin.programs.*') ? 'bg-white ring-2 ring-white/30' : 'bg-white/40' }}"></span>
@@ -278,6 +272,11 @@
                 </button>
 
                 <div id="amenitiesDropdownMenu" class="{{ $isAmenitiesActive ? '' : 'hidden' }} pl-4 pr-1 py-1 space-y-1 border-l border-white/10 ml-5">
+                    <a href="{{ route('admin.facilities.index') }}" class="flex items-center gap-2.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors {{ $isFacilitiesActive ? 'bg-jrs-red text-white font-semibold shadow-xs' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
+                        <span class="w-1.5 h-1.5 rounded-full {{ $isFacilitiesActive ? 'bg-white ring-2 ring-white/30' : 'bg-white/40' }}"></span>
+                        <span>Facilities Section</span>
+                    </a>
+
                     <a href="{{ route('admin.amenities-cta.index') }}" class="flex items-center gap-2.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors {{ $isAmenitiesCtaActive ? 'bg-jrs-red text-white font-semibold shadow-xs' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
                         <span class="w-1.5 h-1.5 rounded-full {{ $isAmenitiesCtaActive ? 'bg-white ring-2 ring-white/30' : 'bg-white/40' }}"></span>
                         <span>CTA Banner Section</span>
@@ -320,6 +319,7 @@
                                       request()->routeIs('admin.admission-steps.*') || 
                                       request()->routeIs('admin.admission-criteria.*') || 
                                       request()->routeIs('admin.admission-faqs.*') || 
+                                      request()->routeIs('admin.admission-brochure.*') || 
                                       request()->routeIs('admin.admission-banner.*');
             @endphp
             <div class="space-y-1">
@@ -353,6 +353,11 @@
                     <a href="{{ route('admin.admission-faqs.index') }}" class="flex items-center gap-2.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors {{ request()->routeIs('admin.admission-faqs.*') ? 'bg-jrs-red text-white font-semibold shadow-xs' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
                         <span class="w-1.5 h-1.5 rounded-full {{ request()->routeIs('admin.admission-faqs.*') ? 'bg-white ring-2 ring-white/30' : 'bg-white/40' }}"></span>
                         <span>Admission FAQs</span>
+                    </a>
+
+                    <a href="{{ route('admin.admission-brochure.index') }}" class="flex items-center gap-2.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors {{ request()->routeIs('admin.admission-brochure.*') ? 'bg-jrs-red text-white font-semibold shadow-xs' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
+                        <span class="w-1.5 h-1.5 rounded-full {{ request()->routeIs('admin.admission-brochure.*') ? 'bg-white ring-2 ring-white/30' : 'bg-white/40' }}"></span>
+                        <span>Brochure</span>
                     </a>
 
                     <a href="{{ route('admin.admission-banner.index') }}" class="flex items-center gap-2.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors {{ request()->routeIs('admin.admission-banner.*') ? 'bg-jrs-red text-white font-semibold shadow-xs' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
@@ -398,8 +403,10 @@
 
             <!-- Gallery Page Dropdown -->
             @php
-                $isGalleryActive = request()->routeIs('admin.gallery-albums.*') || request()->routeIs('admin.gallery-items.*') || request()->routeIs('admin.news-media.*');
+                $isGalleryActive = request()->routeIs('admin.gallery-albums.*') || request()->routeIs('admin.gallery-items.*') || request()->routeIs('admin.gallery-videos.*') || request()->routeIs('admin.gallery-360.*') || request()->routeIs('admin.news-media.*');
                 $isGalleryAlbumsActive = request()->routeIs('admin.gallery-albums.*');
+                $isGalleryVideosActive = request()->routeIs('admin.gallery-videos.*');
+                $isGallery360Active = request()->routeIs('admin.gallery-360.*');
                 $isGalleryItemsActive = request()->routeIs('admin.gallery-items.*');
                 $isNewsMediaActive = request()->routeIs('admin.news-media.*');
             @endphp
@@ -418,12 +425,17 @@
                 <div id="galleryDropdownMenu" class="{{ $isGalleryActive ? '' : 'hidden' }} pl-4 pr-1 py-1 space-y-1 border-l border-white/10 ml-5">
                     <a href="{{ route('admin.gallery-albums.index') }}" class="flex items-center gap-2.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors {{ $isGalleryAlbumsActive ? 'bg-jrs-red text-white font-semibold shadow-xs' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
                         <span class="w-1.5 h-1.5 rounded-full {{ $isGalleryAlbumsActive ? 'bg-white ring-2 ring-white/30' : 'bg-white/40' }}"></span>
-                        <span>Album Sections (6)</span>
+                        <span>Photo Gallery</span>
                     </a>
 
-                    <a href="{{ route('admin.gallery-items.index') }}" class="flex items-center gap-2.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors {{ $isGalleryItemsActive ? 'bg-jrs-red text-white font-semibold shadow-xs' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
-                        <span class="w-1.5 h-1.5 rounded-full {{ $isGalleryItemsActive ? 'bg-white ring-2 ring-white/30' : 'bg-white/40' }}"></span>
-                        <span>Photos & Videos</span>
+                    <a href="{{ route('admin.gallery-videos.index') }}" class="flex items-center gap-2.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors {{ $isGalleryVideosActive ? 'bg-jrs-red text-white font-semibold shadow-xs' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
+                        <span class="w-1.5 h-1.5 rounded-full {{ $isGalleryVideosActive ? 'bg-white ring-2 ring-white/30' : 'bg-white/40' }}"></span>
+                        <span>Video Gallery</span>
+                    </a>
+
+                    <a href="{{ route('admin.gallery-360.index') }}" class="flex items-center gap-2.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors {{ $isGallery360Active ? 'bg-jrs-red text-white font-semibold shadow-xs' : 'text-white/70 hover:text-white hover:bg-white/10' }}">
+                        <span class="w-1.5 h-1.5 rounded-full {{ $isGallery360Active ? 'bg-white ring-2 ring-white/30' : 'bg-white/40' }}"></span>
+                        <span>360 Deg Campus</span>
                     </a>
 
                     <a href="{{ route('admin.news-media.index') }}" class="flex items-center gap-2.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors {{ $isNewsMediaActive ? 'bg-jrs-red text-white font-semibold shadow-xs' : 'text-white/70 hover:text-white hover:bg-white/10' }}">

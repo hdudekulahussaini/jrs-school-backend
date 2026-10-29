@@ -61,59 +61,27 @@
                     <span class="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-slate-100 text-slate-600">Left Column</span>
                 </div>
 
-                <!-- Badge Tag -->
-                <div class="space-y-1.5">
-                    <label for="badge" class="text-xs font-semibold text-slate-700 flex items-center justify-between">
-                        <span>Top Badge Tag</span>
-                        <span class="text-[10px] text-slate-400 font-normal">Upper uppercase pill</span>
-                    </label>
-                    <input type="text" 
-                           id="badge" 
-                           name="badge" 
-                           value="{{ old('badge', $opportunity->badge) }}"
-                           placeholder="e.g. CAREER OPPORTUNITIES"
-                           class="w-full px-3 py-2 text-xs font-semibold tracking-wider text-jrs-red uppercase rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-jrs-red/20 focus:border-jrs-red bg-slate-50/50">
-                </div>
-
-                <!-- Headline Line 1 -->
+                <!-- Heading -->
                 <div class="space-y-1.5">
                     <label for="title" class="text-xs font-semibold text-slate-700 flex items-center justify-between">
-                        <span>Headline Line 1 <span class="text-jrs-red">*</span></span>
-                        <span class="text-[10px] text-slate-400 font-normal">Rendered in Navy</span>
+                        <span>Heading <span class="text-jrs-red">*</span></span>
                     </label>
                     <input type="text" 
                            id="title" 
                            name="title" 
                            value="{{ old('title', $opportunity->title) }}"
                            required
+                           placeholder="e.g. Who Are Passionate About Their Field – A Great Future Awaits You At JRS"
                            class="w-full px-3.5 py-2.5 text-sm font-bold text-jrs-navy rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-jrs-red/20 focus:border-jrs-red">
                     @error('title')
                         <p class="text-xs text-red-600">{{ $message }}</p>
                     @enderror
                 </div>
 
-                <!-- Headline Highlight (Red) -->
-                <div class="space-y-1.5">
-                    <label for="highlight_title" class="text-xs font-semibold text-slate-700 flex items-center justify-between">
-                        <span>Headline Accent Highlight <span class="text-jrs-red">*</span></span>
-                        <span class="text-[10px] text-jrs-red font-semibold">Rendered in Red</span>
-                    </label>
-                    <input type="text" 
-                           id="highlight_title" 
-                           name="highlight_title" 
-                           value="{{ old('highlight_title', $opportunity->highlight_title) }}"
-                           required
-                           class="w-full px-3.5 py-2.5 text-sm font-bold text-jrs-red rounded-lg border border-red-200 focus:outline-none focus:ring-2 focus:ring-jrs-red/20 focus:border-jrs-red bg-red-50/30">
-                    @error('highlight_title')
-                        <p class="text-xs text-red-600">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <!-- Description Textarea -->
+                <!-- Paragraph -->
                 <div class="space-y-1.5">
                     <label for="description" class="text-xs font-semibold text-slate-700 flex items-center justify-between">
-                        <span>Paragraph Content <span class="text-jrs-red">*</span></span>
-                        <span class="text-[10px] text-slate-400 font-normal">Philosophy statement</span>
+                        <span>Paragraph <span class="text-jrs-red">*</span></span>
                     </label>
                     <textarea id="description" 
                               name="description" 
@@ -141,41 +109,38 @@
                     <span class="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-blue-50 text-blue-700 border border-blue-200">Right Card</span>
                 </div>
 
-                <!-- Card Badge & Card Title Row -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    <div class="space-y-1.5">
-                        <label for="card_badge" class="text-xs font-semibold text-slate-700">Card Header Tag</label>
-                        <input type="text" 
-                               id="card_badge" 
-                               name="card_badge" 
-                               value="{{ old('card_badge', $opportunity->card_badge) }}"
-                               class="w-full px-3 py-2 text-xs font-semibold uppercase text-jrs-red rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-jrs-red/20 focus:border-jrs-red bg-slate-50/50">
-                    </div>
-                    <div class="space-y-1.5">
-                        <label for="card_title" class="text-xs font-semibold text-slate-700">Card Heading <span class="text-jrs-red">*</span></label>
-                        <input type="text" 
-                               id="card_title" 
-                               name="card_title" 
-                               value="{{ old('card_title', $opportunity->card_title) }}"
-                               required
-                               class="w-full px-3 py-2 text-xs font-bold text-jrs-navy rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-jrs-red/20 focus:border-jrs-red">
-                    </div>
-                </div>
-
-                <!-- Card Intro Sentence -->
+                <!-- Heading -->
                 <div class="space-y-1.5">
-                    <label for="card_description" class="text-xs font-semibold text-slate-700">Intro Prompt</label>
+                    <label for="card_title" class="text-xs font-semibold text-slate-700">Heading <span class="text-jrs-red">*</span></label>
                     <input type="text" 
-                           id="card_description" 
-                           name="card_description" 
-                           value="{{ old('card_description', $opportunity->card_description) }}"
-                           class="w-full px-3 py-2 text-xs text-slate-700 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-jrs-red/20 focus:border-jrs-red">
+                           id="card_title" 
+                           name="card_title" 
+                           value="{{ old('card_title', $opportunity->card_title) }}"
+                           required
+                           placeholder="e.g. How To Apply"
+                           class="w-full px-3 py-2 text-xs font-bold text-jrs-navy rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-jrs-red/20 focus:border-jrs-red">
+                    @error('card_title')
+                        <p class="text-xs text-red-600">{{ $message }}</p>
+                    @enderror
                 </div>
 
-                <!-- Resume Email Pill Input -->
+                <!-- Paragraph -->
+                <div class="space-y-1.5">
+                    <label for="card_description" class="text-xs font-semibold text-slate-700">Paragraph</label>
+                    <textarea id="card_description" 
+                              name="card_description" 
+                              rows="3"
+                              placeholder="e.g. If you are looking for an opportunity to work at JRS International School, please send your resume to:"
+                              class="w-full px-3 py-2 text-xs text-slate-700 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-jrs-red/20 focus:border-jrs-red">{{ old('card_description', $opportunity->card_description) }}</textarea>
+                    @error('card_description')
+                        <p class="text-xs text-red-600">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <!-- Mail -->
                 <div class="space-y-1.5">
                     <label for="email" class="text-xs font-semibold text-slate-700 flex items-center justify-between">
-                        <span>HR Resume Submission Email <span class="text-jrs-red">*</span></span>
+                        <span>Mail <span class="text-jrs-red">*</span></span>
                         <span class="text-[10px] text-blue-600 font-semibold">Clickable mailto link</span>
                     </label>
                     <div class="relative flex items-center">
@@ -197,22 +162,16 @@
                 <!-- Divider -->
                 <div class="border-t border-slate-100 pt-3">
                     <div class="flex items-center justify-between mb-2">
-                        <label for="checklist_title" class="text-xs font-bold text-slate-800">
-                            Checklist Requirements
+                        <label class="text-xs font-bold text-slate-800">
+                            Tick Points
                         </label>
                         <button type="button" 
                                 onclick="addChecklistItem()" 
                                 class="inline-flex items-center gap-1 text-[11px] font-semibold text-blue-600 hover:text-blue-800 hover:underline">
                             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
-                            <span>Add Requirement</span>
+                            <span>Add Tick Point</span>
                         </button>
                     </div>
-
-                    <input type="text" 
-                           id="checklist_title" 
-                           name="checklist_title" 
-                           value="{{ old('checklist_title', $opportunity->checklist_title) }}"
-                           class="w-full px-3 py-1.5 text-xs font-semibold text-slate-700 rounded-md border border-slate-200 mb-3 focus:outline-none focus:ring-1 focus:ring-jrs-red">
 
                     <!-- Interactive Dynamic Checklist Rows -->
                     <div id="checklistContainer" class="space-y-2">

@@ -69,19 +69,6 @@
                         <p class="text-slate-700 mt-1 leading-relaxed">{{ $cta->description ?? '—' }}</p>
                     </div>
 
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-3 border-t border-slate-100">
-                        <div class="p-3 rounded-lg bg-red-50/60 border border-red-100 space-y-1">
-                            <span class="text-[11px] font-bold text-jrs-red uppercase tracking-wider">Primary Button</span>
-                            <div class="font-bold text-sm text-slate-900">{{ $cta->primary_button_text }}</div>
-                            <div class="font-mono text-xs text-slate-500 truncate">{{ $cta->primary_button_url }}</div>
-                        </div>
-
-                        <div class="p-3 rounded-lg bg-slate-50 border border-slate-200 space-y-1">
-                            <span class="text-[11px] font-bold text-slate-700 uppercase tracking-wider">Secondary Button</span>
-                            <div class="font-bold text-sm text-slate-900">{{ $cta->secondary_button_text ?? '—' }}</div>
-                            <div class="font-mono text-xs text-slate-500 truncate">{{ $cta->secondary_button_url ?? '—' }}</div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -95,10 +82,6 @@
                 </div>
 
                 <div class="pt-3 border-t border-slate-100 text-xs space-y-2 text-slate-500">
-                    <div class="flex items-center justify-between">
-                        <span>Background Hex:</span>
-                        <span class="font-mono font-semibold text-slate-700">{{ $cta->bg_color ?? '#031c3f' }}</span>
-                    </div>
                     <div class="flex items-center justify-between">
                         <span>Status:</span>
                         <span class="font-semibold {{ $cta->is_active ? 'text-emerald-600' : 'text-slate-500' }}">

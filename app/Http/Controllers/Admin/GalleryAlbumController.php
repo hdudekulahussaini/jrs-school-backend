@@ -11,43 +11,24 @@ use Illuminate\Support\Str;
 class GalleryAlbumController extends Controller
 {
     /**
-     * Display listing of gallery albums.
+     * Display listing of gallery albums / photo gallery uploader.
      */
     public function index(Request $request)
     {
-        $query = GalleryAlbum::withCount('items');
-
-        if ($request->filled('search')) {
-            $term = $request->search;
-            $query->where(function ($q) use ($term) {
-                $q->where('title', 'like', "%{$term}%")
-                  ->orWhere('badge', 'like', "%{$term}%")
-                  ->orWhere('description', 'like', "%{$term}%");
-            });
+        $album = GalleryAlbum::first();
+        if (!$album) {
+            $album = GalleryAlbum::create([
+                'title' => 'School Photo Gallery',
+                'slug' => 'school-photo-gallery',
+                'media_type' => 'image',
+                'is_active' => true,
+                'sort_order' => 1,
+            ]);
         }
 
-        if ($request->filled('media_type')) {
-            $query->where('media_type', $request->media_type);
-        }
+        $items = \App\Models\GalleryItem::orderBy('sort_order', 'asc')->orderBy('id', 'asc')->get();
 
-        if ($request->filled('status')) {
-            if ($request->status === 'active') {
-                $query->where('is_active', true);
-            } elseif ($request->status === 'inactive') {
-                $query->where('is_active', false);
-            }
-        }
-
-        $albums = $query->orderBy('sort_order', 'asc')
-            ->orderBy('id', 'asc')
-            ->paginate(12)
-            ->withQueryString();
-
-        $totalCount = GalleryAlbum::count();
-        $activeCount = GalleryAlbum::where('is_active', true)->count();
-        $totalItemsCount = \App\Models\GalleryItem::count();
-
-        return view('admin.gallery.albums.index', compact('albums', 'totalCount', 'activeCount', 'totalItemsCount'));
+        return view('admin.gallery.albums.index', compact('album', 'items'));
     }
 
     /**
@@ -55,40 +36,66 @@ class GalleryAlbumController extends Controller
      */
     public function create()
     {
-        $nextOrder = (GalleryAlbum::max('sort_order') ?? 0) + 1;
-        return view('admin.gallery.albums.create', compact('nextOrder'));
+        return redirect()->route('admin.gallery-albums.index');
     }
 
     /**
-     * Store a newly created album.
+     * Store gallery photos.
      */
     public function store(Request $request)
     {
-        $validated = $request->validate(GalleryAlbum::validationRules());
-        $validated['is_active'] = $request->has('is_active');
-        $validated['sort_order'] = $request->input('sort_order', 0);
-
-        if (empty($validated['slug'])) {
-            $validated['slug'] = Str::slug($validated['title']) . '-' . Str::random(4);
+        $album = GalleryAlbum::first();
+        if (!$album) {
+            $album = GalleryAlbum::create([
+                'title' => 'School Photo Gallery',
+                'slug' => 'school-photo-gallery',
+                'media_type' => 'image',
+                'is_active' => true,
+                'sort_order' => 1,
+            ]);
         }
 
-        if ($request->hasFile('cover_image')) {
-            $file = $request->file('cover_image');
-            $uploadDir = public_path('uploads/gallery/albums');
+        // Handle removed photos
+        if ($request->filled('removed_item_ids')) {
+            $removedIds = (array) $request->input('removed_item_ids');
+            $itemsToDelete = \App\Models\GalleryItem::whereIn('id', $removedIds)->get();
+            foreach ($itemsToDelete as $delItem) {
+                if ($delItem->image_path && Str::startsWith($delItem->image_path, '/uploads/')) {
+                    $path = public_path(ltrim($delItem->image_path, '/'));
+                    if (File::exists($path)) {
+                        File::delete($path);
+                    }
+                }
+                $delItem->delete();
+            }
+        }
+
+        // Upload gallery photos
+        if ($request->hasFile('gallery_photos')) {
+            $uploadDir = public_path('uploads/gallery/items');
             if (!File::exists($uploadDir)) {
                 File::makeDirectory($uploadDir, 0755, true);
             }
-            $filename = time() . '_' . Str::slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $file->getClientOriginalExtension();
-            $file->move($uploadDir, $filename);
-            $validated['cover_image'] = '/uploads/gallery/albums/' . $filename;
+            $maxSort = \App\Models\GalleryItem::max('sort_order') ?? 0;
+            foreach ($request->file('gallery_photos') as $photoFile) {
+                if ($photoFile && $photoFile->isValid()) {
+                    $originalName = $photoFile->getClientOriginalName();
+                    $filename = time() . '_' . Str::random(6) . '_' . Str::slug(pathinfo($originalName, PATHINFO_FILENAME)) . '.' . $photoFile->getClientOriginalExtension();
+                    $photoFile->move($uploadDir, $filename);
+                    $album->items()->create([
+                        'caption' => pathinfo($originalName, PATHINFO_FILENAME),
+                        'image_path' => '/uploads/gallery/items/' . $filename,
+                        'sort_order' => ++$maxSort,
+                        'is_active' => true,
+                    ]);
+                }
+            }
         }
 
-        GalleryAlbum::create($validated);
-
-        flash()->success('Gallery Album created successfully.', 'Album Created');
+        flash()->success('Gallery photos saved successfully.', 'Gallery Saved');
 
         return redirect()->route('admin.gallery-albums.index')
-            ->with('success', 'Gallery Album created successfully.');
+            ->with('success', 'Gallery photos saved successfully.');
     }
 
     /**
@@ -111,11 +118,45 @@ class GalleryAlbumController extends Controller
         $album = GalleryAlbum::findOrFail($id);
         $validated = $request->validate(GalleryAlbum::validationRules($album->id));
 
-        $validated['is_active'] = $request->has('is_active');
-        $validated['sort_order'] = $request->input('sort_order', $album->sort_order);
+        if ($request->has('is_active')) {
+            $validated['is_active'] = (bool) $request->input('is_active');
+        }
 
-        if (empty($validated['slug'])) {
-            $validated['slug'] = Str::slug($validated['title']) . '-' . Str::random(4);
+        // Handle removed items
+        if ($request->filled('removed_item_ids')) {
+            $removedIds = (array) $request->input('removed_item_ids');
+            $itemsToDelete = $album->items()->whereIn('id', $removedIds)->get();
+            foreach ($itemsToDelete as $delItem) {
+                if ($delItem->image_path && Str::startsWith($delItem->image_path, '/uploads/')) {
+                    $path = public_path(ltrim($delItem->image_path, '/'));
+                    if (File::exists($path)) {
+                        File::delete($path);
+                    }
+                }
+                $delItem->delete();
+            }
+        }
+
+        // Upload new gallery photos
+        if ($request->hasFile('gallery_photos')) {
+            $uploadDir = public_path('uploads/gallery/items');
+            if (!File::exists($uploadDir)) {
+                File::makeDirectory($uploadDir, 0755, true);
+            }
+            $maxSort = $album->items()->max('sort_order') ?? 0;
+            foreach ($request->file('gallery_photos') as $photoFile) {
+                if ($photoFile && $photoFile->isValid()) {
+                    $originalName = $photoFile->getClientOriginalName();
+                    $filename = time() . '_' . Str::random(6) . '_' . Str::slug(pathinfo($originalName, PATHINFO_FILENAME)) . '.' . $photoFile->getClientOriginalExtension();
+                    $photoFile->move($uploadDir, $filename);
+                    $album->items()->create([
+                        'caption' => pathinfo($originalName, PATHINFO_FILENAME),
+                        'image_path' => '/uploads/gallery/items/' . $filename,
+                        'sort_order' => ++$maxSort,
+                        'is_active' => true,
+                    ]);
+                }
+            }
         }
 
         if ($request->hasFile('cover_image')) {
@@ -136,12 +177,12 @@ class GalleryAlbumController extends Controller
             $validated['cover_image'] = '/uploads/gallery/albums/' . $filename;
         }
 
-        $album->update($validated);
+        $album->update(array_filter($validated, fn($val) => $val !== null));
 
-        flash()->success('Gallery Album updated successfully.', 'Album Updated');
+        flash()->success('Gallery photos updated successfully.', 'Gallery Updated');
 
         return redirect()->route('admin.gallery-albums.index')
-            ->with('success', 'Gallery Album updated successfully.');
+            ->with('success', 'Gallery photos updated successfully.');
     }
 
     /**

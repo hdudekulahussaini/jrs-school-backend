@@ -87,7 +87,13 @@ class BeyondClassroomCtaController extends Controller
         $cta = BeyondClassroomCta::findOrFail($id);
         $validated = $request->validate(BeyondClassroomCta::validationRules());
 
-        $validated['is_active'] = $request->has('is_active') ? (bool)$request->is_active : false;
+        if ($request->has('is_active')) {
+            $isActive = (bool)$request->is_active;
+            $validated['is_active'] = $isActive;
+            if ($isActive) {
+                BeyondClassroomCta::where('id', '!=', $id)->update(['is_active' => false]);
+            }
+        }
 
         if ($request->hasFile('image_file')) {
             // Delete old uploaded image if exists
@@ -105,10 +111,6 @@ class BeyondClassroomCtaController extends Controller
         }
 
         unset($validated['image_file']);
-
-        if ($validated['is_active']) {
-            BeyondClassroomCta::where('id', '!=', $id)->update(['is_active' => false]);
-        }
 
         $cta->update($validated);
         flash()->success('Beyond Classroom CTA banner updated successfully.');

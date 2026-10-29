@@ -18,64 +18,6 @@
         </a>
     </div>
 
-    <!-- Filter & Album Switcher Toolbar -->
-    <div class="rounded-2xl border border-slate-200 bg-white p-4 shadow-xs space-y-3">
-        <form action="{{ route('admin.gallery-items.index') }}" method="GET" class="flex flex-wrap items-center gap-3">
-            <div class="w-full sm:w-64">
-                <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Filter by Album Section</label>
-                <select name="album_id" onchange="this.form.submit()" class="h-9 px-3 w-full text-xs rounded-xl border border-slate-200 bg-slate-50 text-slate-800 font-semibold focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-jrs-navy">
-                    <option value="">All Album Sections ({{ $albums->count() }})</option>
-                    @foreach($albums as $album)
-                        <option value="{{ $album->id }}" {{ request('album_id') == $album->id ? 'selected' : '' }}>
-                            {{ $album->title }} ({{ $album->media_type === 'video' ? 'Videos' : 'Photos' }})
-                        </option>
-                    @endforeach
-                </select>
-            </div>
-
-            <div class="flex-1 min-w-[200px]">
-                <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Search Caption</label>
-                <div class="relative">
-                    <svg class="w-4 h-4 text-slate-400 absolute left-3 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-                    <input type="text" name="search" value="{{ request('search') }}" placeholder="Search captions (e.g. Classroom, Walk Gallery)..." class="flex h-9 w-full rounded-xl border border-slate-200 bg-white pl-9 pr-3 py-1 text-xs shadow-xs placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-jrs-navy">
-                </div>
-            </div>
-
-            <div class="w-full sm:w-40">
-                <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Status</label>
-                <select name="status" onchange="this.form.submit()" class="h-9 px-3 w-full text-xs rounded-xl border border-slate-200 bg-white text-slate-700 shadow-xs focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-jrs-navy">
-                    <option value="">All Statuses</option>
-                    <option value="active" {{ request('status') === 'active' ? 'selected' : '' }}>Active Only</option>
-                    <option value="inactive" {{ request('status') === 'inactive' ? 'selected' : '' }}>Draft / Inactive</option>
-                </select>
-            </div>
-
-            @if(request('album_id') || request('search') || request('status'))
-                <div class="pt-5">
-                    <a href="{{ route('admin.gallery-items.index') }}" class="inline-flex items-center justify-center rounded-xl text-xs font-semibold border border-slate-200 bg-slate-100 hover:bg-slate-200 px-3 h-9 text-slate-600 transition-colors">
-                        Reset Filters
-                    </a>
-                </div>
-            @endif
-        </form>
-
-        @if($selectedAlbum)
-            <div class="flex items-center justify-between p-3 rounded-xl bg-slate-50 border border-slate-200 text-xs">
-                <div class="flex items-center gap-2">
-                    <span class="font-bold text-slate-700">Currently showing:</span>
-                    <span class="font-bold text-jrs-navy font-heading">{{ $selectedAlbum->title }}</span>
-                    @if($selectedAlbum->badge)
-                        <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-red-100 text-jrs-red uppercase">{{ $selectedAlbum->badge }}</span>
-                    @endif
-                </div>
-                <div class="flex items-center gap-2">
-                    <a href="{{ route('admin.gallery-albums.edit', $selectedAlbum->id) }}" class="text-xs font-semibold text-jrs-navy hover:underline">
-                        Edit Album Header &rarr;
-                    </a>
-                </div>
-            </div>
-        @endif
-    </div>
 
     <!-- Media Items Grid -->
     <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">

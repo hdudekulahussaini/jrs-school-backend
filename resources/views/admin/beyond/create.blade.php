@@ -17,7 +17,7 @@
             </div>
             <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-jrs-navy font-heading">Add Beyond Classroom Activity</h2>
             <p class="text-xs sm:text-sm text-slate-500">
-                Configure a new co-curricular activity card for the Beyond Classroom page.
+                Configure a new co-curricular activity card with badge text, normal text, icon, and image.
             </p>
         </div>
     </div>
@@ -27,98 +27,129 @@
         <form action="{{ route('admin.beyond-classrooms.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
             @csrf
 
-            <!-- Basic Information Card -->
+            <!-- 1. Text Information Card -->
             <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-xs space-y-5">
                 <div class="border-b border-slate-100 pb-3">
-                    <h3 class="text-base font-bold text-jrs-navy font-heading">Activity Essentials</h3>
-                    <p class="text-xs text-slate-500">Configure title, category badge, and activity overview.</p>
+                    <h3 class="text-base font-bold text-jrs-navy font-heading">Activity Information</h3>
+                    <p class="text-xs text-slate-500">Provide the badge text and main text for this activity card.</p>
                 </div>
 
-                <!-- Title & Category -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <!-- Normal Text (Title) -->
                     <div>
                         <label for="title" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                            Activity Title <span class="text-jrs-red">*</span>
+                            Normal Text / Title <span class="text-jrs-red">*</span>
                         </label>
-                        <input type="text" name="title" id="title" value="{{ old('title') }}" required class="flex h-9 w-full rounded-md border {{ $errors->has('title') ? 'border-jrs-red ring-1 ring-jrs-red' : 'border-slate-200' }} bg-white px-3 py-1 text-xs sm:text-sm shadow-xs transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-jrs-navy">
+                        <input type="text" name="title" id="title" value="{{ old('title') }}" placeholder="e.g. Athletics & Sports, Dance, Music" required class="flex h-9 w-full rounded-md border {{ $errors->has('title') ? 'border-jrs-red ring-1 ring-jrs-red' : 'border-slate-200' }} bg-white px-3 py-1 text-xs sm:text-sm shadow-xs transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-jrs-navy">
                         @error('title')
                             <p class="text-xs text-jrs-red mt-1">{{ $message }}</p>
                         @enderror
                     </div>
 
+                    <!-- Badge Text (Category) -->
                     <div>
                         <label for="category" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                            Category / Subtitle
+                            Badge Text
                         </label>
-                        <input type="text" name="category" id="category" value="{{ old('category') }}" class="flex h-9 w-full rounded-md border {{ $errors->has('category') ? 'border-jrs-red ring-1 ring-jrs-red' : 'border-slate-200' }} bg-white px-3 py-1 text-xs sm:text-sm shadow-xs transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-jrs-navy">
+                        <input type="text" name="category" id="category" value="{{ old('category') }}" placeholder="e.g. Sports, Rhythm & Grace, Performing Arts" class="flex h-9 w-full rounded-md border {{ $errors->has('category') ? 'border-jrs-red ring-1 ring-jrs-red' : 'border-slate-200' }} bg-white px-3 py-1 text-xs sm:text-sm shadow-xs transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-jrs-navy">
                         @error('category')
                             <p class="text-xs text-jrs-red mt-1">{{ $message }}</p>
                         @enderror
                     </div>
                 </div>
+            </div>
 
-                <!-- Theme Color & Icon -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                        <label for="color" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                            Badge / Theme Color
-                        </label>
-                        <div class="flex items-center gap-2">
-                            <input type="color" id="colorPicker" value="{{ old('color', '#15803d') }}" oninput="document.getElementById('color').value = this.value" class="h-9 w-10 p-0.5 rounded border border-slate-200 cursor-pointer bg-white">
-                            <input type="text" name="color" id="color" value="{{ old('color') }}" oninput="document.getElementById('colorPicker').value = this.value" class="flex h-9 w-full rounded-md border border-slate-200 bg-white px-3 py-1 text-xs sm:text-sm font-mono shadow-xs focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-jrs-navy">
-                        </div>
-                        <div class="flex flex-wrap gap-1.5 mt-2">
-                            <button type="button" onclick="setColor('#15803d')" class="w-5 h-5 rounded-full bg-[#15803d] border border-black/10 hover:scale-110 transition-transform" title="Sports Green"></button>
-                            <button type="button" onclick="setColor('#0284c7')" class="w-5 h-5 rounded-full bg-[#0284c7] border border-black/10 hover:scale-110 transition-transform" title="Music Blue"></button>
-                            <button type="button" onclick="setColor('#db2777')" class="w-5 h-5 rounded-full bg-[#db2777] border border-black/10 hover:scale-110 transition-transform" title="Dance Pink"></button>
-                            <button type="button" onclick="setColor('#d97706')" class="w-5 h-5 rounded-full bg-[#d97706] border border-black/10 hover:scale-110 transition-transform" title="Karate Amber"></button>
-                            <button type="button" onclick="setColor('#2563eb')" class="w-5 h-5 rounded-full bg-[#2563eb] border border-black/10 hover:scale-110 transition-transform" title="Science Royal Blue"></button>
-                            <button type="button" onclick="setColor('#0891b2')" class="w-5 h-5 rounded-full bg-[#0891b2] border border-black/10 hover:scale-110 transition-transform" title="Skating Teal"></button>
-                        </div>
-                        @error('color')
-                            <p class="text-xs text-jrs-red mt-1">{{ $message }}</p>
-                        @enderror
-                    </div>
-
-                    <div>
-                        <label for="icon" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                            Icon Name / Category
-                        </label>
-                        <select name="icon" id="icon" class="flex h-9 w-full rounded-md border border-slate-200 bg-white px-3 py-1 text-xs sm:text-sm shadow-xs focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-jrs-navy">
-                            <option value="trophy" {{ old('icon') == 'trophy' ? 'selected' : '' }}>trophy (Sports)</option>
-                            <option value="music" {{ old('icon') == 'music' ? 'selected' : '' }}>music (Music)</option>
-                            <option value="dance" {{ old('icon') == 'dance' ? 'selected' : '' }}>dance (Dance / Performing Arts)</option>
-                            <option value="shield" {{ old('icon') == 'shield' ? 'selected' : '' }}>shield (Karate / Martial Arts)</option>
-                            <option value="flask" {{ old('icon') == 'flask' ? 'selected' : '' }}>flask (Science & Activities)</option>
-                            <option value="skating" {{ old('icon') == 'skating' ? 'selected' : '' }}>skating (Roller Skating / Speed)</option>
-                            <option value="palette" {{ old('icon') == 'palette' ? 'selected' : '' }}>palette (Art & Painting)</option>
-                            <option value="heart" {{ old('icon') == 'heart' ? 'selected' : '' }}>heart (Yoga & Wellness)</option>
-                            <option value="compass" {{ old('icon') == 'compass' ? 'selected' : '' }}>compass (Excursions & Tours)</option>
-                            <option value="users" {{ old('icon') == 'users' ? 'selected' : '' }}>users (Clubs & Leadership)</option>
-                        </select>
-                        @error('icon')
-                            <p class="text-xs text-jrs-red mt-1">{{ $message }}</p>
-                        @enderror
-                    </div>
+            <!-- 2. Icon Selection Card -->
+            <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-xs space-y-4">
+                <div class="border-b border-slate-100 pb-3">
+                    <h3 class="text-base font-bold text-jrs-navy font-heading">Activity Icon</h3>
+                    <p class="text-xs text-slate-500">Choose a preset icon or enter a custom Bootstrap icon class.</p>
                 </div>
 
-                <!-- Description -->
-                <div>
-                    <label for="description" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                        Activity Description
-                    </label>
-                    <textarea name="description" id="description" rows="3" class="flex min-h-[80px] w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm shadow-xs focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-jrs-navy">{{ old('description') }}</textarea>
-                    @error('description')
+                <div class="space-y-4">
+                    <!-- Input row with Icon Preview Badge -->
+                    <div class="flex items-center gap-3">
+                        <div id="icon-preview-box" class="w-12 h-12 rounded-xl bg-white border border-slate-200 flex items-center justify-center text-slate-800 text-2xl shrink-0 shadow-2xs transition-all">
+                            <i id="icon-preview" class="bi bi-trophy-fill"></i>
+                        </div>
+                        <div class="flex-1">
+                            <input type="text" name="icon" id="icon" value="{{ old('icon', 'bi bi-trophy-fill') }}" placeholder="bi bi-trophy-fill, bi bi-music-note-beamed, etc." class="flex h-11 w-full rounded-lg border border-slate-200 bg-white px-3.5 py-2 text-sm text-slate-800 shadow-xs transition-colors placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 focus-visible:border-transparent font-mono">
+                        </div>
+                    </div>
+                    @error('icon')
                         <p class="text-xs text-jrs-red mt-1">{{ $message }}</p>
                     @enderror
+
+                    <!-- Quick Presets -->
+                    <div class="space-y-2 pt-1">
+                        <div class="text-xs font-semibold text-slate-600">Quick Presets for Beyond Classroom</div>
+                        <div class="flex flex-wrap gap-2" id="icon-presets">
+                            <button type="button" data-icon="bi bi-trophy-fill" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
+                                <i class="bi bi-trophy-fill text-slate-600"></i>
+                                <span>Sports & Athletics</span>
+                            </button>
+                            <button type="button" data-icon="bi bi-palette-fill" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
+                                <i class="bi bi-palette-fill text-slate-600"></i>
+                                <span>Art & Painting</span>
+                            </button>
+                            <button type="button" data-icon="bi bi-music-note-beamed" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
+                                <i class="bi bi-music-note-beamed text-slate-600"></i>
+                                <span>Music</span>
+                            </button>
+                            <button type="button" data-icon="bi bi-person-arms-up" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
+                                <i class="bi bi-person-arms-up text-slate-600"></i>
+                                <span>Dance</span>
+                            </button>
+                            <button type="button" data-icon="bi bi-shield-shaded" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
+                                <i class="bi bi-shield-shaded text-slate-600"></i>
+                                <span>Karate & Martial Arts</span>
+                            </button>
+                            <button type="button" data-icon="bi bi-heart-fill" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
+                                <i class="bi bi-heart-fill text-slate-600"></i>
+                                <span>Yoga & Wellness</span>
+                            </button>
+                            <button type="button" data-icon="bi bi-lightning-charge-fill" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
+                                <i class="bi bi-lightning-charge-fill text-slate-600"></i>
+                                <span>Roller Skating</span>
+                            </button>
+                            <button type="button" data-icon="bi bi-flask" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
+                                <i class="bi bi-flask text-slate-600"></i>
+                                <span>Science Activities</span>
+                            </button>
+                            <button type="button" data-icon="bi bi-robot" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
+                                <i class="bi bi-robot text-slate-600"></i>
+                                <span>Robotics & STEM</span>
+                            </button>
+                            <button type="button" data-icon="bi bi-compass" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
+                                <i class="bi bi-compass text-slate-600"></i>
+                                <span>Excursions & Tours</span>
+                            </button>
+                            <button type="button" data-icon="bi bi-people-fill" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
+                                <i class="bi bi-people-fill text-slate-600"></i>
+                                <span>Clubs & Leadership</span>
+                            </button>
+                            <button type="button" data-icon="bi bi-camera-reels-fill" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
+                                <i class="bi bi-camera-reels-fill text-slate-600"></i>
+                                <span>Media & Photography</span>
+                            </button>
+                            <button type="button" data-icon="bi bi-book-half" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
+                                <i class="bi bi-book-half text-slate-600"></i>
+                                <span>Creative Writing</span>
+                            </button>
+                            <button type="button" data-icon="bi bi-mic-fill" class="icon-preset-btn border border-slate-200 bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs">
+                                <i class="bi bi-mic-fill text-slate-600"></i>
+                                <span>Debating & Drama</span>
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- Media & Photo Card -->
+            <!-- 3. Image Upload Card -->
             <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-xs space-y-4">
                 <div class="border-b border-slate-100 pb-3">
-                    <h3 class="text-base font-bold text-jrs-navy font-heading">Activity Photo</h3>
-                    <p class="text-xs text-slate-500">Upload portrait photo of the students in action.</p>
+                    <h3 class="text-base font-bold text-jrs-navy font-heading">Activity Image</h3>
+                    <p class="text-xs text-slate-500">Upload a photograph representing this activity.</p>
                 </div>
 
                 @include('admin.partials.image-upload', [
@@ -131,34 +162,6 @@
                     'urlName' => 'image_url',
                     'urlValue' => old('image_url'),
                 ])
-            </div>
-
-            <!-- Publishing Settings Card -->
-            <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-xs space-y-4">
-                <div class="border-b border-slate-100 pb-3">
-                    <h3 class="text-base font-bold text-jrs-navy font-heading">Display & Order Settings</h3>
-                    <p class="text-xs text-slate-500">Control appearance order and immediate visibility.</p>
-                </div>
-
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 items-center">
-                    <div>
-                        <label for="sort_order" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                            Display Sort Order
-                        </label>
-                        <input type="number" name="sort_order" id="sort_order" value="{{ old('sort_order', $nextOrder) }}" min="0" class="flex h-9 w-full rounded-md border border-slate-200 bg-white px-3 py-1 text-xs sm:text-sm font-mono shadow-xs focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-jrs-navy">
-                        <span class="text-[11px] text-slate-400">Lower numbers appear first (1 to 6).</span>
-                    </div>
-
-                    <div class="pt-4 sm:pt-0">
-                        <label class="flex items-center gap-3 p-3 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
-                            <input type="checkbox" name="is_active" value="1" {{ old('is_active', '1') ? 'checked' : '' }} class="h-4 w-4 rounded border-slate-300 text-jrs-red focus:ring-jrs-red">
-                            <div class="space-y-0.5">
-                                <span class="text-xs font-bold text-slate-700 block">Published / Visible</span>
-                                <span class="text-[11px] text-slate-500 block">Show this activity on the school homepage.</span>
-                            </div>
-                        </label>
-                    </div>
-                </div>
             </div>
 
             <!-- Form Actions -->
@@ -176,9 +179,77 @@
 </div>
 
 <script>
-function setColor(hex) {
-    document.getElementById('color').value = hex;
-    document.getElementById('colorPicker').value = hex;
-}
+document.addEventListener('DOMContentLoaded', function () {
+    const iconInput = document.getElementById('icon');
+    const previewBox = document.getElementById('icon-preview-box');
+    const presetBtns = document.querySelectorAll('.icon-preset-btn');
+
+    const aliasMap = {
+        'trophy': 'bi bi-trophy-fill',
+        'sports': 'bi bi-trophy-fill',
+        'palette': 'bi bi-palette-fill',
+        'art': 'bi bi-palette-fill',
+        'music': 'bi bi-music-note-beamed',
+        'dance': 'bi bi-person-arms-up',
+        'shield': 'bi bi-shield-shaded',
+        'karate': 'bi bi-shield-shaded',
+        'heart': 'bi bi-heart-fill',
+        'yoga': 'bi bi-heart-fill',
+        'skating': 'bi bi-lightning-charge-fill',
+        'flask': 'bi bi-flask',
+        'science': 'bi bi-flask',
+        'robot': 'bi bi-robot',
+        'compass': 'bi bi-compass',
+        'tours': 'bi bi-compass',
+        'users': 'bi bi-people-fill',
+        'people': 'bi bi-people-fill',
+        'leadership': 'bi bi-people-fill',
+        'camera': 'bi bi-camera-reels-fill',
+        'book': 'bi bi-book-half',
+        'mic': 'bi bi-mic-fill',
+    };
+
+    function updatePreview(val) {
+        val = (val || '').trim();
+        if (!val) {
+            previewBox.innerHTML = '<i class="bi bi-question-circle text-slate-400"></i>';
+            return;
+        }
+
+        let iconClass = val;
+        if (aliasMap[val]) {
+            iconClass = aliasMap[val];
+        } else if (!val.includes(' ') && !val.includes('-')) {
+            iconClass = 'bi bi-' + val;
+        }
+
+        previewBox.innerHTML = '<i class="' + iconClass + '"></i>';
+
+        presetBtns.forEach(btn => {
+            const dataIcon = btn.getAttribute('data-icon');
+            if (dataIcon === val || dataIcon === iconClass) {
+                btn.classList.add('bg-slate-900', 'border-slate-900', 'text-white', 'font-semibold');
+                btn.classList.remove('bg-white', 'text-slate-700');
+            } else {
+                btn.classList.remove('bg-slate-900', 'border-slate-900', 'text-white', 'font-semibold');
+                btn.classList.add('bg-white', 'text-slate-700');
+            }
+        });
+    }
+
+    presetBtns.forEach(btn => {
+        btn.addEventListener('click', function () {
+            const iconVal = this.getAttribute('data-icon');
+            iconInput.value = iconVal;
+            updatePreview(iconVal);
+        });
+    });
+
+    iconInput.addEventListener('input', function () {
+        updatePreview(this.value);
+    });
+
+    updatePreview(iconInput.value);
+});
 </script>
 @endsection

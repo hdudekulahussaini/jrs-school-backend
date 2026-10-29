@@ -52,25 +52,49 @@
             <table class="w-full caption-bottom text-sm text-left">
                 <thead>
                     <tr class="border-b border-slate-200 bg-slate-50/75 text-slate-500 font-medium text-xs">
-                        <th class="h-10 px-4 w-16 text-center">Order</th>
-                        <th class="h-10 px-4 w-28">Photo</th>
-                        <th class="h-10 px-4 min-w-[200px]">Activity & Category</th>
-                        <th class="h-10 px-4 min-w-[160px]">Theme Color & Icon</th>
-                        <th class="h-10 px-4 min-w-[220px]">Description</th>
+                        <th class="h-10 px-4 w-24">Photo</th>
+                        <th class="h-10 px-4 w-16 text-center">Icon</th>
+                        <th class="h-10 px-4 min-w-[180px]">Badge Text</th>
+                        <th class="h-10 px-4 min-w-[220px]">Activity Title</th>
                         <th class="h-10 px-4 w-24 text-center">Status</th>
-                        <th class="h-10 px-4 w-32 text-right">Actions</th>
+                        <th class="h-10 px-4 w-28 text-right">Actions</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-slate-100 text-slate-700">
                     @forelse($activities as $activity)
+                        @php
+                            $iconClass = $activity->icon ?? 'bi bi-trophy-fill';
+                            $aliasMap = [
+                                'trophy' => 'bi bi-trophy-fill',
+                                'sports' => 'bi bi-trophy-fill',
+                                'palette' => 'bi bi-palette-fill',
+                                'art' => 'bi bi-palette-fill',
+                                'music' => 'bi bi-music-note-beamed',
+                                'dance' => 'bi bi-person-arms-up',
+                                'shield' => 'bi bi-shield-shaded',
+                                'karate' => 'bi bi-shield-shaded',
+                                'heart' => 'bi bi-heart-fill',
+                                'yoga' => 'bi bi-heart-fill',
+                                'skating' => 'bi bi-lightning-charge-fill',
+                                'flask' => 'bi bi-flask',
+                                'science' => 'bi bi-flask',
+                                'robot' => 'bi bi-robot',
+                                'compass' => 'bi bi-compass',
+                                'tours' => 'bi bi-compass',
+                                'users' => 'bi bi-people-fill',
+                                'people' => 'bi bi-people-fill',
+                                'leadership' => 'bi bi-people-fill',
+                                'camera' => 'bi bi-camera-reels-fill',
+                                'book' => 'bi bi-book-half',
+                                'mic' => 'bi bi-mic-fill',
+                            ];
+                            if (isset($aliasMap[$iconClass])) {
+                                $iconClass = $aliasMap[$iconClass];
+                            } elseif (!str_contains($iconClass, ' ') && !str_contains($iconClass, '-')) {
+                                $iconClass = 'bi bi-' . $iconClass;
+                            }
+                        @endphp
                         <tr class="transition-colors hover:bg-slate-50/60">
-                            <!-- Sort Order -->
-                            <td class="p-4 align-middle text-center">
-                                <span class="inline-flex items-center justify-center font-mono text-xs font-semibold text-slate-500 bg-slate-100 rounded-md h-6 w-6">
-                                    {{ $activity->sort_order }}
-                                </span>
-                            </td>
-
                             <!-- Image Thumbnail -->
                             <td class="p-4 align-middle">
                                 <div class="relative w-20 h-14 rounded-lg overflow-hidden border border-slate-200 bg-slate-100 shadow-2xs group cursor-pointer" onclick="openImageModal('{{ $activity->image_full_url ?? '' }}', '{{ addslashes($activity->title) }}')">
@@ -84,40 +108,27 @@
                                 </div>
                             </td>
 
-                            <!-- Activity Title & Category -->
-                            <td class="p-4 align-middle">
-                                <div class="space-y-1">
-                                    <div class="font-bold text-sm text-jrs-navy">{{ $activity->title }}</div>
-                                    @if($activity->category)
-                                        <span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-semibold text-slate-600 bg-slate-100 border border-slate-200">
-                                            {{ $activity->category }}
-                                        </span>
-                                    @endif
+                            <!-- Icon -->
+                            <td class="p-4 align-middle text-center">
+                                <div class="w-9 h-9 rounded-lg bg-white border border-slate-200 text-slate-800 flex items-center justify-center text-lg mx-auto shadow-2xs">
+                                    <i class="{{ $iconClass }}"></i>
                                 </div>
                             </td>
 
-                            <!-- Theme Color & Icon -->
+                            <!-- Badge Text -->
                             <td class="p-4 align-middle">
-                                @if($activity->color || $activity->icon)
-                                    <div class="flex items-center gap-2.5">
-                                        @if($activity->color)
-                                            <span class="w-4 h-4 rounded-full border border-slate-300 shadow-2xs shrink-0" style="background-color: {{ $activity->color }}"></span>
-                                            <span class="font-mono text-xs text-slate-600">{{ $activity->color }}</span>
-                                        @endif
-                                        @if($activity->icon)
-                                            <span class="px-2 py-0.5 rounded bg-slate-50 text-[11px] text-slate-500 border border-slate-200 font-mono">{{ $activity->icon }}</span>
-                                        @endif
-                                    </div>
+                                @if($activity->category)
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold text-slate-700 bg-white border border-slate-200">
+                                        {{ $activity->category }}
+                                    </span>
+                                @else
+                                    <span class="text-xs text-slate-400">—</span>
                                 @endif
                             </td>
 
-                            <!-- Description -->
+                            <!-- Normal Text / Title -->
                             <td class="p-4 align-middle">
-                                @if($activity->description)
-                                    <p class="text-xs text-slate-600 line-clamp-2 max-w-sm">
-                                        {{ $activity->description }}
-                                    </p>
-                                @endif
+                                <div class="font-bold text-sm text-jrs-navy">{{ $activity->title }}</div>
                             </td>
 
                             <!-- Status Toggle -->
@@ -147,7 +158,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="7" class="p-8 text-center text-slate-500">
+                            <td colspan="6" class="p-8 text-center text-slate-500">
                                 <div class="max-w-sm mx-auto space-y-2">
                                     <svg class="w-10 h-10 mx-auto text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
                                     <p class="text-sm font-semibold text-slate-700">No Beyond Classroom activities found</p>

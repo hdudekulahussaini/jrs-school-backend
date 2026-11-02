@@ -81,7 +81,7 @@ class BreadcrumbBannerRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'page_slug.in' => 'Only the 15 predefined website header pages are allowed. Custom pages are not supported.',
+            'page_slug.in' => 'Only predefined website header pages are allowed. Custom pages are not supported.',
             'page_slug.unique' => 'A breadcrumb banner for this page already exists. Please edit the existing banner.',
             'background_image.max' => 'The background image must not be larger than 10MB.',
             'background_image.image' => 'The file uploaded must be a valid image file (jpeg, png, webp, svg, gif).',

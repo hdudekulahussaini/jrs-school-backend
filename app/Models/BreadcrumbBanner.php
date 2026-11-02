@@ -283,6 +283,21 @@ class BreadcrumbBanner extends Model
                 'stats' => [],
             ],
             [
+                'name' => 'Videos',
+                'slug' => 'videos',
+                'nav_path' => '/gallery/videos',
+                'breadcrumb_title' => 'Gallery > Create Life Skills',
+                'title' => 'Create',
+                'highlighted_title' => 'Life Skills',
+                'subtitle' => 'STUDENT DISCUSSIONS & SESSIONS',
+                'description' => 'Watch our students in action developing communication, critical thinking, debate skills, and creative expression.',
+                'primary_button_text' => null,
+                'primary_button_url' => null,
+                'secondary_button_text' => null,
+                'secondary_button_url' => null,
+                'stats' => [],
+            ],
+            [
                 'name' => 'Contact',
                 'slug' => 'contact',
                 'nav_path' => '/contact',
@@ -337,6 +352,11 @@ class BreadcrumbBanner extends Model
             'gallery/360-degree-campus' => '360-degree-campus',
             '360-degree-campus' => 'gallery/360-degree-campus',
             'admissions-overview' => 'admissions',
+            'gallery/videos' => 'videos',
+            'gallery-videos' => 'videos',
+            'video-gallery' => 'videos',
+            'create-life-skills' => 'videos',
+            'gallery/create-life-skills' => 'videos',
         ];
 
         if (isset($aliases[$normalized])) {

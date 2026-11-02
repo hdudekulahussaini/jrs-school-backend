@@ -24,14 +24,14 @@
             <!-- Section 1: Page Selection & Slug -->
             <div class="border-b border-slate-100 pb-5">
                 <div class="text-sm font-bold text-jrs-navy font-heading">1. Website Page Selection</div>
-                <p class="text-xs text-slate-500 mt-0.5">Select one of the 15 website pages to configure its breadcrumb banner.</p>
+                <p class="text-xs text-slate-500 mt-0.5">Select a website page to configure its breadcrumb banner.</p>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
                     <!-- Page Dropdown -->
                     <div class="space-y-1">
                         <label for="page_selector" class="text-xs font-semibold text-slate-700">Select Website Page <span class="text-jrs-red">*</span></label>
                         <select id="page_selector" class="w-full px-3 py-2 text-xs sm:text-sm rounded-lg border border-slate-200 bg-white focus:outline-none focus:border-jrs-navy focus:ring-1 focus:ring-jrs-navy font-medium">
-                            <option value="">-- Choose one of 15 website pages --</option>
+                            <option value="">-- Choose a website page --</option>
                             @foreach($supportedPages as $page)
                                 @php $isUsed = in_array($page['slug'], $existingSlugs); @endphp
                                 <option value="{{ $page['slug'] }}" data-page="{{ json_encode($page) }}">

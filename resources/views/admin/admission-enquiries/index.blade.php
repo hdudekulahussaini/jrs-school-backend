@@ -83,7 +83,9 @@
                     @forelse($enquiries as $enquiry)
                         <tr class="hover:bg-slate-50/50 transition-colors">
                             <td class="py-3.5 px-4 font-mono font-bold text-slate-500">
-                                #{{ $enquiry->id }}
+                                <a href="{{ route('admin.admission-enquiries.show', $enquiry) }}" class="hover:text-jrs-red hover:underline">
+                                    #{{ $enquiry->id }}
+                                </a>
                             </td>
                             <td class="py-3.5 px-4">
                                 <a href="tel:{{ $enquiry->country_code ?? '+91' }}{{ $enquiry->parent_mobile }}" class="inline-flex items-center gap-1.5 font-bold text-jrs-navy hover:text-jrs-red transition-colors">
@@ -126,7 +128,12 @@
                                     </select>
                                 </form>
                             </td>
-                            <td class="py-3.5 px-4 text-right">
+                            <td class="py-3.5 px-4 text-right whitespace-nowrap space-x-1">
+                                <a href="{{ route('admin.admission-enquiries.show', $enquiry) }}"
+                                   class="p-1.5 rounded-lg text-slate-400 hover:text-jrs-navy hover:bg-slate-100 transition-colors inline-block"
+                                   title="View Full Enquiry Details">
+                                    <i class="bi bi-eye text-sm"></i>
+                                </a>
                                 <form action="{{ route('admin.admission-enquiries.destroy', $enquiry) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete enquiry #{{ $enquiry->id }}?');" class="inline-block">
                                     @csrf
                                     @method('DELETE')

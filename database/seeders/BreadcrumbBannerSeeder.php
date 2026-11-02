@@ -23,6 +23,7 @@ class BreadcrumbBannerSeeder extends Seeder
         BreadcrumbBanner::where('page_slug', 'amenities')->update(['page_slug' => 'facilities', 'page_name' => 'Amenities']);
         BreadcrumbBanner::where('page_slug', 'beyond-classroom')->update(['page_slug' => 'beyond', 'page_name' => 'Beyond Classroom']);
         BreadcrumbBanner::where('page_slug', 'news-media')->update(['page_slug' => 'media', 'page_name' => 'Media']);
+        BreadcrumbBanner::whereIn('page_slug', ['gallery-videos', 'gallery/videos', 'video-gallery', 'create-life-skills'])->update(['page_slug' => 'videos', 'page_name' => 'Videos']);
 
         // Remove legacy banners that are not part of header navigation
         BreadcrumbBanner::whereNotIn('page_slug', $supportedSlugs)->delete();

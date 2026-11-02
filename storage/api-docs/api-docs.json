@@ -134,20 +134,35 @@
                   "data": [
                     {
                       "id": 1,
-                      "badge_title": "NURTURING BRIGHT MINDS • BUILDING A BETTER TOMORROW",
-                      "title": "Empowering",
-                      "highlight_text": "Future Leaders",
-                      "description": "At JRS International School, we inspire curiosity, creativity and compassion. A place where every child discovers their potential and shines in their own unique way.",
-                      "primary_button_text": "Admissions 2026-27",
+                      "slide_index": 1,
+                      "title": "Empowering Minds, Shaping Future Leaders",
+                      "primary_button_text": "Admissions 2027-28",
                       "secondary_button_text": "Take a Virtual Tour",
                       "secondary_button_url": "https://jrs-school.vercel.app/#tour",
+                      "experience_badge_image": "images/experience-badge-38.svg",
+                      "experience_badge_image_url": "http://localhost:8000/images/experience-badge-38.svg",
                       "image_path": "https://images.unsplash.com/photo-1580582932707-520aed937b7b",
                       "image_full_url": "https://images.unsplash.com/photo-1580582932707-520aed937b7b",
-                      "contact_phone": "+91 91574 04321",
-                      "sort_order": 1,
-                      "is_active": true
+                      "sort_order": 1
                     }
-                  ]
+                  ],
+                  "hero": {
+                    "id": 1,
+                    "title": "Empowering Minds, Shaping Future Leaders",
+                    "primary_button_text": "Admissions 2027-28",
+                    "secondary_button_text": "Take a Virtual Tour",
+                    "secondary_button_url": "https://jrs-school.vercel.app/#tour",
+                    "experience_badge_image": "images/experience-badge-38.svg",
+                    "experience_badge_image_url": "http://localhost:8000/images/experience-badge-38.svg",
+                    "background_images": [
+                      "https://images.unsplash.com/photo-1580582932707-520aed937b7b",
+                      "https://images.unsplash.com/photo-1509062522246-3755977927d7"
+                    ],
+                    "background_images_full_urls": [
+                      "https://images.unsplash.com/photo-1580582932707-520aed937b7b",
+                      "https://images.unsplash.com/photo-1509062522246-3755977927d7"
+                    ]
+                  }
                 }
               }
             }
@@ -166,9 +181,6 @@
       "get": {
         "tags": ["Hero Slider (REST CRUD)"],
         "summary": "List all hero slides",
-        "parameters": [
-          { "name": "active", "in": "query", "description": "Filter by status (true or false)", "required": false, "schema": { "type": "boolean" } }
-        ],
         "responses": { "200": { "description": "Full list of slides" } }
       }
     },
@@ -178,6 +190,31 @@
         "summary": "Get specific hero slide by ID",
         "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
         "responses": { "200": { "description": "Hero slide details" } }
+      }
+    },
+    "/home-banner": {
+      "get": {
+        "tags": ["Home Banner (Frontend)"],
+        "summary": "Get Home Page Promotional Banner Graphic",
+        "description": "Returns the single promotional image banner for the home page (e.g. IIT | JEE | NEET / Olympiad banner). Contains only the banner image URL without extra text/button fields.",
+        "responses": {
+          "200": {
+            "description": "Home banner details retrieved successfully",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": true,
+                  "data": {
+                    "id": 1,
+                    "image_path": "uploads/home_banners/home_banner_iit_jee_neet.png",
+                    "image_full_url": "http://127.0.0.1:8000/uploads/home_banners/home_banner_iit_jee_neet.png",
+                    "updated_at": "2026-11-02T12:00:00.000000Z"
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/features": {

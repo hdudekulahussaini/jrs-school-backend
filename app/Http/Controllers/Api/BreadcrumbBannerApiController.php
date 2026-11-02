@@ -72,6 +72,11 @@ class BreadcrumbBannerApiController extends Controller
                 'gallery/360-degree-campus' => '360-degree-campus',
                 '360-degree-campus' => 'gallery/360-degree-campus',
                 'admissions-overview' => 'admissions',
+                'gallery/videos' => 'videos',
+                'gallery-videos' => 'videos',
+                'video-gallery' => 'videos',
+                'create-life-skills' => 'videos',
+                'gallery/create-life-skills' => 'videos',
             ];
             if (isset($aliases[$normalized])) {
                 $supported = collect(BreadcrumbBanner::supportedPages())->firstWhere('slug', $aliases[$normalized]);

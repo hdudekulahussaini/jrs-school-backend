@@ -45,6 +45,14 @@ class AdmissionEnquiryController extends Controller
     }
 
     /**
+     * [READ] Display detailed view of a single admission enquiry.
+     */
+    public function show(AdmissionEnquiry $admissionEnquiry)
+    {
+        return view('admin.admission-enquiries.show', compact('admissionEnquiry'));
+    }
+
+    /**
      * [UPDATE] Update enquiry status or notes.
      */
     public function update(Request $request, AdmissionEnquiry $admissionEnquiry)

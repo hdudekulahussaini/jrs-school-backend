@@ -14,72 +14,131 @@ class HeroSliderApiController extends Controller
 {
     /**
      * Public endpoint for React frontend: GET /api/hero-sliders or /api/hero-slider
+     * Returns slides (heading, buttons, and experience badge synchronized across each rotating background photo)
+     * and the parent hero object.
      */
     public function getActiveSliders(): JsonResponse
     {
-        $sliders = HeroSlider::where('is_active', true)
-            ->orderBy('sort_order', 'asc')
-            ->orderBy('id', 'desc')
-            ->get();
+        $hero = HeroSlider::first();
+
+        if (!$hero) {
+            return response()->json([
+                'success' => true,
+                'count' => 0,
+                'data' => [],
+                'hero' => null,
+            ], 200);
+        }
+
+        $changed = false;
+        if ($hero->title === 'Empowering' || empty($hero->title)) {
+            $hero->title = 'Empowering Minds, Shaping Future Leaders';
+            $changed = true;
+        }
+        if ($hero->primary_button_text === 'Admissions 2026-27' || empty($hero->primary_button_text)) {
+            $hero->primary_button_text = 'Admissions 2027-28';
+            $changed = true;
+        }
+        if (empty($hero->experience_badge_image)) {
+            $hero->experience_badge_image = 'images/experience-badge-38.svg';
+            $changed = true;
+        }
+        if ($changed) {
+            $hero->save();
+        }
+
+        $slides = $hero->slides;
 
         return response()->json([
             'success' => true,
-            'count' => $sliders->count(),
-            'data' => $sliders
+            'count' => count($slides),
+            'data' => $slides,
+            'hero' => [
+                'id' => $hero->id,
+                'title' => $hero->title,
+                'primary_button_text' => $hero->primary_button_text,
+                'secondary_button_text' => $hero->secondary_button_text,
+                'secondary_button_url' => $hero->secondary_button_url,
+                'experience_badge_image' => $hero->experience_badge_image,
+                'experience_badge_image_url' => $hero->experience_badge_image_url,
+                'background_images' => $hero->background_images ?? [],
+                'background_images_full_urls' => $hero->background_images_full_urls,
+            ],
         ], 200);
     }
 
     /**
-     * List all sliders (REST): GET /api/sliders
+     * List all slides (REST): GET /api/sliders
      */
     public function index(Request $request): JsonResponse
     {
-        $query = HeroSlider::query();
-
-        if ($request->has('active')) {
-            $query->where('is_active', filter_var($request->active, FILTER_VALIDATE_BOOLEAN));
-        }
-
-        $sliders = $query->orderBy('sort_order', 'asc')
-            ->orderBy('id', 'desc')
-            ->get();
-
-        return response()->json([
-            'success' => true,
-            'count' => $sliders->count(),
-            'data' => $sliders
-        ], 200);
+        return $this->getActiveSliders();
     }
 
     /**
-     * Store new slider: POST /api/sliders
+     * Store new hero slider or update existing: POST /api/sliders
      */
     public function store(HeroSliderRequest $request): JsonResponse
     {
         $validated = $request->validated();
-        if (!isset($validated['is_active'])) {
-            $validated['is_active'] = true;
+
+        $uploadDir = public_path('uploads/hero_sliders');
+        if (!File::exists($uploadDir)) {
+            File::makeDirectory($uploadDir, 0755, true);
         }
 
-        if ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $uploadDir = public_path('uploads/hero_sliders');
-            if (!File::exists($uploadDir)) {
-                File::makeDirectory($uploadDir, 0755, true);
+        // Handle Experience Badge Upload
+        if ($request->hasFile('experience_badge_image')) {
+            $badgeFile = $request->file('experience_badge_image');
+            $badgeName = 'badge_' . time() . '_' . Str::random(6) . '.' . $badgeFile->getClientOriginalExtension();
+            $badgeFile->move($uploadDir, $badgeName);
+            $validated['experience_badge_image'] = 'uploads/hero_sliders/' . $badgeName;
+        }
+
+        // Handle Background Images
+        $currentImages = [];
+        if ($request->has('existing_images') && is_array($request->input('existing_images'))) {
+            $currentImages = array_values(array_filter($request->input('existing_images')));
+        }
+
+        if ($request->hasFile('background_images')) {
+            foreach ($request->file('background_images') as $file) {
+                if ($file && $file->isValid()) {
+                    $filename = 'hero_' . time() . '_' . Str::random(6) . '.' . $file->getClientOriginalExtension();
+                    $file->move($uploadDir, $filename);
+                    $currentImages[] = 'uploads/hero_sliders/' . $filename;
+                }
             }
-            $filename = 'slider_' . time() . '_' . Str::random(6) . '.' . $file->getClientOriginalExtension();
-            $file->move($uploadDir, $filename);
-            $validated['image_path'] = 'uploads/hero_sliders/' . $filename;
-        } elseif (!empty($validated['image_url'])) {
-            $validated['image_path'] = $validated['image_url'];
+        } elseif ($request->hasFile('images')) {
+            foreach ($request->file('images') as $file) {
+                if ($file && $file->isValid()) {
+                    $filename = 'hero_' . time() . '_' . Str::random(6) . '.' . $file->getClientOriginalExtension();
+                    $file->move($uploadDir, $filename);
+                    $currentImages[] = 'uploads/hero_sliders/' . $filename;
+                }
+            }
         }
 
-        $slider = HeroSlider::create($validated);
+        if (!empty($validated['image_url'])) {
+            $currentImages[] = $validated['image_url'];
+        }
+
+        $currentImages = array_values(array_unique(array_filter($currentImages)));
+        $validated['background_images'] = $currentImages;
+        $validated['image_path'] = $currentImages[0] ?? null;
+
+        $hero = HeroSlider::first();
+        if ($hero) {
+            $hero->update($validated);
+        } else {
+            $hero = HeroSlider::create($validated);
+        }
 
         return response()->json([
             'success' => true,
-            'message' => 'Hero slider created successfully',
-            'data' => $slider
+            'message' => 'Hero slider saved successfully',
+            'data' => $hero->slides,
+            'hero' => $hero,
         ], 201);
     }
 
@@ -88,9 +147,12 @@ class HeroSliderApiController extends Controller
      */
     public function show($id): JsonResponse
     {
-        $slider = HeroSlider::find($id);
+        $hero = is_numeric($id) ? HeroSlider::find($id) : null;
+        if (!$hero) {
+            $hero = HeroSlider::first();
+        }
 
-        if (!$slider) {
+        if (!$hero) {
             return response()->json([
                 'success' => false,
                 'message' => 'Hero slider slide not found'
@@ -99,7 +161,8 @@ class HeroSliderApiController extends Controller
 
         return response()->json([
             'success' => true,
-            'data' => $slider
+            'data' => $hero,
+            'slides' => $hero->slides,
         ], 200);
     }
 
@@ -108,63 +171,7 @@ class HeroSliderApiController extends Controller
      */
     public function update(HeroSliderRequest $request, $id): JsonResponse
     {
-        $slider = HeroSlider::find($id);
-
-        if (!$slider) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Hero slider slide not found'
-            ], 404);
-        }
-
-        $validated = $request->validated();
-
-        if ($request->hasFile('image')) {
-            $this->deletePhysicalImage($slider->image_path);
-            $file = $request->file('image');
-            $uploadDir = public_path('uploads/hero_sliders');
-            if (!File::exists($uploadDir)) {
-                File::makeDirectory($uploadDir, 0755, true);
-            }
-            $filename = 'slider_' . time() . '_' . Str::random(6) . '.' . $file->getClientOriginalExtension();
-            $file->move($uploadDir, $filename);
-            $validated['image_path'] = 'uploads/hero_sliders/' . $filename;
-        } elseif (!empty($validated['image_url'])) {
-            $validated['image_path'] = $validated['image_url'];
-        }
-
-        $slider->update($validated);
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Hero slider updated successfully',
-            'data' => $slider
-        ], 200);
-    }
-
-    /**
-     * Toggle active state: PATCH /api/sliders/{id}/toggle
-     */
-    public function toggle($id): JsonResponse
-    {
-        $slider = HeroSlider::find($id);
-
-        if (!$slider) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Hero slider slide not found'
-            ], 404);
-        }
-
-        $slider->is_active = !$slider->is_active;
-        $slider->save();
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Slide status toggled to ' . ($slider->is_active ? 'active' : 'inactive'),
-            'is_active' => $slider->is_active,
-            'data' => $slider
-        ], 200);
+        return $this->store($request);
     }
 
     /**
@@ -172,17 +179,23 @@ class HeroSliderApiController extends Controller
      */
     public function destroy($id): JsonResponse
     {
-        $slider = HeroSlider::find($id);
+        $hero = HeroSlider::find($id) ?? HeroSlider::first();
 
-        if (!$slider) {
+        if (!$hero) {
             return response()->json([
                 'success' => false,
                 'message' => 'Hero slider slide not found'
             ], 404);
         }
 
-        $this->deletePhysicalImage($slider->image_path);
-        $slider->delete();
+        if (is_array($hero->background_images)) {
+            foreach ($hero->background_images as $path) {
+                $this->deletePhysicalImage($path);
+            }
+        }
+        $this->deletePhysicalImage($hero->experience_badge_image);
+        $this->deletePhysicalImage($hero->image_path);
+        $hero->delete();
 
         return response()->json([
             'success' => true,

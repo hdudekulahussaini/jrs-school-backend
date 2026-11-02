@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\FacilityController;
 use App\Http\Controllers\Admin\HeroSliderController;
 use App\Http\Controllers\Admin\HomeFeatureController;
 use App\Http\Controllers\Admin\HomeStatController;
+use App\Http\Controllers\Admin\HomeBannerController;
 use App\Http\Controllers\Admin\NewsTickerController;
 use App\Http\Controllers\Admin\SchoolEventController;
 use App\Http\Controllers\Admin\VisionMissionController;
@@ -84,8 +85,16 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     // News Tickers Full CRUD Resource
     Route::resource('/tickers', NewsTickerController::class)->names('admin.tickers');
 
-    // Hero Sliders Full CRUD Resource
+    // Hero Sliders (Single Section with Multiple Background Images)
+    Route::post('/sliders/remove-image', [HeroSliderController::class, 'removeImage'])->name('admin.sliders.remove-image');
+    Route::delete('/sliders/{id}', [HeroSliderController::class, 'destroy'])->name('admin.sliders.delete.direct');
     Route::resource('/sliders', HeroSliderController::class)->names('admin.sliders');
+
+    // Home Banner (Single Promotional Banner with ONLY Image Field)
+    Route::get('/home-banner', [HomeBannerController::class, 'index'])->name('admin.home-banner.index');
+    Route::post('/home-banner', [HomeBannerController::class, 'store'])->name('admin.home-banner.store');
+    Route::delete('/home-banner/{id?}', [HomeBannerController::class, 'destroy'])->name('admin.home-banner.destroy');
+    Route::resource('/home-banners', HomeBannerController::class)->names('admin.home-banners');
 
     // Key Features Full CRUD Resource
     Route::resource('/features', HomeFeatureController::class)->names('admin.features');
@@ -154,7 +163,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::post('/admission-popup/toggle', [AdmissionPopupController::class, 'toggle'])->name('admin.admission-popup.toggle');
 
     // Admission Form Enquiries CRM
-    Route::resource('/admission-enquiries', AdmissionEnquiryController::class)->only(['index', 'update', 'destroy'])->names('admin.admission-enquiries');
+    Route::resource('/admission-enquiries', AdmissionEnquiryController::class)->only(['index', 'show', 'update', 'destroy'])->names('admin.admission-enquiries');
 
     // Chairman of JRS - Leadership Page Sections
     Route::get('/chairman', [ChairmanMessageController::class, 'index'])->name('admin.chairman.index');
@@ -223,9 +232,4 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::post('/breadcrumb-banners/{id}/toggle', [BreadcrumbBannerController::class, 'toggle'])->name('admin.breadcrumb-banners.toggle');
     Route::resource('/breadcrumb-banners', BreadcrumbBannerController::class)->names('admin.breadcrumb-banners');
 
-
-
 });
-
-
-

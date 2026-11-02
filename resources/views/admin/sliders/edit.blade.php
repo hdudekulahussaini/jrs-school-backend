@@ -1,12 +1,12 @@
 @extends('admin.layout')
 
-@section('title', 'Edit Hero Slide #' . $slider->id)
-@section('header', 'Edit Slide')
+@section('title', 'Edit Hero Slider')
+@section('header', 'Edit Hero Slider')
 
 @section('content')
-<div class="space-y-6 w-full">
+<div class="space-y-6 w-full max-w-4xl mx-auto">
 
-    <!-- Breadcrumb & Actions (shadcn/ui style) -->
+    <!-- Breadcrumb & Back Action -->
     <div class="flex items-center justify-between">
         <div class="flex items-center space-x-2 text-sm text-slate-500">
             <a href="{{ route('admin.dashboard') }}" class="hover:text-slate-900 transition-colors">Dashboard</a>
@@ -15,24 +15,19 @@
             <span>/</span>
             <span class="text-slate-900 font-medium">Edit #{{ $slider->id }}</span>
         </div>
-        <div class="flex items-center space-x-2">
-            <a href="{{ route('admin.sliders.index') }}" class="inline-flex items-center justify-center rounded-md text-xs font-medium border border-slate-200 bg-white px-3 h-8 text-slate-700 hover:bg-slate-50 transition-colors">
-                &larr; Back to list
-            </a>
-        </div>
+        <a href="{{ route('admin.sliders.index') }}" class="inline-flex items-center justify-center rounded-md text-xs font-medium border border-slate-200 bg-white px-3 h-8 text-slate-700 hover:bg-slate-50 transition-colors">
+            &larr; Back to Hero Sliders
+        </a>
     </div>
 
-    <!-- Main Card Container (shadcn/ui Card) -->
-    <div class="rounded-xl border border-slate-200 bg-white shadow-xs">
-        <div class="p-6 border-b border-slate-100 flex items-center justify-between">
+    <!-- Main Card Container -->
+    <div class="rounded-2xl border border-slate-200 bg-white shadow-2xs overflow-hidden">
+        <div class="p-5 border-b border-slate-100 flex items-center justify-between bg-slate-50/60">
             <div>
-                <h3 class="text-lg font-semibold leading-none tracking-tight text-slate-900">Edit Hero Slide #{{ $slider->id }}</h3>
-                <p class="text-sm text-slate-500 mt-1.5">
-                    Update the typography, CTA buttons, background photograph, or order sequence.
+                <h3 class="text-base font-bold text-slate-900">Edit Hero Slider #{{ $slider->id }}</h3>
+                <p class="text-xs text-slate-500 mt-0.5">
+                    Update Heading, Action Buttons, Experience Badge, and Rotating Background Photographs.
                 </p>
-            </div>
-            <div class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold {{ $slider->is_active ? 'border-emerald-200 bg-emerald-50 text-emerald-700' : 'border-slate-200 bg-slate-100 text-slate-600' }}">
-                {{ $slider->is_active ? 'Active' : 'Disabled' }}
             </div>
         </div>
 
@@ -40,148 +35,166 @@
             @csrf
             @method('PUT')
 
-            <!-- Section 1: Typography & Headings -->
-            <div class="space-y-4">
-                <div class="space-y-1">
-                    <h4 class="text-xs font-semibold uppercase tracking-wider text-slate-500">1. Text & Headings</h4>
-                </div>
-
-                <div class="space-y-2">
-                    <label for="badge_title" class="text-sm font-medium leading-none text-slate-700">Top Tagline / Badge</label>
-                    <input type="text" name="badge_title" id="badge_title" value="{{ old('badge_title', $slider->badge_title) }}" class="flex h-9 w-full rounded-md border border-slate-200 bg-white px-3 py-1 text-sm shadow-xs transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-950">
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div class="space-y-2">
-                        <label for="title" class="text-sm font-medium leading-none text-slate-700">Main Title (Line 1) <span class="text-red-500">*</span></label>
-                        <input type="text" name="title" id="title" required value="{{ old('title', $slider->title) }}" class="flex h-9 w-full rounded-md border @error('title') border-red-500 @else border-slate-200 @enderror bg-white px-3 py-1 text-sm shadow-xs transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-950">
-                        @error('title')
-                            <p class="text-xs text-red-600 font-medium">{{ $message }}</p>
-                        @enderror
-                    </div>
-
-                    <div class="space-y-2">
-                        <label for="highlight_text" class="text-sm font-medium leading-none text-slate-700">Highlighted Title (Line 2 in Yellow)</label>
-                        <input type="text" name="highlight_text" id="highlight_text" value="{{ old('highlight_text', $slider->highlight_text) }}" class="flex h-9 w-full rounded-md border border-slate-200 bg-white px-3 py-1 text-sm shadow-xs transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-950">
-                    </div>
-                </div>
-
-                <div class="space-y-2">
-                    <label for="description" class="text-sm font-medium leading-none text-slate-700">Paragraph Description</label>
-                    <textarea name="description" id="description" rows="3" class="flex min-h-[80px] w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm shadow-xs focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-950">{{ old('description', $slider->description) }}</textarea>
-                </div>
+            <!-- 1. Heading / Title -->
+            <div class="space-y-2">
+                <label for="title" class="block text-xs font-bold text-slate-700 uppercase tracking-wider">
+                    Hero Heading / Title <span class="text-red-500">*</span>
+                </label>
+                <input type="text" name="title" id="title" required value="{{ old('title', $slider->title) }}" placeholder="e.g. Empowering Minds, Shaping Future Leaders" class="w-full px-4 py-2.5 rounded-xl text-sm font-semibold border @error('title') border-red-500 @else border-slate-200 @enderror focus:border-jrs-navy outline-none text-slate-900 shadow-2xs">
+                @error('title') <p class="text-xs text-red-600 font-medium mt-1">{{ $message }}</p> @enderror
             </div>
 
-            <!-- Divider -->
-            <div class="border-t border-slate-100"></div>
-
-            <!-- Section 2: Call-to-Action Buttons -->
-            <div class="space-y-4">
-                <div class="space-y-1">
-                    <h4 class="text-xs font-semibold uppercase tracking-wider text-slate-500">2. Call-to-Action Buttons</h4>
+            <!-- 2. Action Buttons -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2 border-t border-slate-100">
+                <div class="p-4 rounded-xl bg-slate-50/70 border border-slate-200/80 space-y-3">
+                    <span class="text-xs font-bold uppercase tracking-wider text-slate-700 block">Primary Button</span>
+                    <div>
+                        <label class="block text-[11px] font-bold text-slate-600 uppercase mb-1">Text</label>
+                        <input type="text" name="primary_button_text" value="{{ old('primary_button_text', $slider->primary_button_text) }}" placeholder="e.g. Admissions 2027-28" class="w-full px-3 py-2 rounded-lg text-sm border border-slate-200 bg-white outline-none">
+                    </div>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <!-- Primary Button -->
-                    <div class="rounded-lg border border-slate-200 bg-slate-50/50 p-4 space-y-3">
-                        <div class="flex items-center gap-2">
-                            <span class="w-2 h-2 rounded-full bg-red-600"></span>
-                            <span class="text-xs font-semibold text-slate-900">Primary Button (Solid Red)</span>
-                        </div>
-                        <div class="space-y-1.5">
-                            <label for="primary_button_text" class="text-xs font-medium text-slate-600">Button Label</label>
-                            <input type="text" name="primary_button_text" id="primary_button_text" value="{{ old('primary_button_text', $slider->primary_button_text) }}" class="flex h-9 w-full rounded-md border border-slate-200 bg-white px-3 py-1 text-xs sm:text-sm shadow-xs focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-950">
-                            <p class="text-[11px] text-slate-500">CTA label on the solid red button.</p>
-                        </div>
+                <div class="p-4 rounded-xl bg-slate-50/70 border border-slate-200/80 space-y-3">
+                    <span class="text-xs font-bold uppercase tracking-wider text-slate-700 block">Secondary Button</span>
+                    <div>
+                        <label class="block text-[11px] font-bold text-slate-600 uppercase mb-1">Text</label>
+                        <input type="text" name="secondary_button_text" value="{{ old('secondary_button_text', $slider->secondary_button_text) }}" placeholder="e.g. Take a Virtual Tour" class="w-full px-3 py-2 rounded-lg text-sm border border-slate-200 bg-white outline-none">
                     </div>
-
-                    <!-- Secondary Button -->
-                    <div class="rounded-lg border border-slate-200 bg-slate-50/50 p-4 space-y-3">
-                        <div class="flex items-center gap-2">
-                            <span class="w-2 h-2 rounded-full bg-slate-400"></span>
-                            <span class="text-xs font-semibold text-slate-900">Secondary Button (Transparent Glass)</span>
-                        </div>
-                        <div class="space-y-1.5">
-                            <label for="secondary_button_text" class="text-xs font-medium text-slate-600">Button Label</label>
-                            <input type="text" name="secondary_button_text" id="secondary_button_text" value="{{ old('secondary_button_text', $slider->secondary_button_text) }}" class="flex h-9 w-full rounded-md border border-slate-200 bg-white px-3 py-1 text-xs sm:text-sm shadow-xs focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-950">
-                        </div>
-                        <div class="space-y-1.5">
-                            <label for="secondary_button_url" class="text-xs font-medium text-slate-600">Button Target URL</label>
-                            <input type="text" name="secondary_button_url" id="secondary_button_url" value="{{ old('secondary_button_url', $slider->secondary_button_url) }}" class="flex h-9 w-full rounded-md border border-slate-200 bg-white px-3 py-1 text-xs sm:text-sm shadow-xs focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-950">
-                        </div>
+                    <div>
+                        <label class="block text-[11px] font-bold text-slate-600 uppercase mb-1">Target URL</label>
+                        <input type="text" name="secondary_button_url" value="{{ old('secondary_button_url', $slider->secondary_button_url) }}" placeholder="e.g. https://... or #tour" class="w-full px-3 py-2 rounded-lg text-sm border border-slate-200 bg-white outline-none">
                     </div>
                 </div>
             </div>
 
-            <!-- Divider -->
-            <div class="border-t border-slate-100"></div>
-
-            <!-- Section 3: Background Photograph -->
-            <div class="space-y-4">
-                <div class="space-y-1">
-                    <h4 class="text-xs font-semibold uppercase tracking-wider text-slate-500">3. Background Photograph</h4>
-                    <p class="text-xs text-slate-500">Replace current background photograph with instant preview before saving.</p>
+            <!-- 3. Experience Badge Image -->
+            <div class="pt-2 border-t border-slate-100 space-y-3">
+                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider">
+                    Experience Badge Image (Top-Right Circular Seal)
+                </label>
+                <div class="flex items-center gap-4 p-4 rounded-xl bg-slate-50 border border-slate-200/80">
+                    <div class="w-16 h-16 rounded-full bg-slate-950 p-1.5 border border-amber-400 shrink-0 flex items-center justify-center shadow-xs overflow-hidden">
+                        <img id="badgePreview" src="{{ $slider->experience_badge_image_url }}" alt="Badge Preview" class="w-full h-full object-contain">
+                    </div>
+                    <div class="flex-1 space-y-1">
+                        <input type="file" name="experience_badge_image" id="badgeInput" accept="image/png,image/svg+xml,image/jpeg,image/webp" class="text-xs text-slate-600 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-jrs-navy file:text-white hover:file:bg-slate-800" onchange="previewBadge(this)">
+                        <p class="text-[11px] text-slate-400">Upload replacement seal (PNG, SVG, JPG up to 5MB).</p>
+                    </div>
                 </div>
-
-                @include('admin.partials.image-upload', [
-                    'name' => 'image',
-                    'id' => 'image',
-                    'label' => 'Slide Photograph',
-                    'current' => $slider->image_full_url ?? null,
-                    'currentPath' => $slider->image_path ?? null,
-                    'removeName' => 'remove_image',
-                    'aspect' => 'banner',
-                    'help' => 'Recommended: High-resolution school campus or activity image (1920×1080px).',
-                    'urlField' => true,
-                    'urlName' => 'image_url',
-                    'urlValue' => old('image_url'),
-                ])
             </div>
 
-            <!-- Divider -->
-            <div class="border-t border-slate-100"></div>
+            <!-- 4. Hero Background Images (Multiple) -->
+            <div class="pt-2 border-t border-slate-100 space-y-3">
+                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider">
+                    Hero Background Photographs (Multiple Image Slider)
+                </label>
 
-            <!-- Section 4: Display Settings & Publish Switch -->
-            <div class="space-y-4">
-                <div class="space-y-1">
-                    <h4 class="text-xs font-semibold uppercase tracking-wider text-slate-500">4. Display Settings</h4>
-                </div>
+                @php
+                    $images = $slider->background_images ?? [];
+                    if (empty($images) && !empty($slider->image_path)) {
+                        $images = [$slider->image_path];
+                    }
+                @endphp
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 items-center">
-                    <div class="space-y-2">
-                        <label for="sort_order" class="text-sm font-medium leading-none text-slate-700">Display Order</label>
-                        <input type="number" name="sort_order" id="sort_order" value="{{ old('sort_order', $slider->sort_order) }}" min="0" class="flex h-9 w-full rounded-md border border-slate-200 bg-white px-3 py-1 text-sm shadow-xs focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-950">
-                        <p class="text-xs text-slate-500">Order sequence (lower numbers first).</p>
-                    </div>
-
-                    <!-- Switch (shadcn/ui style Switch) -->
-                    <div class="sm:pt-3">
-                        <div class="flex items-center space-x-3 rounded-lg border border-slate-200 p-3 shadow-2xs bg-white">
-                            <label class="relative inline-flex items-center cursor-pointer">
-                                <input type="checkbox" name="is_active" value="1" {{ old('is_active', $slider->is_active) ? 'checked' : '' }} class="sr-only peer">
-                                <div class="w-9 h-5 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-slate-900"></div>
-                            </label>
-                            <div class="space-y-0.5">
-                                <span class="text-xs font-semibold text-slate-900">Slide Active</span>
-                                <p class="text-[11px] text-slate-500">Published on site</p>
+                @if(!empty($images))
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-3">
+                        @foreach($images as $idx => $img)
+                            @php
+                                $imgUrl = str_starts_with($img, 'http') ? $img : url($img);
+                            @endphp
+                            <div id="img-card-{{ $idx }}" class="relative group rounded-xl overflow-hidden aspect-video bg-slate-950 border border-slate-200 shadow-2xs">
+                                <img src="{{ $imgUrl }}" class="w-full h-full object-cover">
+                                <input type="hidden" name="existing_images[]" value="{{ $img }}">
+                                <span class="absolute top-1.5 left-1.5 px-1.5 py-0.5 rounded text-[9px] font-bold bg-black/70 text-white">#{{ $idx + 1 }}</span>
+                                <button type="button" onclick="removePhotoCard({{ $idx }}, '{{ addslashes($img) }}')" class="absolute top-1.5 right-1.5 w-6 h-6 rounded-md bg-red-600/90 text-white flex items-center justify-center hover:bg-red-700 transition-colors shadow-xs" title="Remove photograph">
+                                    <i class="bi bi-x-lg text-xs"></i>
+                                </button>
                             </div>
-                        </div>
+                        @endforeach
                     </div>
+                @endif
+
+                <div class="border-2 border-dashed border-slate-300 hover:border-jrs-navy rounded-xl p-5 text-center bg-slate-50/60 cursor-pointer" onclick="document.getElementById('edit_bg_input').click()">
+                    <input type="file" name="background_images[]" id="edit_bg_input" multiple accept="image/*" class="hidden" onchange="previewNewImages(this)">
+                    <i class="bi bi-cloud-arrow-up-fill text-2xl text-slate-400 block mb-1"></i>
+                    <p class="text-xs font-bold text-slate-700">Add more background photographs</p>
+                    <p class="text-[11px] text-slate-400 mt-0.5">JPG, PNG, WEBP up to 10MB each</p>
                 </div>
+                <div id="newImagesPreview" class="hidden grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2"></div>
             </div>
 
-            <!-- Footer Actions (shadcn/ui CardFooter) -->
-            <div class="pt-6 border-t border-slate-100 flex items-center justify-end space-x-2">
-                <a href="{{ route('admin.sliders.index') }}" class="inline-flex items-center justify-center rounded-md text-sm font-medium border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 h-9 px-4 transition-colors">
+            <!-- Submit Button -->
+            <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+                <a href="{{ route('admin.sliders.index') }}" class="px-4 py-2 rounded-xl text-xs font-bold text-slate-600 border border-slate-200 bg-white hover:bg-slate-50 transition-colors">
                     Cancel
                 </a>
-                <button type="submit" class="inline-flex items-center justify-center rounded-md text-sm font-medium bg-slate-900 text-white shadow-xs hover:bg-slate-800 h-9 px-4 transition-colors gap-2">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
-                    <span>Save Changes</span>
+                <button type="submit" class="px-6 py-2.5 rounded-xl text-xs font-bold bg-jrs-red hover:bg-red-700 text-white shadow-sm transition-colors">
+                    Update Hero Slider
                 </button>
             </div>
         </form>
     </div>
 
 </div>
+
+<script>
+function previewBadge(input) {
+    if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            document.getElementById('badgePreview').src = e.target.result;
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+function previewNewImages(input) {
+    const container = document.getElementById('newImagesPreview');
+    container.innerHTML = '';
+    if (!input.files || input.files.length === 0) {
+        container.classList.add('hidden');
+        return;
+    }
+    container.classList.remove('hidden');
+
+    Array.from(input.files).forEach((file, idx) => {
+        if (!file.type.startsWith('image/')) return;
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const div = document.createElement('div');
+            div.className = 'relative aspect-video rounded-lg overflow-hidden border border-emerald-300 bg-slate-900 shadow-2xs';
+            div.innerHTML = `
+                <img src="${e.target.result}" class="w-full h-full object-cover">
+                <span class="absolute top-1 left-1 px-1.5 py-0.5 rounded text-[9px] font-bold bg-emerald-600 text-white">New #${idx + 1}</span>
+            `;
+            container.appendChild(div);
+        };
+        reader.readAsDataURL(file);
+    });
+}
+
+function removePhotoCard(idx, imgPath) {
+    if (!confirm('Remove this photograph from the slider?')) {
+        return;
+    }
+
+    const card = document.getElementById('img-card-' + idx);
+    if (card) {
+        card.remove();
+    }
+
+    const formData = new FormData();
+    formData.append('_token', '{{ csrf_token() }}');
+    formData.append('slider_id', '{{ $slider->id }}');
+    formData.append('image', imgPath);
+
+    fetch('{{ url('admin/sliders/remove-image') }}', {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+        }
+    }).catch(err => console.log('Remove image error:', err));
+}
+</script>
 @endsection

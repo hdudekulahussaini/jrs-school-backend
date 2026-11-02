@@ -25,10 +25,27 @@ class BreadcrumbBannerController extends Controller
             BreadcrumbBanner::where('page_slug', 'amenities')->update(['page_slug' => 'facilities', 'page_name' => 'Amenities']);
             BreadcrumbBanner::where('page_slug', 'beyond-classroom')->update(['page_slug' => 'beyond', 'page_name' => 'Beyond Classroom']);
             BreadcrumbBanner::where('page_slug', 'news-media')->update(['page_slug' => 'media', 'page_name' => 'Media']);
+            BreadcrumbBanner::whereIn('page_slug', ['gallery-videos', 'gallery/videos', 'video-gallery', 'create-life-skills'])->update(['page_slug' => 'videos', 'page_name' => 'Videos']);
 
-            // Keep strictly only the 15 supported header navigation pages
+            // Keep strictly only supported header navigation pages
             $supportedSlugs = collect(BreadcrumbBanner::supportedPages())->pluck('slug')->toArray();
             BreadcrumbBanner::whereNotIn('page_slug', $supportedSlugs)->delete();
+
+            // Auto-create videos banner with default content if not already present
+            if (!BreadcrumbBanner::where('page_slug', 'videos')->exists()) {
+                $videoPage = collect(BreadcrumbBanner::supportedPages())->firstWhere('slug', 'videos');
+                if ($videoPage) {
+                    BreadcrumbBanner::create([
+                        'page_name' => $videoPage['name'],
+                        'page_slug' => $videoPage['slug'],
+                        'breadcrumb_title' => $videoPage['breadcrumb_title'],
+                        'title' => $videoPage['title'],
+                        'highlighted_title' => $videoPage['highlighted_title'],
+                        'subtitle' => $videoPage['subtitle'],
+                        'description' => $videoPage['description'],
+                    ]);
+                }
+            }
         }
 
         // Auto-clear old primary buttons if any exist

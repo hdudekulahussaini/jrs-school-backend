@@ -19,8 +19,9 @@ class AdmissionEnquiryRequest extends FormRequest
      */
     protected function prepareForValidation(): void
     {
-        $countryCode = $this->input('country_code') ?? $this->input('countryCode') ?? '+91';
-        if (!str_starts_with((string)$countryCode, '+')) {
+        $rawCountryCode = $this->input('country_code') ?? $this->input('countryCode');
+        $countryCode = filled($rawCountryCode) ? trim((string)$rawCountryCode) : '+91';
+        if (!str_starts_with($countryCode, '+')) {
             $countryCode = '+' . $countryCode;
         }
 
@@ -45,6 +46,7 @@ class AdmissionEnquiryRequest extends FormRequest
             'branch'         => ['required', 'string', 'max:150'],
             'admission_type' => ['required', 'string', 'max:100'],
             'grade'          => ['required', 'string', 'max:50'],
+            'country_code'   => ['nullable', 'string', 'max:10'],
             'parent_mobile'  => ['required', 'string', 'max:25'],
             'student_dob'    => ['required', 'date'],
             'status'         => ['nullable', 'string', 'in:pending,contacted,admitted,closed'],

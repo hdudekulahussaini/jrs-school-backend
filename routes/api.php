@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\FacilityApiController;
 use App\Http\Controllers\Api\HeroSliderApiController;
 use App\Http\Controllers\Api\HomeFeatureApiController;
 use App\Http\Controllers\Api\HomeStatApiController;
+use App\Http\Controllers\Api\HomeBannerApiController;
 use App\Http\Controllers\Api\NewsTickerApiController;
 use App\Http\Controllers\Api\SchoolEventApiController;
 use App\Http\Controllers\Api\VisionMissionApiController;
@@ -34,8 +35,11 @@ use App\Http\Controllers\Api\AdmissionHeroApiController;
 use App\Http\Controllers\Api\AdmissionEnquiryApiController;
 use App\Http\Controllers\Api\ContactApiController;
 use App\Http\Controllers\Api\BreadcrumbBannerApiController;
+use App\Http\Controllers\Api\SwaggerApiController;
 
-
+// Swagger OpenAPI JSON Specification
+Route::get('/swagger.json', [SwaggerApiController::class, 'json']);
+Route::get('/docs.json', [SwaggerApiController::class, 'json']);
 
 // Header Top Bar GET Endpoint (Global Phone, Email, CBSE Affiliation & Documents)
 Route::get('/top-bar', [TopBarApiController::class, 'getTopBar']);
@@ -50,6 +54,10 @@ Route::get('/hero-slider', [HeroSliderApiController::class, 'getActiveSliders'])
 Route::get('/hero-sliders', [HeroSliderApiController::class, 'getActiveSliders']);
 Route::get('/sliders', [HeroSliderApiController::class, 'index']);
 Route::get('/sliders/{id}', [HeroSliderApiController::class, 'show']);
+
+// Home Page Banner Endpoint (Promotional Image Banner: e.g. IIT | JEE | NEET / Olympiad)
+Route::get('/home-banner', [HomeBannerApiController::class, 'getBanner']);
+Route::get('/home-banners', [HomeBannerApiController::class, 'index']);
 
 // Campus Amenities / Facilities Endpoints (Frontend Read-Only)
 Route::get('/amenities-page', [FacilityApiController::class, 'getPageData']);
@@ -200,10 +208,7 @@ Route::get('/admission-enquiries/options', [AdmissionEnquiryApiController::class
 
 // Breadcrumb Banners Endpoints (Frontend Read-Only)
 Route::get('/breadcrumb-banners/pages', [BreadcrumbBannerApiController::class, 'pages']);
-Route::get('/breadcrumb-banners/page/{slug}', [BreadcrumbBannerApiController::class, 'getBySlug']);
-Route::get('/breadcrumb-banners/by-slug/{slug}', [BreadcrumbBannerApiController::class, 'getBySlug']);
+Route::get('/breadcrumb-banners/page/{slug}', [BreadcrumbBannerApiController::class, 'getBySlug'])->where('slug', '.*');
+Route::get('/breadcrumb-banners/by-slug/{slug}', [BreadcrumbBannerApiController::class, 'getBySlug'])->where('slug', '.*');
 Route::get('/breadcrumb-banners', [BreadcrumbBannerApiController::class, 'index']);
-Route::get('/breadcrumb-banners/{idOrSlug}', [BreadcrumbBannerApiController::class, 'show']);
-
-
-
+Route::get('/breadcrumb-banners/{idOrSlug}', [BreadcrumbBannerApiController::class, 'show'])->where('idOrSlug', '.*');

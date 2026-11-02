@@ -273,6 +273,16 @@ test('GET /api/admission-brochure and /api/brochure', function () {
         ->assertJsonStructure(['success', 'message']);
 });
 
+test('GET /api/admission-popup and /api/popup', function () {
+    $this->getJson('/api/admission-popup')
+        ->assertStatus(200)
+        ->assertJsonStructure(['success', 'data']);
+
+    $this->getJson('/api/popup')
+        ->assertStatus(200)
+        ->assertJsonStructure(['success', 'data']);
+});
+
 test('GET /api/contact and /api/contact/grades', function () {
     $this->getJson('/api/contact')
         ->assertStatus(200)
@@ -299,6 +309,14 @@ test('GET /api/breadcrumb-banners, /api/breadcrumb-banners/pages, and /api/bread
         ->assertJsonStructure(['success', 'data']);
 
     $this->getJson('/api/breadcrumb-banners/page/about')
+        ->assertStatus(200)
+        ->assertJsonStructure(['success', 'data']);
+
+    $this->getJson('/api/breadcrumb-banners/page/videos')
+        ->assertStatus(200)
+        ->assertJsonStructure(['success', 'data']);
+
+    $this->getJson('/api/breadcrumb-banners/page/gallery/videos')
         ->assertStatus(200)
         ->assertJsonStructure(['success', 'data']);
 });
@@ -427,6 +445,12 @@ test('GET /swagger returns Swagger UI documentation page', function () {
         ->assertSee('swagger-ui')
         ->assertSee('Swagger API Docs')
         ->assertSee('spec: spec', false);
+});
+
+test('GET /api/swagger.json returns OpenAPI specification JSON', function () {
+    $response = $this->getJson('/api/swagger.json');
+    $response->assertStatus(200)
+        ->assertJsonPath('openapi', '3.0.3');
 });
 
 

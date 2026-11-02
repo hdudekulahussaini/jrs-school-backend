@@ -18,25 +18,32 @@ class HeroSliderRequest extends FormRequest
 
     /**
      * Get the validation rules that apply to the request.
+     * Restricted strictly to the 7 required fields:
+     * 1. Hero Background Images (multiple image support)
+     * 2. Heading / Title
+     * 3. Primary Button Text
+     * 4. Primary Button URL
+     * 5. Secondary Button Text
+     * 6. Secondary Button URL
+     * 7. Experience Badge Image
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
     public function rules(): array
     {
         return [
-            'badge_title' => 'nullable|string|max:255',
             'title' => 'required|string|min:2|max:255',
-            'highlight_text' => 'nullable|string|max:255',
-            'description' => 'nullable|string|max:1500',
             'primary_button_text' => 'nullable|string|max:100',
-            'primary_button_url' => 'nullable|string|max:500',
             'secondary_button_text' => 'nullable|string|max:100',
             'secondary_button_url' => 'nullable|string|max:500',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp,svg|max:6144', // up to 6MB
+            'experience_badge_image' => 'nullable|image|mimes:jpeg,png,jpg,webp,svg|max:5120',
+            'background_images' => 'nullable|array',
+            'background_images.*' => 'nullable|image|mimes:jpeg,png,jpg,webp,svg|max:10240',
+            'images' => 'nullable|array',
+            'images.*' => 'nullable|image|mimes:jpeg,png,jpg,webp,svg|max:10240',
+            'existing_images' => 'nullable|array',
+            'existing_images.*' => 'nullable|string',
             'image_url' => 'nullable|string|max:1000',
-            'contact_phone' => 'nullable|string|max:50',
-            'sort_order' => 'nullable|integer|min:0',
-            'is_active' => 'nullable|boolean',
         ];
     }
 
@@ -46,12 +53,13 @@ class HeroSliderRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'title.required' => 'The main heading title is required (e.g. Empowering).',
-            'title.min' => 'The title must be at least 2 characters.',
-            'image.image' => 'The uploaded file must be a valid image file.',
-            'image.mimes' => 'The image must be in jpeg, png, jpg, webp, or svg format.',
-            'image.max' => 'The image size cannot exceed 6MB.',
-            'sort_order.integer' => 'Slide sort order must be a valid integer.',
+            'title.required' => 'The hero heading/title is required (e.g. Empowering Minds, Shaping Future Leaders).',
+            'title.min' => 'The heading must be at least 2 characters.',
+            'experience_badge_image.image' => 'The experience badge must be an image file (PNG, SVG, JPG, WEBP).',
+            'experience_badge_image.max' => 'The experience badge size cannot exceed 5MB.',
+            'background_images.*.image' => 'Each background photograph must be a valid image file.',
+            'background_images.*.mimes' => 'Background photographs must be in jpeg, png, jpg, webp, or svg format.',
+            'background_images.*.max' => 'Background photograph size cannot exceed 10MB.',
         ];
     }
 

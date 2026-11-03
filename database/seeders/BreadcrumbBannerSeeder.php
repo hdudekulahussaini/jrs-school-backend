@@ -39,12 +39,6 @@ class BreadcrumbBannerSeeder extends Seeder
                     'breadcrumb_title' => $pageData['breadcrumb_title'],
                     'title' => $pageData['title'],
                     'highlighted_title' => $pageData['highlighted_title'] ?? null,
-                    'subtitle' => $pageData['subtitle'] ?? null,
-                    'description' => $pageData['description'] ?? null,
-                    'primary_button_text' => $pageData['primary_button_text'] ?? null,
-                    'primary_button_url' => $pageData['primary_button_url'] ?? null,
-                    'secondary_button_text' => $pageData['secondary_button_text'] ?? null,
-                    'secondary_button_url' => $pageData['secondary_button_url'] ?? null,
                 ]
             );
 

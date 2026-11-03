@@ -2104,7 +2104,7 @@
           "Breadcrumb Banners (Frontend)"
         ],
         "summary": "Get dynamic breadcrumb banner by page slug",
-        "description": "Returns the active breadcrumb banner (title, orange highlight, subtitle, description, buttons, background artwork, and stats cards) for any page slug (e.g. about, videos, gallery/videos, principal, educational-society, school-management-committee).",
+        "description": "Returns the active breadcrumb banner (page name, breadcrumb title, title heading, orange highlight, background artwork, and dynamic impact stats cards) for any page slug (e.g. about, videos, gallery/videos, principal, educational-society, school-management-committee).",
         "parameters": [
           {
             "name": "slug",

@@ -94,17 +94,7 @@ class BreadcrumbBannerApiController extends Controller
                     'breadcrumb_title' => $supported['breadcrumb_title'],
                     'title' => $supported['title'],
                     'highlighted_title' => $supported['highlighted_title'] ?? null,
-                    'subtitle' => $supported['subtitle'] ?? null,
-                    'description' => $supported['description'] ?? null,
                     'background_image' => asset('images/amenities/cta-banner.png'),
-                    'primary_button' => [
-                        'text' => $supported['primary_button_text'] ?? null,
-                        'url' => $supported['primary_button_url'] ?? null,
-                    ],
-                    'secondary_button' => [
-                        'text' => $supported['secondary_button_text'] ?? null,
-                        'url' => $supported['secondary_button_url'] ?? null,
-                    ],
                     'stats' => $supported['stats'] ?? [],
                     'is_active' => true,
                 ],

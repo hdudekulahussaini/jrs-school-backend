@@ -94,56 +94,14 @@
                         @enderror
                     </div>
                 </div>
-
-                <!-- Subtitle -->
-                <div class="mt-4 space-y-1">
-                    <label for="subtitle" class="text-xs font-semibold text-slate-700">Subtitle / Tagline</label>
-                    <input type="text" id="subtitle" name="subtitle" value="{{ old('subtitle', $banner->subtitle) }}" placeholder="e.g. Empowering Minds and Enriching Lives." class="w-full px-3 py-2 text-xs sm:text-sm rounded-lg border border-slate-200 focus:outline-none focus:border-jrs-navy @error('subtitle') border-red-500 @enderror">
-                    @error('subtitle')
-                        <p class="text-[11px] text-red-600 mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <!-- Description -->
-                <div class="mt-4 space-y-1">
-                    <label for="description" class="text-xs font-semibold text-slate-700">Paragraph Description</label>
-                    <textarea id="description" name="description" rows="3" placeholder="Enter descriptive paragraph for this banner..." class="w-full px-3 py-2 text-xs sm:text-sm rounded-lg border border-slate-200 focus:outline-none focus:border-jrs-navy @error('description') border-red-500 @enderror">{{ old('description', $banner->description) }}</textarea>
-                    @error('description')
-                        <p class="text-[11px] text-red-600 mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
             </div>
 
-            <!-- Section 3: Call-To-Action Button -->
-            <div class="border-b border-slate-100 pb-5">
-                <div class="text-sm font-bold text-jrs-navy font-heading">3. Action Button (Optional)</div>
-                <p class="text-xs text-slate-500 mt-0.5">Add an optional glassmorphic button (e.g. "About JRS" or "Watch Video"). Leave blank if not required.</p>
-
-                <div class="mt-4 max-w-xl">
-                    <!-- Action Button (Glassmorphic) -->
-                    <div class="p-3.5 rounded-xl border border-slate-200 bg-slate-50/60 space-y-3">
-                        <div class="text-xs font-bold text-slate-800 uppercase flex items-center gap-1.5">
-                            <span class="w-2 h-2 rounded-full bg-slate-700"></span>
-                            <span>Action Button (Glassmorphic)</span>
-                        </div>
-                        <div class="space-y-1">
-                            <label for="secondary_button_text" class="text-[11px] font-semibold text-slate-700">Button Text</label>
-                            <input type="text" id="secondary_button_text" name="secondary_button_text" value="{{ old('secondary_button_text', $banner->secondary_button_text) }}" placeholder="e.g. About JRS or Watch Video" class="w-full px-3 py-1.5 text-xs rounded-md border border-slate-200 bg-white">
-                        </div>
-                        <div class="space-y-1">
-                            <label for="secondary_button_url" class="text-[11px] font-semibold text-slate-700">Button Link / URL</label>
-                            <input type="text" id="secondary_button_url" name="secondary_button_url" value="{{ old('secondary_button_url', $banner->secondary_button_url) }}" placeholder="e.g. /about or https://..." class="w-full px-3 py-1.5 text-xs rounded-md border border-slate-200 bg-white font-mono">
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Section 4: Background Image & Artwork -->
+            <!-- Section 3: Background Image & Artwork -->
             <div>
                 @include('admin.partials.image-upload', [
                     'name' => 'background_image',
                     'id' => 'background_image',
-                    'label' => '4. Background Image & Artwork',
+                    'label' => '3. Background Image & Artwork',
                     'current' => $banner->background_image_url ?? null,
                     'currentPath' => $banner->background_image ?? null,
                     'aspect' => 'banner',
@@ -155,11 +113,11 @@
                 $isAbout = str_contains(strtolower($banner->page_slug ?? ''), 'about') 
                     || str_contains(strtolower($banner->page_name ?? ''), 'about');
             @endphp
-            <!-- Section 5: Dynamic Stats Cards (Only for About JRS banner as seen in Screenshot 4) -->
+            <!-- Section 4: Dynamic Stats Cards (Only for About JRS banner as seen in Screenshot 4) -->
             <div id="statsSection" class="border-b border-slate-100 pb-5 {{ $isAbout ? '' : 'hidden' }}" style="{{ $isAbout ? '' : 'display: none;' }}">
                 <div class="flex items-center justify-between">
                     <div>
-                        <div class="text-sm font-bold text-jrs-navy font-heading">5. Impact Stats Cards (About Page)</div>
+                        <div class="text-sm font-bold text-jrs-navy font-heading">4. Impact Stats Cards (About Page)</div>
                         <p class="text-xs text-slate-500 mt-0.5">As shown in Screenshot 4 ("About JRS"), add dynamic glass cards under the banner.</p>
                     </div>
                     <button type="button" id="addStatBtn" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 bg-slate-50 hover:bg-slate-100 text-slate-700 text-xs font-semibold transition-colors">
@@ -281,12 +239,6 @@ document.getElementById('page_selector').addEventListener('change', function() {
         }
         if (!document.getElementById('highlighted_title').value && page.highlighted_title) {
             document.getElementById('highlighted_title').value = page.highlighted_title;
-        }
-        if (!document.getElementById('subtitle').value && page.subtitle) {
-            document.getElementById('subtitle').value = page.subtitle;
-        }
-        if (!document.getElementById('description').value && page.description) {
-            document.getElementById('description').value = page.description;
         }
     }
 });

@@ -21,18 +21,8 @@ class BreadcrumbBannerResource extends JsonResource
             'breadcrumb_title' => $this->breadcrumb_title,
             'title' => $this->title,
             'highlighted_title' => $this->highlighted_title,
-            'subtitle' => $this->subtitle,
-            'description' => $this->description,
             'background_image' => $this->background_image_url,
             'background_image_raw' => $this->background_image,
-            'primary_button' => [
-                'text' => $this->primary_button_text,
-                'url' => $this->primary_button_url,
-            ],
-            'secondary_button' => [
-                'text' => $this->secondary_button_text,
-                'url' => $this->secondary_button_url,
-            ],
             'stats' => ($this->isAboutBanner() && $this->stats) ? $this->stats->map(function ($stat) {
                 return [
                     'id' => $stat->id,

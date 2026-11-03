@@ -41,30 +41,31 @@ class BreadcrumbBannerController extends Controller
                         'breadcrumb_title' => $videoPage['breadcrumb_title'],
                         'title' => $videoPage['title'],
                         'highlighted_title' => $videoPage['highlighted_title'],
-                        'subtitle' => $videoPage['subtitle'],
-                        'description' => $videoPage['description'],
                     ]);
                 }
             }
         }
 
-        // Auto-clear old primary buttons if any exist
-        if (Schema::hasTable('breadcrumb_banners') && BreadcrumbBanner::whereNotNull('primary_button_text')->exists()) {
-            BreadcrumbBanner::whereNotNull('primary_button_text')->update([
-                'primary_button_text' => null,
-                'primary_button_url' => null,
-            ]);
-        }
-
-        // Drop sort_order and is_active columns from table if they exist
+        // Drop subtitle, description, buttons, sort_order, and is_active columns from table if they exist
         if (Schema::hasTable('breadcrumb_banners')) {
+            $columns = [
+                'subtitle',
+                'description',
+                'primary_button_text',
+                'primary_button_url',
+                'secondary_button_text',
+                'secondary_button_url',
+                'sort_order',
+                'is_active',
+            ];
+
             $columnsToDrop = [];
-            if (Schema::hasColumn('breadcrumb_banners', 'sort_order')) {
-                $columnsToDrop[] = 'sort_order';
+            foreach ($columns as $col) {
+                if (Schema::hasColumn('breadcrumb_banners', $col)) {
+                    $columnsToDrop[] = $col;
+                }
             }
-            if (Schema::hasColumn('breadcrumb_banners', 'is_active')) {
-                $columnsToDrop[] = 'is_active';
-            }
+
             if (!empty($columnsToDrop)) {
                 Schema::table('breadcrumb_banners', function (\Illuminate\Database\Schema\Blueprint $table) use ($columnsToDrop) {
                     $table->dropColumn($columnsToDrop);
@@ -90,8 +91,7 @@ class BreadcrumbBannerController extends Controller
                   ->orWhere('page_slug', 'like', "%{$term}%")
                   ->orWhere('title', 'like', "%{$term}%")
                   ->orWhere('highlighted_title', 'like', "%{$term}%")
-                  ->orWhere('breadcrumb_title', 'like', "%{$term}%")
-                  ->orWhere('subtitle', 'like', "%{$term}%");
+                  ->orWhere('breadcrumb_title', 'like', "%{$term}%");
             });
         }
 
@@ -130,8 +130,6 @@ class BreadcrumbBannerController extends Controller
         $this->ensureTableExists();
 
         $data = $request->validated();
-        $data['primary_button_text'] = null;
-        $data['primary_button_url'] = null;
 
         // Handle image upload
         if ($request->hasFile('background_image')) {
@@ -206,8 +204,6 @@ class BreadcrumbBannerController extends Controller
 
         $banner = BreadcrumbBanner::findOrFail($id);
         $data = $request->validated();
-        $data['primary_button_text'] = null;
-        $data['primary_button_url'] = null;
 
         // Handle image upload
         if ($request->hasFile('background_image')) {

@@ -57,6 +57,11 @@ class GalleryItemController extends Controller
     /**
      * Show form to upload new media.
      */
+    public function show($id)
+    {
+        return redirect()->route('admin.gallery-items.edit', $id);
+    }
+
     public function create(Request $request)
     {
         $albums = GalleryAlbum::where('is_active', true)->orderBy('sort_order', 'asc')->get();

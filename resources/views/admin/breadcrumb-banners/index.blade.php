@@ -72,10 +72,14 @@
                             <!-- Background Image -->
                             <td class="p-4 align-top">
                                 <div class="relative w-24 h-14 rounded-lg overflow-hidden border border-slate-200 bg-slate-900 group shrink-0">
-                                    <img src="{{ $banner->background_image_url }}" alt="{{ $banner->page_name }}" class="w-full h-full object-cover">
-                                    <div class="absolute inset-0 bg-[#031C3F]/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                                        <a href="{{ $banner->background_image_url }}" target="_blank" class="p-1 rounded bg-white text-slate-800 text-[10px] font-bold shadow-xs">View</a>
-                                    </div>
+                                    @if($banner->background_image_url)
+                                        <img src="{{ $banner->background_image_url }}" alt="{{ $banner->page_name }}" class="w-full h-full object-cover">
+                                        <div class="absolute inset-0 bg-[#031C3F]/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                                            <a href="{{ $banner->background_image_url }}" target="_blank" class="p-1 rounded bg-white text-slate-800 text-[10px] font-bold shadow-xs">View</a>
+                                        </div>
+                                    @else
+                                        <span class="flex items-center justify-center w-full h-full text-[10px] text-slate-400">No image</span>
+                                    @endif
                                 </div>
                             </td>
 

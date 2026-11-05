@@ -12,7 +12,7 @@ class AdmissionPopupApiController extends Controller
      * @OA\Get(
      *     path="/api/admission-popup",
      *     summary="Get Admission Promotional Popup modal configuration",
-     *     description="Returns popup modal active status, background image, badges, affiliation text, academic year highlight, description, green checklist features, and call action buttons for the frontend modal dialog.",
+     *     description="Returns the single active admission popup configuration for the frontend modal dialog. If no popup is active, returns HTTP 404.",
      *     tags={"Admissions (Frontend)"},
      *     @OA\Response(
      *         response=200,
@@ -52,7 +52,12 @@ class AdmissionPopupApiController extends Controller
      *     ),
      *     @OA\Response(
      *         response=404,
-     *         description="Admission popup not configured"
+     *         description="No active admission popup is configured",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="success", type="boolean", example=false),
+     *             @OA\Property(property="message", type="string", example="No active admission popup is configured."),
+     *             @OA\Property(property="data", type="object", nullable=true, example=null)
+     *         )
      *     )
      * )
      *
@@ -61,12 +66,12 @@ class AdmissionPopupApiController extends Controller
      */
     public function getPopup(): JsonResponse
     {
-        $popup = AdmissionPopup::first();
+        $popup = AdmissionPopup::where('is_active', true)->first();
 
         if (!$popup) {
             return response()->json([
                 'success' => false,
-                'message' => 'Admission popup not configured.',
+                'message' => 'No active admission popup is configured.',
                 'data' => null,
             ], 404);
         }

@@ -60,7 +60,12 @@ class BreadcrumbBannerRequest extends FormRequest
             'breadcrumb_title' => ['required', 'string', 'max:255'],
             'title' => ['required', 'string', 'max:255'],
             'highlighted_title' => ['nullable', 'string', 'max:255'],
-            'background_image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp,svg,gif', 'max:10240'],
+            'background_image' => [
+                $this->isMethod('post') ? 'required' : 'nullable',
+                'image',
+                'mimes:jpeg,png,jpg,webp,svg,gif',
+                'max:10240',
+            ],
             'background_image_path' => ['nullable', 'string', 'max:500'],
             'stats' => ['nullable', 'array'],
             'stats.*.icon' => ['nullable', 'string', 'max:100'],
@@ -77,6 +82,7 @@ class BreadcrumbBannerRequest extends FormRequest
         return [
             'page_slug.in' => 'Only predefined website header pages are allowed. Custom pages are not supported.',
             'page_slug.unique' => 'A breadcrumb banner for this page already exists. Please edit the existing banner.',
+            'background_image.required' => 'Please upload a background image for the breadcrumb banner.',
             'background_image.max' => 'The background image must not be larger than 10MB.',
             'background_image.image' => 'The file uploaded must be a valid image file (jpeg, png, webp, svg, gif).',
         ];

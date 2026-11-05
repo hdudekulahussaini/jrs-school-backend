@@ -14,11 +14,19 @@
                 Manage the main introductory story, highlights, photographs, and video on the homepage.
             </p>
         </div>
-        <a href="{{ route('admin.about.create') }}" class="inline-flex items-center justify-center rounded-lg text-xs sm:text-sm font-semibold bg-jrs-red hover:bg-red-700 text-white shadow-xs h-9 px-4 py-2 gap-2 transition-colors">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
-            <span>Add Entry</span>
-        </a>
+        @unless($hasAboutSection)
+            <a href="{{ route('admin.about.create') }}" class="inline-flex items-center justify-center rounded-lg text-xs sm:text-sm font-semibold bg-jrs-red hover:bg-red-700 text-white shadow-xs h-9 px-4 py-2 gap-2 transition-colors">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+                <span>Add About JRS</span>
+            </a>
+        @endunless
     </div>
+
+    @if($errors->has('about'))
+        <div role="alert" class="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+            {{ $errors->first('about') }}
+        </div>
+    @endif
 
     <!-- Toolbar: Tabs + Search -->
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
@@ -42,7 +50,7 @@
             @endif
             <div class="relative w-full">
                 <svg class="w-4 h-4 text-slate-400 absolute left-3 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-                <input type="text" name="search" value="{{ request('search') }}" placeholder="Search title or text..." class="flex h-9 w-full rounded-md border border-slate-200 bg-white pl-9 pr-3 py-1 text-xs sm:text-sm shadow-xs transition-colors placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-jrs-navy">
+                <input type="text" name="search" value="{{ request('search') }}" class="flex h-9 w-full rounded-md border border-slate-200 bg-white pl-9 pr-3 py-1 text-xs sm:text-sm shadow-xs transition-colors placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-jrs-navy">
             </div>
             @if(request('search'))
                 <a href="{{ route('admin.about.index', ['status' => request('status')]) }}" class="inline-flex items-center justify-center rounded-md text-xs font-medium border border-slate-200 bg-white px-2.5 h-9 text-slate-600 hover:bg-slate-50 transition-colors">
@@ -62,7 +70,7 @@
                         <th class="h-10 px-4 w-36 text-center">Photos</th>
                         <th class="h-10 px-4 min-w-[280px]">Eyebrow &amp; Headlines</th>
                         <th class="h-10 px-4 min-w-[240px]">Descriptions</th>
-                        <th class="h-10 px-4 min-w-[180px]">CTA &amp; Video</th>
+                        <th class="h-10 px-4 min-w-[180px]">Video</th>
                         <th class="h-10 px-4 w-28 text-center">Homepage Status</th>
                         <th class="h-10 px-4 w-28 text-right">Actions</th>
                     </tr>
@@ -79,26 +87,20 @@
                             <td class="p-4 align-middle">
                                 <div class="flex items-center justify-center gap-1.5">
                                     <!-- Image 1 -->
-                                    <div class="group relative w-12 h-12 rounded-lg border border-slate-200 bg-slate-100 overflow-hidden shrink-0 cursor-pointer shadow-2xs"
-                                         onclick="openImageModal('{{ $section->image_1_url }}', 'Students Photo (Image 1)')"
-                                         title="Click to zoom Image 1">
+                                    <div class="group relative w-12 h-12 rounded-lg border border-slate-200 bg-slate-100 overflow-hidden shrink-0 {{ $section->image_1_url ? 'cursor-pointer' : '' }} shadow-2xs"
+                                         @if($section->image_1_url) onclick="openImageModal('{{ $section->image_1_url }}', 'Students Photo (Image 1)')" title="Click to zoom Image 1" @endif>
                                         @if($section->image_1_url)
                                             <img src="{{ $section->image_1_url }}" alt="Img 1" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200">
                                             <span class="absolute bottom-0 right-0 bg-slate-900/70 text-[9px] text-white px-1 font-mono leading-tight">1</span>
-                                        @else
-                                            <div class="w-full h-full flex items-center justify-center text-[10px] text-slate-400 font-medium">None</div>
                                         @endif
                                     </div>
 
                                     <!-- Image 2 -->
-                                    <div class="group relative w-12 h-12 rounded-lg border border-slate-200 bg-slate-100 overflow-hidden shrink-0 cursor-pointer shadow-2xs"
-                                         onclick="openImageModal('{{ $section->image_2_url }}', 'Campus Photo (Image 2)')"
-                                         title="Click to zoom Image 2">
+                                    <div class="group relative w-12 h-12 rounded-lg border border-slate-200 bg-slate-100 overflow-hidden shrink-0 {{ $section->image_2_url ? 'cursor-pointer' : '' }} shadow-2xs"
+                                         @if($section->image_2_url) onclick="openImageModal('{{ $section->image_2_url }}', 'Campus Photo (Image 2)')" title="Click to zoom Image 2" @endif>
                                         @if($section->image_2_url)
                                             <img src="{{ $section->image_2_url }}" alt="Img 2" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200">
                                             <span class="absolute bottom-0 right-0 bg-slate-900/70 text-[9px] text-white px-1 font-mono leading-tight">2</span>
-                                        @else
-                                            <div class="w-full h-full flex items-center justify-center text-[10px] text-slate-400 font-medium">None</div>
                                         @endif
                                     </div>
                                 </div>
@@ -138,24 +140,15 @@
                                 </div>
                             </td>
 
-                            <!-- CTA Button & Video -->
+                            <!-- Video -->
                             <td class="p-4 align-middle">
                                 <div class="space-y-1.5 text-xs">
-                                    @if($section->button_text)
-                                        <div class="flex items-center gap-1.5 text-slate-700">
-                                            <span class="font-semibold px-2 py-0.5 rounded bg-slate-100 text-[11px] border border-slate-200 shrink-0">
-                                                {{ $section->button_text }}
-                                            </span>
-                                            <code class="text-[11px] text-blue-600 font-mono truncate max-w-[120px]">{{ $section->button_link }}</code>
-                                        </div>
-                                    @endif
-
                                     @if($section->video_title || $section->video_url)
                                         <div class="flex items-center gap-1 text-[11px] text-slate-600 pt-0.5">
                                             <svg class="w-3.5 h-3.5 text-rose-600 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
                                             @if($section->video_url)
                                                 <a href="{{ $section->video_url }}" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline truncate max-w-[140px]" title="{{ $section->video_title }}">
-                                                    {{ $section->video_title ?: 'Watch Video' }}
+                                                    {{ $section->video_title ?: $section->video_url }}
                                                 </a>
                                             @else
                                                 <span class="truncate max-w-[140px]">{{ $section->video_title }}</span>
@@ -208,9 +201,11 @@
                                         <p class="font-medium text-slate-900 text-sm">No About Section content found</p>
                                         <p class="text-xs text-slate-500">Configure the introductory story, student and campus photography for the homepage.</p>
                                     </div>
-                                    <a href="{{ route('admin.about.create') }}" class="inline-flex items-center justify-center rounded-md text-xs font-semibold bg-jrs-red hover:bg-red-700 text-white shadow-xs h-8 px-3">
-                                        Add About Content
-                                    </a>
+                                    @unless($hasAboutSection)
+                                        <a href="{{ route('admin.about.create') }}" class="inline-flex items-center justify-center rounded-md text-xs font-semibold bg-jrs-red hover:bg-red-700 text-white shadow-xs h-8 px-3">
+                                            Add About JRS
+                                        </a>
+                                    @endunless
                                 </div>
                             </td>
                         </tr>

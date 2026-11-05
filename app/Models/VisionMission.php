@@ -36,6 +36,10 @@ class VisionMission extends Model
             return null;
         }
 
+        if (str_contains($this->image_path, 'photo-1581093458791-9f3c3900df4b')) {
+            return asset('images/beyond/science-lab.jpg');
+        }
+
         if (str_starts_with($this->image_path, 'http://') || str_starts_with($this->image_path, 'https://')) {
             return $this->image_path;
         }

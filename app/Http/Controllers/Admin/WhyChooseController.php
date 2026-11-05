@@ -37,6 +37,11 @@ class WhyChooseController extends Controller
     /**
      * [CREATE - Form] Display form to create a new item.
      */
+    public function show($id)
+    {
+        return redirect()->route('admin.why-choose.edit', $id);
+    }
+
     public function create()
     {
         $nextOrder = (WhyChooseFeature::max('sort_order') ?? 0) + 1;

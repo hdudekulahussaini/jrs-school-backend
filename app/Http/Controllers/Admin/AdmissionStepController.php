@@ -37,6 +37,11 @@ class AdmissionStepController extends Controller
     /**
      * [CREATE - Form] Display form to create a new step.
      */
+    public function show($id)
+    {
+        return redirect()->route('admin.admission-steps.edit', $id);
+    }
+
     public function create()
     {
         $nextStep = (AdmissionStep::max('step_number') ?? 0) + 1;

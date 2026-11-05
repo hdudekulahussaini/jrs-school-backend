@@ -1,7 +1,7 @@
 @extends('admin.layout')
 
-@section('title', 'Edit Principal of JRS')
-@section('header', 'Edit Principal Sections')
+@section('title', ($isCreate ?? false) ? 'Add Principal of JRS' : 'Edit Principal of JRS')
+@section('header', ($isCreate ?? false) ? 'Add Principal Sections' : 'Edit Principal Sections')
 
 @section('content')
 <div class="space-y-6 w-full">
@@ -14,10 +14,12 @@
         </a>
     </div>
 
-    <!-- Edit Form Card -->
-    <form action="{{ route('admin.principal.update', $principal->id) }}" method="POST" enctype="multipart/form-data" class="space-y-8">
+    <!-- Principal Form -->
+    <form action="{{ ($isCreate ?? false) ? route('admin.principal.store') : route('admin.principal.update', $principal->id) }}" method="POST" enctype="multipart/form-data" class="space-y-8">
         @csrf
-        @method('PUT')
+        @unless($isCreate ?? false)
+            @method('PUT')
+        @endunless
 
         <!-- SECTION 1: Document Header Details -->
         <div class="bg-white rounded-2xl border border-slate-200 shadow-2xs overflow-hidden">
@@ -184,7 +186,7 @@
         <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div class="flex items-center gap-2.5">
                 <input type="hidden" name="is_active" value="0">
-                <input type="checkbox" name="is_active" id="is_active" value="1" {{ old('is_active', $principal->is_active) ? 'checked' : '' }} class="w-4 h-4 text-jrs-red rounded border-slate-300 focus:ring-jrs-red">
+                <input type="checkbox" name="is_active" id="is_active" value="1" {{ old('is_active', ($isCreate ?? false) ? true : $principal->is_active) ? 'checked' : '' }} class="w-4 h-4 text-jrs-red rounded border-slate-300 focus:ring-jrs-red">
                 <label for="is_active" class="text-xs font-bold text-slate-700 cursor-pointer">
                     Publish this page actively on the React website
                 </label>
@@ -196,7 +198,7 @@
                 </a>
                 <button type="submit" class="px-6 py-2.5 rounded-xl text-sm font-bold bg-jrs-red hover:bg-red-700 text-white shadow-md shadow-red-600/20 transition-all flex items-center gap-2">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                    <span>Save Changes</span>
+                    <span>{{ ($isCreate ?? false) ? 'Create Principal Record' : 'Save Changes' }}</span>
                 </button>
             </div>
         </div>

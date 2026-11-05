@@ -58,8 +58,7 @@ class BreadcrumbBanner extends Model
     public function getBackgroundImageUrlAttribute(): ?string
     {
         if (empty($this->background_image)) {
-            // Default school campus banner artwork fallback
-            return asset('images/amenities/cta-banner.png');
+            return null;
         }
 
         if (str_starts_with($this->background_image, 'http://') || str_starts_with($this->background_image, 'https://')) {

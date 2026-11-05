@@ -1,7 +1,7 @@
 @extends('admin.layout')
 
-@section('title', 'Edit Admission Banner')
-@section('header', 'Edit Admission Banner (CTA)')
+@section('title', $banner->exists ? 'Edit Admission Banner' : 'Create Admission Banner')
+@section('header', ($banner->exists ? 'Edit' : 'Create') . ' Admission Banner (CTA)')
 
 @section('content')
 <div class="space-y-6 w-full">
@@ -9,7 +9,7 @@
     <!-- Header & Back Button -->
     <div class="flex items-center justify-between">
         <div>
-            <h2 class="text-base font-bold text-jrs-navy font-heading">Edit Admission CTA Banner</h2>
+            <h2 class="text-base font-bold text-jrs-navy font-heading">{{ $banner->exists ? 'Edit' : 'Create' }} Admission CTA Banner</h2>
             <p class="text-xs text-slate-500 mt-0.5">Customize the heading, buttons, and background photograph of the banner.</p>
         </div>
         <a href="{{ route('admin.admission-banner.index') }}" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-600 bg-white border border-slate-200 hover:bg-slate-50 transition-colors">
@@ -20,9 +20,11 @@
 
     <!-- Edit Form Card -->
     <div class="bg-white rounded-2xl border border-slate-200 shadow-2xs overflow-hidden">
-        <form action="{{ route('admin.admission-banner.update', $banner->id) }}" method="POST" enctype="multipart/form-data" class="p-6 sm:p-8 space-y-6">
+        <form action="{{ $banner->exists ? route('admin.admission-banner.update', $banner->id) : route('admin.admission-banner.store') }}" method="POST" enctype="multipart/form-data" class="p-6 sm:p-8 space-y-6">
             @csrf
-            @method('PUT')
+            @if($banner->exists)
+                @method('PUT')
+            @endif
 
             <!-- Typography Section -->
             <div class="space-y-4">

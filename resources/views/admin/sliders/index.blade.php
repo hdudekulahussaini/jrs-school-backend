@@ -116,25 +116,23 @@
                             <!-- Background Photos Preview -->
                             <td class="p-4 align-middle">
                                 @php
-                                    $imgs = $slider->background_images ?? [];
-                                    if (empty($imgs) && !empty($slider->image_path)) {
-                                        $imgs = [$slider->image_path];
-                                    }
+                                    $imgs = $slider->background_images_full_urls;
                                     $imgCount = count($imgs);
                                 @endphp
-                                <div class="flex items-center gap-2">
-                                    <div class="flex -space-x-2 overflow-hidden shrink-0">
-                                        @foreach(array_slice($imgs, 0, 3) as $photo)
-                                            @php
-                                                $photoUrl = str_starts_with($photo, 'http') ? $photo : url($photo);
-                                            @endphp
-                                            <img src="{{ $photoUrl }}" alt="Thumb" class="inline-block h-8 w-12 rounded object-cover ring-2 ring-white shadow-2xs">
-                                        @endforeach
+                                @if($imgCount > 0)
+                                    <div class="space-y-1.5">
+                                        <div class="grid grid-cols-3 gap-1.5 w-48">
+                                            @foreach(array_slice($imgs, 0, 3) as $index => $photoUrl)
+                                                <img src="{{ $photoUrl }}" alt="Background photo {{ $index + 1 }}" loading="lazy" class="h-12 w-full rounded-md border border-slate-200 bg-slate-100 object-cover shadow-2xs">
+                                            @endforeach
+                                        </div>
+                                        <span class="text-xs font-medium text-slate-500">
+                                            {{ $imgCount }} {{ Str::plural('Photo', $imgCount) }}
+                                        </span>
                                     </div>
-                                    <span class="text-xs font-medium text-slate-500 whitespace-nowrap">
-                                        {{ $imgCount }} {{ Str::plural('Photo', $imgCount) }}
-                                    </span>
-                                </div>
+                                @else
+                                    <span class="text-xs text-slate-400">No background photos</span>
+                                @endif
                             </td>
 
                             <!-- Actions -->

@@ -22,7 +22,6 @@ class AdmissionEnquiryApiController extends Controller
             'branch'         => $request->input('branch', 'JRS INTERNATIONAL SCHOOL'),
             'admission_type' => $request->input('admission_type', 'DAY SCHOLAR'),
             'grade'          => $request->input('grade'),
-            'country_code'   => $request->input('country_code', '+91'),
             'parent_mobile'  => $request->input('parent_mobile'),
             'student_dob'    => $request->input('student_dob'),
             'status'         => 'pending',
@@ -37,7 +36,7 @@ class AdmissionEnquiryApiController extends Controller
     }
 
     /**
-     * Get configured enquiry form options (academic years, branches, admission types, grades, country codes).
+     * Get configured enquiry form options (academic years and admission types).
      * GET /api/admission-enquiries/options
      */
     public function options(): JsonResponse

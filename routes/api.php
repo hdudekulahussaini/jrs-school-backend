@@ -45,19 +45,13 @@ Route::get('/docs.json', [SwaggerApiController::class, 'json']);
 Route::get('/top-bar', [TopBarApiController::class, 'getTopBar']);
 
 // News Ticker Endpoints (Frontend Read-Only)
-Route::get('/news-ticker', [NewsTickerApiController::class, 'getActiveTickers']);
-Route::get('/news-tickers', [NewsTickerApiController::class, 'index']);
-Route::get('/news-tickers/{id}', [NewsTickerApiController::class, 'show']);
+Route::get('/news-ticker', [NewsTickerApiController::class, 'getTickers']);
 
 // Hero Slider Endpoints (Frontend Read-Only)
 Route::get('/hero-slider', [HeroSliderApiController::class, 'getActiveSliders']);
-Route::get('/hero-sliders', [HeroSliderApiController::class, 'getActiveSliders']);
-Route::get('/sliders', [HeroSliderApiController::class, 'index']);
-Route::get('/sliders/{id}', [HeroSliderApiController::class, 'show']);
 
 // Home Page Banner Endpoint (Promotional Image Banner: e.g. IIT | JEE | NEET / Olympiad)
 Route::get('/home-banner', [HomeBannerApiController::class, 'getBanner']);
-Route::get('/home-banners', [HomeBannerApiController::class, 'index']);
 
 // Campus Amenities / Facilities Endpoints (Frontend Read-Only)
 Route::get('/amenities-page', [FacilityApiController::class, 'getPageData']);

@@ -36,19 +36,19 @@
                     <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
                         Eyebrow Tagline <span class="text-red-500">*</span>
                     </label>
-                    <input type="text" name="tagline" value="{{ old('tagline', 'ABOUT JRS') }}" required placeholder="ABOUT JRS" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-jrs-red/20 focus:border-jrs-red">
+                    <input type="text" name="tagline" value="{{ old('tagline') }}" required class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-jrs-red/20 focus:border-jrs-red">
                 </div>
                 <div>
                     <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
                         Main Heading <span class="text-red-500">*</span>
                     </label>
-                    <input type="text" name="title" value="{{ old('title', 'A Legacy Of Excellence') }}" required placeholder="A Legacy Of Excellence" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-jrs-red/20 focus:border-jrs-red">
+                    <input type="text" name="title" value="{{ old('title') }}" required class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-jrs-red/20 focus:border-jrs-red">
                 </div>
                 <div>
                     <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
                         Red Accent Title <span class="text-red-500">*</span>
                     </label>
-                    <input type="text" name="title_highlight" value="{{ old('title_highlight', 'In Education') }}" required placeholder="In Education" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-jrs-red/20 focus:border-jrs-red">
+                    <input type="text" name="title_highlight" value="{{ old('title_highlight') }}" required class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-jrs-red/20 focus:border-jrs-red">
                 </div>
             </div>
 
@@ -57,7 +57,7 @@
                 <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
                     First Paragraph (School Vision & Academics) <span class="text-red-500">*</span>
                 </label>
-                <textarea name="description_p1" rows="3" required class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-jrs-red/20 focus:border-jrs-red leading-relaxed">{{ old('description_p1', 'JRS International School, Uppal, Hyderabad is committed to providing quality education with a perfect blend of academics, values and co-curricular activities. We focus on developing confident, responsible and compassionate individuals who are prepared for a constantly evolving world.') }}</textarea>
+                <textarea name="description_p1" rows="3" required class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-jrs-red/20 focus:border-jrs-red leading-relaxed">{{ old('description_p1') }}</textarea>
             </div>
 
             <!-- Description Paragraph 2 -->
@@ -65,19 +65,7 @@
                 <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
                     Second Paragraph (Pedagogy, Labs & Sports)
                 </label>
-                <textarea name="description_p2" rows="3" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-jrs-red/20 focus:border-jrs-red leading-relaxed">{{ old('description_p2', 'Rooted in rich Indian ethos and empowered by global pedagogical standards, our campus provides modern smart classrooms, advanced robotics and science laboratories, sports coaching, and a holistic environment where every student thrives.') }}</textarea>
-            </div>
-
-            <!-- Button CTA & Link -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Button Text</label>
-                    <input type="text" name="button_text" value="{{ old('button_text', 'Read more') }}" placeholder="Read more" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-jrs-red/20 focus:border-jrs-red">
-                </div>
-                <div>
-                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Button Link URL</label>
-                    <input type="text" name="button_link" value="{{ old('button_link', '/about') }}" placeholder="/about" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-jrs-red/20 focus:border-jrs-red">
-                </div>
+                <textarea name="description_p2" rows="3" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-jrs-red/20 focus:border-jrs-red leading-relaxed">{{ old('description_p2') }}</textarea>
             </div>
 
             <!-- Images Upload Section -->
@@ -90,6 +78,7 @@
                         'label' => 'Students Image (Image 1)',
                         'aspect' => 'landscape',
                         'help' => 'Upload students photo (JPG, PNG, WebP).',
+                        'show_no_preview_text' => false,
                     ])
                 </div>
 
@@ -101,6 +90,7 @@
                         'label' => 'Campus Building Image (Image 2)',
                         'aspect' => 'landscape',
                         'help' => 'Upload campus building photo (JPG, PNG, WebP).',
+                        'show_no_preview_text' => false,
                     ])
                 </div>
             </div>
@@ -109,11 +99,11 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                     <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Video Box Title</label>
-                    <input type="text" name="video_title" value="{{ old('video_title', 'Watch a video about how we work and try for our students') }}" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-jrs-red/20 focus:border-jrs-red">
+                    <input type="text" name="video_title" value="{{ old('video_title') }}" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-jrs-red/20 focus:border-jrs-red">
                 </div>
                 <div>
                     <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Video URL (YouTube or MP4)</label>
-                    <input type="text" name="video_url" value="{{ old('video_url', 'https://www.youtube.com') }}" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-jrs-red/20 focus:border-jrs-red">
+                    <input type="text" name="video_url" value="{{ old('video_url') }}" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-jrs-red/20 focus:border-jrs-red">
                 </div>
             </div>
 

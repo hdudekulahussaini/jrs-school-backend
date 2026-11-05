@@ -38,6 +38,11 @@ class AdmissionCriterionController extends Controller
     /**
      * [CREATE - Form] Display form to create a new card.
      */
+    public function show($id)
+    {
+        return redirect()->route('admin.admission-criteria.edit', $id);
+    }
+
     public function create()
     {
         $nextStep = (AdmissionCriterion::max('step_number') ?? 0) + 1;

@@ -88,9 +88,9 @@
                                 </a>
                             </td>
                             <td class="py-3.5 px-4">
-                                <a href="tel:{{ $enquiry->country_code ?? '+91' }}{{ $enquiry->parent_mobile }}" class="inline-flex items-center gap-1.5 font-bold text-jrs-navy hover:text-jrs-red transition-colors">
+                                <a href="tel:{{ preg_replace('/[^0-9+]/', '', (string) $enquiry->parent_mobile) }}" class="inline-flex items-center gap-1.5 font-bold text-jrs-navy hover:text-jrs-red transition-colors">
                                     <i class="bi bi-telephone-fill text-slate-400 text-xs"></i>
-                                    <span>{{ $enquiry->country_code ?? '+91' }} {{ $enquiry->parent_mobile }}</span>
+                                    <span>{{ $enquiry->parent_mobile }}</span>
                                 </a>
                             </td>
                             <td class="py-3.5 px-4">
@@ -108,8 +108,8 @@
                                 </div>
                             </td>
                             <td class="py-3.5 px-4 text-slate-500 whitespace-nowrap">
-                                <div>{{ $enquiry->created_at->format('d M, Y') }}</div>
-                                <div class="text-[10px] text-slate-400">{{ $enquiry->created_at->format('h:i A') }}</div>
+                                <div>{{ $enquiry->created_at->timezone(config('app.display_timezone'))->format('d M, Y') }}</div>
+                                <div class="text-[10px] text-slate-400">{{ $enquiry->created_at->timezone(config('app.display_timezone'))->format('h:i A T') }}</div>
                             </td>
                             <td class="py-3.5 px-4">
                                 <form action="{{ route('admin.admission-enquiries.update', $enquiry) }}" method="POST" class="inline-block">

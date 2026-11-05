@@ -22,6 +22,11 @@ class NewsMediaController extends Controller
     /**
      * Show form to create a new news/media article.
      */
+    public function show($id)
+    {
+        return redirect()->route('admin.news-media.edit', $id);
+    }
+
     public function create()
     {
         return redirect()->route('admin.news-media.index');

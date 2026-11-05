@@ -71,7 +71,8 @@
     </div>
     @else
     <div class="bg-white rounded-2xl border border-slate-200 p-8 text-center text-slate-400 text-sm">
-        No admission banner record found. Run <code class="bg-slate-100 text-slate-700 px-2 py-0.5 rounded text-xs font-mono">php artisan db:seed --class=AdmissionBannerSeeder</code> to seed default data.
+        No admission banner record found.
+        <a href="{{ route('admin.admission-banner.create') }}" class="ml-2 font-semibold text-jrs-red hover:underline">Create the admission banner</a>
     </div>
     @endif
 

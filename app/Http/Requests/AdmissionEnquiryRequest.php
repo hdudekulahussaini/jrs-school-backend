@@ -19,18 +19,11 @@ class AdmissionEnquiryRequest extends FormRequest
      */
     protected function prepareForValidation(): void
     {
-        $rawCountryCode = $this->input('country_code') ?? $this->input('countryCode');
-        $countryCode = filled($rawCountryCode) ? trim((string)$rawCountryCode) : '+91';
-        if (!str_starts_with($countryCode, '+')) {
-            $countryCode = '+' . $countryCode;
-        }
-
         $this->merge([
             'academic_year'  => $this->input('academic_year') ?? $this->input('academicYear') ?? '2026-2027',
             'branch'         => $this->input('branch') ?? 'JRS INTERNATIONAL SCHOOL',
             'admission_type' => $this->input('admission_type') ?? $this->input('admissionType') ?? 'DAY SCHOLAR',
             'grade'          => $this->input('grade'),
-            'country_code'   => $countryCode,
             'parent_mobile'  => $this->input('parent_mobile') ?? $this->input('parentMobile'),
             'student_dob'    => $this->input('student_dob') ?? $this->input('studentDob'),
         ]);
@@ -46,7 +39,6 @@ class AdmissionEnquiryRequest extends FormRequest
             'branch'         => ['required', 'string', 'max:150'],
             'admission_type' => ['required', 'string', 'max:100'],
             'grade'          => ['required', 'string', 'max:50'],
-            'country_code'   => ['nullable', 'string', 'max:10'],
             'parent_mobile'  => ['required', 'string', 'max:25'],
             'student_dob'    => ['required', 'date'],
             'status'         => ['nullable', 'string', 'in:pending,contacted,admitted,closed'],

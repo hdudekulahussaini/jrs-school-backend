@@ -26,6 +26,11 @@ class CareerBenefitController extends Controller
     /**
      * Show the form for creating a new benefit.
      */
+    public function show($id)
+    {
+        return redirect()->route('admin.careers-benefits.edit', $id);
+    }
+
     public function create()
     {
         $icons = CareerBenefit::availableIcons();

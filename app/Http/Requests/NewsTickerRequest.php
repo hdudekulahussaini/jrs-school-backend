@@ -25,10 +25,7 @@ class NewsTickerRequest extends FormRequest
     {
         return [
             'title' => 'required|string|min:3|max:500',
-            'badge_text' => 'nullable|string|max:50',
-            'link_url' => 'nullable|string|max:1000',
-            'sort_order' => 'nullable|integer|min:0',
-            'is_active' => 'nullable|boolean',
+            'pdf_url' => 'nullable|url|max:2048',
         ];
     }
 
@@ -40,8 +37,9 @@ class NewsTickerRequest extends FormRequest
         return [
             'title.required' => 'The ticker announcement text is required.',
             'title.min' => 'The ticker title must be at least 3 characters.',
-            'title.max' => 'The ticker title cannot exceed 500 characters.',
-            'sort_order.integer' => 'Sort order must be an integer number.',
+            'title.max' => 'The ticker text cannot exceed 500 characters.',
+            'pdf_url.url' => 'The PDF URL must be a valid URL.',
+            'pdf_url.max' => 'The PDF URL cannot exceed 2048 characters.',
         ];
     }
 

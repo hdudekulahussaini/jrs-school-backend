@@ -30,7 +30,7 @@ class VisionMissionSeeder extends Seeder
             'eyebrow' => 'OUR MISSION',
             'title' => 'Education Beyond The Classroom.',
             'description' => 'To provide a balanced education combining academic excellence, human values, creativity, innovation and real-world skills, preparing every child for a brighter future.',
-            'image_path' => 'https://images.unsplash.com/photo-1581093458791-9f3c3900df4b?auto=format&fit=crop&w=1200&q=80',
+            'image_path' => 'images/beyond/science-lab.jpg',
             'icon' => 'rocket',
             'sort_order' => 2,
             'is_active' => true,

@@ -126,8 +126,8 @@
                                 @endif
                             </td>
                             <td class="py-3.5 px-4 text-slate-500 whitespace-nowrap">
-                                <div>{{ $inquiry->created_at->format('d M, Y') }}</div>
-                                <div class="text-[10px] text-slate-400">{{ $inquiry->created_at->format('h:i A') }}</div>
+                                <div>{{ $inquiry->created_at->timezone(config('app.display_timezone'))->format('d M, Y') }}</div>
+                                <div class="text-[10px] text-slate-400">{{ $inquiry->created_at->timezone(config('app.display_timezone'))->format('h:i A T') }}</div>
                             </td>
                             <td class="py-3.5 px-4">
                                 <form action="{{ route('admin.contact-inquiries.update', $inquiry) }}" method="POST" class="inline-block">

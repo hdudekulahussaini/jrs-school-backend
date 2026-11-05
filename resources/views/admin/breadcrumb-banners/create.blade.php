@@ -33,11 +33,13 @@
                         <select id="page_selector" class="w-full px-3 py-2 text-xs sm:text-sm rounded-lg border border-slate-200 bg-white focus:outline-none focus:border-jrs-navy focus:ring-1 focus:ring-jrs-navy font-medium">
                             <option value="">-- Choose a website page --</option>
                             @foreach($supportedPages as $page)
-                                @php $isUsed = in_array($page['slug'], $existingSlugs); @endphp
                                 <option value="{{ $page['slug'] }}" data-page="{{ json_encode($page) }}">
-                                    {{ $page['name'] }} ({{ $page['nav_path'] ?? '/' . $page['slug'] }}) {{ $isUsed ? '— [Banner exists]' : '' }}
+                                    {{ $page['name'] }} ({{ $page['nav_path'] ?? '/' . $page['slug'] }})
                                 </option>
                             @endforeach
+                            @if(empty($supportedPages))
+                                <option value="" disabled>No pages available — all supported pages already have banners.</option>
+                            @endif
                         </select>
                         <p id="pageNotice" class="text-[11px] text-amber-600 hidden mt-1"></p>
                     </div>
@@ -104,7 +106,8 @@
                     'id' => 'background_image',
                     'label' => '3. Background Image & Artwork',
                     'aspect' => 'banner',
-                    'help' => 'Recommended: High-resolution horizontal landscape photograph (1920×600px). JPG, PNG, WEBP, SVG (Max 10MB). If left empty, default school banner artwork will be used.',
+                    'required' => true,
+                    'help' => 'Upload a high-resolution horizontal image (recommended 1920×600px). JPG, PNG, WEBP, or SVG, max 10MB.',
                 ])
             </div>
 
@@ -296,12 +299,12 @@ function clearBannerImageSelection() {
     }
 
     if (statusBadge) {
-        statusBadge.textContent = 'Default Artwork';
+        statusBadge.textContent = 'No Image Selected';
         statusBadge.className = 'font-semibold text-[10px] uppercase px-1.5 py-0.5 rounded bg-slate-700/80';
     }
 
     if (filenameSpan) {
-        filenameSpan.textContent = 'cta-banner.png';
+        filenameSpan.textContent = 'No image selected';
     }
 
     if (resetBtn) {

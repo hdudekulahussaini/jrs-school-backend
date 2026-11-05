@@ -14,7 +14,7 @@ class AboutApiController extends Controller
     public function getAbout(): JsonResponse
     {
 
-        $about = AboutSection::where('is_active', true)->first() ?? AboutSection::latest()->first();
+        $about = AboutSection::where('is_active', true)->first();
 
         if (!$about) {
             return response()->json([

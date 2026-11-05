@@ -34,8 +34,6 @@ class HomeBannerApiController extends Controller
      */
     public function getBanner(): JsonResponse
     {
-        HomeBanner::ensureTableExists();
-
         $banner = HomeBanner::first();
 
         return response()->json([
@@ -49,37 +47,4 @@ class HomeBannerApiController extends Controller
         ], 200);
     }
 
-    /**
-     * @OA\Get(
-     *     path="/api/home-banners",
-     *     summary="List Home Page Banners",
-     *     tags={"Home Page"},
-     *     @OA\Response(
-     *         response=200,
-     *         description="List of home page banners",
-     *         @OA\JsonContent(
-     *             @OA\Property(property="success", type="boolean", example=true),
-     *             @OA\Property(property="data", type="array", @OA\Items(type="object"))
-     *         )
-     *     )
-     * )
-     */
-    public function index(): JsonResponse
-    {
-        HomeBanner::ensureTableExists();
-
-        $banner = HomeBanner::first();
-
-        return response()->json([
-            'success' => true,
-            'data' => $banner ? [
-                [
-                    'id' => $banner->id,
-                    'image_path' => $banner->image_path,
-                    'image_full_url' => $banner->image_full_url,
-                    'updated_at' => $banner->updated_at,
-                ]
-            ] : [],
-        ], 200);
-    }
 }

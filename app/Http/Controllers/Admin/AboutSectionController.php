@@ -36,11 +36,10 @@ class AboutSectionController extends Controller
 
         $allSections = $query->orderBy('is_active', 'desc')->orderBy('id', 'desc')->paginate(10)->withQueryString();
         $totalCount = AboutSection::count();
+        $hasAboutSection = $totalCount > 0;
         $activeCount = AboutSection::where('is_active', true)->count();
         $inactiveCount = AboutSection::where('is_active', false)->count();
-        $about = AboutSection::where('is_active', true)->first() ?? AboutSection::first();
-
-        return view('admin.about.index', compact('about', 'allSections', 'totalCount', 'activeCount', 'inactiveCount'));
+        return view('admin.about.index', compact('allSections', 'totalCount', 'hasAboutSection', 'activeCount', 'inactiveCount'));
     }
 
     /**
@@ -48,6 +47,11 @@ class AboutSectionController extends Controller
      */
     public function create()
     {
+        if (AboutSection::query()->exists()) {
+            return redirect()->route('admin.about.index')
+                ->withErrors(['about' => 'Only one About JRS record is allowed. Edit or delete the existing record first.']);
+        }
+
         return view('admin.about.create');
     }
 
@@ -56,6 +60,11 @@ class AboutSectionController extends Controller
      */
     public function store(AboutSectionRequest $request)
     {
+        if (AboutSection::query()->exists()) {
+            return redirect()->route('admin.about.index')
+                ->withErrors(['about' => 'Only one About JRS record is allowed. Edit or delete the existing record first.']);
+        }
+
         $validated = $request->validated();
         $validated['is_active'] = $request->has('is_active') ? (bool)$request->is_active : true;
 

@@ -23,12 +23,55 @@ class ChairmanMessageController extends Controller
     }
 
     /**
+     * Show the create form for Chairman's Address and Strategic Commitment.
+     */
+    public function create()
+    {
+        return view('admin.chairman.edit', [
+            'chairman' => new ChairmanMessage,
+            'isCreate' => true,
+        ]);
+    }
+
+    /**
+     * Store a new Chairman section record.
+     */
+    public function store(ChairmanMessageRequest $request)
+    {
+        $validated = $request->validated();
+        $validated['is_active'] = $request->has('is_active') ? $request->boolean('is_active') : true;
+
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $uploadDir = public_path('uploads/chairman');
+            if (!File::exists($uploadDir)) {
+                File::makeDirectory($uploadDir, 0755, true);
+            }
+
+            $fileName = 'chairman_' . time() . '_' . Str::random(8) . '.' . $file->getClientOriginalExtension();
+            $file->move($uploadDir, $fileName);
+            $validated['image_path'] = 'uploads/chairman/' . $fileName;
+        } elseif ($request->filled('image_path')) {
+            $validated['image_path'] = $request->input('image_path');
+        }
+
+        unset($validated['image'], $validated['remove_image']);
+        $validated = array_filter($validated, static fn ($value) => $value !== null);
+        $chairman = ChairmanMessage::create($validated);
+
+        flash()->success('Chairman Leadership page sections created successfully!', 'Leadership Created');
+
+        return redirect()->route('admin.chairman.index')
+            ->with('success', 'Chairman Leadership page sections created successfully!');
+    }
+
+    /**
      * Show edit form for Chairman's Address and Strategic Commitment.
      */
     public function edit($id)
     {
         $chairman = ChairmanMessage::findOrFail($id);
-        return view('admin.chairman.edit', compact('chairman'));
+        return view('admin.chairman.edit', ['chairman' => $chairman, 'isCreate' => false]);
     }
 
     /**
@@ -95,5 +138,22 @@ class ChairmanMessageController extends Controller
         }
 
         return redirect()->back()->with('success', "Chairman sections successfully {$status}.");
+    }
+
+    /**
+     * Delete a Chairman section record and its locally uploaded portrait.
+     */
+    public function destroy($id)
+    {
+        $chairman = ChairmanMessage::findOrFail($id);
+        if ($chairman->image_path && Str::startsWith($chairman->image_path, 'uploads/chairman/') && File::exists(public_path($chairman->image_path))) {
+            File::delete(public_path($chairman->image_path));
+        }
+        $chairman->delete();
+
+        flash()->info('Chairman Leadership record deleted successfully.', 'Leadership Removed');
+
+        return redirect()->route('admin.chairman.index')
+            ->with('success', 'Chairman Leadership record deleted successfully.');
     }
 }

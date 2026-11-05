@@ -34,31 +34,14 @@
             <table class="w-full caption-bottom text-sm text-left">
                 <thead>
                     <tr class="border-b border-slate-200 bg-slate-50/75 text-slate-500 font-medium text-xs">
-                        <th class="h-10 px-4 w-16 text-center">Order</th>
-                        <th class="h-10 px-4 w-24">Badge</th>
                         <th class="h-10 px-4 min-w-[240px]">Announcement</th>
-                        <th class="h-10 px-4 w-44">Target URL</th>
+                        <th class="h-10 px-4 w-44">PDF URL</th>
                         <th class="h-10 px-4 w-28 text-right">Actions</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-slate-100 text-slate-700">
                     @forelse($tickers as $ticker)
                         <tr class="transition-colors hover:bg-slate-50/60">
-                            <!-- Order -->
-                            <td class="p-4 align-middle text-center">
-                                <span class="inline-flex items-center justify-center font-mono text-xs font-semibold text-slate-500 bg-slate-100 rounded-md h-6 w-6">
-                                    {{ $ticker->sort_order }}
-                                </span>
-                            </td>
-
-                            <!-- Badge -->
-                            <td class="p-4 align-middle">
-                                <span class="inline-flex items-center rounded-md border border-red-200 bg-red-50 px-2 py-0.5 text-xs font-semibold text-red-700 uppercase font-heading">
-                                    {{ $ticker->badge_text ?? 'NEWS' }}
-                                </span>
-                            </td>
-
-                            <!-- Title -->
                             <td class="p-4 align-middle">
                                 <a href="{{ route('admin.tickers.edit', $ticker->id) }}" class="font-medium text-slate-900 hover:text-jrs-navy transition-colors leading-snug">
                                     {{ $ticker->title }}
@@ -66,12 +49,9 @@
                                 <div class="text-[11px] text-slate-400 mt-0.5">Updated {{ $ticker->updated_at->diffForHumans() }}</div>
                             </td>
 
-                            <!-- URL -->
                             <td class="p-4 align-middle">
-                                @if($ticker->link_url)
-                                    <a href="{{ $ticker->link_url }}" target="_blank" class="text-xs text-slate-600 hover:text-slate-900 underline truncate block max-w-[180px]">
-                                        {{ $ticker->link_url }}
-                                    </a>
+                                @if($ticker->pdf_url)
+                                    <span class="text-xs text-slate-600 break-all">{{ $ticker->pdf_url }}</span>
                                 @else
                                     <span class="text-xs text-slate-400">—</span>
                                 @endif
@@ -95,7 +75,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="5" class="p-12 text-center text-slate-500">
+                            <td colspan="3" class="p-12 text-center text-slate-500">
                                 <p class="font-medium text-slate-700 font-heading">No announcements found</p>
                                 <p class="text-xs text-slate-400 mt-1">Get started by creating your first marquee announcement.</p>
                                 <a href="{{ route('admin.tickers.create') }}" class="mt-4 inline-flex items-center justify-center rounded-md text-xs font-medium bg-slate-900 text-white hover:bg-slate-800 h-8 px-3 gap-1 shadow-2xs">

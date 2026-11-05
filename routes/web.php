@@ -159,6 +159,14 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
 
     // Admission Popup (Modal Design)
     Route::get('/admission-popup', [AdmissionPopupController::class, 'index'])->name('admin.admission-popup.index');
+    Route::get('/admission-popup/create', [AdmissionPopupController::class, 'create'])->name('admin.admission-popup.create');
+    Route::post('/admission-popup', [AdmissionPopupController::class, 'store'])->name('admin.admission-popup.store');
+    Route::get('/admission-popup/{id}/edit', [AdmissionPopupController::class, 'edit'])->name('admin.admission-popup.edit');
+    Route::put('/admission-popup/{id}', [AdmissionPopupController::class, 'update'])->name('admin.admission-popup.update-record');
+    Route::post('/admission-popup/{id}/toggle', [AdmissionPopupController::class, 'toggle'])->name('admin.admission-popup.toggle-record');
+    Route::delete('/admission-popup/{id}', [AdmissionPopupController::class, 'destroy'])->name('admin.admission-popup.destroy');
+
+    // Keep the original singleton settings URLs working.
     Route::put('/admission-popup', [AdmissionPopupController::class, 'update'])->name('admin.admission-popup.update');
     Route::post('/admission-popup/toggle', [AdmissionPopupController::class, 'toggle'])->name('admin.admission-popup.toggle');
 
@@ -167,14 +175,20 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
 
     // Chairman of JRS - Leadership Page Sections
     Route::get('/chairman', [ChairmanMessageController::class, 'index'])->name('admin.chairman.index');
+    Route::get('/chairman/create', [ChairmanMessageController::class, 'create'])->name('admin.chairman.create');
+    Route::post('/chairman', [ChairmanMessageController::class, 'store'])->name('admin.chairman.store');
     Route::get('/chairman/{id}/edit', [ChairmanMessageController::class, 'edit'])->name('admin.chairman.edit');
     Route::put('/chairman/{id}', [ChairmanMessageController::class, 'update'])->name('admin.chairman.update');
+    Route::delete('/chairman/{id}', [ChairmanMessageController::class, 'destroy'])->name('admin.chairman.destroy');
     Route::post('/chairman/{id}/toggle', [ChairmanMessageController::class, 'toggle'])->name('admin.chairman.toggle');
 
     // Principal of JRS - Leadership Page Sections
     Route::get('/principal', [PrincipalMessageController::class, 'index'])->name('admin.principal.index');
+    Route::get('/principal/create', [PrincipalMessageController::class, 'create'])->name('admin.principal.create');
+    Route::post('/principal', [PrincipalMessageController::class, 'store'])->name('admin.principal.store');
     Route::get('/principal/{id}/edit', [PrincipalMessageController::class, 'edit'])->name('admin.principal.edit');
     Route::put('/principal/{id}', [PrincipalMessageController::class, 'update'])->name('admin.principal.update');
+    Route::delete('/principal/{id}', [PrincipalMessageController::class, 'destroy'])->name('admin.principal.destroy');
     Route::post('/principal/{id}/toggle', [PrincipalMessageController::class, 'toggle'])->name('admin.principal.toggle');
 
     // Academic Programs Full CRUD Resource

@@ -73,6 +73,7 @@ class ContactApiController extends Controller
             'email'       => $request->input('email'),
             'message'     => $request->input('message'),
             'status'      => 'pending',
+            'notes'       => $request->input('notes'),
         ]);
 
         return response()->json([

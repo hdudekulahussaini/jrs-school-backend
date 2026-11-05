@@ -39,7 +39,7 @@
                     {{ $contactInquiry->parent_name }}
                 </h1>
                 <p class="text-xs text-slate-500">
-                    Received {{ $contactInquiry->created_at->format('M d, Y \a\t h:i A') }} ({{ $contactInquiry->created_at->diffForHumans() }})
+                    Received {{ $contactInquiry->created_at->timezone(config('app.display_timezone'))->format('M d, Y \a\t h:i A T') }} ({{ $contactInquiry->created_at->diffForHumans() }})
                 </p>
             </div>
         </div>
@@ -236,12 +236,12 @@
 
                     <div class="flex items-center justify-between">
                         <span class="text-slate-400">Submitted At</span>
-                        <span class="font-medium text-slate-700">{{ $contactInquiry->created_at->format('d M Y, h:i A') }}</span>
+                        <span class="font-medium text-slate-700">{{ $contactInquiry->created_at->timezone(config('app.display_timezone'))->format('d M Y, h:i A T') }}</span>
                     </div>
 
                     <div class="flex items-center justify-between">
                         <span class="text-slate-400">Last Updated</span>
-                        <span class="font-medium text-slate-700">{{ $contactInquiry->updated_at->format('d M Y, h:i A') }}</span>
+                        <span class="font-medium text-slate-700">{{ $contactInquiry->updated_at->timezone(config('app.display_timezone'))->format('d M Y, h:i A T') }}</span>
                     </div>
 
                     <div class="flex items-center justify-between">

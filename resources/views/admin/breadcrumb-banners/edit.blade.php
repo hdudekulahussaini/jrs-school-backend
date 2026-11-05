@@ -105,7 +105,7 @@
                     'current' => $banner->background_image_url ?? null,
                     'currentPath' => $banner->background_image ?? null,
                     'aspect' => 'banner',
-                    'help' => 'Recommended: High-resolution horizontal landscape photograph (1920×600px). JPG, PNG, WEBP, SVG (Max 10MB).',
+                    'help' => 'Upload a high-resolution horizontal image (recommended 1920×600px). JPG, PNG, WEBP, or SVG, max 10MB.',
                 ])
             </div>
 
@@ -309,12 +309,12 @@ function clearBannerImageSelection() {
 
     if (statusBadge) {
         const hasCustom = @json(!empty($banner->background_image));
-        statusBadge.textContent = hasCustom ? 'Current Image' : 'Default Artwork';
+        statusBadge.textContent = hasCustom ? 'Current Image' : 'No Image Uploaded';
         statusBadge.className = 'font-semibold text-[10px] uppercase px-1.5 py-0.5 rounded ' + (hasCustom ? 'bg-emerald-500/80' : 'bg-slate-700/80');
     }
 
     if (filenameSpan) {
-        filenameSpan.textContent = @json(basename($banner->background_image ?? 'cta-banner.png'));
+        filenameSpan.textContent = @json($banner->background_image ? basename($banner->background_image) : 'No image uploaded');
     }
 
     if (resetBtn) {

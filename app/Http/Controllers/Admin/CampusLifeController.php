@@ -39,6 +39,11 @@ class CampusLifeController extends Controller
     /**
      * [CREATE - Form] Display form to create a new card.
      */
+    public function show($id)
+    {
+        return redirect()->route('admin.campus-life.edit', $id);
+    }
+
     public function create()
     {
         $nextOrder = (CampusLife::max('sort_order') ?? 0) + 1;

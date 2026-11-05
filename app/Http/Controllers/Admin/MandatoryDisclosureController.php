@@ -82,6 +82,11 @@ class MandatoryDisclosureController extends Controller
     /**
      * Show form to create a new mandatory disclosure record.
      */
+    public function show($id)
+    {
+        return redirect()->route('admin.mandatory-disclosure.edit', $id);
+    }
+
     public function create(Request $request)
     {
         $category = $request->query('table', $request->query('category'));

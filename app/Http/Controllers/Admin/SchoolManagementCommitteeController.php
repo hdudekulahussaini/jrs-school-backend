@@ -45,6 +45,11 @@ class SchoolManagementCommitteeController extends Controller
     /**
      * [CREATE - Form] Display form to create a new committee member.
      */
+    public function show($id)
+    {
+        return redirect()->route('admin.school-management-committee.edit', $id);
+    }
+
     public function create()
     {
         return view('admin.school-management-committee.create');

@@ -45,6 +45,11 @@ class PtaMemberController extends Controller
     /**
      * [CREATE - Form] Display form to create a new member.
      */
+    public function show($id)
+    {
+        return redirect()->route('admin.pta-members.edit', $id);
+    }
+
     public function create()
     {
         $nextOrder = (PtaMember::max('sort_order') ?? 0) + 1;

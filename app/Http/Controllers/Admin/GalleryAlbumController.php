@@ -34,6 +34,11 @@ class GalleryAlbumController extends Controller
     /**
      * Show form to create a new album.
      */
+    public function show($id)
+    {
+        return redirect()->route('admin.gallery-albums.edit', $id);
+    }
+
     public function create()
     {
         return redirect()->route('admin.gallery-albums.index');

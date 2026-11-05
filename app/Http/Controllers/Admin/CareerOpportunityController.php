@@ -42,6 +42,11 @@ class CareerOpportunityController extends Controller
     /**
      * Show the form for creating a new section variation.
      */
+    public function show($id)
+    {
+        return redirect()->route('admin.careers-opportunities.edit', $id);
+    }
+
     public function create()
     {
         $defaultChecklist = CareerOpportunity::defaultChecklist();

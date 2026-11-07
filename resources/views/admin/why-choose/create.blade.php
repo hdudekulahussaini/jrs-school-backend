@@ -271,24 +271,6 @@ document.addEventListener('DOMContentLoaded', function () {
     updatePreview(iconInput.value);
 });
 </script>
-@endsection
-                    <input type="number" name="sort_order" id="sort_order" min="0" value="{{ old('sort_order', $nextOrder) }}" class="flex h-9 w-full rounded-md border border-slate-200 bg-white px-3 py-1 text-sm shadow-xs transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-950">
-                </div>
-            </div>
-
-            <!-- Form Actions -->
-            <div class="border-t border-slate-100 pt-5 flex items-center justify-end gap-3">
-                <a href="{{ route('admin.why-choose.index') }}" class="inline-flex items-center justify-center rounded-md text-sm font-medium border border-slate-200 bg-white px-4 py-2 text-slate-700 hover:bg-slate-50 transition-colors">
-                    Cancel
-                </a>
-                <button type="submit" class="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors bg-slate-900 text-white shadow-xs hover:bg-slate-800 h-9 px-4 py-2 gap-2">
-                    <span>Save Feature Item</span>
-                </button>
-            </div>
-        </form>
-    </div>
-</div>
-
 <script>
 document.addEventListener('DOMContentLoaded', function () {
     const titleInput = document.getElementById('title');

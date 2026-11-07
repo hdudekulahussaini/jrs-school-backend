@@ -10,7 +10,7 @@
     <div class="flex items-center justify-between">
         <div>
             <h2 class="text-base font-bold text-jrs-navy font-heading">{{ $banner->exists ? 'Edit' : 'Create' }} Admission CTA Banner</h2>
-            <p class="text-xs text-slate-500 mt-0.5">Customize the heading, buttons, and background photograph of the banner.</p>
+            <p class="text-xs text-slate-500 mt-0.5">Customize the heading, description, and background photograph of the banner.</p>
         </div>
         <a href="{{ route('admin.admission-banner.index') }}" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-600 bg-white border border-slate-200 hover:bg-slate-50 transition-colors">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
@@ -60,59 +60,6 @@
                     @error('description')
                         <p class="text-xs text-red-600 font-medium">{{ $message }}</p>
                     @enderror
-                </div>
-            </div>
-
-            <!-- Call to Action Buttons Section -->
-            <div class="space-y-4 pt-2">
-                <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 font-heading border-b border-slate-100 pb-2">Call To Action (CTA) Buttons</h3>
-
-                <!-- Primary Button (Red with Arrow) -->
-                <div class="p-4 rounded-xl bg-slate-50 border border-slate-200/80 space-y-3">
-                    <div class="flex items-center gap-2">
-                        <span class="w-2.5 h-2.5 rounded-full bg-jrs-red"></span>
-                        <span class="text-xs font-bold text-slate-800 uppercase tracking-wide">Primary Button (Solid Red)</span>
-                    </div>
-
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div class="space-y-1">
-                            <label for="primary_button_text" class="block text-xs font-medium text-slate-600">Button Label</label>
-                            <input type="text" name="primary_button_text" id="primary_button_text" value="{{ old('primary_button_text', $banner->primary_button_text) }}"
-                                   class="w-full px-3 py-2 rounded-lg border border-slate-200 text-sm bg-white focus:outline-hidden focus:ring-2 focus:ring-jrs-navy/20 focus:border-jrs-navy"
-                                   placeholder="Enquire for Admission">
-                        </div>
-
-                        <div class="space-y-1">
-                            <label for="primary_button_link" class="block text-xs font-medium text-slate-600">Target URL / Route</label>
-                            <input type="text" name="primary_button_link" id="primary_button_link" value="{{ old('primary_button_link', $banner->primary_button_link) }}"
-                                   class="w-full px-3 py-2 rounded-lg border border-slate-200 text-sm bg-white focus:outline-hidden focus:ring-2 focus:ring-jrs-navy/20 focus:border-jrs-navy"
-                                   placeholder="https://jrs-school.vercel.app/admissions or /admissions">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Secondary Button (Outline/Dark with Play Icon) -->
-                <div class="p-4 rounded-xl bg-slate-50 border border-slate-200/80 space-y-3">
-                    <div class="flex items-center gap-2">
-                        <span class="w-2.5 h-2.5 rounded-full bg-slate-700"></span>
-                        <span class="text-xs font-bold text-slate-800 uppercase tracking-wide">Secondary Button (Transparent / Tour)</span>
-                    </div>
-
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div class="space-y-1">
-                            <label for="secondary_button_text" class="block text-xs font-medium text-slate-600">Button Label</label>
-                            <input type="text" name="secondary_button_text" id="secondary_button_text" value="{{ old('secondary_button_text', $banner->secondary_button_text) }}"
-                                   class="w-full px-3 py-2 rounded-lg border border-slate-200 text-sm bg-white focus:outline-hidden focus:ring-2 focus:ring-jrs-navy/20 focus:border-jrs-navy"
-                                   placeholder="Take a Campus Tour">
-                        </div>
-
-                        <div class="space-y-1">
-                            <label for="secondary_button_link" class="block text-xs font-medium text-slate-600">Target URL / Route</label>
-                            <input type="text" name="secondary_button_link" id="secondary_button_link" value="{{ old('secondary_button_link', $banner->secondary_button_link) }}"
-                                   class="w-full px-3 py-2 rounded-lg border border-slate-200 text-sm bg-white focus:outline-hidden focus:ring-2 focus:ring-jrs-navy/20 focus:border-jrs-navy"
-                                   placeholder="https://jrs-school.vercel.app/#tour or /campus-tour">
-                        </div>
-                    </div>
                 </div>
             </div>
 

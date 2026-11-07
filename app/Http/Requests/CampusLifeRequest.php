@@ -23,7 +23,6 @@ class CampusLifeRequest extends FormRequest
     {
         return [
             'title' => 'required|string|min:2|max:255',
-            'subtitle' => 'nullable|string|max:255',
             'icon' => 'nullable|string|max:2000',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,webp,svg|max:6144',
             'sort_order' => 'nullable|integer|min:0',

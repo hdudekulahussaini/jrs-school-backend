@@ -38,7 +38,7 @@
             </div>
         </div>
 
-        <form action="{{ route('admin.facilities.update', $facility->id) }}" method="POST" class="p-6 space-y-6">
+        <form action="{{ route('admin.facilities.update', $facility->id) }}" method="POST" enctype="multipart/form-data" class="p-6 space-y-6">
             @csrf
             @method('PUT')
 
@@ -297,6 +297,19 @@
                         </div>
                     @endforeach
                 </div>
+
+                @error('gallery_images')
+                    <p class="text-xs text-red-600 font-medium">{{ $message }}</p>
+                @enderror
+                @if($errors->has('gallery_images.*'))
+                    <div class="rounded-lg bg-red-50 border border-red-200 p-3 text-xs text-red-700 space-y-1">
+                        @foreach($errors->get('gallery_images.*') as $errArray)
+                            @foreach($errArray as $err)
+                                <p class="flex items-center gap-1.5"><svg class="w-3.5 h-3.5 text-red-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>{{ $err }}</p>
+                            @endforeach
+                        @endforeach
+                    </div>
+                @endif
             </div>
 
             <!-- Divider -->

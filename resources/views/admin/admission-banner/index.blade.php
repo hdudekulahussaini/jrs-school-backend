@@ -36,26 +36,6 @@
                 <span class="sm:col-span-3 text-slate-700 leading-relaxed text-xs">{{ $banner->description ?? '—' }}</span>
             </div>
 
-            <div class="p-4 grid grid-cols-1 sm:grid-cols-4 gap-2">
-                <span class="text-xs font-bold text-slate-500 uppercase">Primary Button</span>
-                <div class="sm:col-span-3 text-xs flex items-center">
-                    <span class="font-bold text-jrs-red">{{ $banner->primary_button_text }}</span>
-                    @if($banner->primary_button_link)
-                        <span class="text-slate-400 mx-2">&rarr;</span>
-                        <code class="text-blue-600 bg-blue-50 px-2 py-0.5 rounded">{{ $banner->primary_button_link }}</code>
-                    @endif
-                </div>
-            </div>
-
-            <div class="p-4 grid grid-cols-1 sm:grid-cols-4 gap-2">
-                <span class="text-xs font-bold text-slate-500 uppercase">Secondary Button</span>
-                <div class="sm:col-span-3 text-xs">
-                    <span class="font-bold text-slate-800">{{ $banner->secondary_button_text }}</span>
-                    <span class="text-slate-400 mx-2">&rarr;</span>
-                    <code class="text-blue-600 bg-blue-50 px-2 py-0.5 rounded">{{ $banner->secondary_button_link }}</code>
-                </div>
-            </div>
-
             <div class="p-4 grid grid-cols-1 sm:grid-cols-4 gap-2 items-center">
                 <span class="text-xs font-bold text-slate-500 uppercase">Background Image</span>
                 <div class="sm:col-span-3 flex items-center gap-3">

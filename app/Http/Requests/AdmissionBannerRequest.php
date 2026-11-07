@@ -23,10 +23,6 @@ class AdmissionBannerRequest extends FormRequest
             'title' => 'required|string|max:255',
             'title_highlight' => 'nullable|string|max:255',
             'description' => 'nullable|string',
-            'primary_button_text' => 'nullable|string|max:100',
-            'primary_button_link' => 'nullable|string|max:500',
-            'secondary_button_text' => 'nullable|string|max:100',
-            'secondary_button_link' => 'nullable|string|max:500',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,webp,gif|max:10240',
             'image_path' => 'nullable|string|max:500',
         ];

@@ -24,8 +24,10 @@ use App\Http\Controllers\Admin\SchoolManagementCommitteeController;
 use App\Http\Controllers\Admin\VisionMissionController;
 use App\Http\Controllers\Admin\WhyChooseController;
 use App\Http\Controllers\Api\AdmissionEnquiryApiController;
+use App\Http\Controllers\Api\AdmissionBannerApiController;
 use App\Http\Controllers\Api\AdmissionPopupApiController;
 use App\Http\Controllers\Api\BreadcrumbBannerApiController;
+use App\Http\Controllers\Api\CampusLifeApiController;
 use App\Http\Controllers\Api\ChairmanMessageApiController;
 use App\Http\Controllers\Api\PrincipalMessageApiController;
 use App\Http\Controllers\Api\AboutApiController;
@@ -33,11 +35,16 @@ use App\Http\Controllers\Api\ContactApiController;
 use App\Http\Controllers\Api\HomeBannerApiController;
 use App\Models\BreadcrumbBanner;
 use App\Models\AdmissionPopup;
+use App\Models\CampusLife;
+use App\Models\WhyChooseFeature;
+use Database\Seeders\CampusLifeSeeder;
+use Database\Seeders\WhyChooseFeatureSeeder;
 use App\Http\Requests\AdmissionBannerRequest;
 use App\Http\Requests\AdmissionEnquiryRequest;
 use App\Http\Requests\AdmissionPopupRequest;
 use App\Http\Requests\AboutSectionRequest;
 use App\Http\Requests\ContactInquiryRequest;
+use App\Http\Requests\CampusLifeRequest;
 use App\Http\Requests\ChairmanMessageRequest;
 use App\Http\Requests\HomeBannerRequest;
 use App\Http\Requests\PrincipalMessageRequest;
@@ -47,9 +54,11 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
+use Illuminate\Routing\Route as RoutingRoute;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\ViewErrorBag;
 use Illuminate\View\View;
 use PHPUnit\Framework\TestCase;
 
@@ -495,6 +504,150 @@ final class AdminAndApiRepairTest extends TestCase
         }
     }
 
+    public function test_why_choose_create_and_edit_views_render_their_content_sections(): void
+    {
+        $viewData = ['errors' => new ViewErrorBag];
+        $createHtml = view('admin.why-choose.create', $viewData + ['nextOrder' => 1])->render();
+        self::assertStringContainsString('New Feature Card', $createHtml);
+        self::assertStringContainsString('Save Feature Item', $createHtml);
+        self::assertSame(1, substr_count($createHtml, 'id="sort_order"'));
+
+        $item = new WhyChooseFeature([
+            'title' => 'Test feature',
+            'description' => 'Test description',
+            'icon' => 'bi bi-trophy-fill',
+            'is_active' => true,
+            'sort_order' => 1,
+        ]);
+        $item->id = 1;
+
+        $editHtml = view('admin.why-choose.edit', $viewData + compact('item'))->render();
+        self::assertStringContainsString('Edit: Test feature', $editHtml);
+        self::assertStringContainsString('Update Feature Item', $editHtml);
+        self::assertSame(1, substr_count($editHtml, 'id="sort_order"'));
+    }
+
+    public function test_why_choose_seeder_preserves_existing_records_and_is_safe_to_rerun(): void
+    {
+        $existing = WhyChooseFeature::create([
+            'type' => 'card',
+            'title' => 'Academic Excellence',
+            'description' => 'Admin-edited description.',
+            'icon' => 'bi bi-star',
+            'icon_color' => 'purple',
+            'sort_order' => 8,
+            'is_active' => false,
+        ]);
+        WhyChooseFeature::create([
+            'type' => 'card',
+            'title' => 'Custom Admin Feature',
+            'description' => 'Do not delete admin content.',
+            'sort_order' => 50,
+            'is_active' => true,
+        ]);
+
+        $seeder = new WhyChooseFeatureSeeder;
+        $seeder->run();
+        $seeder->run();
+
+        self::assertSame(14, WhyChooseFeature::count());
+        self::assertSame('Admin-edited description.', $existing->fresh()->description);
+        self::assertFalse($existing->fresh()->is_active);
+        self::assertSame(1, WhyChooseFeature::where('title', 'Academic Excellence')->count());
+        self::assertSame(1, WhyChooseFeature::where('title', 'Custom Admin Feature')->count());
+    }
+
+    public function test_campus_life_seeder_preserves_existing_cards_and_is_safe_to_rerun(): void
+    {
+        $existing = CampusLife::create([
+            'title' => 'Eco-Friendly Campus',
+            'icon' => 'bi bi-star',
+            'sort_order' => 8,
+            'is_active' => false,
+        ]);
+        CampusLife::create([
+            'title' => 'Custom Admin Campus Card',
+            'sort_order' => 50,
+            'is_active' => true,
+        ]);
+
+        $seeder = new CampusLifeSeeder;
+        $seeder->run();
+        $seeder->run();
+
+        self::assertSame(5, CampusLife::count());
+        self::assertFalse($existing->fresh()->is_active);
+        self::assertSame(1, CampusLife::where('title', 'Eco-Friendly Campus')->count());
+        self::assertSame(1, CampusLife::where('title', 'Custom Admin Campus Card')->count());
+    }
+
+    public function test_campus_life_crud_and_api_work_without_subtitle_column(): void
+    {
+        $existingId = DB::table('campus_lives')->insertGetId([
+            'title' => 'Existing Campus Card',
+            'subtitle' => 'Legacy tagline',
+            'icon' => 'bi bi-tree-fill',
+            'image_path' => 'uploads/campus-life/existing.jpg',
+            'sort_order' => 3,
+            'is_active' => true,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        $migration = require dirname(__DIR__, 2).'/database/migrations/2026_11_05_000002_drop_subtitle_from_campus_lives_table.php';
+        $migration->up();
+
+        self::assertFalse(Schema::hasColumn('campus_lives', 'subtitle'));
+        self::assertSame('Existing Campus Card', DB::table('campus_lives')->where('id', $existingId)->value('title'));
+        self::assertSame('uploads/campus-life/existing.jpg', DB::table('campus_lives')->where('id', $existingId)->value('image_path'));
+
+        $this->app['session']->driver()->start();
+
+        $controller = new CampusLifeController;
+        $storeRequest = $this->validatedRequest(CampusLifeRequest::class, [
+            'title' => 'New Campus Card',
+            'subtitle' => 'Legacy tagline should be ignored',
+            'icon' => 'bi bi-book-half',
+            'image_path' => 'uploads/campus-life/new.jpg',
+            'sort_order' => 4,
+        ]);
+        self::assertArrayNotHasKey('subtitle', $storeRequest->validated());
+        $controller->store($storeRequest);
+
+        $created = CampusLife::where('title', 'New Campus Card')->firstOrFail();
+        self::assertSame(4, $created->sort_order);
+        self::assertSame('bi bi-book-half', $created->icon);
+
+        $response = (new CampusLifeApiController)->index();
+        self::assertSame(200, $response->getStatusCode());
+        self::assertArrayNotHasKey('subtitle', $response->getData(true)['data'][0]);
+
+        $updateRequest = $this->validatedRequest(CampusLifeRequest::class, [
+            'title' => 'Updated Campus Card',
+            'subtitle' => 'This field is not persisted',
+            'icon' => 'bi bi-stars',
+            'sort_order' => 5,
+        ]);
+        $controller->update($updateRequest, $created->id);
+        self::assertSame('Updated Campus Card', $created->fresh()->title);
+        self::assertSame('bi bi-stars', $created->fresh()->icon);
+        self::assertArrayNotHasKey(
+            'subtitle',
+            (new CampusLifeApiController)->index()->getData(true)['data'][1]
+        );
+        self::assertInstanceOf(
+            RoutingRoute::class,
+            \Illuminate\Support\Facades\Route::getRoutes()->match(Request::create('/api/campus-tour', 'GET'))
+        );
+        self::assertInstanceOf(
+            RoutingRoute::class,
+            \Illuminate\Support\Facades\Route::getRoutes()->match(Request::create('/api/campus-life', 'GET'))
+        );
+
+        $controller->destroy($created->id);
+        self::assertSame(1, CampusLife::count());
+    }
+
     public function test_admission_and_home_banner_crud_works_in_isolated_sqlite(): void
     {
         $this->app['session']->driver()->start();
@@ -547,6 +700,123 @@ final class AdminAndApiRepairTest extends TestCase
         );
         $homeController->destroy($home->id);
         self::assertSame(0, DB::table('home_banners')->count());
+    }
+
+    public function test_admission_banner_button_columns_are_removed_and_crud_api_and_views_exclude_them(): void
+    {
+        $bannerId = DB::table('admission_banners')->insertGetId([
+            'title' => 'Existing Admission Banner',
+            'title_highlight' => 'Existing highlight',
+            'description' => 'Existing description.',
+            'primary_button_text' => 'Legacy primary label',
+            'primary_button_link' => '/legacy-primary',
+            'secondary_button_text' => 'Legacy secondary label',
+            'secondary_button_link' => '/legacy-secondary',
+            'image_path' => 'images/existing-banner.jpg',
+            'is_active' => true,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        $migration = require dirname(__DIR__, 2).'/database/migrations/2026_11_05_000003_drop_button_fields_from_admission_banners_table.php';
+        $migration->up();
+
+        foreach (['primary_button_text', 'primary_button_link', 'secondary_button_text', 'secondary_button_link'] as $column) {
+            self::assertFalse(Schema::hasColumn('admission_banners', $column));
+        }
+        $existing = DB::table('admission_banners')->find($bannerId);
+        self::assertSame('Existing Admission Banner', $existing->title);
+        self::assertSame('images/existing-banner.jpg', $existing->image_path);
+        DB::table('admission_banners')->where('id', $bannerId)->update(['is_active' => false]);
+
+        $migration->down();
+        foreach (['primary_button_text', 'primary_button_link', 'secondary_button_text', 'secondary_button_link'] as $column) {
+            self::assertTrue(Schema::hasColumn('admission_banners', $column));
+        }
+        self::assertSame('Enquire for Admission', DB::table('admission_banners')->where('id', $bannerId)->value('primary_button_text'));
+        self::assertNull(DB::table('admission_banners')->where('id', $bannerId)->value('primary_button_link'));
+        self::assertSame('Take a Campus Tour', DB::table('admission_banners')->where('id', $bannerId)->value('secondary_button_text'));
+        self::assertSame('/campus-tour', DB::table('admission_banners')->where('id', $bannerId)->value('secondary_button_link'));
+        $restoredColumns = collect(DB::select('PRAGMA table_info(admission_banners)'))->keyBy('name');
+        self::assertSame("'Enquire for Admission'", $restoredColumns['primary_button_text']->dflt_value);
+        self::assertSame("'Take a Campus Tour'", $restoredColumns['secondary_button_text']->dflt_value);
+        self::assertSame("'/campus-tour'", $restoredColumns['secondary_button_link']->dflt_value);
+        self::assertSame('Existing Admission Banner', DB::table('admission_banners')->where('id', $bannerId)->value('title'));
+        $migration->up();
+        (new \Database\Seeders\AdmissionBannerSeeder)->run();
+        self::assertSame(
+            'Give Your Child A Strong Foundation',
+            DB::table('admission_banners')->where('id', $bannerId)->value('title')
+        );
+        DB::table('admission_banners')->where('id', $bannerId)->update(['is_active' => false]);
+
+        $this->app['session']->driver()->start();
+        $controller = new AdmissionBannerController;
+        $createView = $controller->create();
+        $createView->with('errors', new ViewErrorBag);
+        $createHtml = $createView->render();
+        foreach (['primary_button_text', 'primary_button_link', 'secondary_button_text', 'secondary_button_link'] as $field) {
+            self::assertStringNotContainsString($field, $createHtml);
+        }
+        $editView = $controller->edit($bannerId);
+        $editView->with('errors', new ViewErrorBag);
+        $editHtml = $editView->render();
+        foreach (['primary_button_text', 'primary_button_link', 'secondary_button_text', 'secondary_button_link'] as $field) {
+            self::assertStringNotContainsString($field, $editHtml);
+        }
+
+        $request = $this->validatedRequest(AdmissionBannerRequest::class, [
+            'title' => 'New CTA-Free Banner',
+            'description' => 'Banner content without buttons.',
+            'primary_button_text' => 'Ignore this input',
+            'primary_button_link' => '/ignore-primary',
+            'secondary_button_text' => 'Ignore this input too',
+            'secondary_button_link' => '/ignore-secondary',
+        ]);
+        foreach (['primary_button_text', 'primary_button_link', 'secondary_button_text', 'secondary_button_link'] as $field) {
+            self::assertArrayNotHasKey($field, $request->validated());
+        }
+        $controller->store($request);
+
+        $created = \App\Models\AdmissionBanner::where('title', 'New CTA-Free Banner')->firstOrFail();
+        self::assertSame('Banner content without buttons.', $created->description);
+        $indexView = $controller->index();
+        self::assertInstanceOf(View::class, $indexView);
+        $indexHtml = $indexView->render();
+        self::assertStringNotContainsString('Primary Button', $indexHtml);
+        self::assertStringNotContainsString('Secondary Button', $indexHtml);
+
+        $apiResponse = (new AdmissionBannerApiController)->index();
+        self::assertSame(200, $apiResponse->getStatusCode());
+        $apiData = $apiResponse->getData(true)['data'];
+        foreach (['primary_button_text', 'primary_button_link', 'secondary_button_text', 'secondary_button_link', 'primary_button', 'secondary_button'] as $field) {
+            self::assertArrayNotHasKey($field, $apiData);
+        }
+
+        foreach (['public/swagger.json', 'storage/api-docs/api-docs.json'] as $documentationPath) {
+            $openApi = json_decode(
+                file_get_contents(base_path($documentationPath)),
+                true,
+                512,
+                JSON_THROW_ON_ERROR
+            );
+            $bannerOperation = $openApi['paths']['/admission-banner']['get'];
+            $bannerSchema = $bannerOperation['responses']['200']['content']['application/json']['schema'];
+            $documentedFields = array_keys($bannerSchema['properties']['data']['properties']);
+
+            foreach (['primary_button_text', 'primary_button_link', 'secondary_button_text', 'secondary_button_link', 'primary_button', 'secondary_button'] as $field) {
+                self::assertNotContains($field, $documentedFields);
+            }
+            self::assertStringNotContainsString('CTA', $bannerOperation['summary']);
+            self::assertStringNotContainsString('CTA', $bannerOperation['tags'][0]);
+        }
+
+        $controller->update(
+            $this->validatedRequest(AdmissionBannerRequest::class, ['title' => 'Updated CTA-Free Banner']),
+            $created->id
+        );
+        self::assertSame('Updated CTA-Free Banner', $created->fresh()->title);
+        $controller->destroy($created->id);
+        self::assertSame(1, DB::table('admission_banners')->count());
     }
 
     public function test_contact_and_admission_forms_store_in_isolated_sqlite(): void
@@ -676,6 +946,29 @@ final class AdminAndApiRepairTest extends TestCase
             $table->string('signoff_signature')->default('Marlene Mannas');
             $table->string('signoff_name')->default('Mrs. Marlene Mannas');
             $table->string('signoff_sub')->default('Principal, JRS International School');
+            $table->boolean('is_active')->default(true);
+            $table->timestamps();
+        });
+
+        Schema::create('why_choose_features', function (Blueprint $table): void {
+            $table->id();
+            $table->string('type')->default('card');
+            $table->string('title');
+            $table->text('description')->nullable();
+            $table->string('icon')->nullable();
+            $table->string('icon_color')->nullable();
+            $table->integer('sort_order')->default(0);
+            $table->boolean('is_active')->default(true);
+            $table->timestamps();
+        });
+
+        Schema::create('campus_lives', function (Blueprint $table): void {
+            $table->id();
+            $table->string('title');
+            $table->string('subtitle')->nullable();
+            $table->string('icon')->nullable();
+            $table->string('image_path')->nullable();
+            $table->integer('sort_order')->default(0);
             $table->boolean('is_active')->default(true);
             $table->timestamps();
         });

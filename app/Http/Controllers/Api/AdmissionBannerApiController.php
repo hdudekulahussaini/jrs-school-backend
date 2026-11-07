@@ -9,8 +9,7 @@ use Illuminate\Http\JsonResponse;
 class AdmissionBannerApiController extends Controller
 {
     /**
-     * Public GET endpoint: /api/admission-banner
-     * Returns the active Admission & Campus Tour CTA banner for the React frontend.
+     * Public GET endpoint returning the active Admission Banner content.
      */
     public function index(): JsonResponse
     {
@@ -31,14 +30,6 @@ class AdmissionBannerApiController extends Controller
                 'title' => $banner->title,
                 'title_highlight' => $banner->title_highlight,
                 'description' => $banner->description,
-                'primary_button' => [
-                    'text' => $banner->primary_button_text,
-                    'url' => $banner->primary_button_link,
-                ],
-                'secondary_button' => [
-                    'text' => $banner->secondary_button_text,
-                    'url' => $banner->secondary_button_link,
-                ],
                 'image_url' => $banner->image_full_url,
                 'updated_at' => $banner->updated_at,
             ],

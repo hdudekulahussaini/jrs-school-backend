@@ -13,7 +13,6 @@ class CampusLife extends Model
 
     protected $fillable = [
         'title',
-        'subtitle',
         'icon',
         'image_path',
         'sort_order',

@@ -3169,7 +3169,45 @@
                     },
                     "data": {
                       "type": "array",
-                      "items": {}
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer",
+                            "example": 1
+                          },
+                          "title": {
+                            "type": "string",
+                            "example": "Eco-Friendly Campus"
+                          },
+                          "icon": {
+                            "type": "string",
+                            "nullable": true,
+                            "example": "bi bi-tree-fill"
+                          },
+                          "image_url": {
+                            "type": "string",
+                            "nullable": true,
+                            "example": "https://example.test/campus.jpg"
+                          },
+                          "sort_order": {
+                            "type": "integer",
+                            "example": 1
+                          },
+                          "is_active": {
+                            "type": "boolean",
+                            "example": true
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "title",
+                          "icon",
+                          "image_url",
+                          "sort_order",
+                          "is_active"
+                        ]
+                      }
                     }
                   },
                   "required": [
@@ -3262,7 +3300,45 @@
                     },
                     "data": {
                       "type": "array",
-                      "items": {}
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer",
+                            "example": 1
+                          },
+                          "title": {
+                            "type": "string",
+                            "example": "Eco-Friendly Campus"
+                          },
+                          "icon": {
+                            "type": "string",
+                            "nullable": true,
+                            "example": "bi bi-tree-fill"
+                          },
+                          "image_url": {
+                            "type": "string",
+                            "nullable": true,
+                            "example": "https://example.test/campus.jpg"
+                          },
+                          "sort_order": {
+                            "type": "integer",
+                            "example": 1
+                          },
+                          "is_active": {
+                            "type": "boolean",
+                            "example": true
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "title",
+                          "icon",
+                          "image_url",
+                          "sort_order",
+                          "is_active"
+                        ]
+                      }
                     }
                   },
                   "required": [
@@ -3988,17 +4064,67 @@
     "/admission-banner": {
       "get": {
         "tags": [
-          "Admission CTA Banner (About Page)"
+          "Admission Banner"
         ],
-        "summary": "Get active Admission & Campus Tour CTA banner for About page",
-        "description": "Returns banner title, subtitle, admissions phone, campus tour link, and background artwork.",
+        "summary": "Get active Admission Banner content",
+        "description": "Returns the active Admission Banner heading, description, and background image.",
         "responses": {
           "200": {
-            "description": "Admission banner data",
+            "description": "Admission Banner content retrieved successfully",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ConfiguredApiResponse"
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer",
+                          "example": 1
+                        },
+                        "title": {
+                          "type": "string",
+                          "example": "Give Your Child A Strong Foundation"
+                        },
+                        "title_highlight": {
+                          "type": "string",
+                          "nullable": true,
+                          "example": "For Tomorrow"
+                        },
+                        "description": {
+                          "type": "string",
+                          "nullable": true,
+                          "example": "Join JRS International School and be a part of a nurturing environment."
+                        },
+                        "image_url": {
+                          "type": "string",
+                          "nullable": true,
+                          "example": "https://example.test/admission-banner.jpg"
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "title",
+                        "title_highlight",
+                        "description",
+                        "image_url",
+                        "updated_at"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "data"
+                  ]
                 }
               }
             }

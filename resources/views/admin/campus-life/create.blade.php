@@ -32,7 +32,7 @@
         <form action="{{ route('admin.campus-life.store') }}" method="POST" enctype="multipart/form-data" class="p-6 space-y-6">
             @csrf
 
-            <!-- Section 1: Title & Subtitle -->
+            <!-- Section 1: Title -->
             <div class="space-y-4">
                 <div class="space-y-2">
                     <label for="title" class="text-sm font-medium leading-none text-slate-700">Card Title <span class="text-red-500">*</span></label>
@@ -40,11 +40,6 @@
                     @error('title')
                         <p class="text-xs text-red-600 font-medium">{{ $message }}</p>
                     @enderror
-                </div>
-
-                <div class="space-y-2">
-                    <label for="subtitle" class="text-sm font-medium leading-none text-slate-700">Subtitle / Tagline (Optional)</label>
-                    <input type="text" name="subtitle" id="subtitle" value="{{ old('subtitle') }}" placeholder="e.g. Green & Serene, Modern Learning" class="flex h-9 w-full rounded-md border border-slate-200 bg-white px-3 py-1 text-sm shadow-xs transition-colors placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-950">
                 </div>
 
                 <!-- Badge Icon (Bootstrap Icon) Section matching user screenshot -->

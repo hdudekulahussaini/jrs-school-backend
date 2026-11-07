@@ -12,8 +12,6 @@ class WhyChooseFeatureSeeder extends Seeder
      */
     public function run(): void
     {
-        WhyChooseFeature::truncate();
-
         // Feature Cards
         $cards = [
             [
@@ -97,15 +95,19 @@ class WhyChooseFeatureSeeder extends Seeder
         ];
 
         foreach ($cards as $index => $card) {
-            WhyChooseFeature::create([
-                'type' => 'card',
-                'title' => $card['title'],
-                'description' => $card['description'],
-                'icon' => $card['icon'],
-                'icon_color' => $card['icon_color'],
-                'sort_order' => $index + 1,
-                'is_active' => true,
-            ]);
+            WhyChooseFeature::firstOrCreate(
+                [
+                    'type' => 'card',
+                    'title' => $card['title'],
+                ],
+                [
+                    'description' => $card['description'],
+                    'icon' => $card['icon'],
+                    'icon_color' => $card['icon_color'],
+                    'sort_order' => $index + 1,
+                    'is_active' => true,
+                ]
+            );
         }
     }
 }

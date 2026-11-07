@@ -6,8 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\VisionMission;
 use App\Http\Requests\VisionMissionRequest;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use RuntimeException;
 
 class VisionMissionController extends Controller
 {
@@ -17,26 +15,19 @@ class VisionMissionController extends Controller
     public function index()
     {
         $items = VisionMission::orderBy('sort_order', 'asc')->orderBy('id', 'asc')->get();
-        $creationUsed = $this->creationUsed();
-
-        return view('admin.vision-mission.index', compact('items', 'creationUsed'));
+        return view('admin.vision-mission.index', compact('items'));
     }
 
     /**
      * [CREATE - Form] Create a new card.
      */
-    public function show($id)
-    {
-        return redirect()->route('admin.vision-mission.edit', $id);
-    }
-
     public function create()
     {
-        if ($this->creationUsed()) {
-            flash()->warning('A Vision & Mission card has already been created. You can edit existing cards.', 'Limit Reached');
+        if (VisionMission::count() >= 2) {
+            flash()->warning('Only 2 cards (Vision & Mission) are allowed. You can edit existing cards.', 'Limit Reached');
 
             return redirect()->route('admin.vision-mission.index')
-                ->with('error', 'A Vision & Mission card has already been created. You can edit existing cards.');
+                ->with('error', 'Only 2 cards (Vision & Mission) are allowed. You can edit existing cards.');
         }
 
         return view('admin.vision-mission.create');
@@ -47,56 +38,32 @@ class VisionMissionController extends Controller
      */
     public function store(VisionMissionRequest $request)
     {
+        if (VisionMission::count() >= 2) {
+            flash()->error('Cannot add card. The maximum limit of 2 cards (Vision & Mission) has already been reached.', 'Action Denied');
+
+            return redirect()->route('admin.vision-mission.index')
+                ->with('error', 'Cannot add card. The maximum limit of 2 cards (Vision & Mission) has already been reached.');
+        }
+
         $validated = $request->validated();
         $validated['is_active'] = $request->has('is_active') ? (bool)$request->is_active : true;
         $validated['sort_order'] = $validated['sort_order'] ?? 0;
 
-        $item = DB::transaction(function () use ($request, $validated) {
-            $creationUsed = DB::table('vision_mission_creation_limits')
-                ->where('id', 1)
-                ->lockForUpdate()
-                ->value('creation_used');
-
-            if ($creationUsed === null) {
-                throw new RuntimeException('Vision & Mission creation limit record is missing.');
+        if ($request->hasFile('image_file')) {
+            $uploadPath = public_path('uploads/vision-mission');
+            if (!file_exists($uploadPath)) {
+                mkdir($uploadPath, 0755, true);
             }
 
-            if ($creationUsed || VisionMission::query()->exists()) {
-                DB::table('vision_mission_creation_limits')
-                    ->where('id', 1)
-                    ->update(['creation_used' => true, 'updated_at' => now()]);
-
-                return null;
-            }
-
-            if ($request->hasFile('image_file')) {
-                $uploadPath = public_path('uploads/vision-mission');
-                if (!file_exists($uploadPath)) {
-                    mkdir($uploadPath, 0755, true);
-                }
-
-                $file = $request->file('image_file');
-                $filename = 'vm_' . time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
-                $file->move($uploadPath, $filename);
-                $validated['image_path'] = 'uploads/vision-mission/' . $filename;
-            }
-
-            unset($validated['image_file']);
-
-            $item = VisionMission::create($validated);
-            DB::table('vision_mission_creation_limits')
-                ->where('id', 1)
-                ->update(['creation_used' => true, 'updated_at' => now()]);
-
-            return $item;
-        });
-
-        if (!$item) {
-            flash()->error('Cannot add card. A Vision & Mission card has already been created.', 'Action Denied');
-
-            return redirect()->route('admin.vision-mission.index')
-                ->with('error', 'Cannot add card. A Vision & Mission card has already been created.');
+            $file = $request->file('image_file');
+            $filename = 'vm_' . time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+            $file->move($uploadPath, $filename);
+            $validated['image_path'] = 'uploads/vision-mission/' . $filename;
         }
+
+        unset($validated['image_file']);
+
+        VisionMission::create($validated);
 
         flash()->success('Vision & Mission card created successfully.', 'Card Created');
 
@@ -150,36 +117,11 @@ class VisionMissionController extends Controller
     public function destroy($id)
     {
         $item = VisionMission::findOrFail($id);
-        DB::transaction(function () use ($item) {
-            DB::table('vision_mission_creation_limits')
-                ->where('id', 1)
-                ->update(['creation_used' => true, 'updated_at' => now()]);
-
-            $item->delete();
-        });
+        $item->delete();
 
         flash()->info('Vision & Mission card deleted successfully.', 'Card Removed');
 
         return redirect()->route('admin.vision-mission.index')
             ->with('success', 'Vision & Mission card deleted successfully.');
-    }
-
-    private function creationUsed(): bool
-    {
-        if (VisionMission::query()->exists()) {
-            DB::table('vision_mission_creation_limits')
-                ->where('id', 1)
-                ->update(['creation_used' => true, 'updated_at' => now()]);
-        }
-
-        $creationUsed = DB::table('vision_mission_creation_limits')
-            ->where('id', 1)
-            ->value('creation_used');
-
-        if ($creationUsed === null) {
-            throw new RuntimeException('Vision & Mission creation limit record is missing.');
-        }
-
-        return (bool) $creationUsed;
     }
 }

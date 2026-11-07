@@ -38,7 +38,7 @@
                     <tr class="border-b border-slate-200 bg-slate-50/75 text-slate-500 font-medium text-xs">
                         <th class="h-10 px-4 w-16 text-center">Order</th>
                         <th class="h-10 px-4 w-28">Image</th>
-                        <th class="h-10 px-4 min-w-[200px]">Card Title & Subtitle</th>
+                        <th class="h-10 px-4 min-w-[200px]">Card Title</th>
                         <th class="h-10 px-4 w-28 text-center">Icon</th>
                         <th class="h-10 px-4 w-32 text-right">Actions</th>
                     </tr>
@@ -64,12 +64,9 @@
                                 </div>
                             </td>
 
-                            <!-- Title & Subtitle -->
+                            <!-- Title -->
                             <td class="p-4 align-middle">
                                 <div class="font-semibold text-slate-900 font-heading">{{ $item->title }}</div>
-                                @if($item->subtitle)
-                                    <div class="text-xs text-slate-500 mt-0.5">{{ $item->subtitle }}</div>
-                                @endif
                             </td>
 
                             <!-- Icon Badge -->

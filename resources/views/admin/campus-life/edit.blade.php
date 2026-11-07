@@ -25,7 +25,7 @@
         <div class="p-6 border-b border-slate-100 flex items-center justify-between">
             <div>
                 <h3 class="text-lg font-semibold leading-none tracking-tight text-slate-900 font-heading">Edit Card: {{ $item->title }}</h3>
-                <p class="text-sm text-slate-500 mt-1.5">Modify title, subtitle, icon, or image for this campus tour card.</p>
+                <p class="text-sm text-slate-500 mt-1.5">Modify the title, icon, or image for this campus tour card.</p>
             </div>
             <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium {{ $item->is_active ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-slate-100 text-slate-600' }}">
                 <span class="w-1.5 h-1.5 rounded-full {{ $item->is_active ? 'bg-emerald-600' : 'bg-slate-400' }}"></span>
@@ -37,7 +37,7 @@
             @csrf
             @method('PUT')
 
-            <!-- Section 1: Title & Subtitle -->
+            <!-- Section 1: Title -->
             <div class="space-y-4">
                 <div class="space-y-2">
                     <label for="title" class="text-sm font-medium leading-none text-slate-700">Card Title <span class="text-red-500">*</span></label>
@@ -45,11 +45,6 @@
                     @error('title')
                         <p class="text-xs text-red-600 font-medium">{{ $message }}</p>
                     @enderror
-                </div>
-
-                <div class="space-y-2">
-                    <label for="subtitle" class="text-sm font-medium leading-none text-slate-700">Subtitle / Tagline (Optional)</label>
-                    <input type="text" name="subtitle" id="subtitle" value="{{ old('subtitle', $item->subtitle) }}" class="flex h-9 w-full rounded-md border border-slate-200 bg-white px-3 py-1 text-sm shadow-xs transition-colors placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-950">
                 </div>
 
                 <!-- Badge Icon (Bootstrap Icon) Section matching user screenshot -->

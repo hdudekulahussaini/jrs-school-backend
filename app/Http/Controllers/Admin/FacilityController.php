@@ -90,12 +90,14 @@ class FacilityController extends Controller
                 File::makeDirectory($galleryDir, 0755, true);
             }
             foreach ($request->file('gallery_images') as $img) {
-                $gFilename = 'gallery_' . time() . '_' . Str::random(6) . '.' . $img->getClientOriginalExtension();
-                $img->move($galleryDir, $gFilename);
-                $galleryImages[] = 'uploads/facilities/gallery/' . $gFilename;
+                if ($img && $img->isValid()) {
+                    $gFilename = 'gallery_' . time() . '_' . Str::random(6) . '.' . $img->getClientOriginalExtension();
+                    $img->move($galleryDir, $gFilename);
+                    $galleryImages[] = 'uploads/facilities/gallery/' . $gFilename;
+                }
             }
         }
-        $validated['gallery_images'] = $galleryImages;
+        $validated['gallery_images'] = array_values(array_unique(array_filter($galleryImages)));
 
         Facility::create($validated);
 
@@ -164,13 +166,14 @@ class FacilityController extends Controller
         if (!is_array($existing)) {
             $existing = [];
         }
+        $existing = array_values(array_unique(array_filter($existing)));
         $oldGallery = is_array($facility->gallery_images) ? $facility->gallery_images : [];
         foreach ($oldGallery as $oldImg) {
-            if (!in_array($oldImg, $existing)) {
+            if (!in_array($oldImg, $existing, true)) {
                 $this->deletePhysicalImage($oldImg);
             }
         }
-        $galleryImages = array_values($existing);
+        $galleryImages = $existing;
 
         if ($request->hasFile('gallery_images')) {
             $galleryDir = public_path('uploads/facilities/gallery');
@@ -178,12 +181,14 @@ class FacilityController extends Controller
                 File::makeDirectory($galleryDir, 0755, true);
             }
             foreach ($request->file('gallery_images') as $img) {
-                $gFilename = 'gallery_' . time() . '_' . Str::random(6) . '.' . $img->getClientOriginalExtension();
-                $img->move($galleryDir, $gFilename);
-                $galleryImages[] = 'uploads/facilities/gallery/' . $gFilename;
+                if ($img && $img->isValid()) {
+                    $gFilename = 'gallery_' . time() . '_' . Str::random(6) . '.' . $img->getClientOriginalExtension();
+                    $img->move($galleryDir, $gFilename);
+                    $galleryImages[] = 'uploads/facilities/gallery/' . $gFilename;
+                }
             }
         }
-        $validated['gallery_images'] = $galleryImages;
+        $validated['gallery_images'] = array_values(array_unique(array_filter($galleryImages)));
 
         $facility->update($validated);
 
@@ -236,8 +241,9 @@ class FacilityController extends Controller
 
     private function deletePhysicalImage(?string $path): void
     {
-        if (!empty($path) && !str_starts_with($path, 'http://') && !str_starts_with($path, 'https://')) {
-            $fullPath = public_path($path);
+        if (!empty($path) && (str_starts_with($path, 'uploads/facilities/') || str_starts_with($path, '/uploads/facilities/'))) {
+            $normalized = ltrim($path, '/');
+            $fullPath = public_path($normalized);
             if (File::exists($fullPath)) {
                 File::delete($fullPath);
             }

@@ -20,10 +20,7 @@ class CampusLifeController extends Controller
 
         if ($request->filled('search')) {
             $term = $request->search;
-            $query->where(function ($q) use ($term) {
-                $q->where('title', 'like', "%{$term}%")
-                  ->orWhere('subtitle', 'like', "%{$term}%");
-            });
+            $query->where('title', 'like', "%{$term}%");
         }
 
         $items = $query->orderBy('sort_order', 'asc')

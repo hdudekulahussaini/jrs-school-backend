@@ -185,7 +185,7 @@ Route::get('/admission-faqs', [AdmissionFaqApiController::class, 'index']);
 Route::get('/admission-brochure', [AdmissionBrochureApiController::class, 'index']);
 Route::get('/brochure', [AdmissionBrochureApiController::class, 'index']);
 
-// Admission Popup (Modal Design) - GET Endpoint
+// Admission Popup Image - GET Endpoint
 Route::get('/admission-popup', [AdmissionPopupApiController::class, 'getPopup']);
 Route::get('/popup', [AdmissionPopupApiController::class, 'getPopup']);
 

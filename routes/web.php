@@ -157,18 +157,10 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::get('/admission-brochure', [AdmissionBrochureController::class, 'index'])->name('admin.admission-brochure.index');
     Route::put('/admission-brochure', [AdmissionBrochureController::class, 'update'])->name('admin.admission-brochure.update');
 
-    // Admission Popup (Modal Design)
+    // Admission Popup Image
     Route::get('/admission-popup', [AdmissionPopupController::class, 'index'])->name('admin.admission-popup.index');
-    Route::get('/admission-popup/create', [AdmissionPopupController::class, 'create'])->name('admin.admission-popup.create');
     Route::post('/admission-popup', [AdmissionPopupController::class, 'store'])->name('admin.admission-popup.store');
-    Route::get('/admission-popup/{id}/edit', [AdmissionPopupController::class, 'edit'])->name('admin.admission-popup.edit');
-    Route::put('/admission-popup/{id}', [AdmissionPopupController::class, 'update'])->name('admin.admission-popup.update-record');
-    Route::post('/admission-popup/{id}/toggle', [AdmissionPopupController::class, 'toggle'])->name('admin.admission-popup.toggle-record');
-    Route::delete('/admission-popup/{id}', [AdmissionPopupController::class, 'destroy'])->name('admin.admission-popup.destroy');
-
-    // Keep the original singleton settings URLs working.
-    Route::put('/admission-popup', [AdmissionPopupController::class, 'update'])->name('admin.admission-popup.update');
-    Route::post('/admission-popup/toggle', [AdmissionPopupController::class, 'toggle'])->name('admin.admission-popup.toggle');
+    Route::delete('/admission-popup/image', [AdmissionPopupController::class, 'destroyImage'])->name('admin.admission-popup.image.destroy');
 
     // Admission Form Enquiries CRM
     Route::resource('/admission-enquiries', AdmissionEnquiryController::class)->only(['index', 'show', 'update', 'destroy'])->names('admin.admission-enquiries');

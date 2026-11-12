@@ -15,9 +15,11 @@ class AdmissionBannerController extends Controller
      */
     public function index()
     {
-        $banner = AdmissionBanner::first();
+        $banners = AdmissionBanner::orderBy('id', 'desc')->get();
+        $banner = AdmissionBanner::where('is_active', true)->first() ?? $banners->first();
+        $totalCount = $banners->count();
 
-        return view('admin.admission-banner.index', compact('banner'));
+        return view('admin.admission-banner.index', compact('banner', 'banners', 'totalCount'));
     }
 
     /**
@@ -27,7 +29,7 @@ class AdmissionBannerController extends Controller
     {
         $banner = new AdmissionBanner();
 
-        return view('admin.admission-banner.edit', compact('banner'));
+        return view('admin.admission-banner.create', compact('banner'));
     }
 
     /**
@@ -54,6 +56,7 @@ class AdmissionBannerController extends Controller
     public function edit($id)
     {
         $banner = AdmissionBanner::findOrFail($id);
+
         return view('admin.admission-banner.edit', compact('banner'));
     }
 
@@ -63,6 +66,7 @@ class AdmissionBannerController extends Controller
     public function update(AdmissionBannerRequest $request, $id)
     {
         $banner = AdmissionBanner::findOrFail($id);
+
         return $this->saveBanner($request, $banner);
     }
 
@@ -73,6 +77,7 @@ class AdmissionBannerController extends Controller
     {
         $isNew = !$banner->exists;
         $validated = $request->validated();
+        $validated['is_active'] = $request->has('is_active') ? (bool)$request->is_active : true;
 
         if ($request->hasFile('image')) {
             $file = $request->file('image');
@@ -89,8 +94,13 @@ class AdmissionBannerController extends Controller
             $fileName = 'banner_' . time() . '_' . Str::random(8) . '.' . $file->getClientOriginalExtension();
             $file->move($uploadDir, $fileName);
             $validated['image_path'] = 'uploads/admission-banner/' . $fileName;
-        } elseif (empty($validated['image_path'])) {
+        } elseif (empty($validated['image_path']) && $isNew) {
             unset($validated['image_path']);
+        }
+
+        // If newly created or updated is active, deactivate other banners
+        if ($validated['is_active']) {
+            AdmissionBanner::where('id', '!=', $banner->id ?? 0)->where('is_active', true)->update(['is_active' => false]);
         }
 
         $banner->fill($validated)->save();
@@ -102,26 +112,5 @@ class AdmissionBannerController extends Controller
 
         return redirect()->route('admin.admission-banner.index')
             ->with('success', $message);
-    }
-
-    /**
-     * Remove an admission banner and its locally stored image.
-     */
-    public function destroy($id)
-    {
-        $banner = AdmissionBanner::findOrFail($id);
-        $imagePath = $banner->image_path;
-        $banner->delete();
-
-        if ($imagePath && Str::startsWith($imagePath, 'uploads/admission-banner/')) {
-            $fullPath = public_path($imagePath);
-            if (File::exists($fullPath)) {
-                File::delete($fullPath);
-            }
-        }
-
-        flash()->info('Admission Banner deleted successfully.', 'Banner Removed');
-
-        return redirect()->route('admin.admission-banner.index');
     }
 }

@@ -25,6 +25,7 @@ class AdmissionBannerRequest extends FormRequest
             'description' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,webp,gif|max:10240',
             'image_path' => 'nullable|string|max:500',
+            'is_active' => 'nullable|boolean',
         ];
     }
 }

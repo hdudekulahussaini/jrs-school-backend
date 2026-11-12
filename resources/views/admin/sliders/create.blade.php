@@ -26,7 +26,7 @@
             <div>
                 <h3 class="text-base font-bold text-slate-900">New Hero Slider Configuration</h3>
                 <p class="text-xs text-slate-500 mt-0.5">
-                    Configure Heading, Action Buttons, Experience Badge, and Rotating Background Photographs.
+                    Configure Action Buttons, Experience Badge, and Rotating Background Photographs.
                 </p>
             </div>
             <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
@@ -37,16 +37,7 @@
         <form action="{{ route('admin.sliders.store') }}" method="POST" enctype="multipart/form-data" class="p-6 space-y-6">
             @csrf
 
-            <!-- 1. Heading / Title -->
-            <div class="space-y-2">
-                <label for="title" class="block text-xs font-bold text-slate-700 uppercase tracking-wider">
-                    Hero Heading / Title <span class="text-red-500">*</span>
-                </label>
-                <input type="text" name="title" id="title" required value="{{ old('title', 'Empowering Minds, Shaping Future Leaders') }}" placeholder="e.g. Empowering Minds, Shaping Future Leaders" class="w-full px-4 py-2.5 rounded-xl text-sm font-semibold border @error('title') border-red-500 @else border-slate-200 @enderror focus:border-jrs-navy outline-none text-slate-900 shadow-2xs">
-                @error('title') <p class="text-xs text-red-600 font-medium mt-1">{{ $message }}</p> @enderror
-            </div>
-
-            <!-- 2. Action Buttons -->
+            <!-- Action Buttons -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2 border-t border-slate-100">
                 <div class="p-4 rounded-xl bg-slate-50/70 border border-slate-200/80 space-y-3">
                     <span class="text-xs font-bold uppercase tracking-wider text-slate-700 block">Primary Button</span>
@@ -69,7 +60,7 @@
                 </div>
             </div>
 
-            <!-- 3. Experience Badge Image -->
+            <!-- Experience Badge Image -->
             <div class="pt-2 border-t border-slate-100 space-y-3">
                 <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider">
                     Experience Badge Image (Top-Right Circular Seal)
@@ -85,7 +76,7 @@
                 </div>
             </div>
 
-            <!-- 4. Hero Background Images (Multiple) -->
+            <!-- Hero Background Images (Multiple) -->
             <div class="pt-2 border-t border-slate-100 space-y-3">
                 <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider">
                     Hero Background Photographs (Multiple Image Slider)

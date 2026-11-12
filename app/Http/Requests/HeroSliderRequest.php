@@ -18,21 +18,17 @@ class HeroSliderRequest extends FormRequest
 
     /**
      * Get the validation rules that apply to the request.
-     * Restricted strictly to the 7 required fields:
+     * Restricted strictly to the supported hero slider fields:
      * 1. Hero Background Images (multiple image support)
-     * 2. Heading / Title
-     * 3. Primary Button Text
-     * 4. Primary Button URL
-     * 5. Secondary Button Text
-     * 6. Secondary Button URL
-     * 7. Experience Badge Image
+     * 2. Primary Button Text
+     * 3. Secondary Button Text and URL
+     * 4. Experience Badge Image
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
     public function rules(): array
     {
         return [
-            'title' => 'required|string|min:2|max:255',
             'primary_button_text' => 'nullable|string|max:100',
             'secondary_button_text' => 'nullable|string|max:100',
             'secondary_button_url' => 'nullable|string|max:500',
@@ -53,8 +49,6 @@ class HeroSliderRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'title.required' => 'The hero heading/title is required (e.g. Empowering Minds, Shaping Future Leaders).',
-            'title.min' => 'The heading must be at least 2 characters.',
             'experience_badge_image.image' => 'The experience badge must be an image file (PNG, SVG, JPG, WEBP).',
             'experience_badge_image.max' => 'The experience badge size cannot exceed 5MB.',
             'background_images.*.image' => 'Each background photograph must be a valid image file.',

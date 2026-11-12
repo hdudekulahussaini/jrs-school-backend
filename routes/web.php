@@ -203,9 +203,9 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::resource('/events', SchoolEventController::class)->names('admin.events');
     Route::post('/events/{id}/toggle', [SchoolEventController::class, 'toggle'])->name('admin.events.toggle');
 
-    // Careers Page - Teaching at JRS Overview Full CRUD Resource
-    Route::resource('/careers-teaching', CareerSectionController::class)->names('admin.careers-teaching');
-    Route::post('/careers-teaching/{id}/toggle', [CareerSectionController::class, 'toggle'])->name('admin.careers-teaching.toggle');
+    // Careers Page - Teaching at JRS Overview (single record, no toggle, no show page)
+    Route::resource('/careers-teaching', CareerSectionController::class)->except(['show'])->names('admin.careers-teaching');
+    Route::get('/careers-teaching/{id}', fn($id) => redirect()->route('admin.careers-teaching.edit', $id));
 
     // Careers Page - Work Culture & Benefits Full CRUD Resource
     Route::resource('/careers-benefits', CareerBenefitController::class)->names('admin.careers-benefits');

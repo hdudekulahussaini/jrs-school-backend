@@ -781,7 +781,7 @@
           "Hero Slider (Frontend)"
         ],
         "summary": "Get active hero slider slides for React homepage banner",
-        "description": "Returns all published hero banner slides sorted by sort_order including titles, gold highlights, button links, and background photos.",
+        "description": "Returns hero slides with action buttons, experience badge, and background photos.",
         "responses": {
           "200": {
             "description": "List of active hero slides",
@@ -794,7 +794,6 @@
                     {
                       "id": 1,
                       "slide_index": 1,
-                      "title": "Empowering Minds, Shaping Future Leaders",
                       "primary_button_text": "Admissions 2027-28",
                       "secondary_button_text": "Take a Virtual Tour",
                       "secondary_button_url": "https://jrs-school.vercel.app/#tour",
@@ -807,7 +806,6 @@
                   ],
                   "hero": {
                     "id": 1,
-                    "title": "Empowering Minds, Shaping Future Leaders",
                     "primary_button_text": "Admissions 2027-28",
                     "secondary_button_text": "Take a Virtual Tour",
                     "secondary_button_url": "https://jrs-school.vercel.app/#tour",
@@ -843,9 +841,6 @@
                           "slide_index": {
                             "type": "integer"
                           },
-                          "title": {
-                            "type": "string"
-                          },
                           "primary_button_text": {
                             "type": "string"
                           },
@@ -874,7 +869,6 @@
                         "required": [
                           "id",
                           "slide_index",
-                          "title",
                           "primary_button_text",
                           "secondary_button_text",
                           "secondary_button_url",
@@ -891,9 +885,6 @@
                       "properties": {
                         "id": {
                           "type": "integer"
-                        },
-                        "title": {
-                          "type": "string"
                         },
                         "primary_button_text": {
                           "type": "string"
@@ -925,7 +916,6 @@
                       },
                       "required": [
                         "id",
-                        "title",
                         "primary_button_text",
                         "secondary_button_text",
                         "secondary_button_url",
@@ -6080,42 +6070,17 @@
         "tags": [
           "Admissions (Frontend)"
         ],
-        "summary": "Get Admission Promotional Popup modal configuration",
-        "description": "Returns the single active admission popup configuration for the frontend modal dialog. If no popup is active, returns HTTP 404.",
+        "summary": "Get admission popup image",
+        "description": "Returns the uploaded admission popup image URL. Returns HTTP 404 when no image is configured.",
         "responses": {
           "200": {
-            "description": "Successful response with admission popup modal configuration",
+            "description": "Admission popup image URL",
             "content": {
               "application/json": {
                 "example": {
                   "success": true,
                   "data": {
-                    "id": 1,
-                    "is_active": true,
-                    "image_url": "/uploads/admission-popup/popup.jpg",
-                    "badge_text": "ADMISSIONS OPEN",
-                    "cbse_affiliation_text": "CBSE AFFILIATION: 3630478 • SCHOOL CODE: 56725",
-                    "school_name": "JRS International School",
-                    "school_location": "Narapally, Near Uppal, Hyderabad",
-                    "academic_year_badge": "Academic Year 2027 – 2028",
-                    "title_prefix": "Admissions Open For",
-                    "academic_year_highlight": "2027 – 2028",
-                    "description": "Enrolling students from Nursery to Grade XII (Admissions open for 11th & 12th Standard also). Give your child the foundation for academic excellence, character development, and global leadership.",
-                    "features": [
-                      "CBSE Curriculum with experiential, inquiry-based learning",
-                      "STEM, Robotics & Cognospace innovation labs",
-                      "World-Class Sports & Co-curricular clubs",
-                      "Safe GPS-Enabled Fleet & 100% CCTV secured campus"
-                    ],
-                    "phone_number": "+91 92814 09674",
-                    "primary_button": {
-                      "text": "Enquire / Apply Online"
-                    },
-                    "secondary_button": {
-                      "text": "Call: +91 92814 09674",
-                      "phone": "+91 92814 09674"
-                    },
-                    "updated_at": "2026-10-29T16:40:00.000000Z"
+                    "image_url": "https://example.com/uploads/admission-popup/popup.jpg"
                   }
                 },
                 "schema": {
@@ -6127,95 +6092,13 @@
                     "data": {
                       "type": "object",
                       "properties": {
-                        "id": {
-                          "type": "integer"
-                        },
-                        "is_active": {
-                          "type": "boolean"
-                        },
                         "image_url": {
-                          "type": "string"
-                        },
-                        "badge_text": {
-                          "type": "string"
-                        },
-                        "cbse_affiliation_text": {
-                          "type": "string"
-                        },
-                        "school_name": {
-                          "type": "string"
-                        },
-                        "school_location": {
-                          "type": "string"
-                        },
-                        "academic_year_badge": {
-                          "type": "string"
-                        },
-                        "title_prefix": {
-                          "type": "string"
-                        },
-                        "academic_year_highlight": {
-                          "type": "string"
-                        },
-                        "description": {
-                          "type": "string"
-                        },
-                        "features": {
-                          "type": "array",
-                          "items": {
-                            "type": "string"
-                          }
-                        },
-                        "phone_number": {
-                          "type": "string"
-                        },
-                        "primary_button": {
-                          "type": "object",
-                          "properties": {
-                            "text": {
-                              "type": "string"
-                            }
-                          },
-                          "required": [
-                            "text"
-                          ]
-                        },
-                        "secondary_button": {
-                          "type": "object",
-                          "properties": {
-                            "text": {
-                              "type": "string"
-                            },
-                            "phone": {
-                              "type": "string"
-                            }
-                          },
-                          "required": [
-                            "text",
-                            "phone"
-                          ]
-                        },
-                        "updated_at": {
-                          "type": "string"
+                          "type": "string",
+                          "format": "uri"
                         }
                       },
                       "required": [
-                        "id",
-                        "is_active",
-                        "image_url",
-                        "badge_text",
-                        "cbse_affiliation_text",
-                        "school_name",
-                        "school_location",
-                        "academic_year_badge",
-                        "title_prefix",
-                        "academic_year_highlight",
-                        "description",
-                        "features",
-                        "phone_number",
-                        "primary_button",
-                        "secondary_button",
-                        "updated_at"
+                        "image_url"
                       ]
                     }
                   },
@@ -6228,12 +6111,12 @@
             }
           },
           "404": {
-            "description": "No active admission popup is configured",
+            "description": "No admission popup image is configured",
             "content": {
               "application/json": {
                 "example": {
                   "success": false,
-                  "message": "No active admission popup is configured.",
+                  "message": "No admission popup image is configured.",
                   "data": null
                 },
                 "schema": {
@@ -6245,7 +6128,7 @@
                     },
                     "message": {
                       "type": "string",
-                      "example": "No active admission popup is configured."
+                      "example": "No admission popup image is configured."
                     },
                     "data": {
                       "type": "object",
@@ -6266,11 +6149,18 @@
           "Admissions (Frontend)"
         ],
         "summary": "Alias endpoint for /admission-popup",
+        "description": "Alias for the image-only admission popup endpoint.",
         "responses": {
           "200": {
-            "description": "Admission popup modal configuration",
+            "description": "Admission popup image URL",
             "content": {
               "application/json": {
+                "example": {
+                  "success": true,
+                  "data": {
+                    "image_url": "https://example.com/uploads/admission-popup/popup.jpg"
+                  }
+                },
                 "schema": {
                   "type": "object",
                   "properties": {
@@ -6280,95 +6170,13 @@
                     "data": {
                       "type": "object",
                       "properties": {
-                        "id": {
-                          "type": "integer"
-                        },
-                        "is_active": {
-                          "type": "boolean"
-                        },
                         "image_url": {
-                          "type": "string"
-                        },
-                        "badge_text": {
-                          "type": "string"
-                        },
-                        "cbse_affiliation_text": {
-                          "type": "string"
-                        },
-                        "school_name": {
-                          "type": "string"
-                        },
-                        "school_location": {
-                          "type": "string"
-                        },
-                        "academic_year_badge": {
-                          "type": "string"
-                        },
-                        "title_prefix": {
-                          "type": "string"
-                        },
-                        "academic_year_highlight": {
-                          "type": "string"
-                        },
-                        "description": {
-                          "type": "string"
-                        },
-                        "features": {
-                          "type": "array",
-                          "items": {
-                            "type": "string"
-                          }
-                        },
-                        "phone_number": {
-                          "type": "string"
-                        },
-                        "primary_button": {
-                          "type": "object",
-                          "properties": {
-                            "text": {
-                              "type": "string"
-                            }
-                          },
-                          "required": [
-                            "text"
-                          ]
-                        },
-                        "secondary_button": {
-                          "type": "object",
-                          "properties": {
-                            "text": {
-                              "type": "string"
-                            },
-                            "phone": {
-                              "type": "string"
-                            }
-                          },
-                          "required": [
-                            "text",
-                            "phone"
-                          ]
-                        },
-                        "updated_at": {
-                          "type": "string"
+                          "type": "string",
+                          "format": "uri"
                         }
                       },
                       "required": [
-                        "id",
-                        "is_active",
-                        "image_url",
-                        "badge_text",
-                        "cbse_affiliation_text",
-                        "school_name",
-                        "school_location",
-                        "academic_year_badge",
-                        "title_prefix",
-                        "academic_year_highlight",
-                        "description",
-                        "features",
-                        "phone_number",
-                        "primary_button",
-                        "secondary_button",
-                        "updated_at"
+                        "image_url"
                       ]
                     }
                   },
@@ -6381,12 +6189,12 @@
             }
           },
           "404": {
-            "description": "No active admission popup is configured",
+            "description": "No admission popup image is configured",
             "content": {
               "application/json": {
                 "example": {
                   "success": false,
-                  "message": "No active admission popup is configured.",
+                  "message": "No admission popup image is configured.",
                   "data": null
                 },
                 "schema": {
@@ -6398,7 +6206,7 @@
                     },
                     "message": {
                       "type": "string",
-                      "example": "No active admission popup is configured."
+                      "example": "No admission popup image is configured."
                     },
                     "data": {
                       "type": "object",

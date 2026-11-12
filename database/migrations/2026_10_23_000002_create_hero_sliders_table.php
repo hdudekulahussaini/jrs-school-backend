@@ -15,7 +15,6 @@ return new class extends Migration
             Schema::create('hero_sliders', function (Blueprint $table) {
                 $table->id();
                 $table->string('badge_title')->nullable()->comment('E.g. NURTURING BRIGHT MINDS - BUILDING A BETTER TOMORROW');
-                $table->string('title')->comment('Main title line 1 (e.g. Empowering)');
                 $table->string('highlight_text')->nullable()->comment('Highlighted title line 2 in gold (e.g. Future Leaders)');
                 $table->text('description')->nullable()->comment('Slide paragraph/subtext');
                 $table->string('primary_button_text')->nullable()->default('Admissions 2026-27');

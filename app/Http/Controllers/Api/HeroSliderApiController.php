@@ -10,8 +10,8 @@ class HeroSliderApiController extends Controller
 {
     /**
      * Public endpoint for React frontend: GET /api/hero-slider
-     * Returns slides (heading, buttons, and experience badge synchronized across each rotating background photo)
-     * and the parent hero object.
+     * Returns buttons and the experience badge synchronized across each rotating background photo,
+     * along with the parent hero object.
      */
     public function getActiveSliders(): JsonResponse
     {
@@ -27,10 +27,6 @@ class HeroSliderApiController extends Controller
         }
 
         $changed = false;
-        if ($hero->title === 'Empowering' || empty($hero->title)) {
-            $hero->title = 'Empowering Minds, Shaping Future Leaders';
-            $changed = true;
-        }
         if ($hero->primary_button_text === 'Admissions 2026-27' || empty($hero->primary_button_text)) {
             $hero->primary_button_text = 'Admissions 2027-28';
             $changed = true;
@@ -51,7 +47,6 @@ class HeroSliderApiController extends Controller
             'data' => $slides,
             'hero' => [
                 'id' => $hero->id,
-                'title' => $hero->title,
                 'primary_button_text' => $hero->primary_button_text,
                 'secondary_button_text' => $hero->secondary_button_text,
                 'secondary_button_url' => $hero->secondary_button_url,

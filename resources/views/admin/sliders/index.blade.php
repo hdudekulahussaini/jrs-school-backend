@@ -52,7 +52,6 @@
                     <tr class="border-b border-slate-200 bg-slate-50/75 text-slate-500 font-medium text-xs">
                         <th class="h-10 px-4 w-16 text-center">ID</th>
                         <th class="h-10 px-4 w-20 text-center">Seal</th>
-                        <th class="h-10 px-4 min-w-[240px]">Hero Heading / Title</th>
                         <th class="h-10 px-4 w-44">Primary Button</th>
                         <th class="h-10 px-4 w-52">Secondary Button</th>
                         <th class="h-10 px-4 w-48">Background Photos</th>
@@ -74,14 +73,6 @@
                                 <div class="w-10 h-10 rounded-full bg-slate-950 p-1 border border-amber-400 shadow-xs flex items-center justify-center mx-auto overflow-hidden">
                                     <img src="{{ $slider->experience_badge_image_url }}" alt="Badge" class="w-full h-full object-contain">
                                 </div>
-                            </td>
-
-                            <!-- Title -->
-                            <td class="p-4 align-middle">
-                                <a href="{{ route('admin.sliders.edit', $slider->id) }}" class="font-bold text-slate-900 hover:text-jrs-navy transition-colors text-sm line-clamp-1">
-                                    {{ $slider->title }}
-                                </a>
-                                <div class="text-[11px] text-slate-400 mt-0.5">Updated {{ $slider->updated_at ? $slider->updated_at->diffForHumans() : 'recently' }}</div>
                             </td>
 
                             <!-- Primary Button -->
@@ -141,7 +132,7 @@
                                     <a href="{{ route('admin.sliders.edit', $slider->id) }}" class="p-1.5 rounded-md text-slate-500 hover:text-jrs-navy hover:bg-slate-100 transition-colors" title="Edit Hero Slider">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
                                     </a>
-                                    <button type="button" onclick="confirmDelete({{ $slider->id }}, '{{ addslashes($slider->title) }}')" class="p-1.5 rounded-md text-slate-500 hover:text-jrs-red hover:bg-red-50 transition-colors cursor-pointer" title="Delete Hero Slider">
+                                    <button type="button" onclick="confirmDelete({{ $slider->id }})" class="p-1.5 rounded-md text-slate-500 hover:text-jrs-red hover:bg-red-50 transition-colors cursor-pointer" title="Delete Hero Slider">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
                                     </button>
                                 </div>
@@ -149,7 +140,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="7" class="p-10 text-center text-slate-500">
+                            <td colspan="6" class="p-10 text-center text-slate-500">
                                 <div class="max-w-sm mx-auto space-y-3">
                                     <div class="w-12 h-12 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center mx-auto text-xl">
                                         <i class="bi bi-images"></i>
@@ -201,8 +192,8 @@
 </div>
 
 <script>
-function confirmDelete(id, title) {
-    document.getElementById('deleteItemTitle').textContent = `"${title}"`;
+function confirmDelete(id) {
+    document.getElementById('deleteItemTitle').textContent = `Hero Slider #${id}`;
     document.getElementById('deleteForm').action = `{{ url('admin/sliders') }}/${id}`;
     document.getElementById('deleteModal').classList.remove('hidden');
 }

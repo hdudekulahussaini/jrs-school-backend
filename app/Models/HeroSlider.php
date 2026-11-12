@@ -12,7 +12,6 @@ class HeroSlider extends Model
     protected $table = 'hero_sliders';
 
     protected $fillable = [
-        'title',
         'primary_button_text',
         'secondary_button_text',
         'secondary_button_url',
@@ -104,8 +103,8 @@ class HeroSlider extends Model
     }
 
     /**
-     * Slides accessor: transforms the hero content into an array of slide items,
-     * maintaining the exact same heading, CTA buttons, and experience badge across each background photograph.
+     * Slides accessor: transforms the hero content into slide items,
+     * maintaining the same CTA buttons and experience badge across each background photograph.
      *
      * @return array<array<string, mixed>>
      */
@@ -130,7 +129,6 @@ class HeroSlider extends Model
             $slides[] = [
                 'id' => $this->id,
                 'slide_index' => $index + 1,
-                'title' => $this->title,
                 'primary_button_text' => $this->primary_button_text,
                 'secondary_button_text' => $this->secondary_button_text,
                 'secondary_button_url' => $this->secondary_button_url,
@@ -147,7 +145,6 @@ class HeroSlider extends Model
             $slides[] = [
                 'id' => $this->id,
                 'slide_index' => 1,
-                'title' => $this->title,
                 'primary_button_text' => $this->primary_button_text,
                 'secondary_button_text' => $this->secondary_button_text,
                 'secondary_button_url' => $this->secondary_button_url,
@@ -163,12 +160,11 @@ class HeroSlider extends Model
     }
 
     /**
-     * Centralized validation rules restricted exclusively to the 7 required fields.
+     * Centralized validation rules for supported hero slider fields.
      */
     public static function validationRules($id = null): array
     {
         return [
-            'title' => 'required|string|min:2|max:255',
             'primary_button_text' => 'nullable|string|max:100',
             'secondary_button_text' => 'nullable|string|max:100',
             'secondary_button_url' => 'nullable|string|max:500',

@@ -82,12 +82,19 @@ class GalleryItemController extends Controller
     {
         $request->validate([
             'gallery_album_id' => 'required|exists:gallery_albums,id',
-            'caption' => 'nullable|string|max:190',
-            'video_url' => 'nullable|url|max:255',
-            'images' => 'nullable|array',
-            'images.*' => 'image|mimes:jpeg,png,jpg,webp,svg|max:5120',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp,svg|max:5120',
-            'sort_order' => 'nullable|integer',
+            'caption'          => 'nullable|string|max:190',
+            'video_url'        => 'nullable|url|max:255',
+            'images'           => 'nullable|array|max:30',
+            'images.*'         => 'bail|image|mimes:jpeg,png,jpg,webp,svg|max:10240',
+            'image'            => 'nullable|bail|image|mimes:jpeg,png,jpg,webp,svg|max:10240',
+            'sort_order'       => 'nullable|integer',
+        ], [
+            'images.*.image'  => 'Each gallery photo must be a valid image file.',
+            'images.*.mimes'  => 'Gallery images must be JPG, JPEG, PNG, WEBP, or SVG.',
+            'images.*.max'    => 'Each gallery photo must not exceed 10MB.',
+            'image.image'     => 'The gallery photo must be a valid image file.',
+            'image.mimes'     => 'Gallery images must be JPG, JPEG, PNG, WEBP, or SVG.',
+            'image.max'       => 'The gallery photo must not exceed 10MB.',
         ]);
 
         $albumId = $request->gallery_album_id;
@@ -165,10 +172,14 @@ class GalleryItemController extends Controller
 
         $validated = $request->validate([
             'gallery_album_id' => 'required|exists:gallery_albums,id',
-            'caption' => 'nullable|string|max:190',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp,svg|max:5120',
-            'video_url' => 'nullable|url|max:255',
-            'sort_order' => 'nullable|integer',
+            'caption'          => 'nullable|string|max:190',
+            'image'            => 'nullable|bail|image|mimes:jpeg,png,jpg,webp,svg|max:10240',
+            'video_url'        => 'nullable|url|max:255',
+            'sort_order'       => 'nullable|integer',
+        ], [
+            'image.image' => 'The gallery photo must be a valid image file.',
+            'image.mimes' => 'Gallery images must be JPG, JPEG, PNG, WEBP, or SVG.',
+            'image.max'   => 'The gallery photo must not exceed 10MB.',
         ]);
 
         $item->gallery_album_id = $validated['gallery_album_id'];

@@ -17,7 +17,7 @@ class CareerApiController extends Controller
      */
     public function getPageData(): JsonResponse
     {
-        $overview = CareerSection::where('is_active', true)->first();
+        $overview = CareerSection::first();
         
         $benefits = CareerBenefit::where('is_active', true)
             ->orderBy('sort_order', 'asc')
@@ -53,12 +53,12 @@ class CareerApiController extends Controller
      */
     public function getTeachingSection(): JsonResponse
     {
-        $section = CareerSection::where('is_active', true)->first();
+        $section = CareerSection::first();
 
         if (!$section) {
             return response()->json([
                 'success' => false,
-                'message' => 'No active Teaching at JRS section found',
+                'message' => 'No Teaching at JRS section found',
                 'data' => null
             ], 404);
         }

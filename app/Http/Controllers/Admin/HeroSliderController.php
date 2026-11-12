@@ -21,8 +21,7 @@ class HeroSliderController extends Controller
         if ($request->filled('search')) {
             $search = trim($request->input('search'));
             $query->where(function ($q) use ($search) {
-                $q->where('title', 'like', "%{$search}%")
-                  ->orWhere('primary_button_text', 'like', "%{$search}%")
+                $q->where('primary_button_text', 'like', "%{$search}%")
                   ->orWhere('secondary_button_text', 'like', "%{$search}%");
             });
         }
@@ -45,7 +44,6 @@ class HeroSliderController extends Controller
         }
 
         $slider = new HeroSlider([
-            'title' => 'Empowering Minds, Shaping Future Leaders',
             'primary_button_text' => 'Admissions 2027-28',
             'secondary_button_text' => 'Take a Virtual Tour',
             'secondary_button_url' => 'https://jrs-school.vercel.app/#tour',

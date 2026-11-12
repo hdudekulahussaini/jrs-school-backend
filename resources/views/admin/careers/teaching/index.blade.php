@@ -6,19 +6,21 @@
 @section('content')
 <div class="space-y-6">
 
-    <!-- Top Action: Add Button (Aligned Right) -->
+    <!-- Top Action: Add Button — only shown when no record exists yet -->
+    @if($totalCount === 0)
     <div class="flex items-center justify-end">
         <a href="{{ route('admin.careers-teaching.create') }}" class="inline-flex items-center justify-center rounded-lg text-xs sm:text-sm font-semibold bg-jrs-red hover:bg-red-700 text-white shadow-xs h-9 px-4 py-2 gap-2 transition-colors">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
-            <span>New Section Copy</span>
+            <span>Add Section</span>
         </a>
     </div>
+    @endif
 
     <!-- Table of Configurations -->
     <div class="rounded-xl border border-slate-200 bg-white shadow-xs overflow-hidden">
         <div class="p-4 border-b border-slate-200 bg-slate-50/75 flex items-center justify-between">
-            <h3 class="text-sm font-bold text-jrs-navy font-heading">Section Content Variations</h3>
-            <span class="text-xs text-slate-500">Only one section is active on the Careers page at a time</span>
+            <h3 class="text-sm font-bold text-jrs-navy font-heading">Section Content</h3>
+            <span class="text-xs text-slate-500">Only one section is allowed</span>
         </div>
 
         <div class="overflow-x-auto">
@@ -28,13 +30,12 @@
                         <th class="h-10 px-4 w-28">Campus Photo</th>
                         <th class="h-10 px-4 min-w-[240px]">Heading</th>
                         <th class="h-10 px-4 min-w-[260px]">Paragraph</th>
-                        <th class="h-10 px-4 w-24 text-center">Status</th>
                         <th class="h-10 px-4 w-32 text-right">Actions</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-slate-100 text-slate-700">
                     @forelse($sections as $item)
-                        <tr class="transition-colors hover:bg-slate-50/60 {{ $item->is_active ? 'bg-emerald-50/20' : '' }}">
+                        <tr class="transition-colors hover:bg-slate-50/60">
                             <!-- Photo Thumbnail -->
                             <td class="p-4 align-middle">
                                 <div class="relative w-24 h-14 rounded-lg overflow-hidden border border-slate-200 bg-slate-100 shadow-2xs group cursor-pointer" onclick="openImageModal('{{ $item->image_full_url }}', '{{ addslashes($item->title) }}')">
@@ -56,22 +57,9 @@
                                 </p>
                             </td>
 
-                            <!-- Status Toggle -->
-                            <td class="p-4 align-middle text-center">
-                                <button type="button" 
-                                        onclick="toggleSectionStatus({{ $item->id }}, this)" 
-                                        class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold transition-all cursor-pointer {{ $item->is_active ? 'bg-emerald-50 text-emerald-700 border border-emerald-200 hover:bg-emerald-100' : 'bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200' }}">
-                                    <span class="w-1.5 h-1.5 rounded-full mr-1.5 {{ $item->is_active ? 'bg-emerald-500' : 'bg-slate-400' }}"></span>
-                                    <span class="status-label">{{ $item->is_active ? 'Active' : 'Disabled' }}</span>
-                                </button>
-                            </td>
-
                             <!-- Actions -->
                             <td class="p-4 align-middle text-right">
                                 <div class="flex items-center justify-end gap-1">
-                                    <a href="{{ route('admin.careers-teaching.show', $item->id) }}" class="p-1.5 rounded-md text-slate-500 hover:text-jrs-navy hover:bg-slate-100 transition-colors" title="View Details">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
-                                    </a>
                                     <a href="{{ route('admin.careers-teaching.edit', $item->id) }}" class="p-1.5 rounded-md text-slate-500 hover:text-jrs-navy hover:bg-slate-100 transition-colors" title="Edit">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
                                     </a>
@@ -83,9 +71,9 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="5" class="p-8 text-center text-slate-500">
-                                <p class="text-sm font-semibold text-slate-700">No Teaching at JRS section content found</p>
-                                <p class="text-xs text-slate-500 mt-1">Click "New Section Copy" above to create one.</p>
+                            <td colspan="4" class="p-8 text-center text-slate-500">
+                                <p class="text-sm font-semibold text-slate-700">No Teaching at JRS section found</p>
+                                <p class="text-xs text-slate-500 mt-1">Click "Add Section" above to create one.</p>
                             </td>
                         </tr>
                     @endforelse
@@ -109,7 +97,7 @@
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
             </div>
             <div>
-                <h3 class="text-lg font-bold text-slate-900">Delete Teaching Section Copy</h3>
+                <h3 class="text-lg font-bold text-slate-900">Delete Teaching Section</h3>
                 <p class="text-sm text-slate-500 mt-1">Are you sure you want to delete <span id="deleteItemTitle" class="font-semibold text-slate-700"></span>? This action cannot be undone.</p>
             </div>
         </div>
@@ -136,23 +124,6 @@
 </div>
 
 <script>
-function toggleSectionStatus(id, btn) {
-    fetch(`/admin/careers-teaching/${id}/toggle`, {
-        method: 'POST',
-        headers: {
-            'X-CSRF-TOKEN': '{{ csrf_token() }}',
-            'Accept': 'application/json'
-        }
-    })
-    .then(res => res.json())
-    .then(data => {
-        if (data.success) {
-            window.location.reload();
-        }
-    })
-    .catch(err => console.error('Status toggle error:', err));
-}
-
 function confirmDelete(id, title) {
     document.getElementById('deleteItemTitle').textContent = `"${title}"`;
     document.getElementById('deleteForm').action = `/admin/careers-teaching/${id}`;

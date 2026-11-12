@@ -15,7 +15,6 @@ class HeroSliderSeeder extends Seeder
         HeroSlider::truncate();
 
         HeroSlider::create([
-            'title' => 'Empowering Minds, Shaping Future Leaders',
             'primary_button_text' => 'Admissions 2027-28',
             'secondary_button_text' => 'Take a Virtual Tour',
             'secondary_button_url' => 'https://jrs-school.vercel.app/#tour',

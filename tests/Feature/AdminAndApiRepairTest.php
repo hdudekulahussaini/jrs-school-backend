@@ -33,30 +33,34 @@ use App\Http\Controllers\Api\PrincipalMessageApiController;
 use App\Http\Controllers\Api\AboutApiController;
 use App\Http\Controllers\Api\ContactApiController;
 use App\Http\Controllers\Api\HomeBannerApiController;
+use App\Http\Controllers\Api\HeroSliderApiController;
 use App\Models\BreadcrumbBanner;
 use App\Models\AdmissionPopup;
 use App\Models\CampusLife;
+use App\Models\HeroSlider;
 use App\Models\WhyChooseFeature;
 use Database\Seeders\CampusLifeSeeder;
 use Database\Seeders\WhyChooseFeatureSeeder;
 use App\Http\Requests\AdmissionBannerRequest;
 use App\Http\Requests\AdmissionEnquiryRequest;
-use App\Http\Requests\AdmissionPopupRequest;
 use App\Http\Requests\AboutSectionRequest;
 use App\Http\Requests\ContactInquiryRequest;
 use App\Http\Requests\CampusLifeRequest;
 use App\Http\Requests\ChairmanMessageRequest;
 use App\Http\Requests\HomeBannerRequest;
+use App\Http\Requests\HeroSliderRequest;
 use App\Http\Requests\PrincipalMessageRequest;
 use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Routing\Redirector;
 use Illuminate\Routing\Route as RoutingRoute;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Facade;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ViewErrorBag;
 use Illuminate\View\View;
@@ -128,7 +132,7 @@ final class AdminAndApiRepairTest extends TestCase
         self::assertSame(1, DB::table('breadcrumb_banners')->count());
         self::assertSame('unsupported-legacy-page', DB::table('breadcrumb_banners')->value('page_slug'));
         self::assertSame(0, DB::table('admission_popups')->count());
-        self::assertSame(0, $popupView->getData()['popups']->total());
+        self::assertNull($popupView->getData()['popup']);
         self::assertSame($breadcrumbColumns, Schema::getColumnListing('breadcrumb_banners'));
         self::assertSame($popupColumns, Schema::getColumnListing('admission_popups'));
     }
@@ -392,56 +396,161 @@ final class AdminAndApiRepairTest extends TestCase
         self::assertSame(0, DB::table('principal_messages')->count());
     }
 
-    public function test_admission_popup_admin_limits_to_one_card_and_allows_delete(): void
+    public function test_admission_popup_image_can_be_uploaded_updated_displayed_and_deleted(): void
     {
         $controller = new AdmissionPopupController;
-        self::assertSame(0, $controller->index()->getData()['popups']->total());
-        self::assertFalse($controller->create()->getData()['popup']->exists);
-        self::assertTrue(\Illuminate\Support\Facades\Route::has('admin.admission-popup.destroy'));
+        self::assertNull($controller->index()->getData()['popup']);
+        self::assertTrue(\Illuminate\Support\Facades\Route::has('admin.admission-popup.store'));
+        self::assertTrue(\Illuminate\Support\Facades\Route::has('admin.admission-popup.image.destroy'));
+        self::assertFalse(\Illuminate\Support\Facades\Route::has('admin.admission-popup.create'));
+        self::assertFalse(\Illuminate\Support\Facades\Route::has('admin.admission-popup.toggle-record'));
 
-        $first = $this->admissionPopupData([
-            'badge_text' => 'First popup',
-            'is_active' => '1',
+        view()->share('errors', new ViewErrorBag);
+        $html = $controller->index()->render();
+        self::assertSame(1, substr_count($html, 'type="file"'));
+        self::assertStringContainsString('name="image"', $html);
+
+        $uploadedPaths = [];
+        try {
+            $controller->store($this->imageUploadRequest('first-popup.png'));
+            $popup = AdmissionPopup::firstOrFail();
+            $firstImagePath = $popup->image_path;
+            $uploadedPaths[] = $firstImagePath;
+
+            self::assertFileExists(public_path($firstImagePath));
+            self::assertSame(
+                url($firstImagePath),
+                (new AdmissionPopupApiController)->getPopup()->getData(true)['data']['image_url']
+            );
+            self::assertSame(
+                ['image_url'],
+                array_keys((new AdmissionPopupApiController)->getPopup()->getData(true)['data'])
+            );
+            self::assertSame(
+                ['id', 'image_path', 'created_at', 'updated_at'],
+                Schema::getColumnListing('admission_popups')
+            );
+
+            $controller->store($this->imageUploadRequest('updated-popup.png'));
+            $popup->refresh();
+            $secondImagePath = $popup->image_path;
+            $uploadedPaths[] = $secondImagePath;
+
+            self::assertNotSame($firstImagePath, $secondImagePath);
+            self::assertFileDoesNotExist(public_path($firstImagePath));
+            self::assertFileExists(public_path($secondImagePath));
+
+            $controller->destroyImage();
+            self::assertSame(0, AdmissionPopup::count());
+            self::assertFileDoesNotExist(public_path($secondImagePath));
+            self::assertSame(404, (new AdmissionPopupApiController)->getPopup()->getStatusCode());
+        } finally {
+            foreach ($uploadedPaths as $path) {
+                File::delete(public_path($path));
+            }
+        }
+    }
+
+    public function test_admission_popup_migration_removes_configuration_columns_and_keeps_image(): void
+    {
+        DB::table('admission_popups')->insert([
+            'image_path' => 'uploads/admission-popup/current.png',
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
-        $controller->store($this->validatedRequest(AdmissionPopupRequest::class, $first));
 
-        $firstPopup = AdmissionPopup::firstOrFail();
-        self::assertSame('First popup', $firstPopup->badge_text);
-        self::assertSame(1, $controller->index()->getData()['popups']->total());
-        self::assertSame($firstPopup->id, $controller->edit($firstPopup->id)->getData()['popup']->id);
+        Schema::table('admission_popups', function (Blueprint $table): void {
+            $table->boolean('is_active')->default(true);
+            $table->string('badge_text')->nullable();
+            $table->string('cbse_affiliation_text')->nullable();
+            $table->string('school_name')->nullable();
+            $table->string('school_location')->nullable();
+            $table->string('academic_year_badge')->nullable();
+            $table->string('title_prefix')->nullable();
+            $table->string('academic_year_highlight')->nullable();
+            $table->text('description')->nullable();
+            $table->json('features')->nullable();
+            $table->string('phone_number')->nullable();
+            $table->string('primary_button_url')->nullable();
+            $table->string('primary_button_text')->nullable();
+            $table->string('secondary_button_text')->nullable();
+        });
 
-        $second = $this->admissionPopupData([
-            'badge_text' => 'Second popup',
-            'is_active' => '1',
-        ]);
-        $duplicateResponse = $controller->store($this->validatedRequest(AdmissionPopupRequest::class, $second));
-        self::assertSame(1, AdmissionPopup::count());
+        $migration = require dirname(__DIR__, 2).'/database/migrations/2026_11_09_000001_remove_admission_popup_configuration_columns.php';
+        $migration->up();
+
         self::assertSame(
-            'Only one Admission Popup card is allowed. Edit or delete the existing card first.',
-            $duplicateResponse->getSession()->get('errors')->first('popup')
+            ['id', 'image_path', 'created_at', 'updated_at'],
+            Schema::getColumnListing('admission_popups')
         );
-        self::assertInstanceOf(RedirectResponse::class, $controller->create());
-        self::assertSame('First popup', (new AdmissionPopupApiController)->getPopup()->getData(true)['data']['badge_text']);
+        self::assertSame('uploads/admission-popup/current.png', DB::table('admission_popups')->value('image_path'));
+    }
 
-        $controller->update(
-            $this->validatedRequest(AdmissionPopupRequest::class, $this->admissionPopupData([
-                'id' => $firstPopup->id,
-                'badge_text' => 'Updated first popup',
-                'is_active' => '1',
-            ])),
-            $firstPopup->id
+    public function test_hero_slider_title_is_removed_and_existing_slides_remain_usable(): void
+    {
+        Schema::create('hero_sliders', function (Blueprint $table): void {
+            $table->id();
+            $table->string('title');
+            $table->string('primary_button_text')->nullable();
+            $table->string('secondary_button_text')->nullable();
+            $table->string('secondary_button_url')->nullable();
+            $table->string('experience_badge_image')->nullable();
+            $table->json('background_images')->nullable();
+            $table->string('image_path')->nullable();
+            $table->boolean('is_active')->default(true);
+            $table->timestamps();
+        });
+
+        view()->share('errors', new ViewErrorBag);
+        $controller = new \App\Http\Controllers\Admin\HeroSliderController;
+        $createHtml = $controller->create()->render();
+        self::assertStringNotContainsString('name="title"', $createHtml);
+
+        $sliderId = DB::table('hero_sliders')->insertGetId([
+            'title' => 'Legacy heading',
+            'primary_button_text' => 'Admissions 2027-28',
+            'secondary_button_text' => 'Take a Virtual Tour',
+            'secondary_button_url' => 'https://example.test/tour',
+            'experience_badge_image' => 'images/experience-badge-38.svg',
+            'background_images' => json_encode(['uploads/hero_sliders/slide.jpg']),
+            'image_path' => 'uploads/hero_sliders/slide.jpg',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        $migration = require dirname(__DIR__, 2).'/database/migrations/2026_11_09_000002_remove_title_from_hero_sliders_table.php';
+        $migration->up();
+
+        self::assertFalse(Schema::hasColumn('hero_sliders', 'title'));
+        self::assertSame('uploads/hero_sliders/slide.jpg', DB::table('hero_sliders')->value('image_path'));
+        self::assertSame(
+            ['primary_button_text', 'secondary_button_text', 'secondary_button_url', 'experience_badge_image', 'background_images', 'background_images.*', 'images', 'images.*', 'existing_images', 'existing_images.*', 'image_url'],
+            array_keys((new HeroSliderRequest)->rules())
         );
+        self::assertArrayNotHasKey('title', HeroSlider::validationRules());
 
-        self::assertSame('Updated first popup', $firstPopup->fresh()->badge_text);
-        self::assertTrue($firstPopup->fresh()->is_active);
+        $slider = HeroSlider::findOrFail($sliderId);
+        $editHtml = $controller->edit($sliderId)->render();
+        $indexHtml = $controller->index(Request::create('/admin/sliders'))->render();
 
-        $controller->toggle($firstPopup->id);
-        self::assertFalse($firstPopup->fresh()->is_active);
-        self::assertSame(404, (new AdmissionPopupApiController)->getPopup()->getStatusCode());
+        self::assertStringNotContainsString('name="title"', $editHtml);
+        self::assertStringNotContainsString('Hero Heading / Title', $indexHtml);
+        self::assertStringNotContainsString('Legacy heading', $indexHtml);
 
-        $controller->destroy($firstPopup->id);
-        self::assertSame(0, AdmissionPopup::count());
-        self::assertFalse($controller->create()->getData()['popup']->exists);
+        $updateRequest = $this->validatedRequest(HeroSliderRequest::class, [
+            'primary_button_text' => 'Updated admissions',
+            'secondary_button_text' => 'Updated tour',
+            'secondary_button_url' => 'https://example.test/updated-tour',
+            'existing_images' => ['uploads/hero_sliders/slide.jpg'],
+        ]);
+        $controller->update($updateRequest, $sliderId);
+
+        $apiData = (new HeroSliderApiController)->getActiveSliders()->getData(true);
+        self::assertSame('Updated admissions', $apiData['hero']['primary_button_text']);
+        self::assertSame('uploads/hero_sliders/slide.jpg', $apiData['hero']['background_images'][0]);
+        self::assertArrayNotHasKey('title', $apiData['hero']);
+        self::assertArrayNotHasKey('title', $apiData['data'][0]);
+        self::assertSame($sliderId, $slider->fresh()->id);
     }
 
     public function test_all_previously_missing_resource_actions_are_present(): void
@@ -886,22 +995,17 @@ final class AdminAndApiRepairTest extends TestCase
         return $request;
     }
 
-    private function admissionPopupData(array $overrides = []): array
+    private function imageUploadRequest(string $filename): Request
     {
-        return array_merge([
-            'is_active' => '0',
-            'image_path' => 'https://example.test/admission-popup.jpg',
-            'badge_text' => 'ADMISSIONS OPEN',
-            'cbse_affiliation_text' => 'CBSE affiliation',
-            'school_name' => 'JRS International School',
-            'school_location' => 'Hyderabad',
-            'academic_year_badge' => 'Academic Year 2027 - 2028',
-            'title_prefix' => 'Admissions Open For',
-            'academic_year_highlight' => '2027 - 2028',
-            'description' => 'Admission information.',
-            'features' => ['CBSE curriculum'],
-            'phone_number' => '+91 90000 00000',
-        ], $overrides);
+        $request = Request::create(
+            '/admin/admission-popup',
+            'POST',
+            [],
+            [],
+            ['image' => UploadedFile::fake()->image($filename)]
+        );
+
+        return $request;
     }
 
     private function createTables(): void
@@ -1023,18 +1127,7 @@ final class AdminAndApiRepairTest extends TestCase
 
         Schema::create('admission_popups', function (Blueprint $table): void {
             $table->id();
-            $table->boolean('is_active')->default(true);
             $table->string('image_path')->nullable();
-            $table->string('badge_text')->default('ADMISSIONS OPEN');
-            $table->string('cbse_affiliation_text')->nullable();
-            $table->string('school_name')->nullable();
-            $table->string('school_location')->nullable();
-            $table->string('academic_year_badge')->nullable();
-            $table->string('title_prefix')->nullable();
-            $table->string('academic_year_highlight')->nullable();
-            $table->text('description')->nullable();
-            $table->json('features')->nullable();
-            $table->string('phone_number')->nullable();
             $table->timestamps();
         });
 

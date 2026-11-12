@@ -10,32 +10,40 @@ use Illuminate\Support\Facades\File;
 class CareerSectionController extends Controller
 {
     /**
-     * Display a listing of Career section overviews.
+     * Display the Teaching at JRS section.
      */
     public function index()
     {
         $sections = CareerSection::orderBy('id', 'desc')->paginate(10);
-        $activeSection = CareerSection::where('is_active', true)->first();
         $totalCount = CareerSection::count();
 
-        return view('admin.careers.teaching.index', compact('sections', 'activeSection', 'totalCount'));
+        return view('admin.careers.teaching.index', compact('sections', 'totalCount'));
     }
 
     /**
-     * Show the form for creating a new section.
+     * Show the form for creating — only allowed when no record exists yet.
      */
     public function create()
     {
+        if (CareerSection::count() > 0) {
+            flash()->warning('Only one Teaching at JRS section is allowed. Edit the existing one.', 'Already Exists');
+            return redirect()->route('admin.careers-teaching.index');
+        }
+
         return view('admin.careers.teaching.create');
     }
 
     /**
-     * Store a newly created section.
+     * Store a newly created section — only allowed when table is empty.
      */
     public function store(Request $request)
     {
+        if (CareerSection::count() > 0) {
+            flash()->warning('Only one Teaching at JRS section is allowed. Edit the existing one.', 'Already Exists');
+            return redirect()->route('admin.careers-teaching.index');
+        }
+
         $validated = $request->validate(CareerSection::validationRules());
-        $validated['is_active'] = $request->has('is_active') ? (bool)$request->is_active : true;
 
         if ($request->hasFile('image_file')) {
             $file = $request->file('image_file');
@@ -48,25 +56,12 @@ class CareerSectionController extends Controller
 
         unset($validated['image_file']);
 
-        if ($validated['is_active']) {
-            CareerSection::where('is_active', true)->update(['is_active' => false]);
-        }
-
         CareerSection::create($validated);
 
         flash()->success('Teaching at JRS section created successfully.', 'Section Created');
 
         return redirect()->route('admin.careers-teaching.index')
             ->with('success', 'Teaching at JRS section created successfully.');
-    }
-
-    /**
-     * Display the specified section.
-     */
-    public function show($id)
-    {
-        $section = CareerSection::findOrFail($id);
-        return view('admin.careers.teaching.show', compact('section'));
     }
 
     /**
@@ -85,14 +80,6 @@ class CareerSectionController extends Controller
     {
         $section = CareerSection::findOrFail($id);
         $validated = $request->validate(CareerSection::validationRules());
-
-        if ($request->has('is_active')) {
-            $isActive = (bool)$request->is_active;
-            $validated['is_active'] = $isActive;
-            if ($isActive) {
-                CareerSection::where('id', '!=', $id)->update(['is_active' => false]);
-            }
-        }
 
         if ($request->hasFile('image_file')) {
             if ($section->image_path && str_starts_with($section->image_path, '/uploads/')) {
@@ -138,27 +125,5 @@ class CareerSectionController extends Controller
 
         return redirect()->route('admin.careers-teaching.index')
             ->with('success', 'Teaching at JRS section deleted.');
-    }
-
-    /**
-     * Toggle active status.
-     */
-    public function toggle($id)
-    {
-        $section = CareerSection::findOrFail($id);
-        $newStatus = !$section->is_active;
-
-        if ($newStatus) {
-            CareerSection::where('id', '!=', $id)->update(['is_active' => false]);
-        }
-
-        $section->is_active = $newStatus;
-        $section->save();
-
-        return response()->json([
-            'success' => true,
-            'is_active' => $section->is_active,
-            'message' => 'Status updated successfully'
-        ]);
     }
 }

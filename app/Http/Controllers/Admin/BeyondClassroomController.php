@@ -83,7 +83,7 @@ class BeyondClassroomController extends Controller
 
         BeyondClassroom::create($validated);
 
-        flash()->success('Beyond Classroom activity created successfully.', 'Activity Created');
+        flash()->success('Beyond Classroom activity created successfully.', [], 'Activity Created');
 
         return redirect()->route('admin.beyond-classrooms.index')
             ->with('success', 'Beyond Classroom activity created successfully.');
@@ -157,7 +157,7 @@ class BeyondClassroomController extends Controller
 
         $activity->update($validated);
 
-        flash()->success('Beyond Classroom activity updated successfully.', 'Activity Updated');
+        flash()->success('Beyond Classroom activity updated successfully.', [], 'Activity Updated');
 
         return redirect()->route('admin.beyond-classrooms.index')
             ->with('success', 'Beyond Classroom activity updated successfully.');
@@ -173,9 +173,9 @@ class BeyondClassroomController extends Controller
         $activity->save();
 
         if ($activity->is_active) {
-            flash()->success('Beyond Classroom status changed to Active.', 'Status Updated');
+            flash()->success('Beyond Classroom status changed to Active.', [], 'Status Updated');
         } else {
-            flash()->warning('Beyond Classroom status changed to Inactive.', 'Status Inactive');
+            flash()->warning('Beyond Classroom status changed to Inactive.', [], 'Status Inactive');
         }
 
         if (request()->wantsJson() || request()->ajax()) {
@@ -206,7 +206,7 @@ class BeyondClassroomController extends Controller
 
         $activity->delete();
 
-        flash()->info('Beyond Classroom activity deleted successfully.', 'Activity Removed');
+        flash()->info('Beyond Classroom activity deleted successfully.', [], 'Activity Removed');
 
         return redirect()->route('admin.beyond-classrooms.index')
             ->with('success', 'Beyond Classroom activity deleted successfully.');

@@ -70,11 +70,11 @@ class ContactInquiryController extends Controller
         $contactInquiry->update($validated);
 
         if ($validated['status'] === 'closed') {
-            flash()->warning("Inquiry #{$contactInquiry->id} status marked as Closed.", 'Inquiry Closed');
+            flash()->warning("Inquiry #{$contactInquiry->id} status marked as Closed.", [], 'Inquiry Closed');
         } elseif ($validated['status'] === 'resolved') {
-            flash()->success("Inquiry #{$contactInquiry->id} marked as Resolved.", 'Inquiry Resolved');
+            flash()->success("Inquiry #{$contactInquiry->id} marked as Resolved.", [], 'Inquiry Resolved');
         } else {
-            flash()->info("Inquiry #{$contactInquiry->id} status updated to " . ucfirst($validated['status']) . ".", 'Status Updated');
+            flash()->info("Inquiry #{$contactInquiry->id} status updated to " . ucfirst($validated['status']) . ".", [], 'Status Updated');
         }
 
         return redirect()->back()->with('success', "Inquiry #{$contactInquiry->id} status updated to " . ucfirst($validated['status']) . ".");
@@ -88,7 +88,7 @@ class ContactInquiryController extends Controller
         $id = $contactInquiry->id;
         $contactInquiry->delete();
 
-        flash()->info("Inquiry message #{$id} deleted successfully.", 'Message Removed');
+        flash()->info("Inquiry message #{$id} deleted successfully.", [], 'Message Removed');
 
         return redirect()->back()->with('success', "Inquiry message #{$id} deleted successfully.");
     }
@@ -109,7 +109,7 @@ class ContactInquiryController extends Controller
 
         $count = ContactInquiry::whereIn('id', $validated['ids'])->delete();
 
-        flash()->info("{$count} contact " . ($count === 1 ? 'message' : 'messages') . " deleted successfully.", 'Bulk Delete Complete');
+        flash()->info("{$count} contact " . ($count === 1 ? 'message' : 'messages') . " deleted successfully.", [], 'Bulk Delete Complete');
 
         return redirect()->back()->with('success', "{$count} contact " . ($count === 1 ? 'message' : 'messages') . " deleted successfully.");
     }

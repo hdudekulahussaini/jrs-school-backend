@@ -132,7 +132,7 @@ class GalleryVideoController extends Controller
         }
 
         if (function_exists('flash')) {
-            flash()->success('Gallery videos saved successfully.', 'Videos Saved');
+            flash()->success('Gallery videos saved successfully.', [], 'Videos Saved');
         }
 
         return redirect()->route('admin.gallery-videos.index')

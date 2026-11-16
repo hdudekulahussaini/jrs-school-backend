@@ -48,7 +48,7 @@ class NewsTickerController extends Controller
 
         NewsTicker::create($validated);
 
-        flash()->success('News ticker announcement created successfully.', 'Ticker Created');
+        flash()->success('News ticker announcement created successfully.', [], 'Ticker Created');
 
         return redirect()->route('admin.tickers.index')
             ->with('success', 'News ticker announcement created successfully.');
@@ -81,7 +81,7 @@ class NewsTickerController extends Controller
 
         $ticker->update($validated);
 
-        flash()->success('News ticker announcement updated successfully.', 'Ticker Updated');
+        flash()->success('News ticker announcement updated successfully.', [], 'Ticker Updated');
 
         return redirect()->route('admin.tickers.index')
             ->with('success', 'News ticker announcement updated successfully.');
@@ -95,7 +95,7 @@ class NewsTickerController extends Controller
         $ticker = NewsTicker::findOrFail($id);
         $ticker->delete();
 
-        flash()->info('News ticker announcement deleted successfully.', 'Ticker Removed');
+        flash()->info('News ticker announcement deleted successfully.', [], 'Ticker Removed');
 
         return redirect()->route('admin.tickers.index')
             ->with('success', 'News ticker announcement deleted successfully.');

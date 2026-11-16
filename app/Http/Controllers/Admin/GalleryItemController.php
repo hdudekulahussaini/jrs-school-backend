@@ -146,7 +146,7 @@ class GalleryItemController extends Controller
             }
         }
 
-        flash()->success('Media items added to gallery successfully.', 'Media Uploaded');
+        flash()->success('Media items added to gallery successfully.', [], 'Media Uploaded');
 
         return redirect()->route('admin.gallery-items.index', ['album_id' => $albumId])
             ->with('success', 'Media items added to gallery successfully.');
@@ -208,7 +208,7 @@ class GalleryItemController extends Controller
 
         $item->save();
 
-        flash()->success('Gallery item updated successfully.', 'Item Updated');
+        flash()->success('Gallery item updated successfully.', [], 'Item Updated');
 
         return redirect()->route('admin.gallery-items.index', ['album_id' => $item->gallery_album_id])
             ->with('success', 'Gallery item updated successfully.');
@@ -231,7 +231,7 @@ class GalleryItemController extends Controller
 
         $item->delete();
 
-        flash()->info('Gallery item deleted successfully.', 'Item Removed');
+        flash()->info('Gallery item deleted successfully.', [], 'Item Removed');
 
         return redirect()->route('admin.gallery-items.index', ['album_id' => $albumId])
             ->with('success', 'Gallery item deleted successfully.');
@@ -247,9 +247,9 @@ class GalleryItemController extends Controller
         $item->save();
 
         if ($item->is_active) {
-            flash()->success('Item status changed to Active.', 'Status Updated');
+            flash()->success('Item status changed to Active.', [], 'Status Updated');
         } else {
-            flash()->warning('Item status changed to Inactive.', 'Status Inactive');
+            flash()->warning('Item status changed to Inactive.', [], 'Status Inactive');
         }
 
         if (request()->wantsJson()) {

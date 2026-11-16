@@ -80,7 +80,7 @@ class PtaMemberController extends Controller
 
         PtaMember::create($validated);
 
-        flash()->success('PTA Member added successfully.', 'Member Added');
+        flash()->success('PTA Member added successfully.', [], 'Member Added');
 
         return redirect()->route('admin.pta-members.index')
             ->with('success', 'PTA Member added successfully.');
@@ -124,7 +124,7 @@ class PtaMemberController extends Controller
 
         $member->update($validated);
 
-        flash()->success('PTA Member updated successfully.', 'Member Updated');
+        flash()->success('PTA Member updated successfully.', [], 'Member Updated');
 
         return redirect()->route('admin.pta-members.index')
             ->with('success', 'PTA Member updated successfully.');
@@ -143,7 +143,7 @@ class PtaMemberController extends Controller
 
         $member->delete();
 
-        flash()->info('PTA Member deleted successfully.', 'Member Removed');
+        flash()->info('PTA Member deleted successfully.', [], 'Member Removed');
 
         return redirect()->route('admin.pta-members.index')
             ->with('success', 'PTA Member deleted successfully.');

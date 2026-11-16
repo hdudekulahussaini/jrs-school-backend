@@ -108,7 +108,7 @@ class AdmissionBannerController extends Controller
         $message = $isNew
             ? 'Admission Banner section created successfully!'
             : 'Admission Banner section updated successfully!';
-        flash()->success($message, $isNew ? 'Banner Created' : 'Banner Updated');
+        flash()->success($message, [], $isNew ? 'Banner Created' : 'Banner Updated');
 
         return redirect()->route('admin.admission-banner.index')
             ->with('success', $message);

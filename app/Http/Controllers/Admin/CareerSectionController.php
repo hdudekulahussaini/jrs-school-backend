@@ -26,7 +26,7 @@ class CareerSectionController extends Controller
     public function create()
     {
         if (CareerSection::count() > 0) {
-            flash()->warning('Only one Teaching at JRS section is allowed. Edit the existing one.', 'Already Exists');
+            flash()->warning('Only one Teaching at JRS section is allowed. Edit the existing one.', [], 'Already Exists');
             return redirect()->route('admin.careers-teaching.index');
         }
 
@@ -39,7 +39,7 @@ class CareerSectionController extends Controller
     public function store(Request $request)
     {
         if (CareerSection::count() > 0) {
-            flash()->warning('Only one Teaching at JRS section is allowed. Edit the existing one.', 'Already Exists');
+            flash()->warning('Only one Teaching at JRS section is allowed. Edit the existing one.', [], 'Already Exists');
             return redirect()->route('admin.careers-teaching.index');
         }
 
@@ -58,7 +58,7 @@ class CareerSectionController extends Controller
 
         CareerSection::create($validated);
 
-        flash()->success('Teaching at JRS section created successfully.', 'Section Created');
+        flash()->success('Teaching at JRS section created successfully.', [], 'Section Created');
 
         return redirect()->route('admin.careers-teaching.index')
             ->with('success', 'Teaching at JRS section created successfully.');
@@ -99,7 +99,7 @@ class CareerSectionController extends Controller
 
         $section->update($validated);
 
-        flash()->success('Teaching at JRS section updated successfully.', 'Section Updated');
+        flash()->success('Teaching at JRS section updated successfully.', [], 'Section Updated');
 
         return redirect()->route('admin.careers-teaching.index')
             ->with('success', 'Teaching at JRS section updated successfully.');
@@ -121,7 +121,7 @@ class CareerSectionController extends Controller
 
         $section->delete();
 
-        flash()->info('Teaching at JRS section deleted.', 'Section Removed');
+        flash()->info('Teaching at JRS section deleted.', [], 'Section Removed');
 
         return redirect()->route('admin.careers-teaching.index')
             ->with('success', 'Teaching at JRS section deleted.');

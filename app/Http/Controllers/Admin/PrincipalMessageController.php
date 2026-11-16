@@ -58,7 +58,7 @@ class PrincipalMessageController extends Controller
 
         $principal = PrincipalMessage::create($data);
 
-        flash()->success('Principal leadership message created successfully!', 'Leadership Created');
+        flash()->success('Principal leadership message created successfully!', [], 'Leadership Created');
 
         return redirect()->route('admin.principal.index')
             ->with('success', 'Principal leadership message created successfully!');
@@ -114,7 +114,7 @@ class PrincipalMessageController extends Controller
 
         $principal->update($data);
 
-        flash()->success('Principal leadership message updated successfully!', 'Leadership Updated');
+        flash()->success('Principal leadership message updated successfully!', [], 'Leadership Updated');
 
         return redirect()->route('admin.principal.index')
             ->with('success', 'Principal leadership message updated successfully!');
@@ -132,9 +132,9 @@ class PrincipalMessageController extends Controller
         $status = $principal->is_active ? 'activated' : 'deactivated';
 
         if ($principal->is_active) {
-            flash()->success("Principal leadership section has been activated successfully.", 'Section Activated');
+            flash()->success("Principal leadership section has been activated successfully.", [], 'Section Activated');
         } else {
-            flash()->warning("Principal leadership section has been deactivated.", 'Section Deactivated');
+            flash()->warning("Principal leadership section has been deactivated.", [], 'Section Deactivated');
         }
 
         return redirect()->back()->with('success', "Principal leadership section has been {$status} successfully.");
@@ -151,7 +151,7 @@ class PrincipalMessageController extends Controller
         }
         $principal->delete();
 
-        flash()->info('Principal leadership record deleted successfully.', 'Leadership Removed');
+        flash()->info('Principal leadership record deleted successfully.', [], 'Leadership Removed');
 
         return redirect()->route('admin.principal.index')
             ->with('success', 'Principal leadership record deleted successfully.');

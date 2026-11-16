@@ -55,7 +55,7 @@ class AdmissionStepController extends Controller
     {
         AdmissionStep::create($request->validated());
 
-        flash()->success('Admission process step created successfully.', 'Step Created');
+        flash()->success('Admission process step created successfully.', [], 'Step Created');
 
         return redirect()->route('admin.admission-steps.index')
             ->with('success', 'Admission process step created successfully.');
@@ -78,7 +78,7 @@ class AdmissionStepController extends Controller
         $step = AdmissionStep::findOrFail($id);
         $step->update($request->validated());
 
-        flash()->success('Admission process step updated successfully.', 'Step Updated');
+        flash()->success('Admission process step updated successfully.', [], 'Step Updated');
 
         return redirect()->route('admin.admission-steps.index')
             ->with('success', 'Admission process step updated successfully.');
@@ -92,7 +92,7 @@ class AdmissionStepController extends Controller
         $step = AdmissionStep::findOrFail($id);
         $step->delete();
 
-        flash()->info('Admission process step deleted successfully.', 'Step Removed');
+        flash()->info('Admission process step deleted successfully.', [], 'Step Removed');
 
         return redirect()->route('admin.admission-steps.index')
             ->with('success', 'Admission process step deleted successfully.');

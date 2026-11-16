@@ -99,7 +99,7 @@ class AdmissionBrochureController extends Controller
         $brochure->save();
 
         if (function_exists('flash')) {
-            flash()->success('Admission brochure updated successfully.', 'Brochure Updated');
+            flash()->success('Admission brochure updated successfully.', [], 'Brochure Updated');
         }
 
         return redirect()->route('admin.admission-brochure.index')

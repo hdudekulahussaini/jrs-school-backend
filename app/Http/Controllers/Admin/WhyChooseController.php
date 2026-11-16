@@ -60,7 +60,7 @@ class WhyChooseController extends Controller
 
         WhyChooseFeature::create($validated);
 
-        flash()->success('Feature card created successfully.', 'Feature Created');
+        flash()->success('Feature card created successfully.', [], 'Feature Created');
 
         return redirect()->route('admin.why-choose.index')
             ->with('success', 'Feature card created successfully.');
@@ -88,7 +88,7 @@ class WhyChooseController extends Controller
 
         $item->update($validated);
 
-        flash()->success('Feature card updated successfully.', 'Feature Updated');
+        flash()->success('Feature card updated successfully.', [], 'Feature Updated');
 
         return redirect()->route('admin.why-choose.index')
             ->with('success', 'Feature card updated successfully.');
@@ -102,7 +102,7 @@ class WhyChooseController extends Controller
         $item = WhyChooseFeature::findOrFail($id);
         $item->delete();
 
-        flash()->info('Feature item deleted successfully.', 'Feature Removed');
+        flash()->info('Feature item deleted successfully.', [], 'Feature Removed');
 
         return redirect()->route('admin.why-choose.index')
             ->with('success', 'Feature item deleted successfully.');

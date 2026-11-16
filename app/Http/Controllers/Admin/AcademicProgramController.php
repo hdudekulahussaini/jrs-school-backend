@@ -85,7 +85,7 @@ class AcademicProgramController extends Controller
 
         AcademicProgram::create($validated);
 
-        flash()->success('Academic Program created successfully.', 'Program Created');
+        flash()->success('Academic Program created successfully.', [], 'Program Created');
 
         return redirect()->route('admin.programs.index')
             ->with('success', 'Academic Program created successfully.');
@@ -156,7 +156,7 @@ class AcademicProgramController extends Controller
 
         $program->update($validated);
 
-        flash()->success('Academic Program updated successfully.', 'Program Updated');
+        flash()->success('Academic Program updated successfully.', [], 'Program Updated');
 
         return redirect()->route('admin.programs.index')
             ->with('success', 'Academic Program updated successfully.');
@@ -172,9 +172,9 @@ class AcademicProgramController extends Controller
         $program->save();
 
         if ($program->is_active) {
-            flash()->success('Academic Program status changed to Active.', 'Status Updated');
+            flash()->success('Academic Program status changed to Active.', [], 'Status Updated');
         } else {
-            flash()->warning('Academic Program status changed to Inactive.', 'Status Inactive');
+            flash()->warning('Academic Program status changed to Inactive.', [], 'Status Inactive');
         }
 
         if (request()->wantsJson() || request()->ajax()) {
@@ -205,7 +205,7 @@ class AcademicProgramController extends Controller
 
         $program->delete();
 
-        flash()->info('Academic Program deleted successfully.', 'Program Removed');
+        flash()->info('Academic Program deleted successfully.', [], 'Program Removed');
 
         return redirect()->route('admin.programs.index')
             ->with('success', 'Academic Program deleted successfully.');

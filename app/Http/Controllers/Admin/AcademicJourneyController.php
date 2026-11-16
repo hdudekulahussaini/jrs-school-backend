@@ -79,7 +79,7 @@ class AcademicJourneyController extends Controller
 
         AcademicJourney::create($data);
 
-        flash()->success('Academic Journey card created successfully.', 'Journey Created');
+        flash()->success('Academic Journey card created successfully.', [], 'Journey Created');
 
         return redirect()->route('admin.academic-journeys.index')->with('success', 'Academic Journey card created successfully.');
     }
@@ -134,7 +134,7 @@ class AcademicJourneyController extends Controller
 
         $journey->update($data);
 
-        flash()->success('Academic Journey card updated successfully.', 'Journey Updated');
+        flash()->success('Academic Journey card updated successfully.', [], 'Journey Updated');
 
         return redirect()->route('admin.academic-journeys.index')->with('success', 'Academic Journey card updated successfully.');
     }
@@ -152,7 +152,7 @@ class AcademicJourneyController extends Controller
 
         $journey->delete();
 
-        flash()->info('Academic Journey card deleted successfully.', 'Journey Removed');
+        flash()->info('Academic Journey card deleted successfully.', [], 'Journey Removed');
 
         return redirect()->route('admin.academic-journeys.index')->with('success', 'Academic Journey card deleted successfully.');
     }
@@ -167,9 +167,9 @@ class AcademicJourneyController extends Controller
         $journey->save();
 
         if ($journey->is_active) {
-            flash()->success("Status for '{$journey->title}' changed to Active.", 'Status Updated');
+            flash()->success("Status for '{$journey->title}' changed to Active.", [], 'Status Updated');
         } else {
-            flash()->warning("Status for '{$journey->title}' changed to Inactive.", 'Status Inactive');
+            flash()->warning("Status for '{$journey->title}' changed to Inactive.", [], 'Status Inactive');
         }
 
         if (request()->wantsJson() || request()->ajax()) {

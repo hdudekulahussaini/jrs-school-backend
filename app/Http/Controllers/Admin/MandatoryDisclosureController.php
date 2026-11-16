@@ -144,7 +144,7 @@ class MandatoryDisclosureController extends Controller
 
         MandatoryDisclosure::create($validated);
 
-        flash()->success('Mandatory Disclosure entry created successfully.', 'Entry Created');
+        flash()->success('Mandatory Disclosure entry created successfully.', [], 'Entry Created');
 
         return redirect()->route('admin.mandatory-disclosure.index', ['table' => $validated['category']])
             ->with('success', 'Mandatory Disclosure entry created successfully.');
@@ -203,7 +203,7 @@ class MandatoryDisclosureController extends Controller
 
         $item->update($validated);
 
-        flash()->success('Mandatory Disclosure entry updated successfully.', 'Entry Updated');
+        flash()->success('Mandatory Disclosure entry updated successfully.', [], 'Entry Updated');
 
         return redirect()->route('admin.mandatory-disclosure.index', ['table' => $item->category])
             ->with('success', 'Mandatory Disclosure entry updated successfully.');
@@ -223,7 +223,7 @@ class MandatoryDisclosureController extends Controller
 
         $item->delete();
 
-        flash()->info('Mandatory Disclosure entry deleted successfully.', 'Entry Removed');
+        flash()->info('Mandatory Disclosure entry deleted successfully.', [], 'Entry Removed');
 
         return redirect()->route('admin.mandatory-disclosure.index', ['table' => $category])
             ->with('success', 'Mandatory Disclosure entry deleted successfully.');
@@ -239,9 +239,9 @@ class MandatoryDisclosureController extends Controller
         $item->save();
 
         if ($item->is_active) {
-            flash()->success('Disclosure status changed to Active.', 'Status Updated');
+            flash()->success('Disclosure status changed to Active.', [], 'Status Updated');
         } else {
-            flash()->warning('Disclosure status changed to Inactive.', 'Status Inactive');
+            flash()->warning('Disclosure status changed to Inactive.', [], 'Status Inactive');
         }
 
         if (request()->wantsJson()) {

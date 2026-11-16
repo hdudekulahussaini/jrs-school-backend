@@ -59,7 +59,7 @@ class ChairmanMessageController extends Controller
         $validated = array_filter($validated, static fn ($value) => $value !== null);
         $chairman = ChairmanMessage::create($validated);
 
-        flash()->success('Chairman Leadership page sections created successfully!', 'Leadership Created');
+        flash()->success('Chairman Leadership page sections created successfully!', [], 'Leadership Created');
 
         return redirect()->route('admin.chairman.index')
             ->with('success', 'Chairman Leadership page sections created successfully!');
@@ -114,7 +114,7 @@ class ChairmanMessageController extends Controller
 
         $chairman->update($validated);
 
-        flash()->success('Chairman Leadership page sections updated successfully!', 'Leadership Updated');
+        flash()->success('Chairman Leadership page sections updated successfully!', [], 'Leadership Updated');
 
         return redirect()->route('admin.chairman.index')
             ->with('success', 'Chairman Leadership page sections updated successfully!');
@@ -132,9 +132,9 @@ class ChairmanMessageController extends Controller
         $status = $chairman->is_active ? 'activated' : 'deactivated';
 
         if ($chairman->is_active) {
-            flash()->success('Chairman sections successfully activated.', 'Section Activated');
+            flash()->success('Chairman sections successfully activated.', [], 'Section Activated');
         } else {
-            flash()->warning('Chairman sections successfully deactivated.', 'Section Deactivated');
+            flash()->warning('Chairman sections successfully deactivated.', [], 'Section Deactivated');
         }
 
         return redirect()->back()->with('success', "Chairman sections successfully {$status}.");
@@ -151,7 +151,7 @@ class ChairmanMessageController extends Controller
         }
         $chairman->delete();
 
-        flash()->info('Chairman Leadership record deleted successfully.', 'Leadership Removed');
+        flash()->info('Chairman Leadership record deleted successfully.', [], 'Leadership Removed');
 
         return redirect()->route('admin.chairman.index')
             ->with('success', 'Chairman Leadership record deleted successfully.');

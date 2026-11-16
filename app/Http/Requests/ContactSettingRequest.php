@@ -22,6 +22,7 @@ class ContactSettingRequest extends FormRequest
         return [
             'address'                 => ['required', 'string'],
             'phone'                   => ['required', 'string', 'max:50'],
+            'phone_2'                 => ['nullable', 'string', 'max:50'],
             'email'                   => ['required', 'email', 'max:255'],
             'map_link'                => ['nullable', 'string'],
             'facebook_url'            => ['nullable', 'string', 'max:500'],

@@ -3,8 +3,14 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ContactInquiryRequest;
+use App\Mail\ContactInquiryAcknowledgement;
+use App\Mail\ContactInquiryAdminNotification;
+use App\Models\ContactInquiry;
 use App\Models\ContactSetting;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 class ContactApiController extends Controller
 {
@@ -40,6 +46,8 @@ class ContactApiController extends Controller
                 'id'            => $contact->id,
                 'address'       => $contact->address,
                 'phone'         => $contact->phone,
+                'phone_2'       => $contact->phone_2,
+                'phones'        => array_values(array_filter([$contact->phone, $contact->phone_2])),
                 'email'         => $contact->email,
                 'map_link'      => $contact->map_link,
                 'facebook_url'  => $contact->facebook_url,
@@ -64,9 +72,9 @@ class ContactApiController extends Controller
      * Submit Online Inquiry Message from Contact Us page.
      * POST /api/contact/inquiry or POST /api/contact-inquiries
      */
-    public function storeInquiry(\App\Http\Requests\ContactInquiryRequest $request): JsonResponse
+    public function storeInquiry(ContactInquiryRequest $request): JsonResponse
     {
-        $inquiry = \App\Models\ContactInquiry::create([
+        $inquiry = ContactInquiry::create([
             'parent_name' => $request->input('parent_name'),
             'phone'       => $request->input('phone'),
             'grade'       => $request->input('grade'),
@@ -75,6 +83,28 @@ class ContactApiController extends Controller
             'status'      => 'pending',
             'notes'       => $request->input('notes'),
         ]);
+
+        // Safely dispatch admin notification and user acknowledgement emails
+        try {
+            $adminRecipient = config('mail.contact_notification_email')
+                ?: env('CONTACT_NOTIFICATION_EMAIL')
+                ?: ContactSetting::first()?->email
+                ?: 'hdudekulahussaini@gmail.com';
+
+            if (filter_var($adminRecipient, FILTER_VALIDATE_EMAIL)) {
+                Mail::to($adminRecipient)->queue(new ContactInquiryAdminNotification($inquiry));
+            }
+
+            // Send acknowledgement to user if a valid email was provided
+            if (!empty($inquiry->email) && filter_var($inquiry->email, FILTER_VALIDATE_EMAIL)) {
+                Mail::to($inquiry->email)->queue(new ContactInquiryAcknowledgement($inquiry));
+            }
+        } catch (\Throwable $e) {
+            Log::error('Contact inquiry email dispatch failed: ' . $e->getMessage(), [
+                'inquiry_id' => $inquiry->id,
+                'exception'  => $e,
+            ]);
+        }
 
         return response()->json([
             'success' => true,

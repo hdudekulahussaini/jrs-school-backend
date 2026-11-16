@@ -13,8 +13,12 @@ class ContactInquiryController extends Controller
      */
     public function index(Request $request)
     {
-        $status = $request->query('status');
-        $search = $request->query('search');
+        $status  = $request->query('status');
+        $search  = $request->query('search');
+        $perPage = (int) $request->query('per_page', 10);
+        if ($perPage < 5 || $perPage > 100) {
+            $perPage = 10;
+        }
 
         $query = ContactInquiry::latest();
 
@@ -32,7 +36,7 @@ class ContactInquiryController extends Controller
             });
         }
 
-        $inquiries = $query->paginate(15)->withQueryString();
+        $inquiries = $query->paginate($perPage)->withQueryString();
 
         $stats = [
             'total'     => ContactInquiry::count(),
@@ -42,7 +46,7 @@ class ContactInquiryController extends Controller
             'closed'    => ContactInquiry::where('status', 'closed')->count(),
         ];
 
-        return view('admin.contact-inquiries.index', compact('inquiries', 'stats', 'status', 'search'));
+        return view('admin.contact-inquiries.index', compact('inquiries', 'stats', 'status', 'search', 'perPage'));
     }
 
     /**
@@ -87,5 +91,26 @@ class ContactInquiryController extends Controller
         flash()->info("Inquiry message #{$id} deleted successfully.", 'Message Removed');
 
         return redirect()->back()->with('success', "Inquiry message #{$id} deleted successfully.");
+    }
+
+    /**
+     * [BULK DELETE] Delete multiple contact inquiries at once.
+     */
+    public function bulkDestroy(Request $request)
+    {
+        $validated = $request->validate([
+            'ids'   => ['required', 'array', 'min:1'],
+            'ids.*' => ['required', 'integer', 'exists:contact_inquiries,id'],
+        ], [
+            'ids.required' => 'Please select at least one message to delete.',
+            'ids.min'      => 'Please select at least one message to delete.',
+            'ids.*.exists' => 'One or more selected messages could not be found.',
+        ]);
+
+        $count = ContactInquiry::whereIn('id', $validated['ids'])->delete();
+
+        flash()->info("{$count} contact " . ($count === 1 ? 'message' : 'messages') . " deleted successfully.", 'Bulk Delete Complete');
+
+        return redirect()->back()->with('success', "{$count} contact " . ($count === 1 ? 'message' : 'messages') . " deleted successfully.");
     }
 }

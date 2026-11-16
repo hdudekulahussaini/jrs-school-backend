@@ -163,6 +163,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::delete('/admission-popup/image', [AdmissionPopupController::class, 'destroyImage'])->name('admin.admission-popup.image.destroy');
 
     // Admission Form Enquiries CRM
+    Route::delete('/admission-enquiries/bulk-delete', [AdmissionEnquiryController::class, 'bulkDestroy'])->name('admin.admission-enquiries.bulk-destroy');
     Route::resource('/admission-enquiries', AdmissionEnquiryController::class)->only(['index', 'show', 'update', 'destroy'])->names('admin.admission-enquiries');
 
     // Chairman of JRS - Leadership Page Sections
@@ -232,6 +233,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::put('/contact-settings', [ContactSettingController::class, 'update'])->name('admin.contact-settings.update');
 
     // Contact Us Online Inquiries CRM
+    Route::delete('/contact-inquiries/bulk-delete', [ContactInquiryController::class, 'bulkDestroy'])->name('admin.contact-inquiries.bulk-destroy');
     Route::resource('/contact-inquiries', ContactInquiryController::class)->only(['index', 'show', 'update', 'destroy'])->names('admin.contact-inquiries');
 
     // Breadcrumb Banners Full CRUD Resource

@@ -49,10 +49,11 @@
                     @error('address') <p class="text-xs text-red-600 mt-1">{{ $message }}</p> @enderror
                 </div>
 
+                <!-- Phone Numbers: Primary Phone & Phone Number 2 -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <!-- Phone -->
+                    <!-- Primary Phone -->
                     <div>
-                        <label for="phone" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Phone Number <span class="text-red-500">*</span></label>
+                        <label for="phone" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Primary Phone (WhatsApp Number) <span class="text-red-500">*</span></label>
                         <div class="relative">
                             <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400 text-xs">
                                 <i class="fas fa-phone-alt"></i>
@@ -62,6 +63,20 @@
                         @error('phone') <p class="text-xs text-red-600 mt-1">{{ $message }}</p> @enderror
                     </div>
 
+                    <!-- Phone 2 -->
+                    <div>
+                        <label for="phone_2" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Phone Number 2 <span class="text-slate-400 text-[10px] font-normal lowercase">(optional)</span></label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400 text-xs">
+                                <i class="fas fa-phone"></i>
+                            </span>
+                            <input type="text" name="phone_2" id="phone_2" value="{{ old('phone_2', $contact->phone_2) }}" placeholder="+91 915740 43211" class="w-full pl-9 pr-3.5 py-2 rounded-xl text-sm border border-slate-200 focus:border-jrs-navy focus:ring-1 focus:ring-jrs-navy outline-none text-slate-800">
+                        </div>
+                        @error('phone_2') <p class="text-xs text-red-600 mt-1">{{ $message }}</p> @enderror
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <!-- Email -->
                     <div>
                         <label for="email" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Email Address <span class="text-red-500">*</span></label>
@@ -73,19 +88,18 @@
                         </div>
                         @error('email') <p class="text-xs text-red-600 mt-1">{{ $message }}</p> @enderror
                     </div>
-                </div>
 
-                <!-- Map Direct Link -->
-                <div>
-                    <label for="map_link" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Google Maps Link (URL)</label>
-                    <div class="relative">
-                        <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400 text-xs">
-                            <i class="fas fa-directions"></i>
-                        </span>
-                        <input type="url" name="map_link" id="map_link" value="{{ old('map_link', $contact->map_link) }}" placeholder="https://maps.google.com/?q=..." class="w-full pl-9 pr-3.5 py-2 rounded-xl text-sm border border-slate-200 focus:border-jrs-navy focus:ring-1 focus:ring-jrs-navy outline-none text-slate-800 font-mono text-xs">
+                    <!-- Map Direct Link -->
+                    <div>
+                        <label for="map_link" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Google Maps Link (URL)</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400 text-xs">
+                                <i class="fas fa-directions"></i>
+                            </span>
+                            <input type="url" name="map_link" id="map_link" value="{{ old('map_link', $contact->map_link) }}" placeholder="https://maps.google.com/?q=..." class="w-full pl-9 pr-3.5 py-2 rounded-xl text-sm border border-slate-200 focus:border-jrs-navy focus:ring-1 focus:ring-jrs-navy outline-none text-slate-800 font-mono text-xs">
+                        </div>
+                        @error('map_link') <p class="text-xs text-red-600 mt-1">{{ $message }}</p> @enderror
                     </div>
-                    <span class="text-[11px] text-slate-400 mt-1 block">Opened when visitors click "Get Directions" on the Contact Us page.</span>
-                    @error('map_link') <p class="text-xs text-red-600 mt-1">{{ $message }}</p> @enderror
                 </div>
             </div>
 

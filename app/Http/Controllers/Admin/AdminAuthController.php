@@ -41,7 +41,7 @@ class AdminAuthController extends Controller
 
             flash()->success('Welcome back, ' . Auth::user()->name . '!', 'Authentication Successful');
 
-            return redirect()->intended(route('admin.dashboard'))
+            return redirect()->route('admin.dashboard')
                 ->with('success', 'Welcome back, ' . Auth::user()->name . '!');
         }
 

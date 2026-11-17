@@ -29,8 +29,14 @@ class BeyondClassroomCta extends Model
         'is_active' => 'boolean',
     ];
 
-    protected $appends = [
-        'image_full_url',
+    protected $appends = [];
+
+    protected $hidden = [
+        'primary_button_text',
+        'primary_button_url',
+        'secondary_button_text',
+        'secondary_button_url',
+        'bg_color',
     ];
 
     /**

@@ -75,18 +75,9 @@ Route::get('/about-us', [AboutApiController::class, 'getAbout']);
 // Vision & Mission Cards GET Endpoint
 Route::get('/vision-mission', [VisionMissionApiController::class, 'index']);
 
-// Beyond Classroom Page & CTA GET Endpoints (Read-Only GET for React site & Beyond Classroom page)
-Route::get('/beyond-classroom-page', [BeyondClassroomApiController::class, 'getPageData']);
-Route::get('/beyond-page', [BeyondClassroomApiController::class, 'getPageData']);
-Route::get('/beyond-classroom-cta', [BeyondClassroomApiController::class, 'getCta']);
-Route::get('/beyond-cta', [BeyondClassroomApiController::class, 'getCta']);
+// Beyond Classroom Activities & CTA GET Endpoints (Frontend Read-Only)
 Route::get('/beyond-classrooms', [BeyondClassroomApiController::class, 'getActiveActivities']);
-Route::get('/beyond-classroom', [BeyondClassroomApiController::class, 'getActiveActivities']);
-Route::get('/beyond', [BeyondClassroomApiController::class, 'getActiveActivities']);
-Route::get('/beyond/activities', [BeyondClassroomApiController::class, 'getActiveActivities']);
-Route::get('/beyond-classrooms/{id}', [BeyondClassroomApiController::class, 'show']);
-Route::get('/beyond-classroom/{id}', [BeyondClassroomApiController::class, 'show']);
-Route::get('/beyond/{id}', [BeyondClassroomApiController::class, 'show']);
+Route::get('/beyond-classroom-cta', [BeyondClassroomApiController::class, 'getCta']);
 
 // Latest Events GET Endpoint (for React Homepage)
 Route::get('/events', [SchoolEventApiController::class, 'getActiveEvents']);

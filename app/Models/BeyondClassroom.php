@@ -27,8 +27,11 @@ class BeyondClassroom extends Model
         'sort_order' => 'integer',
     ];
 
-    protected $appends = [
-        'image_full_url',
+    protected $appends = [];
+
+    protected $hidden = [
+        'description',
+        'color',
     ];
 
     /**

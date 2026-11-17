@@ -29,11 +29,7 @@ class SchoolEvent extends Model
         'event_date' => 'date:Y-m-d',
     ];
 
-    protected $appends = [
-        'image_full_url',
-        'display_day',
-        'display_month',
-    ];
+    protected $appends = [];
 
     /**
      * Compute full URL for the event image.

@@ -88,10 +88,8 @@ Route::get('/beyond-classrooms/{id}', [BeyondClassroomApiController::class, 'sho
 Route::get('/beyond-classroom/{id}', [BeyondClassroomApiController::class, 'show']);
 Route::get('/beyond/{id}', [BeyondClassroomApiController::class, 'show']);
 
-// Latest Events GET Endpoints (for React Homepage)
+// Latest Events GET Endpoint (for React Homepage)
 Route::get('/events', [SchoolEventApiController::class, 'getActiveEvents']);
-Route::get('/latest-events', [SchoolEventApiController::class, 'getActiveEvents']);
-Route::get('/events/{id}', [SchoolEventApiController::class, 'show']);
 
 // Key Features GET Endpoint (for React Homepage)
 Route::get('/features', [HomeFeatureApiController::class, 'getActiveFeatures']);

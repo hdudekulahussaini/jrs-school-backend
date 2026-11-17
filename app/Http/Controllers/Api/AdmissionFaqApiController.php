@@ -25,13 +25,6 @@ class AdmissionFaqApiController extends Controller
 
         return response()->json([
             'success' => true,
-            'section' => [
-                'eyebrow'         => 'ADMISSIONS FAQS',
-                'title'           => 'Frequently Asked Questions',
-                'title_prefix'    => 'Frequently Asked',
-                'title_highlight' => 'Questions',
-                'description'     => 'Find answers to commonly asked questions about admissions, academics, and life at JRS.',
-            ],
             'count'   => $data->count(),
             'data'    => $data,
         ], 200);

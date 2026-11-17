@@ -24,9 +24,7 @@ class HeroSlider extends Model
         'background_images' => 'array',
     ];
 
-    protected $appends = [
-        'slides',
-    ];
+    protected $appends = [];
 
     /**
      * Slides accessor: transforms the hero content into slide items,

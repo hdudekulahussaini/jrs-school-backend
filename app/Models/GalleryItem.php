@@ -28,10 +28,7 @@ class GalleryItem extends Model
         'is_active' => 'boolean',
     ];
 
-    protected $appends = [
-        'image_full_url',
-        'video_full_url',
-    ];
+    protected $appends = [];
 
     /**
      * Relationship: Belongs to a gallery album.

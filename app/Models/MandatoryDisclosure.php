@@ -28,9 +28,7 @@ class MandatoryDisclosure extends Model
         'sort_order' => 'integer',
     ];
 
-    protected $appends = [
-        'download_link',
-    ];
+    protected $appends = [];
 
     /**
      * Resolved download or viewing link.

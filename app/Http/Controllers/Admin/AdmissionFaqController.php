@@ -36,11 +36,6 @@ class AdmissionFaqController extends Controller
     /**
      * [CREATE - Form] Display form to create a new FAQ.
      */
-    public function show($id)
-    {
-        return redirect()->route('admin.admission-faqs.edit', $id);
-    }
-
     public function create()
     {
         return view('admin.admission-faqs.create');

@@ -83,16 +83,10 @@ Route::get('/features', [HomeFeatureApiController::class, 'getActiveFeatures']);
 Route::get('/stats', [HomeStatApiController::class, 'getActiveStats']);
 
 // Careers Page GET Endpoints (Read-Only GET for React site & Careers page)
-Route::get('/careers-page', [CareerApiController::class, 'getPageData']);
 Route::get('/careers/teaching', [CareerApiController::class, 'getTeachingSection']);
 Route::get('/careers/benefits', [CareerApiController::class, 'getBenefits']);
-Route::get('/careers/why-join', [CareerApiController::class, 'getBenefits']);
-Route::get('/careers/benefits/{id}', [CareerApiController::class, 'showBenefit']);
 Route::get('/careers/how-to-apply', [CareerApiController::class, 'getApplicationProcess']);
-Route::get('/careers/application-process', [CareerApiController::class, 'getApplicationProcess']);
 Route::get('/careers/openings', [CareerApiController::class, 'getJobOpenings']);
-Route::get('/careers', [CareerApiController::class, 'getJobOpenings']);
-Route::get('/careers/openings/{id}', [CareerApiController::class, 'showOpening']);
 
 // Campus Tour & Life At JRS
 Route::get('/campus-tour', [CampusLifeApiController::class, 'index']);
@@ -102,21 +96,13 @@ Route::get('/why-choose', [WhyChooseApiController::class, 'index']);
 
 // Parent Teacher Association (PTA)
 Route::get('/pta-members', [PtaMemberApiController::class, 'index']);
-Route::get('/pta', [PtaMemberApiController::class, 'index']);
 
 // Gallery Page Endpoints (Albums & Media for React Frontend)
-Route::get('/gallery-page', [GalleryApiController::class, 'getPageData']);
-Route::get('/gallery', [GalleryApiController::class, 'getPageData']);
 Route::get('/gallery-albums', [GalleryApiController::class, 'getAlbums']);
-Route::get('/gallery-albums/{idOrSlug}', [GalleryApiController::class, 'getAlbum']);
 Route::get('/gallery-items', [GalleryApiController::class, 'getItems']);
 
 // News & Media Endpoints (Press Coverage & Achievements for React Frontend)
-Route::get('/media-page', [NewsMediaApiController::class, 'getPageData']);
 Route::get('/news-media', [NewsMediaApiController::class, 'getItems']);
-Route::get('/news-media/{id}', [NewsMediaApiController::class, 'show']);
-
-
 
 // Educational Society Managing Committee
 Route::get('/educational-society', [EducationalSocietyApiController::class, 'index']);
@@ -129,22 +115,18 @@ Route::get('/admission-banner', [AdmissionBannerApiController::class, 'index']);
 
 // Chairman of JRS - Leadership Page
 Route::get('/chairman', [ChairmanMessageApiController::class, 'index']);
-Route::get('/leadership/chairman', [ChairmanMessageApiController::class, 'index']);
 
 // Principal of JRS - Leadership Page
 Route::get('/principal', [PrincipalMessageApiController::class, 'index']);
-Route::get('/leadership/principal', [PrincipalMessageApiController::class, 'index']);
 
 // Mandatory Public Disclosure (CBSE Compliance & Statutory Certificates)
 Route::get('/mandatory-disclosure', [MandatoryDisclosureApiController::class, 'index']);
-Route::get('/mandatory-disclosures', [MandatoryDisclosureApiController::class, 'index']);
+
 // Admission Open Hero Section (Header) - Admission Page
 Route::get('/admission-hero', [AdmissionHeroApiController::class, 'index']);
-Route::get('/admission-open', [AdmissionHeroApiController::class, 'index']);
 
 // Admission Process (6 Steps) - Admission Page
 Route::get('/admission-process', [AdmissionStepApiController::class, 'index']);
-Route::get('/admission-steps', [AdmissionStepApiController::class, 'index']);
 
 // Admission Criteria & Guidelines - Admission Page
 Route::get('/admission-criteria', [AdmissionCriterionApiController::class, 'index']);
@@ -154,17 +136,13 @@ Route::get('/admission-faqs', [AdmissionFaqApiController::class, 'index']);
 
 // Admission Brochure (PDF & Link) - Admission Page
 Route::get('/admission-brochure', [AdmissionBrochureApiController::class, 'index']);
-Route::get('/brochure', [AdmissionBrochureApiController::class, 'index']);
 
 // Admission Popup Image - GET Endpoint
 Route::get('/admission-popup', [AdmissionPopupApiController::class, 'getPopup']);
-Route::get('/popup', [AdmissionPopupApiController::class, 'getPopup']);
 
 // Contact Us & Campus Location
 Route::get('/contact', [ContactApiController::class, 'index']);
-Route::get('/contact-us', [ContactApiController::class, 'index']);
 Route::post('/contact/inquiry', [ContactApiController::class, 'storeInquiry']);
-Route::post('/contact-inquiries', [ContactApiController::class, 'storeInquiry']);
 Route::get('/contact/grades', [ContactApiController::class, 'grades']);
 
 // Admission Form Enquiries (Submission & Options)
@@ -172,8 +150,6 @@ Route::post('/admission-enquiries', [AdmissionEnquiryApiController::class, 'stor
 Route::get('/admission-enquiries/options', [AdmissionEnquiryApiController::class, 'options']);
 
 // Breadcrumb Banners Endpoints (Frontend Read-Only)
+Route::get('/breadcrumb-banners', [BreadcrumbBannerApiController::class, 'index']);
 Route::get('/breadcrumb-banners/pages', [BreadcrumbBannerApiController::class, 'pages']);
 Route::get('/breadcrumb-banners/page/{slug}', [BreadcrumbBannerApiController::class, 'getBySlug'])->where('slug', '.*');
-Route::get('/breadcrumb-banners/by-slug/{slug}', [BreadcrumbBannerApiController::class, 'getBySlug'])->where('slug', '.*');
-Route::get('/breadcrumb-banners', [BreadcrumbBannerApiController::class, 'index']);
-Route::get('/breadcrumb-banners/{idOrSlug}', [BreadcrumbBannerApiController::class, 'show'])->where('idOrSlug', '.*');

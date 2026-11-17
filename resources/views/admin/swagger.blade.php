@@ -70,7 +70,7 @@
             </div>
             <div>
                 <h1>JRS International School — Swagger API Docs</h1>
-                <p>Interactive OpenAPI 3.0 documentation for public content APIs and enquiry submissions. Admin dashboard routes use separate session authentication.</p>
+                <p>Interactive OpenAPI 3.0 Documentation for Public & Admin REST Web Services</p>
             </div>
         </div>
     </div>

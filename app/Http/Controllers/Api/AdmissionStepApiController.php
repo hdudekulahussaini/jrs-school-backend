@@ -27,13 +27,6 @@ class AdmissionStepApiController extends Controller
 
         return response()->json([
             'success' => true,
-            'section' => [
-                'eyebrow'         => 'STEPS OF',
-                'title'           => 'Admission Process',
-                'title_prefix'    => 'Admission',
-                'title_highlight' => 'Process',
-                'description'     => 'Follow these simple steps to complete the admission process at JRS.',
-            ],
             'count'   => $data->count(),
             'data'    => $data,
         ], 200);

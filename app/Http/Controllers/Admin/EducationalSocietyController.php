@@ -45,11 +45,6 @@ class EducationalSocietyController extends Controller
     /**
      * [CREATE - Form] Display form to create a new committee member.
      */
-    public function show($id)
-    {
-        return redirect()->route('admin.educational-society.edit', $id);
-    }
-
     public function create()
     {
         return view('admin.educational-society.create');
@@ -75,7 +70,7 @@ class EducationalSocietyController extends Controller
 
         EducationalSocietyMember::create($validated);
 
-        flash()->success('Society committee member added successfully.', [], 'Member Added');
+        flash()->success('Society committee member added successfully.', 'Member Added');
 
         return redirect()->route('admin.educational-society.index')
             ->with('success', 'Committee member added successfully.');
@@ -124,7 +119,7 @@ class EducationalSocietyController extends Controller
 
         $member->update($validated);
 
-        flash()->success('Society committee member updated successfully.', [], 'Member Updated');
+        flash()->success('Society committee member updated successfully.', 'Member Updated');
 
         return redirect()->route('admin.educational-society.index')
             ->with('success', 'Committee member updated successfully.');
@@ -143,7 +138,7 @@ class EducationalSocietyController extends Controller
 
         $member->delete();
 
-        flash()->info('Society committee member deleted successfully.', [], 'Member Removed');
+        flash()->info('Society committee member deleted successfully.', 'Member Removed');
 
         return redirect()->route('admin.educational-society.index')
             ->with('success', 'Committee member deleted successfully.');

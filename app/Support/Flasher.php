@@ -219,74 +219,28 @@ class Flasher
     public function getMessages(): array
     {
         $sessionEnvelopes = Session::get(self::SESSION_KEY, []);
-        if (!is_array($sessionEnvelopes)) {
-            $sessionEnvelopes = [];
-        }
+        $allEnvelopes = array_merge($this->currentRequestEnvelopes, $sessionEnvelopes);
 
-        // Combine session envelopes and current request envelopes
-        $all = array_merge($sessionEnvelopes, $this->currentRequestEnvelopes);
-
-        // Deduplicate envelopes by unique ID and unique message text
+        // Deduplicate envelopes by id
         $unique = [];
-        $seenMessages = [];
-
-        foreach ($all as $env) {
-            if (!isset($env['message'])) {
-                continue;
-            }
-            $norm = strtolower(trim($env['message']));
-            if (!in_array($norm, $seenMessages)) {
-                $unique[] = $env;
-                $seenMessages[] = $norm;
-            }
+        foreach ($allEnvelopes as $env) {
+            $unique[$env['id']] = $env;
         }
 
-        $envelopes = $unique;
-
-        // ONLY fallback to auto-mapping generic session keys if NO explicit flasher envelope exists
-        if (empty($envelopes) && config('flasher.auto_render', true)) {
-            $flashBag = config('flasher.flash_bag', [
-                'success' => ['success', 'profile_success', 'email_success', 'password_success'],
-                'error' => ['error', 'danger'],
-                'warning' => ['warning', 'email_info'],
-                'info' => ['info', 'status', 'message'],
-            ]);
-
-            foreach ($flashBag as $type => $keys) {
-                foreach ($keys as $key) {
-                    if (Session::has($key)) {
-                        $val = Session::get($key);
-                        if (is_string($val) && trim($val) !== '') {
-                            $envelopes[] = [
-                                'id' => 'flasher_' . uniqid('', true),
-                                'type' => $type,
-                                'message' => $val,
-                                'title' => ucfirst($type),
-                                'options' => config("flasher.themes.theme.google.options", [
-                                    'timeout' => 5000,
-                                    'position' => 'top-right',
-                                    'progressBar' => true,
-                                    'ripple' => true,
-                                ]),
-                                'theme' => 'theme.google',
-                                'created_at' => microtime(true),
-                            ];
-                            break 2; // Only emit ONE single fallback notification
-                        }
-                    }
-                }
-            }
-        }
-
-        return $envelopes;
+        return array_values($unique);
     }
 
     /**
-     * Static method proxy for convenient calls like Flasher::success('...').
+     * Render the notifications using the material partial template.
      */
-    public static function __callStatic(string $method, array $arguments)
+    public function render(): string
     {
-        $instance = app(self::class);
-        return $instance->$method(...$arguments);
+        $envelopes = $this->getMessages();
+
+        if (empty($envelopes)) {
+            return '';
+        }
+
+        return view('admin.partials.flasher-material', ['envelopes' => $envelopes])->render();
     }
 }

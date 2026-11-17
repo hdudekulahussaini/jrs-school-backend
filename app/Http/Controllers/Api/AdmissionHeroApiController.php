@@ -22,27 +22,20 @@ class AdmissionHeroApiController extends Controller
             ], 404);
         }
 
-        $defaultYears = ['2026-2027', '2027-2028'];
-        $defaultTypes = ['DAY SCHOLAR', 'DAY BOARDING', 'RESIDENTIAL'];
-
-        $enquiryForm = [
-            'academic_years'  => !empty($hero->enquiry_academic_years) ? array_values($hero->enquiry_academic_years) : $defaultYears,
-            'admission_types' => !empty($hero->enquiry_admission_types) ? array_values($hero->enquiry_admission_types) : $defaultTypes,
-        ];
-
         return response()->json([
             'success' => true,
             'data'    => [
-                'id'            => $hero->id,
-                'location_tag'  => $hero->location_tag,
-                'title'         => $hero->title,
-                'academic_year' => $hero->academic_year,
-                'description'   => $hero->description,
-                'phone'         => $hero->phone,
-                'email'         => $hero->email,
-                'features'      => is_array($hero->features) ? array_values($hero->features) : [],
-                'trust_badges'  => is_array($hero->trust_badges) ? array_values($hero->trust_badges) : [],
-                'enquiry_form'  => $enquiryForm,
+                'id'                      => $hero->id,
+                'location_tag'            => $hero->location_tag,
+                'title'                   => $hero->title,
+                'academic_year'           => $hero->academic_year,
+                'description'             => $hero->description,
+                'phone'                   => $hero->phone,
+                'email'                   => $hero->email,
+                'features'                => is_array($hero->features) ? array_values($hero->features) : [],
+                'trust_badges'            => is_array($hero->trust_badges) ? array_values($hero->trust_badges) : [],
+                'enquiry_academic_years'  => !empty($hero->enquiry_academic_years) ? array_values($hero->enquiry_academic_years) : ['2026-2027', '2027-2028'],
+                'enquiry_admission_types' => !empty($hero->enquiry_admission_types) ? array_values($hero->enquiry_admission_types) : ['DAY SCHOLAR', 'DAY BOARDING', 'RESIDENTIAL'],
             ],
         ], 200);
     }

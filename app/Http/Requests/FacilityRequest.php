@@ -24,6 +24,7 @@ class FacilityRequest extends FormRequest
     public function rules(): array
     {
         $imageRule = [
+            'bail',
             'nullable',
             'file',
             'mimes:jpeg,png,jpg,webp,svg',
@@ -100,6 +101,33 @@ class FacilityRequest extends FormRequest
     }
 
     /**
+     * Configure the validator instance with custom upload error detection.
+     */
+    public function withValidator($validator): void
+    {
+        $validator->after(function ($validator) {
+            $maxIni = ini_get('upload_max_filesize') ?: '2M';
+
+            // Check main image PHP upload errors
+            if (isset($_FILES['image']['error'])) {
+                $err = $_FILES['image']['error'];
+                if ($err === UPLOAD_ERR_INI_SIZE || $err === UPLOAD_ERR_FORM_SIZE) {
+                    $validator->errors()->add('image', "The facility photograph exceeds the server limit ({$maxIni}). Please compress the image or upload a smaller file.");
+                }
+            }
+
+            // Check gallery images PHP upload errors
+            if (isset($_FILES['gallery_images']['error']) && is_array($_FILES['gallery_images']['error'])) {
+                foreach ($_FILES['gallery_images']['error'] as $idx => $err) {
+                    if ($err === UPLOAD_ERR_INI_SIZE || $err === UPLOAD_ERR_FORM_SIZE) {
+                        $validator->errors()->add("gallery_images.{$idx}", "Gallery photo #" . ($idx + 1) . " exceeds the server limit ({$maxIni}). Please compress the image or upload a smaller file.");
+                    }
+                }
+            }
+        });
+    }
+
+    /**
      * Custom attribute names for validation errors.
      */
     public function attributes(): array
@@ -124,11 +152,13 @@ class FacilityRequest extends FormRequest
             'image.image' => 'The facility photograph must be a valid image file.',
             'image.mimes' => 'The facility photograph must be a file of type: JPG, JPEG, PNG, WEBP, or SVG.',
             'image.max' => 'The facility image size cannot exceed 6MB.',
+            'image.uploaded' => 'The facility photograph failed to upload because its file size exceeds the PHP server upload limit (' . (ini_get('upload_max_filesize') ?: '2M') . '). Please upload a smaller image or increase upload_max_filesize in php.ini.',
             'gallery_images.array' => 'Gallery images must be provided as a list of files.',
             'gallery_images.*.file' => 'Each gallery photo must be a valid uploaded file.',
             'gallery_images.*.image' => 'Each gallery photo must be a valid image file.',
             'gallery_images.*.mimes' => 'Gallery images must be JPG, JPEG, PNG, WEBP, or SVG.',
             'gallery_images.*.max' => 'Each gallery image must not exceed 6MB.',
+            'gallery_images.*.uploaded' => 'The gallery photo failed to upload because its file size exceeds the PHP server upload limit (' . (ini_get('upload_max_filesize') ?: '2M') . '). Please upload a smaller image or increase upload_max_filesize in php.ini.',
             'sort_order.integer' => 'Sort order must be an integer.',
         ];
     }

@@ -3,7 +3,6 @@
     $label = $label ?? 'Image';
     $current = $current ?? null;
     $required = $required ?? false;
-    $showNoPreviewText = $show_no_preview_text ?? true;
 @endphp
 
 <div class="space-y-2 admin-image-box">
@@ -27,9 +26,7 @@
             <span class="block text-[10px] font-bold text-emerald-600 uppercase tracking-wider">New</span>
             <div class="w-24 h-20 rounded-lg border border-slate-200 bg-white flex items-center justify-center overflow-hidden shadow-xs">
                 <img src="" alt="New Preview" class="new-preview-img w-full h-full object-cover hidden">
-                @if($showNoPreviewText)
-                    <span class="no-preview-text text-[10px] text-slate-400">No Image</span>
-                @endif
+                <span class="no-preview-text text-[10px] text-slate-400">No Image</span>
             </div>
         </div>
 

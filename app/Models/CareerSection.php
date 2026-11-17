@@ -24,9 +24,7 @@ class CareerSection extends Model
 
     protected $casts = [];
 
-    protected $appends = [
-        'image_full_url',
-    ];
+    protected $appends = [];
 
     /**
      * Compute full URL for image

@@ -36,10 +36,11 @@ class AboutSectionController extends Controller
 
         $allSections = $query->orderBy('is_active', 'desc')->orderBy('id', 'desc')->paginate(10)->withQueryString();
         $totalCount = AboutSection::count();
-        $hasAboutSection = $totalCount > 0;
         $activeCount = AboutSection::where('is_active', true)->count();
         $inactiveCount = AboutSection::where('is_active', false)->count();
-        return view('admin.about.index', compact('allSections', 'totalCount', 'hasAboutSection', 'activeCount', 'inactiveCount'));
+        $about = AboutSection::where('is_active', true)->first() ?? AboutSection::first();
+
+        return view('admin.about.index', compact('about', 'allSections', 'totalCount', 'activeCount', 'inactiveCount'));
     }
 
     /**
@@ -47,11 +48,6 @@ class AboutSectionController extends Controller
      */
     public function create()
     {
-        if (AboutSection::query()->exists()) {
-            return redirect()->route('admin.about.index')
-                ->withErrors(['about' => 'Only one About JRS record is allowed. Edit or delete the existing record first.']);
-        }
-
         return view('admin.about.create');
     }
 
@@ -60,11 +56,6 @@ class AboutSectionController extends Controller
      */
     public function store(AboutSectionRequest $request)
     {
-        if (AboutSection::query()->exists()) {
-            return redirect()->route('admin.about.index')
-                ->withErrors(['about' => 'Only one About JRS record is allowed. Edit or delete the existing record first.']);
-        }
-
         $validated = $request->validated();
         $validated['is_active'] = $request->has('is_active') ? (bool)$request->is_active : true;
 
@@ -96,7 +87,7 @@ class AboutSectionController extends Controller
 
         AboutSection::create($validated);
 
-        flash()->success('About JRS section content saved successfully.', [], 'About Saved');
+        flash()->success('About JRS section content saved successfully.', 'About Saved');
 
         return redirect()->route('admin.about.index')
             ->with('success', 'About JRS section content saved successfully.');
@@ -156,7 +147,7 @@ class AboutSectionController extends Controller
 
         $about->update($validated);
 
-        flash()->success('About JRS section content updated successfully.', [], 'About Updated');
+        flash()->success('About JRS section content updated successfully.', 'About Updated');
 
         return redirect()->route('admin.about.index')
             ->with('success', 'About JRS section content updated successfully.');
@@ -170,7 +161,7 @@ class AboutSectionController extends Controller
         $about = AboutSection::findOrFail($id);
         $about->delete();
 
-        flash()->info('About section entry deleted.', [], 'About Removed');
+        flash()->info('About section entry deleted.', 'About Removed');
 
         return redirect()->route('admin.about.index')
             ->with('success', 'About section entry deleted.');
@@ -188,10 +179,10 @@ class AboutSectionController extends Controller
             // Only one active section allowed for homepage
             AboutSection::where('id', '!=', $id)->update(['is_active' => false]);
             $section->save();
-            flash()->success('About section set as Live on homepage.', [], 'Section Activated');
+            flash()->success('About section set as Live on homepage.', 'Section Activated');
         } else {
             $section->save();
-            flash()->warning('About section set as Inactive.', [], 'Section Deactivated');
+            flash()->warning('About section set as Inactive.', 'Section Deactivated');
         }
 
         return redirect()->back()

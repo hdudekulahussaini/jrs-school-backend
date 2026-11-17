@@ -45,11 +45,6 @@ class SchoolManagementCommitteeController extends Controller
     /**
      * [CREATE - Form] Display form to create a new committee member.
      */
-    public function show($id)
-    {
-        return redirect()->route('admin.school-management-committee.edit', $id);
-    }
-
     public function create()
     {
         return view('admin.school-management-committee.create');
@@ -75,7 +70,7 @@ class SchoolManagementCommitteeController extends Controller
 
         SchoolManagementMember::create($validated);
 
-        flash()->success('School Management Committee member added successfully.', [], 'Member Added');
+        flash()->success('School Management Committee member added successfully.', 'Member Added');
 
         return redirect()->route('admin.school-management-committee.index')
             ->with('success', 'School Management Committee member added successfully.');
@@ -124,7 +119,7 @@ class SchoolManagementCommitteeController extends Controller
 
         $member->update($validated);
 
-        flash()->success('Committee member updated successfully.', [], 'Member Updated');
+        flash()->success('Committee member updated successfully.', 'Member Updated');
 
         return redirect()->route('admin.school-management-committee.index')
             ->with('success', 'Committee member updated successfully.');
@@ -143,7 +138,7 @@ class SchoolManagementCommitteeController extends Controller
 
         $member->delete();
 
-        flash()->info('Committee member deleted successfully.', [], 'Member Removed');
+        flash()->info('Committee member deleted successfully.', 'Member Removed');
 
         return redirect()->route('admin.school-management-committee.index')
             ->with('success', 'Committee member deleted successfully.');

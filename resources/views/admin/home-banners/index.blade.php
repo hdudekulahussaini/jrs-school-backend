@@ -88,11 +88,8 @@
             </p>
         </div>
 
-        <form action="{{ $formAction }}" method="POST" enctype="multipart/form-data" class="p-6 space-y-6">
+        <form action="{{ route('admin.home-banner.store') }}" method="POST" enctype="multipart/form-data" class="p-6 space-y-6">
             @csrf
-            @if($formMethod)
-                @method($formMethod)
-            @endif
 
             <!-- Single Image Upload Dropzone -->
             <div class="space-y-3">

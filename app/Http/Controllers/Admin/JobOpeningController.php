@@ -47,7 +47,7 @@ class JobOpeningController extends Controller
 
         JobOpening::create($validated);
 
-        flash()->success('Job opening posted successfully.', [], 'Opening Posted');
+        flash()->success('Job opening posted successfully.', 'Opening Posted');
 
         return redirect()->route('admin.job-openings.index')
             ->with('success', 'Job opening posted successfully.');
@@ -73,7 +73,7 @@ class JobOpeningController extends Controller
 
         $opening->update($validated);
 
-        flash()->success('Job opening updated successfully.', [], 'Opening Updated');
+        flash()->success('Job opening updated successfully.', 'Opening Updated');
 
         return redirect()->route('admin.job-openings.index')
             ->with('success', 'Job opening updated successfully.');
@@ -84,7 +84,7 @@ class JobOpeningController extends Controller
         $opening = JobOpening::findOrFail($id);
         $opening->delete();
 
-        flash()->info('Job opening deleted successfully.', [], 'Opening Removed');
+        flash()->info('Job opening deleted successfully.', 'Opening Removed');
 
         return redirect()->route('admin.job-openings.index')
             ->with('success', 'Job opening deleted.');

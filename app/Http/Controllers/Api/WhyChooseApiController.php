@@ -21,6 +21,7 @@ class WhyChooseApiController extends Controller
         $cards = $all->map(function ($item) {
             return [
                 'id' => $item->id,
+                'type' => $item->type,
                 'title' => $item->title,
                 'description' => $item->description,
                 'icon' => $item->icon,
@@ -32,13 +33,7 @@ class WhyChooseApiController extends Controller
 
         return response()->json([
             'success' => true,
-            'section' => [
-                'eyebrow' => 'WHY CHOOSE JRS',
-                'title' => 'What Makes JRS Different?',
-                'title_highlight' => 'Different?',
-            ],
             'count' => $cards->count(),
-            'cards' => $cards,
             'data' => $cards,
         ], 200);
     }

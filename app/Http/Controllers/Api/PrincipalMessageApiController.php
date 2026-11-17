@@ -32,45 +32,6 @@ class PrincipalMessageApiController extends Controller
             'success' => true,
             'data' => [
                 'id' => $principal->id,
-                'is_active' => (bool)$principal->is_active,
-
-                // Document Header
-                'document_header' => [
-                    'desk_title' => $principal->desk_title,
-                    'desk_subtitle' => $principal->desk_subtitle,
-                    'official_address_badge' => $principal->official_address_badge,
-                    'academic_year' => $principal->academic_year,
-                ],
-
-                // Academic Leadership Profile Card (Left column)
-                'profile' => [
-                    'card_badge' => $principal->card_badge,
-                    'profile_badge' => $principal->profile_badge,
-                    'name' => $principal->name,
-                    'sub_title' => $principal->sub_title,
-                    'image_url' => $principal->image_full_url,
-                    'image_path' => $principal->image_path,
-                ],
-
-                // Principal's Message & Address (Right column / document)
-                'message' => [
-                    'section_badge' => $principal->section_badge,
-                    'title' => $principal->title,
-                    'salutation' => $principal->salutation,
-                    'paragraph' => $principal->paragraph,
-                    'paragraphs' => $principal->paragraphs,
-                    'quote' => $principal->quote,
-                ],
-
-                // Official Sign-off & Stamp
-                'signoff' => [
-                    'note' => $principal->signoff_note,
-                    'signature' => $principal->signoff_signature,
-                    'name' => $principal->signoff_name,
-                    'sub_title' => $principal->signoff_sub,
-                ],
-
-                // Flat fields for straightforward single-variable binding
                 'desk_title' => $principal->desk_title,
                 'desk_subtitle' => $principal->desk_subtitle,
                 'official_address_badge' => $principal->official_address_badge,
@@ -82,14 +43,14 @@ class PrincipalMessageApiController extends Controller
                 'profile_badge' => $principal->profile_badge,
                 'name' => $principal->name,
                 'sub_title' => $principal->sub_title,
-                'image_url' => $principal->image_full_url,
+                'image_path' => $principal->image_path,
                 'paragraph' => $principal->paragraph,
                 'quote' => $principal->quote,
                 'signoff_note' => $principal->signoff_note,
                 'signoff_signature' => $principal->signoff_signature,
                 'signoff_name' => $principal->signoff_name,
                 'signoff_sub' => $principal->signoff_sub,
-                'updated_at' => $principal->updated_at,
+                'is_active' => (bool)$principal->is_active,
             ],
         ], 200);
     }

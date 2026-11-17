@@ -37,10 +37,7 @@ class ChairmanMessage extends Model
         'is_active' => 'boolean',
     ];
 
-    protected $appends = [
-        'image_full_url',
-        'paragraphs',
-    ];
+    protected $appends = [];
 
     /**
      * Compute full URL for the chairman's portrait photo.

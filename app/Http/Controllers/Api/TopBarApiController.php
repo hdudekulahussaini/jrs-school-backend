@@ -27,40 +27,14 @@ class TopBarApiController extends Controller
             'success' => true,
             'message' => 'Top Bar configuration retrieved successfully',
             'data' => [
-                'phone' => [
-                    'label' => $topBar->phone,
-                    'href' => 'tel:' . preg_replace('/[^0-9+]/', '', $topBar->phone),
-                    'highlight_color' => '#e31e24', // JRS Red
-                ],
-                'phone_2' => !empty($topBar->phone_2) ? [
-                    'label' => $topBar->phone_2,
-                    'href' => 'tel:' . preg_replace('/[^0-9+]/', '', $topBar->phone_2),
-                    'highlight_color' => '#e31e24',
-                ] : null,
-                'phones' => array_values(array_filter([
-                    [
-                        'label' => $topBar->phone,
-                        'href' => 'tel:' . preg_replace('/[^0-9+]/', '', $topBar->phone),
-                        'highlight_color' => '#e31e24',
-                    ],
-                    !empty($topBar->phone_2) ? [
-                        'label' => $topBar->phone_2,
-                        'href' => 'tel:' . preg_replace('/[^0-9+]/', '', $topBar->phone_2),
-                        'highlight_color' => '#e31e24',
-                    ] : null,
-                ])),
-                'email' => [
-                    'label' => $topBar->email,
-                    'href' => 'mailto:' . $topBar->email,
-                ],
-                'affiliation' => [
-                    'label' => $topBar->cbse_affiliation_text,
-                ],
-                'school_prospectus' => [
-                    'label' => $topBar->prospectus_title,
-                    'url' => $topBar->prospectus_link,
-                    'is_file' => !empty($topBar->prospectus_file),
-                ],
+                'id' => $topBar->id,
+                'phone' => $topBar->phone,
+                'phone_2' => $topBar->phone_2,
+                'email' => $topBar->email,
+                'cbse_affiliation_text' => $topBar->cbse_affiliation_text,
+                'prospectus_title' => $topBar->prospectus_title,
+                'prospectus_url' => $topBar->prospectus_url,
+                'prospectus_file' => $topBar->prospectus_file,
                 'is_active' => (bool) $topBar->is_active,
             ],
         ], 200, [], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);

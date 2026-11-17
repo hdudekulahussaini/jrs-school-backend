@@ -39,18 +39,20 @@
                     Enquiry for {{ $admissionEnquiry->grade }}
                 </h1>
                 <p class="text-xs text-slate-500">
-                    Received {{ $admissionEnquiry->created_at->timezone(config('app.display_timezone'))->format('M d, Y \a\t h:i A T') }} ({{ $admissionEnquiry->created_at->diffForHumans() }})
+                    Received {{ $admissionEnquiry->created_at->format('M d, Y \a\t h:i A') }} ({{ $admissionEnquiry->created_at->diffForHumans() }})
                 </p>
             </div>
         </div>
 
         @php
-            $mobileNumber = preg_replace('/[^0-9]/', '', (string) $admissionEnquiry->parent_mobile);
-            $whatsappNumber = strlen($mobileNumber) === 10 ? '91' . $mobileNumber : $mobileNumber;
+            $cleanCountry = preg_replace('/[^0-9]/', '', (string)($admissionEnquiry->country_code ?? '91'));
+            $cleanMobile = preg_replace('/[^0-9]/', '', (string)$admissionEnquiry->parent_mobile);
+            $fullPhone = ($admissionEnquiry->country_code ?? '+91') . $admissionEnquiry->parent_mobile;
+            $whatsappNumber = $cleanCountry . $cleanMobile;
         @endphp
 
         <div class="flex items-center gap-2">
-            <a href="tel:{{ preg_replace('/[^0-9+]/', '', (string) $admissionEnquiry->parent_mobile) }}"
+            <a href="tel:{{ $fullPhone }}"
                class="px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold rounded-lg transition-colors inline-flex items-center gap-1.5 shadow-xs">
                 <i class="bi bi-telephone-fill"></i>
                 <span>Call Parent</span>
@@ -162,14 +164,23 @@
                     <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wider">Parent Contact Details</h3>
                 </div>
 
-                <div class="grid grid-cols-1 gap-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200/70">
                         <span class="text-[10px] uppercase font-bold text-slate-400 tracking-wider block mb-1">
                             <i class="bi bi-phone mr-1"></i>Parent Mobile Number
                         </span>
-                        <a href="tel:{{ preg_replace('/[^0-9+]/', '', (string) $admissionEnquiry->parent_mobile) }}" class="text-base font-extrabold text-jrs-navy hover:text-jrs-red transition-colors inline-flex items-center gap-1.5">
-                            <span>{{ $admissionEnquiry->parent_mobile }}</span>
+                        <a href="tel:{{ $fullPhone }}" class="text-base font-extrabold text-jrs-navy hover:text-jrs-red transition-colors inline-flex items-center gap-1.5">
+                            <span>{{ $admissionEnquiry->country_code ?? '+91' }} {{ $admissionEnquiry->parent_mobile }}</span>
                         </a>
+                    </div>
+
+                    <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200/70">
+                        <span class="text-[10px] uppercase font-bold text-slate-400 tracking-wider block mb-1">
+                            <i class="bi bi-globe mr-1"></i>Country Code
+                        </span>
+                        <p class="text-base font-bold text-slate-800 font-mono">
+                            {{ $admissionEnquiry->country_code ?? '+91' }}
+                        </p>
                     </div>
                 </div>
             </div>
@@ -250,12 +261,12 @@
 
                     <div class="flex items-center justify-between">
                         <span class="text-slate-400">Submitted At</span>
-                        <span class="font-medium text-slate-700">{{ $admissionEnquiry->created_at->timezone(config('app.display_timezone'))->format('d M Y, h:i A T') }}</span>
+                        <span class="font-medium text-slate-700">{{ $admissionEnquiry->created_at->format('d M Y, h:i A') }}</span>
                     </div>
 
                     <div class="flex items-center justify-between">
                         <span class="text-slate-400">Last Updated</span>
-                        <span class="font-medium text-slate-700">{{ $admissionEnquiry->updated_at->timezone(config('app.display_timezone'))->format('d M Y, h:i A T') }}</span>
+                        <span class="font-medium text-slate-700">{{ $admissionEnquiry->updated_at->format('d M Y, h:i A') }}</span>
                     </div>
 
                     <div class="flex items-center justify-between">
@@ -271,3 +282,4 @@
 
 </div>
 @endsection
+

@@ -157,10 +157,10 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::get('/admission-brochure', [AdmissionBrochureController::class, 'index'])->name('admin.admission-brochure.index');
     Route::put('/admission-brochure', [AdmissionBrochureController::class, 'update'])->name('admin.admission-brochure.update');
 
-    // Admission Popup Image
+    // Admission Popup (Modal Design)
     Route::get('/admission-popup', [AdmissionPopupController::class, 'index'])->name('admin.admission-popup.index');
-    Route::post('/admission-popup', [AdmissionPopupController::class, 'store'])->name('admin.admission-popup.store');
-    Route::delete('/admission-popup/image', [AdmissionPopupController::class, 'destroyImage'])->name('admin.admission-popup.image.destroy');
+    Route::put('/admission-popup', [AdmissionPopupController::class, 'update'])->name('admin.admission-popup.update');
+    Route::post('/admission-popup/toggle', [AdmissionPopupController::class, 'toggle'])->name('admin.admission-popup.toggle');
 
     // Admission Form Enquiries CRM
     Route::delete('/admission-enquiries/bulk-delete', [AdmissionEnquiryController::class, 'bulkDestroy'])->name('admin.admission-enquiries.bulk-destroy');
@@ -168,20 +168,14 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
 
     // Chairman of JRS - Leadership Page Sections
     Route::get('/chairman', [ChairmanMessageController::class, 'index'])->name('admin.chairman.index');
-    Route::get('/chairman/create', [ChairmanMessageController::class, 'create'])->name('admin.chairman.create');
-    Route::post('/chairman', [ChairmanMessageController::class, 'store'])->name('admin.chairman.store');
     Route::get('/chairman/{id}/edit', [ChairmanMessageController::class, 'edit'])->name('admin.chairman.edit');
     Route::put('/chairman/{id}', [ChairmanMessageController::class, 'update'])->name('admin.chairman.update');
-    Route::delete('/chairman/{id}', [ChairmanMessageController::class, 'destroy'])->name('admin.chairman.destroy');
     Route::post('/chairman/{id}/toggle', [ChairmanMessageController::class, 'toggle'])->name('admin.chairman.toggle');
 
     // Principal of JRS - Leadership Page Sections
     Route::get('/principal', [PrincipalMessageController::class, 'index'])->name('admin.principal.index');
-    Route::get('/principal/create', [PrincipalMessageController::class, 'create'])->name('admin.principal.create');
-    Route::post('/principal', [PrincipalMessageController::class, 'store'])->name('admin.principal.store');
     Route::get('/principal/{id}/edit', [PrincipalMessageController::class, 'edit'])->name('admin.principal.edit');
     Route::put('/principal/{id}', [PrincipalMessageController::class, 'update'])->name('admin.principal.update');
-    Route::delete('/principal/{id}', [PrincipalMessageController::class, 'destroy'])->name('admin.principal.destroy');
     Route::post('/principal/{id}/toggle', [PrincipalMessageController::class, 'toggle'])->name('admin.principal.toggle');
 
     // Academic Programs Full CRUD Resource
@@ -204,9 +198,9 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::resource('/events', SchoolEventController::class)->names('admin.events');
     Route::post('/events/{id}/toggle', [SchoolEventController::class, 'toggle'])->name('admin.events.toggle');
 
-    // Careers Page - Teaching at JRS Overview (single record, no toggle, no show page)
-    Route::resource('/careers-teaching', CareerSectionController::class)->except(['show'])->names('admin.careers-teaching');
-    Route::get('/careers-teaching/{id}', fn($id) => redirect()->route('admin.careers-teaching.edit', $id));
+    // Careers Page - Teaching at JRS Overview Full CRUD Resource
+    Route::resource('/careers-teaching', CareerSectionController::class)->names('admin.careers-teaching');
+    Route::post('/careers-teaching/{id}/toggle', [CareerSectionController::class, 'toggle'])->name('admin.careers-teaching.toggle');
 
     // Careers Page - Work Culture & Benefits Full CRUD Resource
     Route::resource('/careers-benefits', CareerBenefitController::class)->names('admin.careers-benefits');

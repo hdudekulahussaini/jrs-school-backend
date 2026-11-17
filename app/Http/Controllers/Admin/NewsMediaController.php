@@ -22,11 +22,6 @@ class NewsMediaController extends Controller
     /**
      * Show form to create a new news/media article.
      */
-    public function show($id)
-    {
-        return redirect()->route('admin.news-media.edit', $id);
-    }
-
     public function create()
     {
         return redirect()->route('admin.news-media.index');
@@ -77,7 +72,7 @@ class NewsMediaController extends Controller
             }
         }
 
-        flash()->success('News & Media photos saved successfully.', [], 'Media Saved');
+        flash()->success('News & Media photos saved successfully.', 'Media Saved');
 
         return redirect()->route('admin.news-media.index')
             ->with('success', 'News & Media photos saved successfully.');
@@ -123,7 +118,7 @@ class NewsMediaController extends Controller
 
         $item->update($validated);
 
-        flash()->success('News & Media article updated successfully.', [], 'Article Updated');
+        flash()->success('News & Media article updated successfully.', 'Article Updated');
 
         return redirect()->route('admin.news-media.index')
             ->with('success', 'News & Media article updated successfully.');
@@ -145,7 +140,7 @@ class NewsMediaController extends Controller
 
         $item->delete();
 
-        flash()->info('News & Media article deleted successfully.', [], 'Article Removed');
+        flash()->info('News & Media article deleted successfully.', 'Article Removed');
 
         return redirect()->route('admin.news-media.index')
             ->with('success', 'News & Media article deleted successfully.');
@@ -161,9 +156,9 @@ class NewsMediaController extends Controller
         $item->save();
 
         if ($item->is_active) {
-            flash()->success('Article status changed to Active.', [], 'Status Updated');
+            flash()->success('Article status changed to Active.', 'Status Updated');
         } else {
-            flash()->warning('Article status changed to Inactive.', [], 'Status Inactive');
+            flash()->warning('Article status changed to Inactive.', 'Status Inactive');
         }
 
         if (request()->wantsJson()) {

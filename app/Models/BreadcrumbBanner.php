@@ -23,9 +23,7 @@ class BreadcrumbBanner extends Model
 
     protected $casts = [];
 
-    protected $appends = [
-        'background_image_url',
-    ];
+    protected $appends = [];
 
     /**
      * Relationship to dynamic stats cards (e.g. Year of Establishment, CBSE Affiliation No.)
@@ -58,7 +56,8 @@ class BreadcrumbBanner extends Model
     public function getBackgroundImageUrlAttribute(): ?string
     {
         if (empty($this->background_image)) {
-            return null;
+            // Default school campus banner artwork fallback
+            return asset('images/amenities/cta-banner.png');
         }
 
         if (str_starts_with($this->background_image, 'http://') || str_starts_with($this->background_image, 'https://')) {

@@ -16,6 +16,7 @@ class AdmissionEnquiry extends Model
         'branch',
         'admission_type',
         'grade',
+        'country_code',
         'parent_mobile',
         'student_dob',
         'status',

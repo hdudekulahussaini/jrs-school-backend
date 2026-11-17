@@ -20,7 +20,10 @@ class CampusLifeController extends Controller
 
         if ($request->filled('search')) {
             $term = $request->search;
-            $query->where('title', 'like', "%{$term}%");
+            $query->where(function ($q) use ($term) {
+                $q->where('title', 'like', "%{$term}%")
+                  ->orWhere('subtitle', 'like', "%{$term}%");
+            });
         }
 
         $items = $query->orderBy('sort_order', 'asc')
@@ -36,11 +39,6 @@ class CampusLifeController extends Controller
     /**
      * [CREATE - Form] Display form to create a new card.
      */
-    public function show($id)
-    {
-        return redirect()->route('admin.campus-life.edit', $id);
-    }
-
     public function create()
     {
         $nextOrder = (CampusLife::max('sort_order') ?? 0) + 1;
@@ -69,7 +67,7 @@ class CampusLifeController extends Controller
 
         CampusLife::create($validated);
 
-        flash()->success('Campus Tour & Life card created successfully.', [], 'Card Created');
+        flash()->success('Campus Tour & Life card created successfully.', 'Card Created');
 
         return redirect()->route('admin.campus-life.index')
             ->with('success', 'Campus Tour & Life card created successfully.');
@@ -111,7 +109,7 @@ class CampusLifeController extends Controller
 
         $item->update($validated);
 
-        flash()->success('Campus Tour & Life card updated successfully.', [], 'Card Updated');
+        flash()->success('Campus Tour & Life card updated successfully.', 'Card Updated');
 
         return redirect()->route('admin.campus-life.index')
             ->with('success', 'Campus Tour & Life card updated successfully.');
@@ -130,7 +128,7 @@ class CampusLifeController extends Controller
 
         $item->delete();
 
-        flash()->info('Campus Tour & Life card deleted successfully.', [], 'Card Removed');
+        flash()->info('Campus Tour & Life card deleted successfully.', 'Card Removed');
 
         return redirect()->route('admin.campus-life.index')
             ->with('success', 'Campus Tour & Life card deleted successfully.');

@@ -26,11 +26,6 @@ class CareerBenefitController extends Controller
     /**
      * Show the form for creating a new benefit.
      */
-    public function show($id)
-    {
-        return redirect()->route('admin.careers-benefits.edit', $id);
-    }
-
     public function create()
     {
         $icons = CareerBenefit::availableIcons();
@@ -49,7 +44,7 @@ class CareerBenefitController extends Controller
 
         CareerBenefit::create($validated);
 
-        flash()->success('Work Culture & Benefit item added successfully.', [], 'Benefit Added');
+        flash()->success('Work Culture & Benefit item added successfully.', 'Benefit Added');
 
         return redirect()->route('admin.careers-benefits.index')
             ->with('success', 'Work Culture & Benefit item added successfully.');
@@ -80,7 +75,7 @@ class CareerBenefitController extends Controller
 
         $careers_benefit->update($validated);
 
-        flash()->success('Work Culture & Benefit item updated successfully.', [], 'Benefit Updated');
+        flash()->success('Work Culture & Benefit item updated successfully.', 'Benefit Updated');
 
         return redirect()->route('admin.careers-benefits.index')
             ->with('success', 'Work Culture & Benefit item updated successfully.');
@@ -93,7 +88,7 @@ class CareerBenefitController extends Controller
     {
         $careers_benefit->delete();
 
-        flash()->info('Work Culture & Benefit item deleted successfully.', [], 'Benefit Removed');
+        flash()->info('Work Culture & Benefit item deleted successfully.', 'Benefit Removed');
 
         return redirect()->route('admin.careers-benefits.index')
             ->with('success', 'Work Culture & Benefit item deleted successfully.');
@@ -109,9 +104,9 @@ class CareerBenefitController extends Controller
         $benefit->save();
 
         if ($benefit->is_active) {
-            flash()->success('Status activated for "' . $benefit->title . '".', [], 'Status Updated');
+            flash()->success('Status activated for "' . $benefit->title . '".', 'Status Updated');
         } else {
-            flash()->warning('Status deactivated for "' . $benefit->title . '".', [], 'Status Inactive');
+            flash()->warning('Status deactivated for "' . $benefit->title . '".', 'Status Inactive');
         }
 
         return redirect()->back()->with('success', 'Status updated for "' . $benefit->title . '".');

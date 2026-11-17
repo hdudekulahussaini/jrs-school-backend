@@ -116,7 +116,7 @@ class TopBarController extends Controller
         $topBar->fill($validated);
         $topBar->save();
 
-        flash()->success('Header Top Bar settings updated successfully.', [], 'Settings Saved');
+        flash()->success('Header Top Bar settings updated successfully.', 'Settings Saved');
 
         return redirect()->route('admin.top-bar.index')
             ->with('success', 'Header Top Bar settings updated successfully.');

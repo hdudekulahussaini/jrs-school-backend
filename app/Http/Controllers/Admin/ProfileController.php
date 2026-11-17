@@ -39,7 +39,7 @@ class ProfileController extends Controller
         $user->name = trim($validated['name']);
         $user->save();
 
-        flash()->success('Personal profile name updated successfully!', [], 'Profile Updated');
+        flash()->success('Personal profile name updated successfully!', 'Profile Updated');
 
         return redirect()->route('admin.profile.index');
     }
@@ -69,7 +69,7 @@ class ProfileController extends Controller
         $newEmail = strtolower(trim($validated['email']));
 
         if ($user->email === $newEmail) {
-            flash()->warning('The email address is identical to your current email.', [], 'No Changes Made');
+            flash()->warning('The email address is identical to your current email.', 'No Changes Made');
 
             return redirect()->route('admin.profile.index');
         }
@@ -77,7 +77,7 @@ class ProfileController extends Controller
         $user->email = $newEmail;
         $user->save();
 
-        flash()->success('Email address updated successfully!', [], 'Email Updated');
+        flash()->success('Email address updated successfully!', 'Email Updated');
 
         return redirect()->route('admin.profile.index');
     }
@@ -103,7 +103,7 @@ class ProfileController extends Controller
         ]);
 
         if (!Hash::check($request->current_password, $user->password)) {
-            flash()->error('The provided current password does not match our records.', [], 'Authentication Error');
+            flash()->error('The provided current password does not match our records.', 'Authentication Error');
 
             return back()->withErrors([
                 'current_password' => 'The provided current password does not match our records.',
@@ -113,7 +113,7 @@ class ProfileController extends Controller
         $user->password = Hash::make($request->password);
         $user->save();
 
-        flash()->success('Password changed successfully! Keep your credentials safe.', [], 'Security Updated');
+        flash()->success('Password changed successfully! Keep your credentials safe.', 'Security Updated');
 
         return redirect()->route('admin.profile.index');
     }

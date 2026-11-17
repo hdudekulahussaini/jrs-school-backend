@@ -101,7 +101,7 @@ class Gallery360Controller extends Controller
         }
 
         if (function_exists('flash')) {
-            flash()->success('360 Deg Campus photos saved successfully.', [], 'Photos Saved');
+            flash()->success('360 Deg Campus photos saved successfully.', 'Photos Saved');
         }
 
         return redirect()->route('admin.gallery-360.index')

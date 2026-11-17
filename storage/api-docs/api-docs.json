@@ -536,41 +536,16 @@
                             "application/json": {
                                 "example": {
                                     "success": true,
+                                    "message": "Top Bar configuration retrieved successfully",
                                     "data": {
-                                        "phone": {
-                                            "label": "+91 915740 43210",
-                                            "href": "tel:+9191574043210",
-                                            "highlight_color": "#e31e24"
-                                        },
-                                        "phone_2": {
-                                            "label": "+91 915740 43211",
-                                            "href": "tel:+9191574043211",
-                                            "highlight_color": "#e31e24"
-                                        },
-                                        "phones": [
-                                            {
-                                                "label": "+91 915740 43210",
-                                                "href": "tel:+9191574043210",
-                                                "highlight_color": "#e31e24"
-                                            },
-                                            {
-                                                "label": "+91 915740 43211",
-                                                "href": "tel:+9191574043211",
-                                                "highlight_color": "#e31e24"
-                                            }
-                                        ],
-                                        "email": {
-                                            "label": "info@jrsinternationalschool.com",
-                                            "href": "mailto:info@jrsinternationalschool.com"
-                                        },
-                                        "affiliation": {
-                                            "label": "CBSE Affiliated School"
-                                        },
-                                        "school_prospectus": {
-                                            "label": "School Prospectus",
-                                            "url": "https://jrsinternationalschool.com/school-prospectus.pdf",
-                                            "is_file": false
-                                        },
+                                        "id": 1,
+                                        "phone": "+91 92814 09674",
+                                        "phone_2": "+91 92814 09675",
+                                        "email": "admissions@jrs.ac.in",
+                                        "cbse_affiliation_text": "CBSE AFFILIATION: 3630478 \u2022 SCHOOL CODE: 56725",
+                                        "prospectus_title": "School Prospectus 2027-28",
+                                        "prospectus_url": "https://example.com/prospectus.pdf",
+                                        "prospectus_file": "uploads/top-bar/prospectus.pdf",
                                         "is_active": true
                                     }
                                 },
@@ -929,9 +904,8 @@
                                     "success": true,
                                     "data": {
                                         "id": 1,
-                                        "image_path": "uploads/home_banners/home_banner_iit_jee_neet.png",
-                                        "image_full_url": "/uploads/home_banners/home_banner_iit_jee_neet.png",
-                                        "updated_at": "2026-11-02T12:00:00.000000Z"
+                                        "image_path": "uploads/home_banners/banner.png",
+                                        "updated_at": "2026-11-17T12:00:00Z"
                                     }
                                 },
                                 "schema": {
@@ -1370,25 +1344,22 @@
                             "application/json": {
                                 "example": {
                                     "success": true,
-                                    "count": 5,
+                                    "count": 1,
                                     "data": [
                                         {
                                             "id": 1,
-                                            "stage_badge": "STAGE 01 \u2022 EARLY YEARS",
-                                            "title": "Pre-Primary",
-                                            "subtitle": "NURSERY, PP1 & PP2",
-                                            "description": "Feel grounded and supported in an environment where early learners are encouraged to participate, share ideas, explore phonics, and build confidence through play.",
+                                            "stage_badge": "FOUNDATION STAGE (AGES 3-8)",
+                                            "title": "Pre-Primary & Primary School",
+                                            "subtitle": "NURSERY TO GRADE 5",
+                                            "description": "Fostering curiosity, creativity, and foundational numeracy & literacy through experiential learning.",
                                             "highlights": [
-                                                "Phonics-based English language & early communication",
-                                                "Montessori-inspired sensorial and tactile activities",
-                                                "Early numeracy, number sense and playful logical thinking"
+                                                "Play-based learning",
+                                                "Phonics & Early Math",
+                                                "Activity-based discovery"
                                             ],
-                                            "image_path": "/images/pre-primary-learning.jpg",
+                                            "image_path": "uploads/programs/program_1.jpg",
                                             "sort_order": 1,
-                                            "is_active": true,
-                                            "created_at": "2026-11-09T07:17:14.000000Z",
-                                            "updated_at": "2026-11-09T07:17:14.000000Z",
-                                            "image_full_url": "http://localhost:8000/images/pre-primary-learning.jpg"
+                                            "is_active": true
                                         }
                                     ]
                                 },
@@ -1788,23 +1759,29 @@
                             "application/json": {
                                 "example": {
                                     "success": true,
-                                    "count": 3,
+                                    "count": 2,
                                     "data": [
                                         {
                                             "id": 1,
-                                            "card_type": "vision",
-                                            "title": "Our Vision",
-                                            "description": "To be a beacon of holistic excellence nurturing innovative, globally responsible citizens.",
-                                            "icon": "bi bi-eye-fill",
-                                            "color": "#031c3f"
+                                            "type": "vision",
+                                            "eyebrow": "OUR VISION",
+                                            "title": "Nurturing Global Citizens",
+                                            "description": "To be an institution of academic brilliance, fostering character and holistic growth.",
+                                            "icon": "sparkles",
+                                            "image_path": "uploads/vision-mission/vision.jpg",
+                                            "sort_order": 1,
+                                            "is_active": true
                                         },
                                         {
                                             "id": 2,
-                                            "card_type": "mission",
-                                            "title": "Our Mission",
-                                            "description": "Empowering learners through experiential CBSE education, creative arts, and strong ethical grounding.",
-                                            "icon": "bi bi-compass-fill",
-                                            "color": "#e31e24"
+                                            "type": "mission",
+                                            "eyebrow": "OUR MISSION",
+                                            "title": "Empowering Through Innovation",
+                                            "description": "Providing world-class learning environments, strong moral values, and global competence.",
+                                            "icon": "target",
+                                            "image_path": "uploads/vision-mission/mission.jpg",
+                                            "sort_order": 2,
+                                            "is_active": true
                                         }
                                     ]
                                 },
@@ -2224,8 +2201,8 @@
                 "tags": [
                     "Campus Tour & Life (Frontend)"
                 ],
-                "summary": "Get active Campus Tour & Life cards and section details",
-                "description": "Returns active campus tour cards (Beyond Classroom, Sports Excellence, Visual & Performing Arts, Campus Infrastructure) with section headers, CTA links, and full image URLs for the React frontend.",
+                "summary": "Get active Campus Tour & Life cards",
+                "description": "Returns active campus tour cards (e.g. Eco-Friendly Campus, Smart Classrooms & STEM Labs) sorted by sort_order. Matches dashboard fields exactly.",
                 "responses": {
                     "200": {
                         "description": "Campus tour cards retrieved successfully",
@@ -2235,65 +2212,20 @@
                                     "type": "object",
                                     "properties": {
                                         "success": {
-                                            "type": "boolean"
+                                            "type": "boolean",
+                                            "example": true
                                         },
-                                        "section": {
-                                            "type": "object",
-                                            "properties": {
-                                                "eyebrow": {
-                                                    "type": "string"
-                                                },
-                                                "title": {
-                                                    "type": "string"
-                                                },
-                                                "title_highlight": {
-                                                    "type": "string"
-                                                },
-                                                "description": {
-                                                    "type": "string"
-                                                },
-                                                "cta_primary": {
-                                                    "type": "object",
-                                                    "properties": {
-                                                        "text": {
-                                                            "type": "string"
-                                                        },
-                                                        "url": {
-                                                            "type": "string"
-                                                        }
-                                                    },
-                                                    "required": [
-                                                        "text",
-                                                        "url"
-                                                    ]
-                                                },
-                                                "cta_secondary": {
-                                                    "type": "object",
-                                                    "properties": {
-                                                        "text": {
-                                                            "type": "string"
-                                                        },
-                                                        "url": {
-                                                            "type": "string"
-                                                        }
-                                                    },
-                                                    "required": [
-                                                        "text",
-                                                        "url"
-                                                    ]
-                                                }
-                                            },
-                                            "required": [
-                                                "eyebrow",
-                                                "title",
-                                                "title_highlight",
-                                                "description",
-                                                "cta_primary",
-                                                "cta_secondary"
-                                            ]
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Active campus tour cards fetched successfully"
                                         },
                                         "count": {
-                                            "type": "integer"
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "total": {
+                                            "type": "integer",
+                                            "example": 1
                                         },
                                         "data": {
                                             "type": "array",
@@ -2313,10 +2245,10 @@
                                                         "nullable": true,
                                                         "example": "bi bi-tree-fill"
                                                     },
-                                                    "image_url": {
+                                                    "image_path": {
                                                         "type": "string",
                                                         "nullable": true,
-                                                        "example": "https://example.test/campus.jpg"
+                                                        "example": "uploads/campus-life/campus_eco.jpg"
                                                     },
                                                     "sort_order": {
                                                         "type": "integer",
@@ -2325,155 +2257,55 @@
                                                     "is_active": {
                                                         "type": "boolean",
                                                         "example": true
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2026-10-24T10:00:00.000000Z"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2026-10-24T10:00:00.000000Z"
                                                     }
                                                 },
                                                 "required": [
                                                     "id",
                                                     "title",
                                                     "icon",
-                                                    "image_url",
+                                                    "image_path",
                                                     "sort_order",
-                                                    "is_active"
+                                                    "is_active",
+                                                    "created_at",
+                                                    "updated_at"
                                                 ]
                                             }
                                         }
                                     },
                                     "required": [
                                         "success",
-                                        "section",
+                                        "message",
                                         "count",
+                                        "total",
                                         "data"
                                     ]
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/campus-life": {
-            "get": {
-                "tags": [
-                    "Campus Tour & Life (Frontend)"
-                ],
-                "summary": "Alias endpoint for /campus-tour",
-                "responses": {
-                    "200": {
-                        "description": "Campus tour cards retrieved successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "success": {
-                                            "type": "boolean"
-                                        },
-                                        "section": {
-                                            "type": "object",
-                                            "properties": {
-                                                "eyebrow": {
-                                                    "type": "string"
-                                                },
-                                                "title": {
-                                                    "type": "string"
-                                                },
-                                                "title_highlight": {
-                                                    "type": "string"
-                                                },
-                                                "description": {
-                                                    "type": "string"
-                                                },
-                                                "cta_primary": {
-                                                    "type": "object",
-                                                    "properties": {
-                                                        "text": {
-                                                            "type": "string"
-                                                        },
-                                                        "url": {
-                                                            "type": "string"
-                                                        }
-                                                    },
-                                                    "required": [
-                                                        "text",
-                                                        "url"
-                                                    ]
-                                                },
-                                                "cta_secondary": {
-                                                    "type": "object",
-                                                    "properties": {
-                                                        "text": {
-                                                            "type": "string"
-                                                        },
-                                                        "url": {
-                                                            "type": "string"
-                                                        }
-                                                    },
-                                                    "required": [
-                                                        "text",
-                                                        "url"
-                                                    ]
-                                                }
-                                            },
-                                            "required": [
-                                                "eyebrow",
-                                                "title",
-                                                "title_highlight",
-                                                "description",
-                                                "cta_primary",
-                                                "cta_secondary"
-                                            ]
-                                        },
-                                        "count": {
-                                            "type": "integer"
-                                        },
-                                        "data": {
-                                            "type": "array",
-                                            "items": {
-                                                "type": "object",
-                                                "properties": {
-                                                    "id": {
-                                                        "type": "integer",
-                                                        "example": 1
-                                                    },
-                                                    "title": {
-                                                        "type": "string",
-                                                        "example": "Eco-Friendly Campus"
-                                                    },
-                                                    "icon": {
-                                                        "type": "string",
-                                                        "nullable": true,
-                                                        "example": "bi bi-tree-fill"
-                                                    },
-                                                    "image_url": {
-                                                        "type": "string",
-                                                        "nullable": true,
-                                                        "example": "https://example.test/campus.jpg"
-                                                    },
-                                                    "sort_order": {
-                                                        "type": "integer",
-                                                        "example": 1
-                                                    },
-                                                    "is_active": {
-                                                        "type": "boolean",
-                                                        "example": true
-                                                    }
-                                                },
-                                                "required": [
-                                                    "id",
-                                                    "title",
-                                                    "icon",
-                                                    "image_url",
-                                                    "sort_order",
-                                                    "is_active"
-                                                ]
-                                            }
+                                },
+                                "example": {
+                                    "success": true,
+                                    "message": "Active campus tour cards fetched successfully",
+                                    "count": 1,
+                                    "total": 1,
+                                    "data": [
+                                        {
+                                            "id": 1,
+                                            "title": "Eco-Friendly Campus",
+                                            "icon": "bi bi-tree-fill",
+                                            "image_path": "uploads/campus-life/campus_eco.jpg",
+                                            "sort_order": 1,
+                                            "is_active": true,
+                                            "created_at": "2026-10-24T10:00:00.000000Z",
+                                            "updated_at": "2026-10-24T10:00:00.000000Z"
                                         }
-                                    },
-                                    "required": [
-                                        "success",
-                                        "section",
-                                        "count",
-                                        "data"
                                     ]
                                 }
                             }
@@ -2538,6 +2370,22 @@
                                         "cards",
                                         "data"
                                     ]
+                                },
+                                "example": {
+                                    "success": true,
+                                    "count": 1,
+                                    "data": [
+                                        {
+                                            "id": 1,
+                                            "type": "academics",
+                                            "title": "Experiential Learning Pedagogy",
+                                            "description": "Comprehensive inquiry-based curriculum fostering critical thinking, research, and collaborative problem-solving.",
+                                            "icon": "lightbulb",
+                                            "icon_color": "#dc2626",
+                                            "sort_order": 1,
+                                            "is_active": true
+                                        }
+                                    ]
                                 }
                             }
                         }
@@ -2600,146 +2448,21 @@
                                         "count",
                                         "data"
                                     ]
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/pta": {
-            "get": {
-                "tags": [
-                    "Parent Teacher Association - PTA (Frontend)"
-                ],
-                "summary": "Alias endpoint for /pta-members",
-                "responses": {
-                    "200": {
-                        "description": "PTA members list retrieved successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "success": {
-                                            "type": "boolean"
-                                        },
-                                        "section": {
-                                            "type": "object",
-                                            "properties": {
-                                                "eyebrow": {
-                                                    "type": "string"
-                                                },
-                                                "title": {
-                                                    "type": "string"
-                                                },
-                                                "title_highlight": {
-                                                    "type": "string"
-                                                },
-                                                "description": {
-                                                    "type": "string"
-                                                }
-                                            },
-                                            "required": [
-                                                "eyebrow",
-                                                "title",
-                                                "title_highlight",
-                                                "description"
-                                            ]
-                                        },
-                                        "count": {
-                                            "type": "integer"
-                                        },
-                                        "data": {
-                                            "type": "array",
-                                            "items": []
+                                },
+                                "example": {
+                                    "success": true,
+                                    "count": 1,
+                                    "data": [
+                                        {
+                                            "id": 1,
+                                            "name": "Mrs. Jagadishwari Nataraj",
+                                            "designation": "CHAIRMAN",
+                                            "address": "Divya Enclave Vijaypuri Tarnaka, Hyderabad",
+                                            "phone": "9160300046",
+                                            "image_path": "uploads/pta/pta_1.jpg",
+                                            "sort_order": 1,
+                                            "is_active": true
                                         }
-                                    },
-                                    "required": [
-                                        "success",
-                                        "section",
-                                        "count",
-                                        "data"
-                                    ]
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/careers-page": {
-            "get": {
-                "tags": [
-                    "Careers Page (Frontend)"
-                ],
-                "summary": "Get complete Careers page bundle (teaching section, benefits, hiring process, active job vacancies)",
-                "responses": {
-                    "200": {
-                        "description": "Careers page bundle",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "success": {
-                                            "type": "boolean"
-                                        },
-                                        "message": {
-                                            "type": "string"
-                                        },
-                                        "teaching_section": {
-                                            "type": "string",
-                                            "nullable": true
-                                        },
-                                        "benefits_section": {
-                                            "type": "object",
-                                            "properties": {
-                                                "badge": {
-                                                    "type": "string"
-                                                },
-                                                "title": {
-                                                    "type": "string"
-                                                },
-                                                "highlight": {
-                                                    "type": "string"
-                                                },
-                                                "count": {
-                                                    "type": "integer"
-                                                },
-                                                "items": {
-                                                    "type": "array",
-                                                    "items": []
-                                                }
-                                            },
-                                            "required": [
-                                                "badge",
-                                                "title",
-                                                "highlight",
-                                                "count",
-                                                "items"
-                                            ]
-                                        },
-                                        "application_process": {
-                                            "type": "string",
-                                            "nullable": true
-                                        },
-                                        "openings_count": {
-                                            "type": "integer"
-                                        },
-                                        "openings": {
-                                            "type": "array",
-                                            "items": []
-                                        }
-                                    },
-                                    "required": [
-                                        "success",
-                                        "message",
-                                        "teaching_section",
-                                        "benefits_section",
-                                        "application_process",
-                                        "openings_count",
-                                        "openings"
                                     ]
                                 }
                             }
@@ -2751,36 +2474,105 @@
         "/careers/teaching": {
             "get": {
                 "tags": [
-                    "Careers Page (Frontend)"
+                    "Careers (Frontend)"
                 ],
-                "summary": "Get 'Teaching At JRS' philosophy & highlights",
+                "summary": "Get Teaching at JRS overview section",
+                "description": "Returns the active Teaching at JRS section heading, paragraph, and campus photo. Matches dashboard fields exactly.",
                 "responses": {
                     "200": {
-                        "description": "Teaching at JRS details",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ConfiguredApiResponse"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Requested resource or configured data was not found.",
+                        "description": "Teaching at JRS overview retrieved successfully",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "type": "object",
                                     "properties": {
                                         "success": {
-                                            "type": "boolean"
+                                            "type": "boolean",
+                                            "example": true
                                         },
                                         "message": {
-                                            "type": "string"
+                                            "type": "string",
+                                            "example": "Teaching at JRS overview retrieved successfully"
                                         },
                                         "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "title": {
+                                                    "type": "string",
+                                                    "example": "Teaching at JRS"
+                                                },
+                                                "description": {
+                                                    "type": "string",
+                                                    "example": "At JRS International School, we believe that great educators transform lives. Our faculty members are valued partners in building an inspiring learning community."
+                                                },
+                                                "image_path": {
+                                                    "type": "string",
+                                                    "nullable": true,
+                                                    "example": "uploads/careers/teaching_campus.jpg"
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2026-10-24T10:00:00.000000Z"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2026-10-24T10:00:00.000000Z"
+                                                }
+                                            },
+                                            "required": [
+                                                "id",
+                                                "title",
+                                                "description",
+                                                "created_at",
+                                                "updated_at"
+                                            ]
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "message",
+                                        "data"
+                                    ]
+                                },
+                                "example": {
+                                    "success": true,
+                                    "message": "Teaching at JRS overview retrieved successfully",
+                                    "data": {
+                                        "id": 1,
+                                        "title": "Teaching at JRS",
+                                        "description": "At JRS International School, we believe that great educators transform lives. Our faculty members are valued partners in building an inspiring learning community.",
+                                        "image_path": "uploads/careers/teaching_campus.jpg",
+                                        "created_at": "2026-10-24T10:00:00.000000Z",
+                                        "updated_at": "2026-10-24T10:00:00.000000Z"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "No Teaching at JRS section found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
                                             "type": "string",
-                                            "nullable": true
+                                            "example": "No Teaching at JRS section found"
+                                        },
+                                        "data": {
+                                            "nullable": true,
+                                            "example": null
                                         }
                                     },
                                     "required": [
@@ -2798,153 +2590,111 @@
         "/careers/benefits": {
             "get": {
                 "tags": [
-                    "Careers Page (Frontend)"
+                    "Careers (Frontend)"
                 ],
-                "summary": "Get career benefits & employee perks list",
+                "summary": "Get active Work Culture & Benefits cards",
+                "description": "Returns active Work Culture & Benefits cards (e.g. Collaborative Community, Continuous Growth) sorted by sort_order. Matches dashboard fields exactly.",
                 "responses": {
                     "200": {
-                        "description": "Employee benefits list",
+                        "description": "Work Culture & Benefits retrieved successfully",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "type": "object",
                                     "properties": {
                                         "success": {
-                                            "type": "boolean"
+                                            "type": "boolean",
+                                            "example": true
                                         },
                                         "message": {
-                                            "type": "string"
-                                        },
-                                        "badge": {
-                                            "type": "string"
-                                        },
-                                        "title": {
-                                            "type": "string"
-                                        },
-                                        "highlight": {
-                                            "type": "string"
+                                            "type": "string",
+                                            "example": "Work Culture & Benefits retrieved successfully"
                                         },
                                         "count": {
-                                            "type": "integer"
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "total": {
+                                            "type": "integer",
+                                            "example": 1
                                         },
                                         "data": {
                                             "type": "array",
-                                            "items": []
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "title": {
+                                                        "type": "string",
+                                                        "example": "Collaborative Community"
+                                                    },
+                                                    "icon": {
+                                                        "type": "string",
+                                                        "example": "bi bi-people-fill"
+                                                    },
+                                                    "description": {
+                                                        "type": "string",
+                                                        "example": "Work alongside passionate educators and supportive leadership in an environment that fosters teamwork."
+                                                    },
+                                                    "sort_order": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "is_active": {
+                                                        "type": "boolean",
+                                                        "example": true
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2026-10-24T10:00:00.000000Z"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2026-10-24T10:00:00.000000Z"
+                                                    }
+                                                },
+                                                "required": [
+                                                    "id",
+                                                    "title",
+                                                    "icon",
+                                                    "description",
+                                                    "sort_order",
+                                                    "is_active",
+                                                    "created_at",
+                                                    "updated_at"
+                                                ]
+                                            }
                                         }
                                     },
                                     "required": [
                                         "success",
                                         "message",
-                                        "badge",
-                                        "title",
-                                        "highlight",
                                         "count",
+                                        "total",
                                         "data"
                                     ]
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/careers/benefits/{id}": {
-            "get": {
-                "tags": [
-                    "Careers Page (Frontend)"
-                ],
-                "summary": "Get a specific career benefit",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Career benefit details",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ConfiguredApiResponse"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Benefit item not found",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "success": {
-                                            "type": "boolean"
-                                        },
-                                        "message": {
-                                            "type": "string"
+                                },
+                                "example": {
+                                    "success": true,
+                                    "message": "Work Culture & Benefits retrieved successfully",
+                                    "count": 1,
+                                    "total": 1,
+                                    "data": [
+                                        {
+                                            "id": 1,
+                                            "title": "Collaborative Community",
+                                            "icon": "bi bi-people-fill",
+                                            "description": "Work alongside passionate educators and supportive leadership in an environment that fosters teamwork.",
+                                            "sort_order": 1,
+                                            "is_active": true,
+                                            "created_at": "2026-10-24T10:00:00.000000Z",
+                                            "updated_at": "2026-10-24T10:00:00.000000Z"
                                         }
-                                    },
-                                    "required": [
-                                        "success",
-                                        "message"
-                                    ]
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/careers/why-join": {
-            "get": {
-                "tags": [
-                    "Careers Page (Frontend)"
-                ],
-                "summary": "Alias endpoint for /careers/benefits",
-                "responses": {
-                    "200": {
-                        "description": "Employee benefits list",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "success": {
-                                            "type": "boolean"
-                                        },
-                                        "message": {
-                                            "type": "string"
-                                        },
-                                        "badge": {
-                                            "type": "string"
-                                        },
-                                        "title": {
-                                            "type": "string"
-                                        },
-                                        "highlight": {
-                                            "type": "string"
-                                        },
-                                        "count": {
-                                            "type": "integer"
-                                        },
-                                        "data": {
-                                            "type": "array",
-                                            "items": []
-                                        }
-                                    },
-                                    "required": [
-                                        "success",
-                                        "message",
-                                        "badge",
-                                        "title",
-                                        "highlight",
-                                        "count",
-                                        "data"
                                     ]
                                 }
                             }
@@ -2956,36 +2706,87 @@
         "/careers/how-to-apply": {
             "get": {
                 "tags": [
-                    "Careers Page (Frontend)"
+                    "Careers (Frontend)"
                 ],
-                "summary": "Get 4-step job application process instructions",
+                "summary": "Get Career Opportunities & How To Apply section",
+                "description": "Returns the active How To Apply pitch, submission instructions, email, and dynamic checklist points. Matches dashboard fields exactly.",
                 "responses": {
                     "200": {
-                        "description": "Application process details",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ConfiguredApiResponse"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Requested resource or configured data was not found.",
+                        "description": "How To Apply / Application Process retrieved successfully",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "type": "object",
                                     "properties": {
                                         "success": {
-                                            "type": "boolean"
+                                            "type": "boolean",
+                                            "example": true
                                         },
                                         "message": {
-                                            "type": "string"
+                                            "type": "string",
+                                            "example": "How To Apply / Application Process retrieved successfully"
                                         },
                                         "data": {
-                                            "type": "string",
-                                            "nullable": true
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "title": {
+                                                    "type": "string",
+                                                    "example": "A Great Future Awaits You At JRS"
+                                                },
+                                                "description": {
+                                                    "type": "string",
+                                                    "example": "If you are passionate about progressive education and mentorship, explore our open positions."
+                                                },
+                                                "card_title": {
+                                                    "type": "string",
+                                                    "example": "How To Apply"
+                                                },
+                                                "card_description": {
+                                                    "type": "string",
+                                                    "example": "Please email your updated curriculum vitae along with subject specializations to our HR team."
+                                                },
+                                                "email": {
+                                                    "type": "string",
+                                                    "example": "careers@jrs-school.edu"
+                                                },
+                                                "checklist_items": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string"
+                                                    },
+                                                    "example": [
+                                                        "Contact number & email",
+                                                        "Educational degrees and specialization subjects",
+                                                        "Curriculum followed and past experience"
+                                                    ]
+                                                },
+                                                "is_active": {
+                                                    "type": "boolean",
+                                                    "example": true
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2026-10-24T10:00:00.000000Z"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2026-10-24T10:00:00.000000Z"
+                                                }
+                                            },
+                                            "required": [
+                                                "id",
+                                                "title",
+                                                "description",
+                                                "card_title",
+                                                "email",
+                                                "is_active"
+                                            ]
                                         }
                                     },
                                     "required": [
@@ -2993,26 +2794,26 @@
                                         "message",
                                         "data"
                                     ]
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/careers/application-process": {
-            "get": {
-                "tags": [
-                    "Careers Page (Frontend)"
-                ],
-                "summary": "Alias endpoint for /careers/how-to-apply",
-                "responses": {
-                    "200": {
-                        "description": "Application process details",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ConfiguredApiResponse"
+                                },
+                                "example": {
+                                    "success": true,
+                                    "message": "How To Apply / Application Process retrieved successfully",
+                                    "data": {
+                                        "id": 1,
+                                        "title": "A Great Future Awaits You At JRS",
+                                        "description": "If you are passionate about progressive education and mentorship, explore our open positions.",
+                                        "card_title": "How To Apply",
+                                        "card_description": "Please email your updated curriculum vitae along with subject specializations to our HR team.",
+                                        "email": "careers@jrs-school.edu",
+                                        "checklist_items": [
+                                            "Contact number & email",
+                                            "Educational degrees and specialization subjects",
+                                            "Curriculum followed and past experience"
+                                        ],
+                                        "is_active": true,
+                                        "created_at": "2026-10-24T10:00:00.000000Z",
+                                        "updated_at": "2026-10-24T10:00:00.000000Z"
+                                    }
                                 }
                             }
                         }
@@ -3025,14 +2826,16 @@
                                     "type": "object",
                                     "properties": {
                                         "success": {
-                                            "type": "boolean"
+                                            "type": "boolean",
+                                            "example": false
                                         },
                                         "message": {
-                                            "type": "string"
+                                            "type": "string",
+                                            "example": "No active Career Opportunities / How To Apply section found"
                                         },
                                         "data": {
-                                            "type": "string",
-                                            "nullable": true
+                                            "nullable": true,
+                                            "example": null
                                         }
                                     },
                                     "required": [
@@ -3050,32 +2853,95 @@
         "/careers/openings": {
             "get": {
                 "tags": [
-                    "Careers Page (Frontend)"
+                    "Careers (Frontend)"
                 ],
-                "summary": "Get active job openings list",
+                "summary": "Get active Job Openings",
+                "description": "Returns all active job openings sorted by sort_order.",
                 "responses": {
                     "200": {
-                        "description": "List of active job vacancies",
+                        "description": "Active job openings retrieved successfully",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "type": "object",
                                     "properties": {
                                         "success": {
-                                            "type": "boolean"
+                                            "type": "boolean",
+                                            "example": true
                                         },
                                         "message": {
-                                            "type": "string"
+                                            "type": "string",
+                                            "example": "Active job openings retrieved successfully"
                                         },
                                         "count": {
-                                            "type": "integer"
+                                            "type": "integer",
+                                            "example": 1
                                         },
                                         "total": {
-                                            "type": "integer"
+                                            "type": "integer",
+                                            "example": 1
                                         },
                                         "data": {
                                             "type": "array",
-                                            "items": []
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "title": {
+                                                        "type": "string",
+                                                        "example": "Primary English Teacher"
+                                                    },
+                                                    "department": {
+                                                        "type": "string",
+                                                        "example": "Academics"
+                                                    },
+                                                    "job_type": {
+                                                        "type": "string",
+                                                        "example": "Full Time"
+                                                    },
+                                                    "experience": {
+                                                        "type": "string",
+                                                        "example": "3-5 years"
+                                                    },
+                                                    "qualification": {
+                                                        "type": "string",
+                                                        "example": "B.Ed with MA English"
+                                                    },
+                                                    "description": {
+                                                        "type": "string",
+                                                        "example": "Responsible for teaching English language arts to primary grade students."
+                                                    },
+                                                    "sort_order": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "is_active": {
+                                                        "type": "boolean",
+                                                        "example": true
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2026-10-24T10:00:00.000000Z"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2026-10-24T10:00:00.000000Z"
+                                                    }
+                                                },
+                                                "required": [
+                                                    "id",
+                                                    "title",
+                                                    "sort_order",
+                                                    "is_active",
+                                                    "created_at",
+                                                    "updated_at"
+                                                ]
+                                            }
                                         }
                                     },
                                     "required": [
@@ -3085,102 +2951,26 @@
                                         "total",
                                         "data"
                                     ]
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/careers": {
-            "get": {
-                "tags": [
-                    "Careers Page (Frontend)"
-                ],
-                "summary": "Alias endpoint for /careers/openings",
-                "responses": {
-                    "200": {
-                        "description": "List of active job vacancies",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "success": {
-                                            "type": "boolean"
-                                        },
-                                        "message": {
-                                            "type": "string"
-                                        },
-                                        "count": {
-                                            "type": "integer"
-                                        },
-                                        "total": {
-                                            "type": "integer"
-                                        },
-                                        "data": {
-                                            "type": "array",
-                                            "items": []
+                                },
+                                "example": {
+                                    "success": true,
+                                    "message": "Active job openings retrieved successfully",
+                                    "count": 1,
+                                    "total": 1,
+                                    "data": [
+                                        {
+                                            "id": 1,
+                                            "title": "Primary English Teacher",
+                                            "department": "Academics",
+                                            "job_type": "Full Time",
+                                            "experience": "3-5 years",
+                                            "qualification": "B.Ed with MA English",
+                                            "description": "Responsible for teaching English language arts to primary grade students.",
+                                            "sort_order": 1,
+                                            "is_active": true,
+                                            "created_at": "2026-10-24T10:00:00.000000Z",
+                                            "updated_at": "2026-10-24T10:00:00.000000Z"
                                         }
-                                    },
-                                    "required": [
-                                        "success",
-                                        "message",
-                                        "count",
-                                        "total",
-                                        "data"
-                                    ]
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/careers/openings/{id}": {
-            "get": {
-                "tags": [
-                    "Careers Page (Frontend)"
-                ],
-                "summary": "Get specific job vacancy details by ID",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Job opening details",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ConfiguredApiResponse"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Requested resource or configured data was not found.",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "success": {
-                                            "type": "boolean"
-                                        },
-                                        "message": {
-                                            "type": "string"
-                                        }
-                                    },
-                                    "required": [
-                                        "success",
-                                        "message"
                                     ]
                                 }
                             }
@@ -3253,6 +3043,21 @@
                                         "success",
                                         "data"
                                     ]
+                                },
+                                "example": {
+                                    "success": true,
+                                    "data": {
+                                        "id": 1,
+                                        "title": "Join the JRS Community Today",
+                                        "title_highlight": "Community Today",
+                                        "description": "Give your child the foundation for a lifetime of success.",
+                                        "primary_button_text": "Apply Online",
+                                        "primary_button_link": "/admissions",
+                                        "secondary_button_text": "Campus Tour",
+                                        "secondary_button_link": "/contact",
+                                        "image_path": "uploads/banners/admission_banner.jpg",
+                                        "is_active": true
+                                    }
                                 }
                             }
                         }
@@ -3301,53 +3106,27 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/ConfiguredApiResponse"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Requested resource or configured data was not found.",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "success": {
-                                            "type": "boolean"
-                                        },
-                                        "message": {
-                                            "type": "string"
-                                        },
-                                        "data": {
-                                            "type": "string",
-                                            "nullable": true
-                                        }
-                                    },
-                                    "required": [
-                                        "success",
-                                        "message",
-                                        "data"
-                                    ]
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/leadership/chairman": {
-            "get": {
-                "tags": [
-                    "Leadership (Chairman of JRS)"
-                ],
-                "summary": "Alias endpoint for /chairman",
-                "responses": {
-                    "200": {
-                        "description": "Chairman message details",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ConfiguredApiResponse"
+                                },
+                                "example": {
+                                    "success": true,
+                                    "data": {
+                                        "id": 1,
+                                        "section_badge": "CHAIRMAN'S ADDRESS",
+                                        "title": "Empowering Young Minds For A Changing World",
+                                        "profile_badge": "FOUNDING LEADERSHIP",
+                                        "name": "Chairman Of JRS",
+                                        "sub_title": "JRS International School \u2022 Hyderabad",
+                                        "quote": "\u201cNurturing Tomorrow\u2019s Leaders with Global Competence & Indian Values\u201d",
+                                        "image_path": "uploads/chairman/chairman.jpg",
+                                        "paragraph": "Education is not merely about accumulating knowledge; it is about awakening the intellect and instilling moral character.",
+                                        "signoff_note": "WITH WARM WISHES & COMMITMENT,",
+                                        "signoff_name": "Chairman",
+                                        "signoff_sub": "JRS International School, Hyderabad",
+                                        "commitment_badge": "OUR STRATEGIC COMMITMENT",
+                                        "commitment_title": "Building An Empowered Generation For Tomorrow",
+                                        "commitment_description": "Investing in future-ready labs, exceptional educators, and ethical character development.",
+                                        "is_active": true
+                                    }
                                 }
                             }
                         }
@@ -3396,53 +3175,31 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/ConfiguredApiResponse"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Requested resource or configured data was not found.",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "success": {
-                                            "type": "boolean"
-                                        },
-                                        "message": {
-                                            "type": "string"
-                                        },
-                                        "data": {
-                                            "type": "string",
-                                            "nullable": true
-                                        }
-                                    },
-                                    "required": [
-                                        "success",
-                                        "message",
-                                        "data"
-                                    ]
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/leadership/principal": {
-            "get": {
-                "tags": [
-                    "Leadership (Principal of JRS)"
-                ],
-                "summary": "Alias endpoint for /principal",
-                "responses": {
-                    "200": {
-                        "description": "Principal message details",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ConfiguredApiResponse"
+                                },
+                                "example": {
+                                    "success": true,
+                                    "data": {
+                                        "id": 1,
+                                        "desk_title": "From The Desk of Principal",
+                                        "desk_subtitle": "Institutional Vision & Educational Philosophy",
+                                        "official_address_badge": "OFFICIAL ADDRESS",
+                                        "academic_year": "2026 - 2027",
+                                        "section_badge": "PRINCIPAL'S DESK",
+                                        "title": "Excellence in Education, Character & Innovation",
+                                        "salutation": "Dear Students, Parents, and Well-Wishers,",
+                                        "card_badge": "ACADEMIC LEADERSHIP",
+                                        "profile_badge": "LEADERSHIP DESK",
+                                        "name": "Principal Of JRS",
+                                        "sub_title": "Principal & Head of School",
+                                        "image_path": "uploads/principal/principal.jpg",
+                                        "paragraph": "Welcome to JRS International School. Our educational paradigm integrates rigorous academic inquiry with ethical and emotional growth.",
+                                        "quote": "\u201cEvery child possesses a spark of genius; our sacred duty is to ignite it.\u201d",
+                                        "signoff_note": "WITH WARM REGARDS & COMMITMENT,",
+                                        "signoff_signature": "Principal",
+                                        "signoff_name": "Principal",
+                                        "signoff_sub": "JRS International School",
+                                        "is_active": true
+                                    }
                                 }
                             }
                         }
@@ -3532,6 +3289,20 @@
                                         "count",
                                         "data"
                                     ]
+                                },
+                                "example": {
+                                    "success": true,
+                                    "count": 1,
+                                    "data": [
+                                        {
+                                            "id": 1,
+                                            "name": "Mr. C. R. Jagadish",
+                                            "designation": "PRESIDENT",
+                                            "address": "Karthikeya Nagar, Nacharam, Hyderabad",
+                                            "phone": "9542664980",
+                                            "image_path": "uploads/society/member_1.jpg"
+                                        }
+                                    ]
                                 }
                             }
                         }
@@ -3594,88 +3365,19 @@
                                         "count",
                                         "data"
                                     ]
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/gallery-page": {
-            "get": {
-                "tags": [
-                    "Gallery Page (Frontend)"
-                ],
-                "summary": "Get complete Gallery page bundle (albums with active media)",
-                "description": "Returns all active albums (Amphitheatre, Annual Days, Science Experiments, Life Skills, Republic Day) with their image/video items for the React frontend.",
-                "responses": {
-                    "200": {
-                        "description": "Gallery albums with items retrieved successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "success": {
-                                            "type": "boolean"
-                                        },
-                                        "message": {
-                                            "type": "string"
-                                        },
-                                        "count": {
-                                            "type": "integer"
-                                        },
-                                        "data": {
-                                            "type": "array",
-                                            "items": []
+                                },
+                                "example": {
+                                    "success": true,
+                                    "count": 1,
+                                    "data": [
+                                        {
+                                            "id": 1,
+                                            "name": "Dr. K. S. Rao",
+                                            "designation": "MEMBER SECRETARY",
+                                            "address": "Habsiguda, Hyderabad",
+                                            "phone": "9848012345",
+                                            "image_path": "uploads/smc/member_1.jpg"
                                         }
-                                    },
-                                    "required": [
-                                        "success",
-                                        "message",
-                                        "count",
-                                        "data"
-                                    ]
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/gallery": {
-            "get": {
-                "tags": [
-                    "Gallery Page (Frontend)"
-                ],
-                "summary": "Alias endpoint for /gallery-page",
-                "responses": {
-                    "200": {
-                        "description": "Gallery albums with items retrieved successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "success": {
-                                            "type": "boolean"
-                                        },
-                                        "message": {
-                                            "type": "string"
-                                        },
-                                        "count": {
-                                            "type": "integer"
-                                        },
-                                        "data": {
-                                            "type": "array",
-                                            "items": []
-                                        }
-                                    },
-                                    "required": [
-                                        "success",
-                                        "message",
-                                        "count",
-                                        "data"
                                     ]
                                 }
                             }
@@ -3718,57 +3420,24 @@
                                         "count",
                                         "data"
                                     ]
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/gallery-albums/{idOrSlug}": {
-            "get": {
-                "tags": [
-                    "Gallery Page (Frontend)"
-                ],
-                "summary": "Get specific album with its photos/videos by ID or slug",
-                "parameters": [
-                    {
-                        "name": "idOrSlug",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Album details with media items",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ConfiguredApiResponse"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Requested resource or configured data was not found.",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "success": {
-                                            "type": "boolean"
-                                        },
-                                        "message": {
-                                            "type": "string"
+                                },
+                                "example": {
+                                    "success": true,
+                                    "message": "Gallery albums retrieved successfully",
+                                    "count": 1,
+                                    "data": [
+                                        {
+                                            "id": 1,
+                                            "slug": "annual-sports-day-2026",
+                                            "badge": "ANNUAL EVENT",
+                                            "title": "Annual Sports Day 2026",
+                                            "highlight_text": "Sports & Athletics",
+                                            "description": "A vibrant celebration of athletics, sportsmanship, and student energy.",
+                                            "media_type": "image",
+                                            "cover_image": "uploads/gallery/sports_day_cover.jpg",
+                                            "sort_order": 1,
+                                            "is_active": true
                                         }
-                                    },
-                                    "required": [
-                                        "success",
-                                        "message"
                                     ]
                                 }
                             }
@@ -3821,172 +3490,21 @@
                                         "count",
                                         "data"
                                     ]
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/media-page": {
-            "get": {
-                "tags": [
-                    "News & Media (Frontend)"
-                ],
-                "summary": "Get complete News & Media page bundle",
-                "description": "Returns header, achievements_section (featured press cards with Telugu headlines), campus_news_section (latest press clippings), and CTA banner.",
-                "responses": {
-                    "200": {
-                        "description": "News & Media page payload",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "success": {
-                                            "type": "boolean"
-                                        },
-                                        "message": {
-                                            "type": "string"
-                                        },
-                                        "data": {
-                                            "type": "object",
-                                            "properties": {
-                                                "header": {
-                                                    "type": "object",
-                                                    "properties": {
-                                                        "breadcrumb": {
-                                                            "type": "string"
-                                                        },
-                                                        "title": {
-                                                            "type": "string"
-                                                        },
-                                                        "subtitle": {
-                                                            "type": "string"
-                                                        },
-                                                        "description": {
-                                                            "type": "string"
-                                                        }
-                                                    },
-                                                    "required": [
-                                                        "breadcrumb",
-                                                        "title",
-                                                        "subtitle",
-                                                        "description"
-                                                    ]
-                                                },
-                                                "achievements_section": {
-                                                    "type": "object",
-                                                    "properties": {
-                                                        "badge": {
-                                                            "type": "string"
-                                                        },
-                                                        "title": {
-                                                            "type": "string"
-                                                        },
-                                                        "description": {
-                                                            "type": "string"
-                                                        },
-                                                        "count": {
-                                                            "type": "integer"
-                                                        },
-                                                        "items": {
-                                                            "type": "array",
-                                                            "items": []
-                                                        }
-                                                    },
-                                                    "required": [
-                                                        "badge",
-                                                        "title",
-                                                        "description",
-                                                        "count",
-                                                        "items"
-                                                    ]
-                                                },
-                                                "campus_news_section": {
-                                                    "type": "object",
-                                                    "properties": {
-                                                        "badge": {
-                                                            "type": "string"
-                                                        },
-                                                        "title": {
-                                                            "type": "string"
-                                                        },
-                                                        "description": {
-                                                            "type": "string"
-                                                        },
-                                                        "count": {
-                                                            "type": "integer"
-                                                        },
-                                                        "items": {
-                                                            "type": "array",
-                                                            "items": []
-                                                        }
-                                                    },
-                                                    "required": [
-                                                        "badge",
-                                                        "title",
-                                                        "description",
-                                                        "count",
-                                                        "items"
-                                                    ]
-                                                },
-                                                "cta_banner": {
-                                                    "type": "object",
-                                                    "properties": {
-                                                        "badge": {
-                                                            "type": "string"
-                                                        },
-                                                        "title": {
-                                                            "type": "string"
-                                                        },
-                                                        "buttons": {
-                                                            "type": "array",
-                                                            "items": {
-                                                                "type": "object",
-                                                                "properties": {
-                                                                    "label": {
-                                                                        "type": "string"
-                                                                    },
-                                                                    "link": {
-                                                                        "type": "string"
-                                                                    },
-                                                                    "variant": {
-                                                                        "type": "string"
-                                                                    }
-                                                                },
-                                                                "required": [
-                                                                    "label",
-                                                                    "link",
-                                                                    "variant"
-                                                                ]
-                                                            }
-                                                        }
-                                                    },
-                                                    "required": [
-                                                        "badge",
-                                                        "title",
-                                                        "buttons"
-                                                    ]
-                                                },
-                                                "all_items": {
-                                                    "type": "array",
-                                                    "items": []
-                                                }
-                                            },
-                                            "required": [
-                                                "header",
-                                                "achievements_section",
-                                                "campus_news_section",
-                                                "cta_banner",
-                                                "all_items"
-                                            ]
+                                },
+                                "example": {
+                                    "success": true,
+                                    "message": "Gallery items retrieved successfully",
+                                    "count": 1,
+                                    "data": [
+                                        {
+                                            "id": 1,
+                                            "gallery_album_id": 1,
+                                            "caption": "100m Sprint Final",
+                                            "image_path": "uploads/gallery/items/sprint.jpg",
+                                            "video_url": null,
+                                            "sort_order": 1,
+                                            "is_active": true
                                         }
-                                    },
-                                    "required": [
-                                        "success",
-                                        "message",
-                                        "data"
                                     ]
                                 }
                             }
@@ -4043,57 +3561,26 @@
                                         "count",
                                         "data"
                                     ]
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/news-media/{id}": {
-            "get": {
-                "tags": [
-                    "News & Media (Frontend)"
-                ],
-                "summary": "Get specific press coverage article by ID",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Press coverage article details",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ConfiguredApiResponse"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Requested resource or configured data was not found.",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "success": {
-                                            "type": "boolean"
-                                        },
-                                        "message": {
-                                            "type": "string"
+                                },
+                                "example": {
+                                    "success": true,
+                                    "message": "News media items retrieved successfully",
+                                    "count": 1,
+                                    "data": [
+                                        {
+                                            "id": 1,
+                                            "title": "\u0c1c\u0c47\u0c06\u0c30\u0c4d\u0c0e\u0c38\u0c4d \u0c2a\u0c3e\u0c20\u0c36\u0c3e\u0c32\u0c32\u0c4b \u0c18\u0c28\u0c02\u0c17\u0c3e \u0c38\u0c48\u0c28\u0c4d\u0c38\u0c4d \u0c2b\u0c47\u0c30\u0c4d",
+                                            "english_title": "Science Fair Celebrated with Grandeur at JRS",
+                                            "newspaper_name": "Eenadu Hyderabad",
+                                            "location": "Hyderabad",
+                                            "published_date": "2026-11-10",
+                                            "description": "Students showcased innovative working models in robotics and green energy.",
+                                            "image_path": "uploads/news-media/clipping_1.jpg",
+                                            "article_url": "https://eenadu.net/article/12345",
+                                            "is_featured": true,
+                                            "sort_order": 1,
+                                            "is_active": true
                                         }
-                                    },
-                                    "required": [
-                                        "success",
-                                        "message"
                                     ]
                                 }
                             }
@@ -4248,158 +3735,81 @@
                                         "message",
                                         "data"
                                     ]
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/mandatory-disclosures": {
-            "get": {
-                "tags": [
-                    "Mandatory Disclosure (CBSE Compliance)"
-                ],
-                "summary": "Alias endpoint for /mandatory-disclosure",
-                "responses": {
-                    "200": {
-                        "description": "Mandatory Disclosure payload retrieved successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "success": {
-                                            "type": "boolean"
+                                },
+                                "example": {
+                                    "success": true,
+                                    "message": "Mandatory Disclosure data retrieved successfully",
+                                    "data": {
+                                        "header": {
+                                            "breadcrumb": "Home > Mandatory Disclosure",
+                                            "eyebrow": "STATUTORY COMPLIANCE & PUBLIC DISCLOSURE",
+                                            "title": "Mandatory Public Disclosure",
+                                            "subtitle": "CBSE Public Disclosure & Statutory Compliance",
+                                            "description": "In compliance with CBSE regulations, here are the mandatory public disclosures, statutory certificates, infrastructure details, and academic records for JRS International School."
                                         },
-                                        "message": {
-                                            "type": "string"
-                                        },
-                                        "data": {
-                                            "type": "object",
-                                            "properties": {
-                                                "header": {
-                                                    "type": "object",
-                                                    "properties": {
-                                                        "breadcrumb": {
-                                                            "type": "string"
-                                                        },
-                                                        "eyebrow": {
-                                                            "type": "string"
-                                                        },
-                                                        "title": {
-                                                            "type": "string"
-                                                        },
-                                                        "subtitle": {
-                                                            "type": "string"
-                                                        },
-                                                        "description": {
-                                                            "type": "string"
-                                                        }
-                                                    },
-                                                    "required": [
-                                                        "breadcrumb",
-                                                        "eyebrow",
-                                                        "title",
-                                                        "subtitle",
-                                                        "description"
-                                                    ]
-                                                },
-                                                "general_information": {
-                                                    "type": "object",
-                                                    "properties": {
-                                                        "title": {
-                                                            "type": "string"
-                                                        },
-                                                        "count": {
-                                                            "type": "integer"
-                                                        },
-                                                        "items": {
-                                                            "type": "array",
-                                                            "items": []
-                                                        }
-                                                    },
-                                                    "required": [
-                                                        "title",
-                                                        "count",
-                                                        "items"
-                                                    ]
-                                                },
-                                                "documents_and_information": {
-                                                    "type": "object",
-                                                    "properties": {
-                                                        "title": {
-                                                            "type": "string"
-                                                        },
-                                                        "count": {
-                                                            "type": "integer"
-                                                        },
-                                                        "items": {
-                                                            "type": "array",
-                                                            "items": []
-                                                        }
-                                                    },
-                                                    "required": [
-                                                        "title",
-                                                        "count",
-                                                        "items"
-                                                    ]
-                                                },
-                                                "school_infrastructure": {
-                                                    "type": "object",
-                                                    "properties": {
-                                                        "title": {
-                                                            "type": "string"
-                                                        },
-                                                        "count": {
-                                                            "type": "integer"
-                                                        },
-                                                        "items": {
-                                                            "type": "array",
-                                                            "items": []
-                                                        }
-                                                    },
-                                                    "required": [
-                                                        "title",
-                                                        "count",
-                                                        "items"
-                                                    ]
-                                                },
-                                                "school_management_committee": {
-                                                    "type": "object",
-                                                    "properties": {
-                                                        "title": {
-                                                            "type": "string"
-                                                        },
-                                                        "count": {
-                                                            "type": "integer"
-                                                        },
-                                                        "items": {
-                                                            "type": "array",
-                                                            "items": []
-                                                        }
-                                                    },
-                                                    "required": [
-                                                        "title",
-                                                        "count",
-                                                        "items"
-                                                    ]
+                                        "general_information": {
+                                            "title": "General Information",
+                                            "count": 1,
+                                            "items": [
+                                                {
+                                                    "id": 1,
+                                                    "s_no": "1",
+                                                    "title": "NAME OF THE SCHOOL",
+                                                    "value": "JRS INTERNATIONAL SCHOOL",
+                                                    "sort_order": 1,
+                                                    "is_active": true
                                                 }
-                                            },
-                                            "required": [
-                                                "header",
-                                                "general_information",
-                                                "documents_and_information",
-                                                "school_infrastructure",
-                                                "school_management_committee"
+                                            ]
+                                        },
+                                        "documents_and_information": {
+                                            "title": "Documents And Information",
+                                            "count": 1,
+                                            "items": [
+                                                {
+                                                    "id": 2,
+                                                    "s_no": "1",
+                                                    "title": "COPIES OF AFFILIATION/UPGRADATION LETTER AND RECENT EXTENSION OF AFFILIATION",
+                                                    "file_path": "uploads/disclosures/affiliation_letter.pdf",
+                                                    "file_url": null,
+                                                    "sort_order": 1,
+                                                    "is_active": true
+                                                }
+                                            ]
+                                        },
+                                        "school_infrastructure": {
+                                            "title": "School Infrastructure",
+                                            "count": 1,
+                                            "items": [
+                                                {
+                                                    "id": 3,
+                                                    "s_no": "1",
+                                                    "title": "TOTAL CAMPUS AREA OF THE SCHOOL (IN SQUARE METRES)",
+                                                    "value": "10117 SQ MTRS",
+                                                    "button_label": "View Certificate",
+                                                    "file_path": "uploads/disclosures/land_cert.pdf",
+                                                    "file_url": null,
+                                                    "sort_order": 1,
+                                                    "is_active": true
+                                                }
+                                            ]
+                                        },
+                                        "school_management_committee": {
+                                            "title": "School Management Committee",
+                                            "count": 1,
+                                            "items": [
+                                                {
+                                                    "id": 4,
+                                                    "s_no": "1",
+                                                    "title": "SMC CONSTITUTION & MEMBERS LIST",
+                                                    "value": "Current Academic Term",
+                                                    "file_path": "uploads/disclosures/smc_list.pdf",
+                                                    "file_url": null,
+                                                    "sort_order": 1,
+                                                    "is_active": true
+                                                }
                                             ]
                                         }
-                                    },
-                                    "required": [
-                                        "success",
-                                        "message",
-                                        "data"
-                                    ]
+                                    }
                                 }
                             }
                         }
@@ -4423,32 +3833,29 @@
                                     "success": true,
                                     "data": {
                                         "id": 1,
-                                        "location_tag": "NARAPALLY, HYDERABAD",
-                                        "title": "Admission Open For",
-                                        "academic_year": "2026 \u2013 2027",
-                                        "description": "Give your child the right foundation for a brighter future. Apply early for personalized guidance, campus tour, and direct interaction with academic mentors.",
-                                        "phone": "+91 915740 43210",
-                                        "email": "info@jrsinternationalschool.com",
+                                        "location_tag": "HYDERABAD \u2022 CB-SE AFFILIATED",
+                                        "title": "Admissions Open for Academic Year",
+                                        "academic_year": "2027 \u2013 2028",
+                                        "description": "Shape your child\u2019s educational voyage with academic excellence, values, and holistic development.",
+                                        "phone": "+91 92814 09674",
+                                        "email": "admissions@jrs.ac.in",
                                         "features": [
-                                            {
-                                                "title": "CBSE Curriculum",
-                                                "subtitle": "National standards",
-                                                "icon": "bi bi-mortarboard-fill"
-                                            },
-                                            {
-                                                "title": "Holistic Growth",
-                                                "subtitle": "Arts, sports & STEM",
-                                                "icon": "bi bi-stars"
-                                            },
-                                            {
-                                                "title": "Top Faculty",
-                                                "subtitle": "Caring mentorship",
-                                                "icon": "bi bi-award-fill"
-                                            }
+                                            "CBSE Curriculum",
+                                            "STEM & Robotics Labs",
+                                            "Safe Campus"
                                         ],
                                         "trust_badges": [
-                                            "100% Confidential",
-                                            "Quick 24-hr Response"
+                                            "CBSE Affiliation: 3630478",
+                                            "School Code: 56725"
+                                        ],
+                                        "enquiry_academic_years": [
+                                            "2026-2027",
+                                            "2027-2028"
+                                        ],
+                                        "enquiry_admission_types": [
+                                            "DAY SCHOLAR",
+                                            "DAY BOARDING",
+                                            "RESIDENTIAL"
                                         ]
                                     }
                                 },
@@ -4528,48 +3935,6 @@
                                         "success",
                                         "data"
                                     ]
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Requested resource or configured data was not found.",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "success": {
-                                            "type": "boolean"
-                                        },
-                                        "message": {
-                                            "type": "string"
-                                        }
-                                    },
-                                    "required": [
-                                        "success",
-                                        "message"
-                                    ]
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/admission-open": {
-            "get": {
-                "tags": [
-                    "Admissions (Frontend)"
-                ],
-                "summary": "Alias endpoint for /admission-hero",
-                "responses": {
-                    "200": {
-                        "description": "Admission hero data",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ConfiguredApiResponse"
                                 }
                             }
                         }
@@ -4759,122 +4124,17 @@
                             "application/json": {
                                 "example": {
                                     "success": true,
-                                    "section": {
-                                        "eyebrow": "STEPS OF",
-                                        "title": "Admission Process",
-                                        "description": "Follow these simple steps to complete the admission process at JRS."
-                                    },
-                                    "count": 6,
+                                    "count": 1,
                                     "data": [
                                         {
                                             "id": 1,
                                             "step_number": 1,
-                                            "title": "Meet The Admission Officer",
-                                            "description": "Visit the school campus and meet our admission officer for guidance.",
-                                            "icon": "bi bi-person-badge-fill"
-                                        },
-                                        {
-                                            "id": 2,
-                                            "step_number": 2,
-                                            "title": "Procure The Application Form",
-                                            "description": "Collect the application form from the school or download it as provided.",
-                                            "icon": "bi bi-file-earmark-text-fill"
-                                        },
-                                        {
-                                            "id": 3,
-                                            "step_number": 3,
-                                            "title": "Register With Us",
-                                            "description": "Submit the completed application form with the required details.",
-                                            "icon": "bi bi-person-vcard-fill"
-                                        },
-                                        {
-                                            "id": 4,
-                                            "step_number": 4,
-                                            "title": "Appear For The Admission Test",
-                                            "description": "The student needs to appear for the admission test as per the grade.",
-                                            "icon": "bi bi-pencil-square"
-                                        },
-                                        {
-                                            "id": 5,
-                                            "step_number": 5,
-                                            "title": "Appear For The Personal Interview",
-                                            "description": "The student and parents may be called for a personal interview.",
-                                            "icon": "bi bi-chat-quote-fill"
-                                        },
-                                        {
-                                            "id": 6,
-                                            "step_number": 6,
-                                            "title": "Pay Fee",
-                                            "description": "Upon selection, complete the fee payment to confirm admission.",
-                                            "icon": "bi bi-credit-card-2-front-fill"
+                                            "title": "Submit Online Enquiry",
+                                            "description": "Fill the preliminary application form online or visit the campus admission desk.",
+                                            "icon": "form-pencil"
                                         }
                                     ]
                                 },
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "success": {
-                                            "type": "boolean"
-                                        },
-                                        "section": {
-                                            "type": "object",
-                                            "properties": {
-                                                "eyebrow": {
-                                                    "type": "string"
-                                                },
-                                                "title": {
-                                                    "type": "string"
-                                                },
-                                                "title_prefix": {
-                                                    "type": "string"
-                                                },
-                                                "title_highlight": {
-                                                    "type": "string"
-                                                },
-                                                "description": {
-                                                    "type": "string"
-                                                }
-                                            },
-                                            "required": [
-                                                "eyebrow",
-                                                "title",
-                                                "title_prefix",
-                                                "title_highlight",
-                                                "description"
-                                            ]
-                                        },
-                                        "count": {
-                                            "type": "integer"
-                                        },
-                                        "data": {
-                                            "type": "array",
-                                            "items": []
-                                        }
-                                    },
-                                    "required": [
-                                        "success",
-                                        "section",
-                                        "count",
-                                        "data"
-                                    ]
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/admission-steps": {
-            "get": {
-                "tags": [
-                    "Admissions (Frontend)"
-                ],
-                "summary": "Alias endpoint for /admission-process",
-                "responses": {
-                    "200": {
-                        "description": "Admission process steps",
-                        "content": {
-                            "application/json": {
                                 "schema": {
                                     "type": "object",
                                     "properties": {
@@ -4943,30 +4203,21 @@
                             "application/json": {
                                 "example": {
                                     "success": true,
-                                    "section": {
-                                        "eyebrow": "ADMISSION ARRANGEMENTS & POLICY",
-                                        "title": "Admission Criteria & Guidelines",
-                                        "description": "Essential guidelines for parents applying to Nursery and Grades 1 through 12, designed to ensure a fair, supportive, and child-centered enrollment process."
-                                    },
-                                    "count": 4,
+                                    "count": 1,
                                     "data": [
                                         {
                                             "id": 1,
                                             "step_number": 1,
-                                            "watermark": "01",
-                                            "badge_tag": "Early Years (Age 2+)",
-                                            "title": "Nursery Admission",
-                                            "description": "You can apply for a place in our Nursery by filling in an application form available from the school office or online.",
-                                            "icon": "bi bi-stars"
-                                        },
-                                        {
-                                            "id": 2,
-                                            "step_number": 2,
-                                            "watermark": "02",
-                                            "badge_tag": "Grades 1 to 12",
-                                            "title": "Competency Level Test (CLT)",
-                                            "description": "Applicants seeking admission to Grades 1 to 12 will be required to appear for a Competency Level Test (CLT).",
-                                            "icon": "bi bi-clipboard-check-fill"
+                                            "badge_tag": "AGE CRITERIA",
+                                            "title": "Age Eligibility & Class Placement",
+                                            "description": "Candidates must meet the statutory age requirements as of 31st March.",
+                                            "icon": "calendar",
+                                            "note": "Original Birth Certificate must be produced during verification.",
+                                            "points": [
+                                                "Nursery: 3+ years",
+                                                "LKG: 4+ years",
+                                                "Grade 1: 6+ years"
+                                            ]
                                         }
                                     ]
                                 },
@@ -5038,22 +4289,12 @@
                             "application/json": {
                                 "example": {
                                     "success": true,
-                                    "section": {
-                                        "eyebrow": "ADMISSIONS FAQS",
-                                        "title": "Frequently Asked Questions",
-                                        "description": "Find answers to commonly asked questions about admissions, academics, and life at JRS."
-                                    },
-                                    "count": 13,
+                                    "count": 1,
                                     "data": [
                                         {
                                             "id": 1,
-                                            "question": "What is the admission procedure?",
-                                            "answer": "The admission procedure begins with obtaining and filling out the application form either online or at the school office, followed by an interaction/competency assessment, document verification, and fee payment."
-                                        },
-                                        {
-                                            "id": 2,
-                                            "question": "Is admission guaranteed?",
-                                            "answer": "Admission is offered strictly on a first-come, first-served basis, subject to availability of seats and meeting the admission criteria."
+                                            "question": "What is the curriculum followed at JRS International School?",
+                                            "answer": "JRS International School is affiliated with CBSE, New Delhi (Affiliation No: 3630478), offering experiential learning from Nursery to Grade 12."
                                         }
                                     ]
                                 },
@@ -5128,55 +4369,13 @@
                                     "message": "Admission brochure retrieved successfully",
                                     "data": {
                                         "id": 1,
-                                        "title": "JRS International School Brochure",
-                                        "pdf_path": "/uploads/admissions/brochure/jrs_brochure_1793267149_pokala-mallikarjuna-reddy-resume.pdf",
-                                        "brochure_link": "https://jrsinternationalschooluppal.com/wp-content/uploads/2022/01/Brochure-2020-JRS.pdf",
-                                        "file_size": "73.2 KB",
-                                        "is_active": true,
-                                        "pdf_full_url": "/uploads/admissions/brochure/school-brochure.pdf",
-                                        "download_url": "/uploads/admissions/brochure/school-brochure.pdf",
-                                        "has_file": true,
-                                        "created_at": "2026-10-29T09:40:37.000000Z",
-                                        "updated_at": "2026-10-29T10:12:29.000000Z"
+                                        "title": "Admission Brochure 2027-28",
+                                        "pdf_path": "uploads/brochure/jrs_brochure.pdf",
+                                        "brochure_link": "https://example.com/brochure.pdf",
+                                        "file_size": "8.4 MB",
+                                        "is_active": true
                                     }
                                 },
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "success": {
-                                            "type": "boolean"
-                                        },
-                                        "message": {
-                                            "type": "string"
-                                        },
-                                        "data": {
-                                            "type": "string",
-                                            "nullable": true
-                                        }
-                                    },
-                                    "required": [
-                                        "success",
-                                        "message",
-                                        "data"
-                                    ]
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/brochure": {
-            "get": {
-                "tags": [
-                    "Admissions (Frontend)"
-                ],
-                "summary": "Alias endpoint for /admission-brochure",
-                "responses": {
-                    "200": {
-                        "description": "Admission brochure details",
-                        "content": {
-                            "application/json": {
                                 "schema": {
                                     "type": "object",
                                     "properties": {
@@ -5218,85 +4417,23 @@
                                 "example": {
                                     "success": true,
                                     "data": {
-                                        "image_url": "https://example.com/uploads/admission-popup/popup.jpg"
-                                    }
-                                },
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "success": {
-                                            "type": "boolean"
-                                        },
-                                        "data": {
-                                            "type": "object",
-                                            "properties": {
-                                                "image_url": {
-                                                    "type": "string",
-                                                    "format": "uri"
-                                                }
-                                            },
-                                            "required": [
-                                                "image_url"
-                                            ]
-                                        }
-                                    },
-                                    "required": [
-                                        "success",
-                                        "data"
-                                    ]
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "No admission popup image is configured",
-                        "content": {
-                            "application/json": {
-                                "example": {
-                                    "success": false,
-                                    "message": "No admission popup image is configured.",
-                                    "data": null
-                                },
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "success": {
-                                            "type": "boolean",
-                                            "example": false
-                                        },
-                                        "message": {
-                                            "type": "string",
-                                            "example": "No admission popup image is configured."
-                                        },
-                                        "data": {
-                                            "type": "object",
-                                            "nullable": true,
-                                            "example": null
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/popup": {
-            "get": {
-                "tags": [
-                    "Admissions (Frontend)"
-                ],
-                "summary": "Alias endpoint for /admission-popup",
-                "description": "Alias for the image-only admission popup endpoint.",
-                "responses": {
-                    "200": {
-                        "description": "Admission popup image URL",
-                        "content": {
-                            "application/json": {
-                                "example": {
-                                    "success": true,
-                                    "data": {
-                                        "image_url": "https://example.com/uploads/admission-popup/popup.jpg"
+                                        "id": 1,
+                                        "is_active": true,
+                                        "image_path": "uploads/admission-popup/popup.jpg",
+                                        "badge_text": "ADMISSIONS OPEN",
+                                        "cbse_affiliation_text": "CBSE AFFILIATION: 3630478 \u2022 SCHOOL CODE: 56725",
+                                        "school_name": "JRS International School",
+                                        "school_location": "Narapally, Near Uppal, Hyderabad",
+                                        "academic_year_badge": "Academic Year 2027 \u2013 2028",
+                                        "title_prefix": "Admissions Open For",
+                                        "academic_year_highlight": "2027 \u2013 2028",
+                                        "description": "Enrolling students from Nursery to Grade XII with world-class facilities and CBSE curriculum.",
+                                        "features": [
+                                            "CBSE Curriculum with experiential, inquiry-based learning",
+                                            "STEM, Robotics & Cognospace innovation labs",
+                                            "World-Class Sports & Co-curricular clubs"
+                                        ],
+                                        "phone_number": "+91 92814 09674"
                                     }
                                 },
                                 "schema": {
@@ -5375,15 +4512,16 @@
                                     "success": true,
                                     "data": {
                                         "id": 1,
-                                        "address": "JRS International School, Narapally, Near Uppal Depot, Hyderabad, Telangana",
-                                        "phone": "+91 915740 43210",
-                                        "email": "info@jrsinternationalschool.com",
-                                        "map_link": "https://maps.google.com/?q=JRS+International+School+Narapally+Hyderabad",
-                                        "social_links": {
-                                            "facebook": "https://www.facebook.com/jrsinternationalschool",
-                                            "instagram": "https://www.instagram.com/jrsinternationalschool",
-                                            "youtube": "https://www.youtube.com/@jrsinternationalschool"
-                                        }
+                                        "address": "Survey No. 123, Narapally, Near Uppal, Hyderabad, Telangana 500088",
+                                        "phone": "+91 92814 09674",
+                                        "phone_2": "+91 92814 09675",
+                                        "email": "admissions@jrs.ac.in",
+                                        "map_link": "https://maps.google.com/?q=JRS+International+School",
+                                        "facebook_url": "https://facebook.com/jrsschool",
+                                        "instagram_url": "https://instagram.com/jrsschool",
+                                        "twitter_url": "https://twitter.com/jrsschool",
+                                        "youtube_url": "https://youtube.com/@jrsschool",
+                                        "linkedin_url": "https://linkedin.com/company/jrsschool"
                                     }
                                 },
                                 "schema": {
@@ -5444,48 +4582,6 @@
                                         "success",
                                         "data"
                                     ]
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Requested resource or configured data was not found.",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "success": {
-                                            "type": "boolean"
-                                        },
-                                        "message": {
-                                            "type": "string"
-                                        }
-                                    },
-                                    "required": [
-                                        "success",
-                                        "message"
-                                    ]
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/contact-us": {
-            "get": {
-                "tags": [
-                    "Contact Us (Frontend)"
-                ],
-                "summary": "Alias endpoint for /contact",
-                "responses": {
-                    "200": {
-                        "description": "Contact details",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ConfiguredApiResponse"
                                 }
                             }
                         }
@@ -5592,85 +4688,6 @@
                 "responses": {
                     "201": {
                         "description": "Inquiry submitted successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ContactInquiryResponse"
-                                },
-                                "example": {
-                                    "success": true,
-                                    "message": "Thank you! Your message has been sent successfully. Our admissions counselor will get back to you within 24 hours.",
-                                    "data": {
-                                        "id": 1,
-                                        "parent_name": "Ramesh Reddy",
-                                        "phone": "+91 98765 43210",
-                                        "grade": "Grade 5",
-                                        "email": "name@example.com",
-                                        "message": "Tell us what you would like to know about JRS.",
-                                        "status": "pending",
-                                        "notes": null,
-                                        "created_at": "2026-11-04T12:00:00.000000Z",
-                                        "updated_at": "2026-11-04T12:00:00.000000Z"
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "422": {
-                        "description": "Request validation failed",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ApiValidationError"
-                                },
-                                "example": {
-                                    "success": false,
-                                    "message": "Contact inquiry validation error",
-                                    "errors": {
-                                        "parent_name": [
-                                            "Parent / Guardian name is required."
-                                        ],
-                                        "phone": [
-                                            "Phone number is required."
-                                        ],
-                                        "message": [
-                                            "Your query or message is required."
-                                        ]
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/contact-inquiries": {
-            "post": {
-                "tags": [
-                    "Contact Us (Frontend)"
-                ],
-                "summary": "Alias endpoint for /contact/inquiry",
-                "description": "Alias for POST /api/contact/inquiry with the same request validation and response contract.",
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/ContactInquiryRequest"
-                            },
-                            "example": {
-                                "parent_name": "Ramesh Reddy",
-                                "phone": "+91 98765 43210",
-                                "grade": "Grade 5",
-                                "email": "name@example.com",
-                                "message": "Tell us what you would like to know about JRS."
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "201": {
-                        "description": "Inquiry created successfully",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -5881,112 +4898,27 @@
                                         "is_default",
                                         "data"
                                     ]
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/breadcrumb-banners/by-slug/{slug}": {
-            "get": {
-                "tags": [
-                    "Breadcrumb Banners (Frontend)"
-                ],
-                "summary": "Alias endpoint for /breadcrumb-banners/page/{slug}",
-                "parameters": [
-                    {
-                        "name": "slug",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Active breadcrumb banner data",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "success": {
-                                            "type": "boolean"
-                                        },
-                                        "is_default": {
-                                            "type": "boolean"
-                                        },
-                                        "data": {
-                                            "type": "object",
-                                            "properties": {
-                                                "id": {
-                                                    "type": "string",
-                                                    "nullable": true
-                                                },
-                                                "page_name": {
-                                                    "type": "string"
-                                                },
-                                                "page_slug": {
-                                                    "type": "string"
-                                                },
-                                                "breadcrumb_title": {
-                                                    "type": "string"
-                                                },
-                                                "title": {
-                                                    "type": "string"
-                                                },
-                                                "highlighted_title": {
-                                                    "type": "string"
-                                                },
-                                                "background_image": {
-                                                    "type": "string"
-                                                },
-                                                "stats": {
-                                                    "type": "array",
-                                                    "items": {
-                                                        "type": "object",
-                                                        "properties": {
-                                                            "icon": {
-                                                                "type": "string"
-                                                            },
-                                                            "value": {
-                                                                "type": "string"
-                                                            },
-                                                            "label": {
-                                                                "type": "string"
-                                                            }
-                                                        },
-                                                        "required": [
-                                                            "icon",
-                                                            "value",
-                                                            "label"
-                                                        ]
-                                                    }
-                                                },
-                                                "is_active": {
-                                                    "type": "boolean"
-                                                }
-                                            },
-                                            "required": [
-                                                "id",
-                                                "page_name",
-                                                "page_slug",
-                                                "breadcrumb_title",
-                                                "title",
-                                                "highlighted_title",
-                                                "background_image",
-                                                "stats",
-                                                "is_active"
-                                            ]
-                                        }
-                                    },
-                                    "required": [
-                                        "success",
-                                        "is_default",
-                                        "data"
-                                    ]
+                                },
+                                "example": {
+                                    "success": true,
+                                    "data": {
+                                        "id": 1,
+                                        "page_name": "About JRS",
+                                        "page_slug": "about",
+                                        "breadcrumb_title": "About JRS",
+                                        "title": "About",
+                                        "highlighted_title": "JRS",
+                                        "background_image": "uploads/banners/about_banner.jpg",
+                                        "stats": [
+                                            {
+                                                "id": 1,
+                                                "icon": "graduation-cap",
+                                                "value": "2021",
+                                                "label": "Year of Establishment",
+                                                "sort_order": 1
+                                            }
+                                        ]
+                                    }
                                 }
                             }
                         }
@@ -6094,97 +5026,29 @@
                                         "count",
                                         "data"
                                     ]
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/breadcrumb-banners/{idOrSlug}": {
-            "get": {
-                "tags": [
-                    "Breadcrumb Banners (Frontend)"
-                ],
-                "summary": "Get banner by ID or Slug",
-                "parameters": [
-                    {
-                        "name": "idOrSlug",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Banner record",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "success": {
-                                            "type": "boolean"
-                                        },
-                                        "data": {
-                                            "type": "object",
-                                            "properties": {
-                                                "id": {
-                                                    "type": "integer"
-                                                },
-                                                "page_name": {
-                                                    "type": "string"
-                                                },
-                                                "page_slug": {
-                                                    "type": "string"
-                                                },
-                                                "breadcrumb_title": {
-                                                    "type": "string"
-                                                },
-                                                "title": {
-                                                    "type": "string"
-                                                },
-                                                "highlighted_title": {
-                                                    "type": "string"
-                                                },
-                                                "background_image": {
-                                                    "type": "string"
-                                                },
-                                                "background_image_raw": {
-                                                    "type": "string",
-                                                    "nullable": true
-                                                },
-                                                "stats": {
-                                                    "type": "array",
-                                                    "items": []
-                                                },
-                                                "created_at": {
-                                                    "type": "string"
-                                                },
-                                                "updated_at": {
-                                                    "type": "string"
+                                },
+                                "example": {
+                                    "success": true,
+                                    "count": 1,
+                                    "data": [
+                                        {
+                                            "id": 1,
+                                            "page_name": "About JRS",
+                                            "page_slug": "about",
+                                            "breadcrumb_title": "About JRS",
+                                            "title": "About",
+                                            "highlighted_title": "JRS",
+                                            "background_image": "uploads/banners/about_banner.jpg",
+                                            "stats": [
+                                                {
+                                                    "id": 1,
+                                                    "icon": "graduation-cap",
+                                                    "value": "2021",
+                                                    "label": "Year of Establishment",
+                                                    "sort_order": 1
                                                 }
-                                            },
-                                            "required": [
-                                                "id",
-                                                "page_name",
-                                                "page_slug",
-                                                "breadcrumb_title",
-                                                "title",
-                                                "highlighted_title",
-                                                "background_image",
-                                                "background_image_raw",
-                                                "stats",
-                                                "created_at",
-                                                "updated_at"
                                             ]
                                         }
-                                    },
-                                    "required": [
-                                        "success",
-                                        "data"
                                     ]
                                 }
                             }

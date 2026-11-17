@@ -28,18 +28,6 @@ class ContactApiController extends Controller
             ], 404);
         }
 
-        // Prepare normalized social links list
-        $socialLinksList = $contact->social_links;
-        if (empty($socialLinksList) || !is_array($socialLinksList)) {
-            $socialLinksList = array_values(array_filter([
-                $contact->facebook_url ? ['platform' => 'Facebook', 'icon' => 'fab fa-facebook-f', 'url' => $contact->facebook_url] : null,
-                $contact->instagram_url ? ['platform' => 'Instagram', 'icon' => 'fab fa-instagram', 'url' => $contact->instagram_url] : null,
-                $contact->twitter_url ? ['platform' => 'X (Twitter)', 'icon' => 'fab fa-x-twitter', 'url' => $contact->twitter_url] : null,
-                $contact->youtube_url ? ['platform' => 'YouTube', 'icon' => 'fab fa-youtube', 'url' => $contact->youtube_url] : null,
-                $contact->linkedin_url ? ['platform' => 'LinkedIn', 'icon' => 'fab fa-linkedin-in', 'url' => $contact->linkedin_url] : null,
-            ]));
-        }
-
         return response()->json([
             'success' => true,
             'data'    => [
@@ -47,7 +35,6 @@ class ContactApiController extends Controller
                 'address'       => $contact->address,
                 'phone'         => $contact->phone,
                 'phone_2'       => $contact->phone_2,
-                'phones'        => array_values(array_filter([$contact->phone, $contact->phone_2])),
                 'email'         => $contact->email,
                 'map_link'      => $contact->map_link,
                 'facebook_url'  => $contact->facebook_url,
@@ -55,15 +42,6 @@ class ContactApiController extends Controller
                 'twitter_url'   => $contact->twitter_url,
                 'youtube_url'   => $contact->youtube_url,
                 'linkedin_url'  => $contact->linkedin_url,
-                'social_links'  => $socialLinksList,
-                'social_links_map' => [
-                    'facebook'  => $contact->facebook_url,
-                    'instagram' => $contact->instagram_url,
-                    'twitter'   => $contact->twitter_url,
-                    'x'         => $contact->twitter_url,
-                    'youtube'   => $contact->youtube_url,
-                    'linkedin'  => $contact->linkedin_url,
-                ],
             ],
         ], 200);
     }
@@ -135,8 +113,12 @@ class ContactApiController extends Controller
                 'Grade 8',
                 'Grade 9',
                 'Grade 10',
-                'Grade 11',
-                'Grade 12',
+                'Grade 11 (MPC)',
+                'Grade 11 (BiPC)',
+                'Grade 11 (MEC)',
+                'Grade 12 (MPC)',
+                'Grade 12 (BiPC)',
+                'Grade 12 (MEC)',
             ],
         ], 200);
     }

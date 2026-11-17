@@ -99,10 +99,8 @@ Route::get('/events', [SchoolEventApiController::class, 'getActiveEvents']);
 Route::get('/latest-events', [SchoolEventApiController::class, 'getActiveEvents']);
 Route::get('/events/{id}', [SchoolEventApiController::class, 'show']);
 
-// Key Features GET Endpoints (for React Homepage)
+// Key Features GET Endpoint (for React Homepage)
 Route::get('/features', [HomeFeatureApiController::class, 'getActiveFeatures']);
-Route::get('/home-features', [HomeFeatureApiController::class, 'getActiveFeatures']);
-Route::get('/features/{id}', [HomeFeatureApiController::class, 'show']);
 
 // Stats Section GET Endpoints (for React Homepage)
 Route::get('/stats', [HomeStatApiController::class, 'getActiveStats']);

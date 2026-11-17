@@ -10,7 +10,7 @@ class HeroSliderApiController extends Controller
 {
     /**
      * Public endpoint for React frontend: GET /api/hero-slider
-     * Returns buttons and the experience badge synchronized across each rotating background photo,
+     * Returns buttons synchronized across each rotating background photo,
      * along with the parent hero object.
      */
     public function getActiveSliders(): JsonResponse
@@ -31,10 +31,6 @@ class HeroSliderApiController extends Controller
             $hero->primary_button_text = 'Admissions 2027-28';
             $changed = true;
         }
-        if (empty($hero->experience_badge_image)) {
-            $hero->experience_badge_image = 'images/experience-badge-38.svg';
-            $changed = true;
-        }
         if ($changed) {
             $hero->save();
         }
@@ -51,9 +47,7 @@ class HeroSliderApiController extends Controller
                 'secondary_button_text' => $hero->secondary_button_text,
                 'secondary_button_url' => $hero->secondary_button_url,
                 'experience_badge_image' => $hero->experience_badge_image,
-                'experience_badge_image_url' => $hero->experience_badge_image_url,
                 'background_images' => $hero->background_images ?? [],
-                'background_images_full_urls' => $hero->background_images_full_urls,
             ],
         ], 200);
     }

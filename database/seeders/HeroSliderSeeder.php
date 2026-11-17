@@ -18,7 +18,6 @@ class HeroSliderSeeder extends Seeder
             'primary_button_text' => 'Admissions 2027-28',
             'secondary_button_text' => 'Take a Virtual Tour',
             'secondary_button_url' => 'https://jrs-school.vercel.app/#tour',
-            'experience_badge_image' => 'images/experience-badge-38.svg',
             'image_path' => 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?q=80&w=1920&auto=format&fit=crop',
             'background_images' => [
                 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?q=80&w=1920&auto=format&fit=crop',

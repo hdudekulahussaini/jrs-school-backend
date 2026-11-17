@@ -20,9 +20,9 @@ class HeroSliderRequest extends FormRequest
      * Get the validation rules that apply to the request.
      * Restricted strictly to the supported hero slider fields:
      * 1. Hero Background Images (multiple image support)
-     * 2. Primary Button Text
-     * 3. Secondary Button Text and URL
-     * 4. Experience Badge Image
+     * 2. Experience Badge Image (SVG / PNG / JPG / WebP)
+     * 3. Primary Button Text
+     * 4. Secondary Button Text and URL
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
@@ -32,7 +32,7 @@ class HeroSliderRequest extends FormRequest
             'primary_button_text' => 'nullable|string|max:100',
             'secondary_button_text' => 'nullable|string|max:100',
             'secondary_button_url' => 'nullable|string|max:500',
-            'experience_badge_image' => 'nullable|image|mimes:jpeg,png,jpg,webp,svg|max:5120',
+            'experience_badge_image' => 'nullable|file|mimes:jpeg,png,jpg,webp,svg|max:5120',
             'background_images' => 'nullable|array',
             'background_images.*' => 'nullable|image|mimes:jpeg,png,jpg,webp,svg|max:10240',
             'images' => 'nullable|array',
@@ -49,8 +49,9 @@ class HeroSliderRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'experience_badge_image.image' => 'The experience badge must be an image file (PNG, SVG, JPG, WEBP).',
-            'experience_badge_image.max' => 'The experience badge size cannot exceed 5MB.',
+            'experience_badge_image.file' => 'The experience badge must be a file.',
+            'experience_badge_image.mimes' => 'The experience badge must be an image of type: jpeg, png, jpg, webp, or svg.',
+            'experience_badge_image.max' => 'The experience badge file size cannot exceed 5MB.',
             'background_images.*.image' => 'Each background photograph must be a valid image file.',
             'background_images.*.mimes' => 'Background photographs must be in jpeg, png, jpg, webp, or svg format.',
             'background_images.*.max' => 'Background photograph size cannot exceed 10MB.',

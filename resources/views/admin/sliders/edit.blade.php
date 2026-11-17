@@ -26,7 +26,7 @@
             <div>
                 <h3 class="text-base font-bold text-slate-900">Edit Hero Slider #{{ $slider->id }}</h3>
                 <p class="text-xs text-slate-500 mt-0.5">
-                    Update Action Buttons, Experience Badge, and Rotating Background Photographs.
+                    Update Action Buttons and Rotating Background Photographs.
                 </p>
             </div>
         </div>
@@ -54,22 +54,6 @@
                     <div>
                         <label class="block text-[11px] font-bold text-slate-600 uppercase mb-1">Target URL</label>
                         <input type="text" name="secondary_button_url" value="{{ old('secondary_button_url', $slider->secondary_button_url) }}" placeholder="e.g. https://... or #tour" class="w-full px-3 py-2 rounded-lg text-sm border border-slate-200 bg-white outline-none">
-                    </div>
-                </div>
-            </div>
-
-            <!-- Experience Badge Image -->
-            <div class="pt-2 border-t border-slate-100 space-y-3">
-                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider">
-                    Experience Badge Image (Top-Right Circular Seal)
-                </label>
-                <div class="flex items-center gap-4 p-4 rounded-xl bg-slate-50 border border-slate-200/80">
-                    <div class="w-16 h-16 rounded-full bg-slate-950 p-1.5 border border-amber-400 shrink-0 flex items-center justify-center shadow-xs overflow-hidden">
-                        <img id="badgePreview" src="{{ $slider->experience_badge_image_url }}" alt="Badge Preview" class="w-full h-full object-contain">
-                    </div>
-                    <div class="flex-1 space-y-1">
-                        <input type="file" name="experience_badge_image" id="badgeInput" accept="image/png,image/svg+xml,image/jpeg,image/webp" class="text-xs text-slate-600 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-jrs-navy file:text-white hover:file:bg-slate-800" onchange="previewBadge(this)">
-                        <p class="text-[11px] text-slate-400">Upload replacement seal (PNG, SVG, JPG up to 5MB).</p>
                     </div>
                 </div>
             </div>
@@ -114,6 +98,30 @@
                 <div id="newImagesPreview" class="hidden grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2"></div>
             </div>
 
+            <!-- Experience Seal / Badge Image (SVG / PNG) -->
+            <div class="pt-2 border-t border-slate-100 space-y-3">
+                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider">
+                    Experience Badge Image (Optional)
+                </label>
+                <div class="flex items-center gap-4 p-4 rounded-xl bg-slate-50/70 border border-slate-200/80">
+                    <div id="badgePreviewContainer" class="w-16 h-16 rounded-xl border border-slate-200 bg-white flex items-center justify-center overflow-hidden shrink-0 shadow-2xs">
+                        @if($slider->experience_badge_image)
+                            <img id="badgePreviewImg" src="{{ str_starts_with($slider->experience_badge_image, 'http') ? $slider->experience_badge_image : asset($slider->experience_badge_image) }}" class="w-full h-full object-contain" alt="Badge">
+                            <i id="badgePreviewIcon" class="bi bi-award text-2xl text-slate-400 hidden"></i>
+                        @else
+                            <img id="badgePreviewImg" src="" class="w-full h-full object-contain hidden" alt="Badge Preview">
+                            <i id="badgePreviewIcon" class="bi bi-award text-2xl text-slate-400"></i>
+                        @endif
+                    </div>
+                    <div class="flex-1">
+                        <input type="file" name="experience_badge_image" id="experience_badge_image" accept="image/*,.svg"
+                            class="block w-full text-xs text-slate-500 file:mr-3 file:py-2 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-slate-200 file:text-slate-700 hover:file:bg-slate-300 cursor-pointer"
+                            onchange="previewBadge(this)">
+                        <p class="text-[11px] text-slate-400 mt-1">Upload a new circular badge or seal graphic (SVG, PNG, JPG, WebP up to 5MB) to replace</p>
+                    </div>
+                </div>
+            </div>
+
             <!-- Submit Button -->
             <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
                 <a href="{{ route('admin.sliders.index') }}" class="px-4 py-2 rounded-xl text-xs font-bold text-slate-600 border border-slate-200 bg-white hover:bg-slate-50 transition-colors">
@@ -129,16 +137,6 @@
 </div>
 
 <script>
-function previewBadge(input) {
-    if (input.files && input.files[0]) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            document.getElementById('badgePreview').src = e.target.result;
-        };
-        reader.readAsDataURL(input.files[0]);
-    }
-}
-
 function previewNewImages(input) {
     const container = document.getElementById('newImagesPreview');
     container.innerHTML = '';
@@ -186,6 +184,20 @@ function removePhotoCard(idx, imgPath) {
             'X-Requested-With': 'XMLHttpRequest'
         }
     }).catch(err => console.log('Remove image error:', err));
+}
+
+function previewBadge(input) {
+    const previewImg = document.getElementById('badgePreviewImg');
+    const previewIcon = document.getElementById('badgePreviewIcon');
+    if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            previewImg.src = e.target.result;
+            previewImg.classList.remove('hidden');
+            if (previewIcon) previewIcon.classList.add('hidden');
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
 }
 </script>
 @endsection

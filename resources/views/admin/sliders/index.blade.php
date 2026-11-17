@@ -51,7 +51,6 @@
                 <thead>
                     <tr class="border-b border-slate-200 bg-slate-50/75 text-slate-500 font-medium text-xs">
                         <th class="h-10 px-4 w-16 text-center">ID</th>
-                        <th class="h-10 px-4 w-20 text-center">Seal</th>
                         <th class="h-10 px-4 w-44">Primary Button</th>
                         <th class="h-10 px-4 w-52">Secondary Button</th>
                         <th class="h-10 px-4 w-48">Background Photos</th>
@@ -66,13 +65,6 @@
                                 <span class="inline-flex items-center justify-center font-mono text-xs font-semibold text-slate-500 bg-slate-100 rounded-md h-6 w-8">
                                     #{{ $slider->id }}
                                 </span>
-                            </td>
-
-                            <!-- Seal Preview -->
-                            <td class="p-4 align-middle text-center">
-                                <div class="w-10 h-10 rounded-full bg-slate-950 p-1 border border-amber-400 shadow-xs flex items-center justify-center mx-auto overflow-hidden">
-                                    <img src="{{ $slider->experience_badge_image_url }}" alt="Badge" class="w-full h-full object-contain">
-                                </div>
                             </td>
 
                             <!-- Primary Button -->
@@ -107,14 +99,17 @@
                             <!-- Background Photos Preview -->
                             <td class="p-4 align-middle">
                                 @php
-                                    $imgs = $slider->background_images_full_urls;
-                                    $imgCount = count($imgs);
+                                    $rawBg = is_array($slider->background_images) ? $slider->background_images : (!empty($slider->image_path) ? [$slider->image_path] : []);
+                                    $imgCount = count($rawBg);
                                 @endphp
                                 @if($imgCount > 0)
                                     <div class="space-y-1.5">
                                         <div class="grid grid-cols-3 gap-1.5 w-48">
-                                            @foreach(array_slice($imgs, 0, 3) as $index => $photoUrl)
-                                                <img src="{{ $photoUrl }}" alt="Background photo {{ $index + 1 }}" loading="lazy" class="h-12 w-full rounded-md border border-slate-200 bg-slate-100 object-cover shadow-2xs">
+                                            @foreach(array_slice($rawBg, 0, 3) as $index => $photo)
+                                                @php
+                                                    $photoSrc = str_starts_with($photo, 'http') ? $photo : asset($photo);
+                                                @endphp
+                                                <img src="{{ $photoSrc }}" alt="Background photo {{ $index + 1 }}" loading="lazy" class="h-12 w-full rounded-md border border-slate-200 bg-slate-100 object-cover shadow-2xs">
                                             @endforeach
                                         </div>
                                         <span class="text-xs font-medium text-slate-500">
@@ -140,7 +135,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="6" class="p-10 text-center text-slate-500">
+                            <td colspan="5" class="p-10 text-center text-slate-500">
                                 <div class="max-w-sm mx-auto space-y-3">
                                     <div class="w-12 h-12 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center mx-auto text-xl">
                                         <i class="bi bi-images"></i>

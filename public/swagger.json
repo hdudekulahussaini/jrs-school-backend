@@ -797,10 +797,8 @@
                       "primary_button_text": "Admissions 2027-28",
                       "secondary_button_text": "Take a Virtual Tour",
                       "secondary_button_url": "https://jrs-school.vercel.app/#tour",
-                      "experience_badge_image": "images/experience-badge-38.svg",
-                      "experience_badge_image_url": "/images/experience-badge-38.svg",
+                      "experience_badge_image": "uploads/hero_sliders/badge_1793777846_hKZ6If.png",
                       "image_path": "https://images.unsplash.com/photo-1580582932707-520aed937b7b",
-                      "image_full_url": "https://images.unsplash.com/photo-1580582932707-520aed937b7b",
                       "sort_order": 1
                     }
                   ],
@@ -809,13 +807,8 @@
                     "primary_button_text": "Admissions 2027-28",
                     "secondary_button_text": "Take a Virtual Tour",
                     "secondary_button_url": "https://jrs-school.vercel.app/#tour",
-                    "experience_badge_image": "images/experience-badge-38.svg",
-                    "experience_badge_image_url": "/images/experience-badge-38.svg",
+                    "experience_badge_image": "uploads/hero_sliders/badge_1793777846_hKZ6If.png",
                     "background_images": [
-                      "https://images.unsplash.com/photo-1580582932707-520aed937b7b",
-                      "https://images.unsplash.com/photo-1509062522246-3755977927d7"
-                    ],
-                    "background_images_full_urls": [
                       "https://images.unsplash.com/photo-1580582932707-520aed937b7b",
                       "https://images.unsplash.com/photo-1509062522246-3755977927d7"
                     ]
@@ -853,13 +846,7 @@
                           "experience_badge_image": {
                             "type": "string"
                           },
-                          "experience_badge_image_url": {
-                            "type": "string"
-                          },
                           "image_path": {
-                            "type": "string"
-                          },
-                          "image_full_url": {
                             "type": "string"
                           },
                           "sort_order": {
@@ -873,9 +860,7 @@
                           "secondary_button_text",
                           "secondary_button_url",
                           "experience_badge_image",
-                          "experience_badge_image_url",
                           "image_path",
-                          "image_full_url",
                           "sort_order"
                         ]
                       }
@@ -898,16 +883,7 @@
                         "experience_badge_image": {
                           "type": "string"
                         },
-                        "experience_badge_image_url": {
-                          "type": "string"
-                        },
                         "background_images": {
-                          "type": "array",
-                          "items": {
-                            "type": "string"
-                          }
-                        },
-                        "background_images_full_urls": {
                           "type": "array",
                           "items": {
                             "type": "string"
@@ -920,9 +896,7 @@
                         "secondary_button_text",
                         "secondary_button_url",
                         "experience_badge_image",
-                        "experience_badge_image_url",
-                        "background_images",
-                        "background_images_full_urls"
+                        "background_images"
                       ]
                     }
                   },

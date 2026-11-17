@@ -47,7 +47,6 @@ class HeroSliderController extends Controller
             'primary_button_text' => 'Admissions 2027-28',
             'secondary_button_text' => 'Take a Virtual Tour',
             'secondary_button_url' => 'https://jrs-school.vercel.app/#tour',
-            'experience_badge_image' => 'images/experience-badge-38.svg',
             'is_active' => true,
         ]);
 
@@ -69,16 +68,6 @@ class HeroSliderController extends Controller
         $uploadDir = public_path('uploads/hero_sliders');
         if (!File::exists($uploadDir)) {
             File::makeDirectory($uploadDir, 0755, true);
-        }
-
-        // Handle Experience Badge Upload
-        if ($request->hasFile('experience_badge_image')) {
-            $file = $request->file('experience_badge_image');
-            $filename = 'badge_' . time() . '_' . Str::random(6) . '.' . $file->getClientOriginalExtension();
-            $file->move($uploadDir, $filename);
-            $validated['experience_badge_image'] = 'uploads/hero_sliders/' . $filename;
-        } else {
-            $validated['experience_badge_image'] = 'images/experience-badge-38.svg';
         }
 
         // Handle Background Images
@@ -108,6 +97,16 @@ class HeroSliderController extends Controller
         $validated['background_images'] = array_values(array_unique(array_filter($currentImages)));
         $validated['image_path'] = $validated['background_images'][0] ?? null;
 
+        // Handle Experience Badge Image
+        if ($request->hasFile('experience_badge_image')) {
+            $badgeFile = $request->file('experience_badge_image');
+            if ($badgeFile && $badgeFile->isValid()) {
+                $badgeName = 'badge_' . time() . '_' . Str::random(6) . '.' . $badgeFile->getClientOriginalExtension();
+                $badgeFile->move($uploadDir, $badgeName);
+                $validated['experience_badge_image'] = 'uploads/hero_sliders/' . $badgeName;
+            }
+        }
+
         unset(
             $validated['badge_title'],
             $validated['highlight_text'],
@@ -115,8 +114,7 @@ class HeroSliderController extends Controller
             $validated['contact_phone'],
             $validated['sort_order'],
             $validated['image'],
-            $validated['primary_button_url'],
-            $validated['experience_badge_image_url']
+            $validated['primary_button_url']
         );
 
         $slider = HeroSlider::create($validated);
@@ -161,18 +159,6 @@ class HeroSliderController extends Controller
             File::makeDirectory($uploadDir, 0755, true);
         }
 
-        // Handle Experience Badge Upload or Removal
-        if ($request->has('remove_badge') && $request->boolean('remove_badge')) {
-            $this->deletePhysicalImage($slider->experience_badge_image);
-            $validated['experience_badge_image'] = null;
-        } elseif ($request->hasFile('experience_badge_image')) {
-            $this->deletePhysicalImage($slider->experience_badge_image);
-            $file = $request->file('experience_badge_image');
-            $filename = 'badge_' . time() . '_' . Str::random(6) . '.' . $file->getClientOriginalExtension();
-            $file->move($uploadDir, $filename);
-            $validated['experience_badge_image'] = 'uploads/hero_sliders/' . $filename;
-        }
-
         // Handle Background Images
         $currentImages = [];
         if ($request->has('existing_images') && is_array($request->input('existing_images'))) {
@@ -204,6 +190,20 @@ class HeroSliderController extends Controller
         $validated['background_images'] = $currentImages;
         $validated['image_path'] = $currentImages[0] ?? null;
 
+        // Handle Experience Badge Image upload / replace
+        if ($request->hasFile('experience_badge_image')) {
+            $badgeFile = $request->file('experience_badge_image');
+            if ($badgeFile && $badgeFile->isValid()) {
+                $this->deletePhysicalImage($slider->experience_badge_image);
+                $badgeName = 'badge_' . time() . '_' . Str::random(6) . '.' . $badgeFile->getClientOriginalExtension();
+                $badgeFile->move($uploadDir, $badgeName);
+                $validated['experience_badge_image'] = 'uploads/hero_sliders/' . $badgeName;
+            }
+        } elseif ($request->boolean('remove_badge_image')) {
+            $this->deletePhysicalImage($slider->experience_badge_image);
+            $validated['experience_badge_image'] = null;
+        }
+
         unset(
             $validated['badge_title'],
             $validated['highlight_text'],
@@ -211,8 +211,7 @@ class HeroSliderController extends Controller
             $validated['contact_phone'],
             $validated['sort_order'],
             $validated['image'],
-            $validated['primary_button_url'],
-            $validated['experience_badge_image_url']
+            $validated['primary_button_url']
         );
 
         $slider->fill($validated);
@@ -275,8 +274,8 @@ class HeroSliderController extends Controller
                 $this->deletePhysicalImage($path);
             }
         }
-        $this->deletePhysicalImage($slider->experience_badge_image);
         $this->deletePhysicalImage($slider->image_path);
+        $this->deletePhysicalImage($slider->experience_badge_image);
         $slider->delete();
 
         flash()->info('Hero slider deleted successfully.', [], 'Hero Slider Deleted');

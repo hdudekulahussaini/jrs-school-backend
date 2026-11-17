@@ -54,9 +54,8 @@ Route::get('/hero-slider', [HeroSliderApiController::class, 'getActiveSliders'])
 Route::get('/home-banner', [HomeBannerApiController::class, 'getBanner']);
 
 // Campus Amenities / Facilities Endpoints (Frontend Read-Only)
-Route::get('/amenities-page', [FacilityApiController::class, 'getPageData']);
-Route::get('/amenities-cta', [FacilityApiController::class, 'getCta']);
 Route::get('/facilities', [FacilityApiController::class, 'getActiveFacilities']);
+Route::get('/amenities-cta', [FacilityApiController::class, 'getCta']);
 
 // Academic Programs Endpoint (Frontend Read-Only)
 Route::get('/academic-programs', [AcademicProgramApiController::class, 'getActivePrograms']);

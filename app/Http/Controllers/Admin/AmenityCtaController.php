@@ -43,17 +43,6 @@ class AmenityCtaController extends Controller
         $isActive = $request->has('is_active') ? $request->boolean('is_active') : true;
         $validated['is_active'] = $isActive;
 
-        if ($request->hasFile('image_file')) {
-            $file = $request->file('image_file');
-            $filename = 'amenity_cta_' . time() . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('uploads/amenities'), $filename);
-            $validated['image_path'] = '/uploads/amenities/' . $filename;
-        } else {
-            $validated['image_path'] = '/images/amenities/cta-banner.png';
-        }
-
-        unset($validated['image_file']);
-
         if ($isActive) {
             AmenityCta::where('is_active', true)->update(['is_active' => false]);
         }
@@ -89,15 +78,6 @@ class AmenityCtaController extends Controller
                 AmenityCta::where('id', '!=', $cta->id)->update(['is_active' => false]);
             }
         }
-
-        if ($request->hasFile('image_file')) {
-            $file = $request->file('image_file');
-            $filename = 'amenity_cta_' . time() . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('uploads/amenities'), $filename);
-            $validated['image_path'] = '/uploads/amenities/' . $filename;
-        }
-
-        unset($validated['image_file']);
 
         $cta->update($validated);
         flash()->success('Amenities CTA banner updated successfully.');

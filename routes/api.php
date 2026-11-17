@@ -56,12 +56,7 @@ Route::get('/home-banner', [HomeBannerApiController::class, 'getBanner']);
 // Campus Amenities / Facilities Endpoints (Frontend Read-Only)
 Route::get('/amenities-page', [FacilityApiController::class, 'getPageData']);
 Route::get('/amenities-cta', [FacilityApiController::class, 'getCta']);
-Route::get('/amenities/cta', [FacilityApiController::class, 'getCta']);
-Route::get('/amenities', [FacilityApiController::class, 'getActiveFacilities']);
-Route::get('/amenities/{id}', [FacilityApiController::class, 'show']);
 Route::get('/facilities', [FacilityApiController::class, 'getActiveFacilities']);
-Route::get('/facilities/{id}', [FacilityApiController::class, 'show']);
-Route::get('/campus/facilities', [FacilityApiController::class, 'getActiveFacilities']);
 
 // Academic Programs Endpoint (Frontend Read-Only)
 Route::get('/academic-programs', [AcademicProgramApiController::class, 'getActivePrograms']);

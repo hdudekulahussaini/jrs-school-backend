@@ -1115,12 +1115,70 @@
           "Amenities & Facilities (Frontend)"
         ],
         "summary": "Get campus amenities page metadata, facility cards and CTA banner",
-        "description": "Returns 'OUR CAMPUS' badge, headline, and facility cards (Athletics Track & Pool, Playgrounds, Canteen, Transport, CCTV Security, Medical, Infrastructure, Computing Wi-Fi).",
+        "description": "Returns 'OUR CAMPUS' badge, headline, facility cards array, and bottom CTA banner.",
         "responses": {
           "200": {
             "description": "Amenities page payload with facility cards and CTA",
             "content": {
               "application/json": {
+                "example": {
+                  "success": true,
+                  "message": "Campus amenities page data retrieved successfully",
+                  "page": {
+                    "badge": "OUR CAMPUS",
+                    "title": "State-Of-The-Art Facilities",
+                    "highlight_title": "Facilities",
+                    "subtitle": "The campus boasts of the following unique facilities to make this happen:"
+                  },
+                  "count": 1,
+                  "total": 1,
+                  "data": [
+                    {
+                      "id": 1,
+                      "title": "Science & Computer Labs",
+                      "description": "Well-equipped labs for hands-on learning",
+                      "overview_description": "Our state-of-the-art Science and Computer Laboratories provide students with hands-on experiential learning where theoretical knowledge meets real-world practice under expert faculty guidance.",
+                      "highlights": [
+                        "Interactive and experiential learning",
+                        "Encourages creativity and innovation",
+                        "Collaborative spaces for team activities",
+                        "Equipped with modern learning tools"
+                      ],
+                      "gallery_images": [
+                        "uploads/facilities/gallery/gallery_1.jpg",
+                        "uploads/facilities/gallery/gallery_2.jpg"
+                      ],
+                      "image_path": "uploads/facilities/facility_1.jpg",
+                      "icon": "bi bi-flask",
+                      "sort_order": 1,
+                      "is_active": true,
+                      "created_at": "2026-11-06T06:50:24.000000Z",
+                      "updated_at": "2026-11-07T04:59:24.000000Z",
+                      "image_full_url": "http://localhost:8000/uploads/facilities/facility_1.jpg",
+                      "gallery_images_full_urls": [
+                        "http://localhost:8000/uploads/facilities/gallery/gallery_1.jpg",
+                        "http://localhost:8000/uploads/facilities/gallery/gallery_2.jpg"
+                      ]
+                    }
+                  ],
+                  "cta": {
+                    "id": 1,
+                    "badge": "JOIN THE JRS JOURNEY",
+                    "title": "We Invite Everyone To Join Us On Our Journey Towards Excellence.",
+                    "highlight_text": "Excellence.",
+                    "description": "Experience our vibrant learning atmosphere, state-of-the-art facilities, and nurturing environment firsthand.",
+                    "primary_button_text": "Book a Campus Tour",
+                    "primary_button_url": "/campus-tour",
+                    "secondary_button_text": "Contact School",
+                    "secondary_button_url": "/contact",
+                    "image_path": "/images/amenities/cta-banner.png",
+                    "bg_color": "#031c3f",
+                    "is_active": true,
+                    "created_at": "2026-11-07T05:23:22.000000Z",
+                    "updated_at": "2026-11-07T05:23:22.000000Z",
+                    "image_full_url": "http://localhost:8000/images/amenities/cta-banner.png"
+                  }
+                },
                 "schema": {
                   "type": "object",
                   "properties": {
@@ -1161,11 +1219,133 @@
                     },
                     "data": {
                       "type": "array",
-                      "items": {}
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer"
+                          },
+                          "title": {
+                            "type": "string"
+                          },
+                          "description": {
+                            "type": "string"
+                          },
+                          "overview_description": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "highlights": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          },
+                          "gallery_images": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          },
+                          "image_path": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "icon": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "sort_order": {
+                            "type": "integer"
+                          },
+                          "is_active": {
+                            "type": "boolean"
+                          },
+                          "created_at": {
+                            "type": "string"
+                          },
+                          "updated_at": {
+                            "type": "string"
+                          },
+                          "image_full_url": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "gallery_images_full_urls": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "title",
+                          "description",
+                          "sort_order",
+                          "is_active"
+                        ]
+                      }
                     },
                     "cta": {
-                      "type": "string",
-                      "nullable": true
+                      "type": "object",
+                      "nullable": true,
+                      "properties": {
+                        "id": {
+                          "type": "integer"
+                        },
+                        "badge": {
+                          "type": "string"
+                        },
+                        "title": {
+                          "type": "string"
+                        },
+                        "highlight_text": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "description": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "primary_button_text": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "primary_button_url": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "secondary_button_text": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "secondary_button_url": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "image_path": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "bg_color": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "is_active": {
+                          "type": "boolean"
+                        },
+                        "created_at": {
+                          "type": "string"
+                        },
+                        "updated_at": {
+                          "type": "string"
+                        },
+                        "image_full_url": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      }
                     }
                   },
                   "required": [
@@ -1174,8 +1354,7 @@
                     "page",
                     "count",
                     "total",
-                    "data",
-                    "cta"
+                    "data"
                   ]
                 }
               }
@@ -1190,13 +1369,113 @@
           "Amenities & Facilities (Frontend)"
         ],
         "summary": "Get active Amenities CTA banner",
+        "description": "Returns the active campus amenities CTA banner with headline, description, action buttons, and background image.",
         "responses": {
           "200": {
             "description": "Amenities CTA banner data",
             "content": {
               "application/json": {
+                "example": {
+                  "success": true,
+                  "message": "Amenities CTA banner retrieved successfully",
+                  "data": {
+                    "id": 1,
+                    "badge": "JOIN THE JRS JOURNEY",
+                    "title": "We Invite Everyone To Join Us On Our Journey Towards Excellence.",
+                    "highlight_text": "Excellence.",
+                    "description": "Experience our vibrant learning atmosphere, state-of-the-art facilities, and nurturing environment firsthand.",
+                    "primary_button_text": "Book a Campus Tour",
+                    "primary_button_url": "/campus-tour",
+                    "secondary_button_text": "Contact School",
+                    "secondary_button_url": "/contact",
+                    "image_path": "/images/amenities/cta-banner.png",
+                    "bg_color": "#031c3f",
+                    "is_active": true,
+                    "created_at": "2026-11-07T05:23:22.000000Z",
+                    "updated_at": "2026-11-07T05:23:22.000000Z",
+                    "image_full_url": "http://localhost:8000/images/amenities/cta-banner.png"
+                  }
+                },
                 "schema": {
-                  "$ref": "#/components/schemas/ConfiguredApiResponse"
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "nullable": true,
+                      "properties": {
+                        "id": {
+                          "type": "integer"
+                        },
+                        "badge": {
+                          "type": "string"
+                        },
+                        "title": {
+                          "type": "string"
+                        },
+                        "highlight_text": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "description": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "primary_button_text": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "primary_button_url": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "secondary_button_text": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "secondary_button_url": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "image_path": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "bg_color": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "is_active": {
+                          "type": "boolean"
+                        },
+                        "created_at": {
+                          "type": "string"
+                        },
+                        "updated_at": {
+                          "type": "string"
+                        },
+                        "image_full_url": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "title",
+                        "is_active"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "message",
+                    "data"
+                  ]
                 }
               }
             }
@@ -1223,150 +1502,6 @@
                     "success",
                     "message",
                     "data"
-                  ]
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/amenities/cta": {
-      "get": {
-        "tags": [
-          "Amenities & Facilities (Frontend)"
-        ],
-        "summary": "Alias endpoint for /amenities-cta",
-        "responses": {
-          "200": {
-            "description": "Amenities CTA banner data",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ConfiguredApiResponse"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Requested resource or configured data was not found.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean"
-                    },
-                    "message": {
-                      "type": "string"
-                    },
-                    "data": {
-                      "type": "string",
-                      "nullable": true
-                    }
-                  },
-                  "required": [
-                    "success",
-                    "message",
-                    "data"
-                  ]
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/amenities": {
-      "get": {
-        "tags": [
-          "Amenities & Facilities (Frontend)"
-        ],
-        "summary": "Get active campus amenities array",
-        "responses": {
-          "200": {
-            "description": "List of active amenities",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean"
-                    },
-                    "message": {
-                      "type": "string"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {}
-                    }
-                  },
-                  "required": [
-                    "success",
-                    "message",
-                    "count",
-                    "total",
-                    "data"
-                  ]
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/amenities/{id}": {
-      "get": {
-        "tags": [
-          "Amenities & Facilities (Frontend)"
-        ],
-        "summary": "Get specific amenity by ID",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Amenity record",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ConfiguredApiResponse"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Requested resource or configured data was not found.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean"
-                    },
-                    "message": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "success",
-                    "message"
                   ]
                 }
               }
@@ -1380,12 +1515,48 @@
         "tags": [
           "Amenities & Facilities (Frontend)"
         ],
-        "summary": "Get active campus facilities array (alias for /amenities)",
+        "summary": "Get active campus facilities array",
+        "description": "Returns all published campus facilities and amenities cards with overview descriptions, highlights, and gallery images sorted by sort_order.",
         "responses": {
           "200": {
             "description": "List of active facilities",
             "content": {
               "application/json": {
+                "example": {
+                  "success": true,
+                  "message": "Active campus amenities retrieved successfully",
+                  "count": 1,
+                  "total": 1,
+                  "data": [
+                    {
+                      "id": 1,
+                      "title": "Science & Computer Labs",
+                      "description": "Well-equipped labs for hands-on learning",
+                      "overview_description": "Our state-of-the-art Science and Computer Laboratories provide students with hands-on experiential learning where theoretical knowledge meets real-world practice under expert faculty guidance.",
+                      "highlights": [
+                        "Interactive and experiential learning",
+                        "Encourages creativity and innovation",
+                        "Collaborative spaces for team activities",
+                        "Equipped with modern learning tools"
+                      ],
+                      "gallery_images": [
+                        "uploads/facilities/gallery/gallery_1.jpg",
+                        "uploads/facilities/gallery/gallery_2.jpg"
+                      ],
+                      "image_path": "uploads/facilities/facility_1.jpg",
+                      "icon": "bi bi-flask",
+                      "sort_order": 1,
+                      "is_active": true,
+                      "created_at": "2026-11-06T06:50:24.000000Z",
+                      "updated_at": "2026-11-07T04:59:24.000000Z",
+                      "image_full_url": "http://localhost:8000/uploads/facilities/facility_1.jpg",
+                      "gallery_images_full_urls": [
+                        "http://localhost:8000/uploads/facilities/gallery/gallery_1.jpg",
+                        "http://localhost:8000/uploads/facilities/gallery/gallery_2.jpg"
+                      ]
+                    }
+                  ]
+                },
                 "schema": {
                   "type": "object",
                   "properties": {
@@ -1403,104 +1574,73 @@
                     },
                     "data": {
                       "type": "array",
-                      "items": {}
-                    }
-                  },
-                  "required": [
-                    "success",
-                    "message",
-                    "count",
-                    "total",
-                    "data"
-                  ]
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/facilities/{id}": {
-      "get": {
-        "tags": [
-          "Amenities & Facilities (Frontend)"
-        ],
-        "summary": "Get facility details by ID",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Facility details",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ConfiguredApiResponse"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Requested resource or configured data was not found.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean"
-                    },
-                    "message": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "success",
-                    "message"
-                  ]
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/campus/facilities": {
-      "get": {
-        "tags": [
-          "Amenities & Facilities (Frontend)"
-        ],
-        "summary": "Get active campus facilities",
-        "responses": {
-          "200": {
-            "description": "List of active facilities",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean"
-                    },
-                    "message": {
-                      "type": "string"
-                    },
-                    "count": {
-                      "type": "integer"
-                    },
-                    "total": {
-                      "type": "integer"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {}
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer"
+                          },
+                          "title": {
+                            "type": "string"
+                          },
+                          "description": {
+                            "type": "string"
+                          },
+                          "overview_description": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "highlights": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          },
+                          "gallery_images": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          },
+                          "image_path": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "icon": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "sort_order": {
+                            "type": "integer"
+                          },
+                          "is_active": {
+                            "type": "boolean"
+                          },
+                          "created_at": {
+                            "type": "string"
+                          },
+                          "updated_at": {
+                            "type": "string"
+                          },
+                          "image_full_url": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "gallery_images_full_urls": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "title",
+                          "description",
+                          "sort_order",
+                          "is_active"
+                        ]
+                      }
                     }
                   },
                   "required": [

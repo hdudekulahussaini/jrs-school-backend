@@ -14,6 +14,20 @@ class AcademicJourneyApiController extends Controller
     public function index(): JsonResponse
     {
         $journeys = AcademicJourney::where('is_active', true)
+            ->select([
+                'id',
+                'title',
+                'age_group',
+                'lead_text',
+                'description',
+                'highlights',
+                'icon',
+                'image_path',
+                'sort_order',
+                'is_active',
+                'created_at',
+                'updated_at',
+            ])
             ->orderBy('sort_order', 'asc')
             ->orderBy('id', 'asc')
             ->get();
@@ -24,26 +38,6 @@ class AcademicJourneyApiController extends Controller
             'count' => $journeys->count(),
             'total' => $journeys->count(),
             'data' => $journeys,
-        ]);
-    }
-
-    /**
-     * Get a specific academic journey by ID.
-     */
-    public function show($id): JsonResponse
-    {
-        $journey = AcademicJourney::find($id);
-
-        if (!$journey) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Academic journey not found',
-            ], 404);
-        }
-
-        return response()->json([
-            'success' => true,
-            'data' => $journey,
         ]);
     }
 }

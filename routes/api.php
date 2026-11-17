@@ -60,16 +60,11 @@ Route::get('/amenities-cta', [FacilityApiController::class, 'getCta']);
 // Academic Programs Endpoint (Frontend Read-Only)
 Route::get('/academic-programs', [AcademicProgramApiController::class, 'getActivePrograms']);
 
-// Academics Page (Academic Journeys) GET Endpoints (Read-Only GET for React site)
+// Academics Page (Academic Journeys) GET Endpoint (Read-Only GET for React site)
 Route::get('/academic-journeys', [AcademicJourneyApiController::class, 'index']);
-Route::get('/journeys', [AcademicJourneyApiController::class, 'index']);
-Route::get('/academics/journeys', [AcademicJourneyApiController::class, 'index']);
-Route::get('/academic-journeys/{id}', [AcademicJourneyApiController::class, 'show']);
-Route::get('/academics/journeys/{id}', [AcademicJourneyApiController::class, 'show']);
 
 // About JRS Homepage Section GET Endpoint
 Route::get('/about', [AboutApiController::class, 'getAbout']);
-Route::get('/about-us', [AboutApiController::class, 'getAbout']);
 
 // Vision & Mission Cards GET Endpoint
 Route::get('/vision-mission', [VisionMissionApiController::class, 'index']);

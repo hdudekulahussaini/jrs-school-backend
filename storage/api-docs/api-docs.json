@@ -1479,252 +1479,143 @@
                     "Academic Journeys (Frontend)"
                 ],
                 "summary": "Get active Academic Journey stages for Academics curriculum page",
-                "description": "Returns all active Academic Journey curriculum sections (e.g. Butterflies Programme, Pre-Primary, Young Buddies, Honey Bees) sorted by sort_order.",
+                "description": "Returns all active Academic Journey curriculum cards (e.g. Butterflies Programme, Young Buddies, Honey Bees) sorted by sort_order. Matches dashboard fields exactly.",
                 "responses": {
                     "200": {
-                        "description": "List of active academic journeys",
+                        "description": "Active academic journeys fetched successfully",
                         "content": {
                             "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Active academic journeys fetched successfully"
+                                        },
+                                        "count": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "total": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "title": {
+                                                        "type": "string",
+                                                        "example": "Butterflies Programme"
+                                                    },
+                                                    "age_group": {
+                                                        "type": "string",
+                                                        "example": "AGE 3.5 TO 4.5 YEARS"
+                                                    },
+                                                    "lead_text": {
+                                                        "type": "string",
+                                                        "example": "At this age, children are more willing to learn, share and explore. Our staff is trained to teach children different languages, and writing skills and engage them in memory-building activities."
+                                                    },
+                                                    "description": {
+                                                        "type": "string",
+                                                        "example": "Through singing, sports, dancing, and story studios children are encouraged to build their extra-curricular activities. Montessori methods are adopted in teaching."
+                                                    },
+                                                    "highlights": {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "type": "string"
+                                                        },
+                                                        "example": [
+                                                            "Montessori methods adopted in teaching",
+                                                            "Different languages, writing skills & memory-building",
+                                                            "Story studios, singing, sports, and dancing"
+                                                        ]
+                                                    },
+                                                    "icon": {
+                                                        "type": "string",
+                                                        "example": "bi bi-stars"
+                                                    },
+                                                    "image_path": {
+                                                        "type": "string",
+                                                        "example": "uploads/journey/journey_butterflies.jpg"
+                                                    },
+                                                    "sort_order": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "is_active": {
+                                                        "type": "boolean",
+                                                        "example": true
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2026-10-24T10:00:00.000000Z"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2026-10-24T10:00:00.000000Z"
+                                                    }
+                                                },
+                                                "required": [
+                                                    "id",
+                                                    "title",
+                                                    "age_group",
+                                                    "lead_text",
+                                                    "description",
+                                                    "highlights",
+                                                    "icon",
+                                                    "image_path",
+                                                    "sort_order",
+                                                    "is_active",
+                                                    "created_at",
+                                                    "updated_at"
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "message",
+                                        "count",
+                                        "total",
+                                        "data"
+                                    ]
+                                },
                                 "example": {
                                     "success": true,
                                     "message": "Active academic journeys fetched successfully",
-                                    "total": 4,
+                                    "count": 1,
+                                    "total": 1,
                                     "data": [
                                         {
                                             "id": 1,
                                             "title": "Butterflies Programme",
                                             "age_group": "AGE 3.5 TO 4.5 YEARS",
-                                            "slug": "butterflies-programme",
-                                            "description": "Montessori methods are adopted in teaching. Through singing, sports, dancing, and story studios children are encouraged to build their talents.",
+                                            "lead_text": "At this age, children are more willing to learn, share and explore. Our staff is trained to teach children different languages, and writing skills and engage them in memory-building activities.",
+                                            "description": "Through singing, sports, dancing, and story studios children are encouraged to build their extra-curricular activities. Montessori methods are adopted in teaching.",
+                                            "highlights": [
+                                                "Montessori methods adopted in teaching",
+                                                "Different languages, writing skills & memory-building",
+                                                "Story studios, singing, sports, and dancing"
+                                            ],
                                             "icon": "bi bi-stars",
-                                            "image_path": "images/journey/butterflies-programme.jpg",
-                                            "image_full_url": "/images/journey/butterflies-programme.jpg",
-                                            "link_url": "/academics/butterflies-programme",
+                                            "image_path": "uploads/journey/journey_butterflies.jpg",
                                             "sort_order": 1,
-                                            "is_active": true
+                                            "is_active": true,
+                                            "created_at": "2026-10-24T10:00:00.000000Z",
+                                            "updated_at": "2026-10-24T10:00:00.000000Z"
                                         }
-                                    ]
-                                },
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "success": {
-                                            "type": "boolean"
-                                        },
-                                        "message": {
-                                            "type": "string"
-                                        },
-                                        "count": {
-                                            "type": "integer"
-                                        },
-                                        "total": {
-                                            "type": "integer"
-                                        },
-                                        "data": {
-                                            "type": "array",
-                                            "items": []
-                                        }
-                                    },
-                                    "required": [
-                                        "success",
-                                        "message",
-                                        "count",
-                                        "total",
-                                        "data"
-                                    ]
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/journeys": {
-            "get": {
-                "tags": [
-                    "Academic Journeys (Frontend)"
-                ],
-                "summary": "Alias endpoint for /academic-journeys",
-                "responses": {
-                    "200": {
-                        "description": "List of active academic journeys",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "success": {
-                                            "type": "boolean"
-                                        },
-                                        "message": {
-                                            "type": "string"
-                                        },
-                                        "count": {
-                                            "type": "integer"
-                                        },
-                                        "total": {
-                                            "type": "integer"
-                                        },
-                                        "data": {
-                                            "type": "array",
-                                            "items": []
-                                        }
-                                    },
-                                    "required": [
-                                        "success",
-                                        "message",
-                                        "count",
-                                        "total",
-                                        "data"
-                                    ]
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/academics/journeys": {
-            "get": {
-                "tags": [
-                    "Academic Journeys (Frontend)"
-                ],
-                "summary": "Alias endpoint for /academic-journeys",
-                "responses": {
-                    "200": {
-                        "description": "List of active academic journeys",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "success": {
-                                            "type": "boolean"
-                                        },
-                                        "message": {
-                                            "type": "string"
-                                        },
-                                        "count": {
-                                            "type": "integer"
-                                        },
-                                        "total": {
-                                            "type": "integer"
-                                        },
-                                        "data": {
-                                            "type": "array",
-                                            "items": []
-                                        }
-                                    },
-                                    "required": [
-                                        "success",
-                                        "message",
-                                        "count",
-                                        "total",
-                                        "data"
-                                    ]
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/academic-journeys/{id}": {
-            "get": {
-                "tags": [
-                    "Academic Journeys (Frontend)"
-                ],
-                "summary": "Get specific Academic Journey details by ID or slug",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Academic journey details",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ConfiguredApiResponse"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Academic journey not found",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "success": {
-                                            "type": "boolean"
-                                        },
-                                        "message": {
-                                            "type": "string"
-                                        }
-                                    },
-                                    "required": [
-                                        "success",
-                                        "message"
-                                    ]
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/academics/journeys/{id}": {
-            "get": {
-                "tags": [
-                    "Academic Journeys (Frontend)"
-                ],
-                "summary": "Alias endpoint for /academic-journeys/{id}",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Academic journey details",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ConfiguredApiResponse"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Requested resource or configured data was not found.",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "success": {
-                                            "type": "boolean"
-                                        },
-                                        "message": {
-                                            "type": "string"
-                                        }
-                                    },
-                                    "required": [
-                                        "success",
-                                        "message"
                                     ]
                                 }
                             }
@@ -1739,53 +1630,84 @@
                     "About JRS (Frontend)"
                 ],
                 "summary": "Get About JRS Section details for React homepage",
-                "description": "Returns the main heading, description, and other configured content for the homepage About section.",
+                "description": "Returns the active About JRS section content (tagline, titles, descriptions, photos, and video) for the homepage. Matches dashboard fields exactly.",
                 "responses": {
                     "200": {
                         "description": "About section details retrieved successfully",
                         "content": {
                             "application/json": {
-                                "example": {
-                                    "success": true,
-                                    "data": {
-                                        "badge": "DISCOVER JRS",
-                                        "title": "Welcome to JRS International School",
-                                        "description": "Where curiosity meets character. Located in Narapally, Hyderabad, our campus offers world-class holistic education under the CBSE curriculum.",
-                                        "experience_years": 5,
-                                        "experience_text": "Years of Academic Distinction"
-                                    }
-                                },
                                 "schema": {
                                     "type": "object",
                                     "properties": {
                                         "success": {
-                                            "type": "boolean"
+                                            "type": "boolean",
+                                            "example": true
                                         },
                                         "data": {
                                             "type": "object",
                                             "properties": {
-                                                "badge": {
-                                                    "type": "string"
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "tagline": {
+                                                    "type": "string",
+                                                    "example": "DISCOVER JRS INTERNATIONAL SCHOOL"
                                                 },
                                                 "title": {
-                                                    "type": "string"
+                                                    "type": "string",
+                                                    "example": "Nurturing Tomorrow's Leaders with"
                                                 },
-                                                "description": {
-                                                    "type": "string"
+                                                "title_highlight": {
+                                                    "type": "string",
+                                                    "example": "Global Standards & Values"
                                                 },
-                                                "experience_years": {
-                                                    "type": "integer"
+                                                "description_p1": {
+                                                    "type": "string",
+                                                    "example": "At JRS International School, we offer a world-class holistic learning experience empowering students to become independent thinkers, resilient problem-solvers, and compassionate global citizens."
                                                 },
-                                                "experience_text": {
-                                                    "type": "string"
+                                                "description_p2": {
+                                                    "type": "string",
+                                                    "example": "With state-of-the-art laboratories, a vibrant sports complex, and an innovative curriculum, our dedicated educators inspire each learner to discover their full potential."
+                                                },
+                                                "image_1_url": {
+                                                    "type": "string",
+                                                    "example": "uploads/about/about_students.jpg"
+                                                },
+                                                "image_2_url": {
+                                                    "type": "string",
+                                                    "example": "uploads/about/about_campus.jpg"
+                                                },
+                                                "video_title": {
+                                                    "type": "string",
+                                                    "example": "Explore Campus Life at JRS"
+                                                },
+                                                "video_url": {
+                                                    "type": "string",
+                                                    "example": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+                                                },
+                                                "is_active": {
+                                                    "type": "boolean",
+                                                    "example": true
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2026-10-23T10:00:00.000000Z"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2026-10-23T10:00:00.000000Z"
                                                 }
                                             },
                                             "required": [
-                                                "badge",
+                                                "id",
+                                                "tagline",
                                                 "title",
-                                                "description",
-                                                "experience_years",
-                                                "experience_text"
+                                                "title_highlight",
+                                                "description_p1",
+                                                "is_active"
                                             ]
                                         }
                                     },
@@ -1793,26 +1715,46 @@
                                         "success",
                                         "data"
                                     ]
+                                },
+                                "example": {
+                                    "success": true,
+                                    "data": {
+                                        "id": 1,
+                                        "tagline": "DISCOVER JRS INTERNATIONAL SCHOOL",
+                                        "title": "Nurturing Tomorrow's Leaders with",
+                                        "title_highlight": "Global Standards & Values",
+                                        "description_p1": "At JRS International School, we offer a world-class holistic learning experience empowering students to become independent thinkers, resilient problem-solvers, and compassionate global citizens.",
+                                        "description_p2": "With state-of-the-art laboratories, a vibrant sports complex, and an innovative curriculum, our dedicated educators inspire each learner to discover their full potential.",
+                                        "image_1_url": "uploads/about/about_students.jpg",
+                                        "image_2_url": "uploads/about/about_campus.jpg",
+                                        "video_title": "Explore Campus Life at JRS",
+                                        "video_url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+                                        "is_active": true,
+                                        "created_at": "2026-10-23T10:00:00.000000Z",
+                                        "updated_at": "2026-10-23T10:00:00.000000Z"
+                                    }
                                 }
                             }
                         }
                     },
                     "404": {
-                        "description": "Requested resource or configured data was not found.",
+                        "description": "No active About section content found",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "type": "object",
                                     "properties": {
                                         "success": {
-                                            "type": "boolean"
+                                            "type": "boolean",
+                                            "example": false
                                         },
                                         "message": {
-                                            "type": "string"
+                                            "type": "string",
+                                            "example": "No active About section content found"
                                         },
                                         "data": {
-                                            "type": "string",
-                                            "nullable": true
+                                            "nullable": true,
+                                            "example": null
                                         }
                                     },
                                     "required": [
@@ -1820,53 +1762,11 @@
                                         "message",
                                         "data"
                                     ]
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/about-us": {
-            "get": {
-                "tags": [
-                    "About JRS (Frontend)"
-                ],
-                "summary": "Alias endpoint for /about",
-                "responses": {
-                    "200": {
-                        "description": "About section details",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ConfiguredApiResponse"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Requested resource or configured data was not found.",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "success": {
-                                            "type": "boolean"
-                                        },
-                                        "message": {
-                                            "type": "string"
-                                        },
-                                        "data": {
-                                            "type": "string",
-                                            "nullable": true
-                                        }
-                                    },
-                                    "required": [
-                                        "success",
-                                        "message",
-                                        "data"
-                                    ]
+                                },
+                                "example": {
+                                    "success": false,
+                                    "message": "No active About section content found",
+                                    "data": null
                                 }
                             }
                         }

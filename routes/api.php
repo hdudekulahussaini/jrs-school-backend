@@ -102,11 +102,8 @@ Route::get('/events/{id}', [SchoolEventApiController::class, 'show']);
 // Key Features GET Endpoint (for React Homepage)
 Route::get('/features', [HomeFeatureApiController::class, 'getActiveFeatures']);
 
-// Stats Section GET Endpoints (for React Homepage)
+// Stats Section GET Endpoint (for React Homepage)
 Route::get('/stats', [HomeStatApiController::class, 'getActiveStats']);
-Route::get('/home-stats', [HomeStatApiController::class, 'getActiveStats']);
-Route::get('/stats/{id}', [HomeStatApiController::class, 'show']);
-Route::get('/home-stats/{id}', [HomeStatApiController::class, 'show']);
 
 // Careers Page GET Endpoints (Read-Only GET for React site & Careers page)
 Route::get('/careers-page', [CareerApiController::class, 'getPageData']);

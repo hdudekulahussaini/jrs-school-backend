@@ -68,41 +68,79 @@ class Flasher
     }
 
     /**
+     * Normalize arguments whether caller used:
+     * - ($message, $title, $options)
+     * - ($message, $options, $title)
+     * - ($message, $options)
+     * - ($message, $title)
+     */
+    protected function normalizeFlashArgs(array|string|null $arg2, array|string|null $arg3): array
+    {
+        $title = null;
+        $options = [];
+
+        if (is_array($arg2)) {
+            $options = $arg2;
+            if (is_string($arg3)) {
+                $title = $arg3;
+            } elseif (isset($options['title'])) {
+                $title = (string) $options['title'];
+                unset($options['title']);
+            }
+        } elseif (is_string($arg2)) {
+            $title = $arg2;
+            if (is_array($arg3)) {
+                $options = $arg3;
+            }
+        } elseif (is_string($arg3)) {
+            $title = $arg3;
+        } elseif (is_array($arg3)) {
+            $options = $arg3;
+        }
+
+        return [$title, $options];
+    }
+
+    /**
      * Flash a success notification.
      */
-    public function success(string $message, ?string $title = null, array $options = []): self
+    public function success(string $message, array|string|null $title = null, array|string|null $options = []): self
     {
-        return $this->addFlash('success', $message, $title, $options);
+        [$resolvedTitle, $resolvedOptions] = $this->normalizeFlashArgs($title, $options);
+        return $this->addFlash('success', $message, $resolvedTitle, $resolvedOptions);
     }
 
     /**
      * Flash an error notification.
      */
-    public function error(string $message, ?string $title = null, array $options = []): self
+    public function error(string $message, array|string|null $title = null, array|string|null $options = []): self
     {
-        return $this->addFlash('error', $message, $title, $options);
+        [$resolvedTitle, $resolvedOptions] = $this->normalizeFlashArgs($title, $options);
+        return $this->addFlash('error', $message, $resolvedTitle, $resolvedOptions);
     }
 
     /**
      * Flash a warning notification.
      */
-    public function warning(string $message, ?string $title = null, array $options = []): self
+    public function warning(string $message, array|string|null $title = null, array|string|null $options = []): self
     {
-        return $this->addFlash('warning', $message, $title, $options);
+        [$resolvedTitle, $resolvedOptions] = $this->normalizeFlashArgs($title, $options);
+        return $this->addFlash('warning', $message, $resolvedTitle, $resolvedOptions);
     }
 
     /**
      * Flash an info notification.
      */
-    public function info(string $message, ?string $title = null, array $options = []): self
+    public function info(string $message, array|string|null $title = null, array|string|null $options = []): self
     {
-        return $this->addFlash('info', $message, $title, $options);
+        [$resolvedTitle, $resolvedOptions] = $this->normalizeFlashArgs($title, $options);
+        return $this->addFlash('info', $message, $resolvedTitle, $resolvedOptions);
     }
 
     /**
      * Alias for success notification.
      */
-    public function addSuccess(string $message, ?string $title = null, array $options = []): self
+    public function addSuccess(string $message, array|string|null $title = null, array|string|null $options = []): self
     {
         return $this->success($message, $title, $options);
     }
@@ -110,7 +148,7 @@ class Flasher
     /**
      * Alias for error notification.
      */
-    public function addError(string $message, ?string $title = null, array $options = []): self
+    public function addError(string $message, array|string|null $title = null, array|string|null $options = []): self
     {
         return $this->error($message, $title, $options);
     }
@@ -118,7 +156,7 @@ class Flasher
     /**
      * Alias for warning notification.
      */
-    public function addWarning(string $message, ?string $title = null, array $options = []): self
+    public function addWarning(string $message, array|string|null $title = null, array|string|null $options = []): self
     {
         return $this->warning($message, $title, $options);
     }
@@ -126,7 +164,7 @@ class Flasher
     /**
      * Alias for info notification.
      */
-    public function addInfo(string $message, ?string $title = null, array $options = []): self
+    public function addInfo(string $message, array|string|null $title = null, array|string|null $options = []): self
     {
         return $this->info($message, $title, $options);
     }
@@ -134,10 +172,11 @@ class Flasher
     /**
      * Add notification envelope to session flash storage and in-memory list.
      */
-    public function addFlash(string $type, string $message, ?string $title = null, array $options = []): self
+    public function addFlash(string $type, string $message, array|string|null $title = null, array|string|null $options = []): self
     {
+        [$resolvedTitle, $resolvedOptions] = $this->normalizeFlashArgs($title, $options);
         $theme = $this->currentTheme ?? config('flasher.default', 'theme.google');
-        $title = $title ?? $this->currentTitle;
+        $resolvedTitle = $resolvedTitle ?? $this->currentTitle;
         $mergedOptions = array_merge(
             config("flasher.themes.{$theme}.options", [
                 'timeout' => 5000,
@@ -146,14 +185,14 @@ class Flasher
                 'ripple' => true,
             ]),
             $this->currentOptions,
-            $options
+            $resolvedOptions
         );
 
         $envelope = [
             'id' => 'flasher_' . uniqid('', true),
             'type' => $type,
             'message' => $message,
-            'title' => $title,
+            'title' => $resolvedTitle,
             'options' => $mergedOptions,
             'theme' => $theme,
             'created_at' => microtime(true),

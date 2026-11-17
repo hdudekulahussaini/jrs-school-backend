@@ -64,42 +64,32 @@ class CampusLifeApiController extends Controller
      *     )
      * )
      */
+    /**
+     * Get active Campus Tour & Life cards for frontend.
+     */
     public function index(): JsonResponse
     {
-        $items = CampusLife::where('is_active', true)
+        $cards = CampusLife::where('is_active', true)
+            ->select([
+                'id',
+                'title',
+                'icon',
+                'image_path',
+                'sort_order',
+                'is_active',
+                'created_at',
+                'updated_at',
+            ])
             ->orderBy('sort_order', 'asc')
             ->orderBy('id', 'asc')
             ->get();
 
-        $data = $items->map(function ($item) {
-            return [
-                'id' => $item->id,
-                'title' => $item->title,
-                'icon' => $item->icon,
-                'image_url' => $item->image_full_url,
-                'sort_order' => $item->sort_order,
-                'is_active' => (bool)$item->is_active,
-            ];
-        });
-
         return response()->json([
             'success' => true,
-            'section' => [
-                'eyebrow' => 'CAMPUS TOUR & LIFE AT JRS',
-                'title' => 'Experience The Spirit Of JRS International School',
-                'title_highlight' => 'JRS International School',
-                'description' => 'Explore our state-of-the-art campus, modern facilities, and vibrant learning spaces where every student discovers their unique passions and potential.',
-                'cta_primary' => [
-                    'text' => 'Book a Campus Visit',
-                    'url' => 'https://jrs-school.vercel.app/#tour',
-                ],
-                'cta_secondary' => [
-                    'text' => 'Admissions 2026-27',
-                    'url' => 'https://jrs-school.vercel.app/admissions',
-                ],
-            ],
-            'count' => $data->count(),
-            'data' => $data,
+            'message' => 'Active campus tour cards fetched successfully',
+            'count' => $cards->count(),
+            'total' => $cards->count(),
+            'data' => $cards,
         ], 200);
     }
 }

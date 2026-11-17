@@ -96,7 +96,6 @@ Route::get('/careers/openings/{id}', [CareerApiController::class, 'showOpening']
 
 // Campus Tour & Life At JRS
 Route::get('/campus-tour', [CampusLifeApiController::class, 'index']);
-Route::get('/campus-life', [CampusLifeApiController::class, 'index']);
 
 // Why Choose JRS ("What Makes JRS Different?")
 Route::get('/why-choose', [WhyChooseApiController::class, 'index']);

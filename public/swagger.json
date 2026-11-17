@@ -2224,8 +2224,8 @@
                 "tags": [
                     "Campus Tour & Life (Frontend)"
                 ],
-                "summary": "Get active Campus Tour & Life cards and section details",
-                "description": "Returns active campus tour cards (Beyond Classroom, Sports Excellence, Visual & Performing Arts, Campus Infrastructure) with section headers, CTA links, and full image URLs for the React frontend.",
+                "summary": "Get active Campus Tour & Life cards",
+                "description": "Returns active campus tour cards (e.g. Eco-Friendly Campus, Smart Classrooms & STEM Labs) sorted by sort_order. Matches dashboard fields exactly.",
                 "responses": {
                     "200": {
                         "description": "Campus tour cards retrieved successfully",
@@ -2235,65 +2235,20 @@
                                     "type": "object",
                                     "properties": {
                                         "success": {
-                                            "type": "boolean"
+                                            "type": "boolean",
+                                            "example": true
                                         },
-                                        "section": {
-                                            "type": "object",
-                                            "properties": {
-                                                "eyebrow": {
-                                                    "type": "string"
-                                                },
-                                                "title": {
-                                                    "type": "string"
-                                                },
-                                                "title_highlight": {
-                                                    "type": "string"
-                                                },
-                                                "description": {
-                                                    "type": "string"
-                                                },
-                                                "cta_primary": {
-                                                    "type": "object",
-                                                    "properties": {
-                                                        "text": {
-                                                            "type": "string"
-                                                        },
-                                                        "url": {
-                                                            "type": "string"
-                                                        }
-                                                    },
-                                                    "required": [
-                                                        "text",
-                                                        "url"
-                                                    ]
-                                                },
-                                                "cta_secondary": {
-                                                    "type": "object",
-                                                    "properties": {
-                                                        "text": {
-                                                            "type": "string"
-                                                        },
-                                                        "url": {
-                                                            "type": "string"
-                                                        }
-                                                    },
-                                                    "required": [
-                                                        "text",
-                                                        "url"
-                                                    ]
-                                                }
-                                            },
-                                            "required": [
-                                                "eyebrow",
-                                                "title",
-                                                "title_highlight",
-                                                "description",
-                                                "cta_primary",
-                                                "cta_secondary"
-                                            ]
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Active campus tour cards fetched successfully"
                                         },
                                         "count": {
-                                            "type": "integer"
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "total": {
+                                            "type": "integer",
+                                            "example": 1
                                         },
                                         "data": {
                                             "type": "array",
@@ -2313,10 +2268,10 @@
                                                         "nullable": true,
                                                         "example": "bi bi-tree-fill"
                                                     },
-                                                    "image_url": {
+                                                    "image_path": {
                                                         "type": "string",
                                                         "nullable": true,
-                                                        "example": "https://example.test/campus.jpg"
+                                                        "example": "uploads/campus-life/campus_eco.jpg"
                                                     },
                                                     "sort_order": {
                                                         "type": "integer",
@@ -2325,155 +2280,55 @@
                                                     "is_active": {
                                                         "type": "boolean",
                                                         "example": true
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2026-10-24T10:00:00.000000Z"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2026-10-24T10:00:00.000000Z"
                                                     }
                                                 },
                                                 "required": [
                                                     "id",
                                                     "title",
                                                     "icon",
-                                                    "image_url",
+                                                    "image_path",
                                                     "sort_order",
-                                                    "is_active"
+                                                    "is_active",
+                                                    "created_at",
+                                                    "updated_at"
                                                 ]
                                             }
                                         }
                                     },
                                     "required": [
                                         "success",
-                                        "section",
+                                        "message",
                                         "count",
+                                        "total",
                                         "data"
                                     ]
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/campus-life": {
-            "get": {
-                "tags": [
-                    "Campus Tour & Life (Frontend)"
-                ],
-                "summary": "Alias endpoint for /campus-tour",
-                "responses": {
-                    "200": {
-                        "description": "Campus tour cards retrieved successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "success": {
-                                            "type": "boolean"
-                                        },
-                                        "section": {
-                                            "type": "object",
-                                            "properties": {
-                                                "eyebrow": {
-                                                    "type": "string"
-                                                },
-                                                "title": {
-                                                    "type": "string"
-                                                },
-                                                "title_highlight": {
-                                                    "type": "string"
-                                                },
-                                                "description": {
-                                                    "type": "string"
-                                                },
-                                                "cta_primary": {
-                                                    "type": "object",
-                                                    "properties": {
-                                                        "text": {
-                                                            "type": "string"
-                                                        },
-                                                        "url": {
-                                                            "type": "string"
-                                                        }
-                                                    },
-                                                    "required": [
-                                                        "text",
-                                                        "url"
-                                                    ]
-                                                },
-                                                "cta_secondary": {
-                                                    "type": "object",
-                                                    "properties": {
-                                                        "text": {
-                                                            "type": "string"
-                                                        },
-                                                        "url": {
-                                                            "type": "string"
-                                                        }
-                                                    },
-                                                    "required": [
-                                                        "text",
-                                                        "url"
-                                                    ]
-                                                }
-                                            },
-                                            "required": [
-                                                "eyebrow",
-                                                "title",
-                                                "title_highlight",
-                                                "description",
-                                                "cta_primary",
-                                                "cta_secondary"
-                                            ]
-                                        },
-                                        "count": {
-                                            "type": "integer"
-                                        },
-                                        "data": {
-                                            "type": "array",
-                                            "items": {
-                                                "type": "object",
-                                                "properties": {
-                                                    "id": {
-                                                        "type": "integer",
-                                                        "example": 1
-                                                    },
-                                                    "title": {
-                                                        "type": "string",
-                                                        "example": "Eco-Friendly Campus"
-                                                    },
-                                                    "icon": {
-                                                        "type": "string",
-                                                        "nullable": true,
-                                                        "example": "bi bi-tree-fill"
-                                                    },
-                                                    "image_url": {
-                                                        "type": "string",
-                                                        "nullable": true,
-                                                        "example": "https://example.test/campus.jpg"
-                                                    },
-                                                    "sort_order": {
-                                                        "type": "integer",
-                                                        "example": 1
-                                                    },
-                                                    "is_active": {
-                                                        "type": "boolean",
-                                                        "example": true
-                                                    }
-                                                },
-                                                "required": [
-                                                    "id",
-                                                    "title",
-                                                    "icon",
-                                                    "image_url",
-                                                    "sort_order",
-                                                    "is_active"
-                                                ]
-                                            }
+                                },
+                                "example": {
+                                    "success": true,
+                                    "message": "Active campus tour cards fetched successfully",
+                                    "count": 1,
+                                    "total": 1,
+                                    "data": [
+                                        {
+                                            "id": 1,
+                                            "title": "Eco-Friendly Campus",
+                                            "icon": "bi bi-tree-fill",
+                                            "image_path": "uploads/campus-life/campus_eco.jpg",
+                                            "sort_order": 1,
+                                            "is_active": true,
+                                            "created_at": "2026-10-24T10:00:00.000000Z",
+                                            "updated_at": "2026-10-24T10:00:00.000000Z"
                                         }
-                                    },
-                                    "required": [
-                                        "success",
-                                        "section",
-                                        "count",
-                                        "data"
                                     ]
                                 }
                             }

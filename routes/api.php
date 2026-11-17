@@ -63,9 +63,8 @@ Route::get('/facilities', [FacilityApiController::class, 'getActiveFacilities'])
 Route::get('/facilities/{id}', [FacilityApiController::class, 'show']);
 Route::get('/campus/facilities', [FacilityApiController::class, 'getActiveFacilities']);
 
-// Academic Programs Endpoints (Frontend Read-Only)
+// Academic Programs Endpoint (Frontend Read-Only)
 Route::get('/academic-programs', [AcademicProgramApiController::class, 'getActivePrograms']);
-Route::get('/academics', [AcademicProgramApiController::class, 'getActivePrograms']);
 
 // Academics Page (Academic Journeys) GET Endpoints (Read-Only GET for React site)
 Route::get('/academic-journeys', [AcademicJourneyApiController::class, 'index']);

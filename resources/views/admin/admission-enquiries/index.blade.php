@@ -143,8 +143,8 @@
                                 </div>
                             </td>
                             <td class="py-3.5 px-4 text-slate-500 whitespace-nowrap">
-                                <div>{{ $enquiry->created_at->timezone(config('app.display_timezone'))->format('d M, Y') }}</div>
-                                <div class="text-[10px] text-slate-400">{{ $enquiry->created_at->timezone(config('app.display_timezone'))->format('h:i A T') }}</div>
+                                <div>{{ $enquiry->created_at->timezone(config('app.display_timezone') ?: 'Asia/Kolkata')->format('d M, Y') }}</div>
+                                <div class="text-[10px] text-slate-400">{{ $enquiry->created_at->timezone(config('app.display_timezone') ?: 'Asia/Kolkata')->format('h:i A T') }}</div>
                             </td>
                             <td class="py-3.5 px-4">
                                 <form action="{{ route('admin.admission-enquiries.update', $enquiry) }}" method="POST" class="inline-block">

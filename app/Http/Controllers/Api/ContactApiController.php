@@ -67,7 +67,7 @@ class ContactApiController extends Controller
             $adminRecipient = config('mail.contact_notification_email')
                 ?: env('CONTACT_NOTIFICATION_EMAIL')
                 ?: ContactSetting::first()?->email
-                ?: 'hdudekulahussaini@gmail.com';
+                ?: 'Jrsinternationalschool6@gmail.com';
 
             if (filter_var($adminRecipient, FILTER_VALIDATE_EMAIL)) {
                 Mail::to($adminRecipient)->queue(new ContactInquiryAdminNotification($inquiry));

@@ -126,7 +126,7 @@ return [
     |
     */
 
-    'admission_notification_email' => env('ADMISSION_NOTIFICATION_EMAIL', 'hdudekulahussaini@gmail.com'),
-    'contact_notification_email'   => env('CONTACT_NOTIFICATION_EMAIL', 'hdudekulahussaini@gmail.com'),
+    'admission_notification_email' => env('ADMISSION_NOTIFICATION_EMAIL', 'Jrsinternationalschool6@gmail.com'),
+    'contact_notification_email'   => env('CONTACT_NOTIFICATION_EMAIL', 'Jrsinternationalschool6@gmail.com'),
 
 ];

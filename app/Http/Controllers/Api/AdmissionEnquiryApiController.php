@@ -37,7 +37,7 @@ class AdmissionEnquiryApiController extends Controller
             $recipient = config('mail.admission_notification_email')
                 ?: env('ADMISSION_NOTIFICATION_EMAIL')
                 ?: ContactSetting::first()?->email
-                ?: 'hdudekulahussaini@gmail.com';
+                ?: 'Jrsinternationalschool6@gmail.com';
 
             if (filter_var($recipient, FILTER_VALIDATE_EMAIL)) {
                 Mail::to($recipient)->queue(new AdmissionEnquiryAdminNotification($enquiry));

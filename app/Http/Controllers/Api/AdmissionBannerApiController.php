@@ -10,7 +10,7 @@ class AdmissionBannerApiController extends Controller
 {
     /**
      * Public GET endpoint: /api/admission-banner
-     * Returns the active Admission & Campus Tour CTA banner for the React frontend.
+     * Returns the active Admission Banner for the frontend.
      */
     public function index(): JsonResponse
     {
@@ -31,12 +31,10 @@ class AdmissionBannerApiController extends Controller
                 'title' => $banner->title,
                 'title_highlight' => $banner->title_highlight,
                 'description' => $banner->description,
-                'primary_button_text' => $banner->primary_button_text,
-                'primary_button_link' => $banner->primary_button_link,
-                'secondary_button_text' => $banner->secondary_button_text,
-                'secondary_button_link' => $banner->secondary_button_link,
                 'image_path' => $banner->image_path,
+                'image_url' => $banner->image_full_url,
                 'is_active' => (bool)$banner->is_active,
+                'updated_at' => $banner->updated_at,
             ],
         ], 200);
     }

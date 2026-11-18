@@ -6,6 +6,20 @@
 @section('content')
 <div class="space-y-6">
 
+    <!-- Top Action Toolbar (Add button hidden when record exists) -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div>
+            <h2 class="text-base font-bold text-jrs-navy font-heading">Principal Leadership</h2>
+            <p class="text-xs text-slate-500 mt-0.5">Manage the Principal's message and academic leadership profile.</p>
+        </div>
+        @if($principals->count() === 0)
+            <a href="{{ route('admin.principal.create') }}" class="inline-flex items-center justify-center rounded-lg text-xs sm:text-sm font-semibold bg-jrs-red hover:bg-red-700 text-white shadow-xs h-9 px-4 py-2 gap-2 transition-colors">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+                <span>Add Principal</span>
+            </a>
+        @endif
+    </div>
+
     <!-- PRIMARY TABLE: Records Table View -->
     <div class="rounded-xl border border-slate-200 bg-white shadow-xs overflow-hidden">
         <div class="p-4 border-b border-slate-100 flex items-center justify-between bg-slate-50/75">
@@ -138,20 +152,33 @@
                                 @endif
                             </td>
 
-                            <!-- Actions (Deactivate button removed) -->
+                            <!-- Actions -->
                             <td class="p-4 align-middle text-right">
                                 <div class="flex items-center justify-end gap-1.5">
-                                    <a href="{{ route('admin.principal.edit', $item->id) }}" class="inline-flex items-center justify-center rounded-lg text-xs font-bold transition-colors bg-jrs-red hover:bg-red-700 text-white h-8 px-3.5 gap-1.5 shadow-2xs">
+                                    <a href="{{ route('admin.principal.edit', $item->id) }}" class="inline-flex items-center justify-center rounded-lg text-xs font-bold transition-colors bg-jrs-red hover:bg-red-700 text-white h-8 px-3 gap-1 shadow-2xs">
                                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
                                         <span>Edit</span>
                                     </a>
+                                    <form action="{{ route('admin.principal.destroy', $item->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this principal record?');" class="inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="inline-flex items-center justify-center rounded-lg text-xs font-bold transition-colors bg-white hover:bg-red-50 text-red-600 border border-red-200 h-8 px-2.5 gap-1 shadow-2xs" title="Delete">
+                                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                                            <span>Delete</span>
+                                        </button>
+                                    </form>
                                 </div>
                             </td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="7" class="p-8 text-center text-slate-400 text-sm">
-                                No principal content found.
+                            <td colspan="7" class="p-12 text-center text-slate-500">
+                                <p class="font-medium text-slate-700 font-heading">No principal content found.</p>
+                                <p class="text-xs text-slate-400 mt-1 mb-4">Click below to add the Principal profile & message.</p>
+                                <a href="{{ route('admin.principal.create') }}" class="inline-flex items-center justify-center rounded-lg text-xs font-semibold bg-jrs-red hover:bg-red-700 text-white shadow-xs h-9 px-4 py-2 gap-2 transition-colors">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+                                    <span>Add Principal</span>
+                                </a>
                             </td>
                         </tr>
                     @endforelse

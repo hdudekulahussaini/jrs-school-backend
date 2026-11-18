@@ -15,10 +15,6 @@ class AdmissionBanner extends Model
         'title',
         'title_highlight',
         'description',
-        'primary_button_text',
-        'primary_button_link',
-        'secondary_button_text',
-        'secondary_button_link',
         'image_path',
         'is_active',
     ];

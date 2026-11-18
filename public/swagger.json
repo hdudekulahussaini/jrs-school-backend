@@ -3051,11 +3051,8 @@
                                         "title": "Join the JRS Community Today",
                                         "title_highlight": "Community Today",
                                         "description": "Give your child the foundation for a lifetime of success.",
-                                        "primary_button_text": "Apply Online",
-                                        "primary_button_link": "/admissions",
-                                        "secondary_button_text": "Campus Tour",
-                                        "secondary_button_link": "/contact",
                                         "image_path": "uploads/banners/admission_banner.jpg",
+                                        "image_url": "https://example.test/admission-banner.jpg",
                                         "is_active": true
                                     }
                                 }

@@ -168,14 +168,20 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
 
     // Chairman of JRS - Leadership Page Sections
     Route::get('/chairman', [ChairmanMessageController::class, 'index'])->name('admin.chairman.index');
+    Route::get('/chairman/create', [ChairmanMessageController::class, 'create'])->name('admin.chairman.create');
+    Route::post('/chairman', [ChairmanMessageController::class, 'store'])->name('admin.chairman.store');
     Route::get('/chairman/{id}/edit', [ChairmanMessageController::class, 'edit'])->name('admin.chairman.edit');
     Route::put('/chairman/{id}', [ChairmanMessageController::class, 'update'])->name('admin.chairman.update');
+    Route::delete('/chairman/{id}', [ChairmanMessageController::class, 'destroy'])->name('admin.chairman.destroy');
     Route::post('/chairman/{id}/toggle', [ChairmanMessageController::class, 'toggle'])->name('admin.chairman.toggle');
 
     // Principal of JRS - Leadership Page Sections
     Route::get('/principal', [PrincipalMessageController::class, 'index'])->name('admin.principal.index');
+    Route::get('/principal/create', [PrincipalMessageController::class, 'create'])->name('admin.principal.create');
+    Route::post('/principal', [PrincipalMessageController::class, 'store'])->name('admin.principal.store');
     Route::get('/principal/{id}/edit', [PrincipalMessageController::class, 'edit'])->name('admin.principal.edit');
     Route::put('/principal/{id}', [PrincipalMessageController::class, 'update'])->name('admin.principal.update');
+    Route::delete('/principal/{id}', [PrincipalMessageController::class, 'destroy'])->name('admin.principal.destroy');
     Route::post('/principal/{id}/toggle', [PrincipalMessageController::class, 'toggle'])->name('admin.principal.toggle');
 
     // Academic Programs Full CRUD Resource

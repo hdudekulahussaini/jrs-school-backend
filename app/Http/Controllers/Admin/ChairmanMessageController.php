@@ -23,6 +23,45 @@ class ChairmanMessageController extends Controller
     }
 
     /**
+     * Show form for creating Chairman's Address and Strategic Commitment.
+     */
+    public function create()
+    {
+        $chairman = new ChairmanMessage();
+        return view('admin.chairman.create', compact('chairman'));
+    }
+
+    /**
+     * Store new Chairman section contents and photo.
+     */
+    public function store(ChairmanMessageRequest $request)
+    {
+        $validated = $request->validated();
+        $validated['is_active'] = $request->has('is_active');
+
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $uploadDir = public_path('uploads/chairman');
+            if (!File::exists($uploadDir)) {
+                File::makeDirectory($uploadDir, 0755, true);
+            }
+
+            $fileName = 'chairman_' . time() . '_' . Str::random(8) . '.' . $file->getClientOriginalExtension();
+            $file->move($uploadDir, $fileName);
+            $validated['image_path'] = 'uploads/chairman/' . $fileName;
+        } elseif ($request->filled('image_path')) {
+            $validated['image_path'] = $request->input('image_path');
+        }
+
+        ChairmanMessage::create($validated);
+
+        flash()->success('Successfully created.');
+
+        return redirect()->route('admin.chairman.index')
+            ->with('success', 'Successfully created.');
+    }
+
+    /**
      * Show edit form for Chairman's Address and Strategic Commitment.
      */
     public function edit($id)
@@ -71,10 +110,29 @@ class ChairmanMessageController extends Controller
 
         $chairman->update($validated);
 
-        flash()->success('Chairman Leadership page sections updated successfully!');
+        flash()->success('Successfully updated.');
 
         return redirect()->route('admin.chairman.index')
-            ->with('success', 'Chairman Leadership page sections updated successfully!');
+            ->with('success', 'Successfully updated.');
+    }
+
+    /**
+     * Delete a Chairman record.
+     */
+    public function destroy($id)
+    {
+        $chairman = ChairmanMessage::findOrFail($id);
+
+        if ($chairman->image_path && Str::startsWith($chairman->image_path, 'uploads/chairman/') && File::exists(public_path($chairman->image_path))) {
+            File::delete(public_path($chairman->image_path));
+        }
+
+        $chairman->delete();
+
+        flash()->success('Successfully deleted.');
+
+        return redirect()->route('admin.chairman.index')
+            ->with('success', 'Successfully deleted.');
     }
 
     /**

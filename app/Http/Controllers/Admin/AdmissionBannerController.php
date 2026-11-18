@@ -6,15 +6,49 @@ use App\Http\Controllers\Controller;
 use App\Models\AdmissionBanner;
 use App\Http\Requests\AdmissionBannerRequest;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Str;
 
 class AdmissionBannerController extends Controller
 {
     /**
+     * Ensure table exists and has clean schema without unused button fields.
+     */
+    protected function ensureTableExists(): void
+    {
+        if (!Schema::hasTable('admission_banners')) {
+            Schema::create('admission_banners', function (Blueprint $table) {
+                $table->id();
+                $table->string('title')->default('Give Your Child A Strong Foundation');
+                $table->string('title_highlight')->nullable()->default('For Tomorrow');
+                $table->text('description')->nullable();
+                $table->string('image_path')->nullable();
+                $table->boolean('is_active')->default(true);
+                $table->timestamps();
+            });
+        } else {
+            Schema::table('admission_banners', function (Blueprint $table) {
+                $toDrop = [];
+                foreach (['primary_button_text', 'primary_button_link', 'secondary_button_text', 'secondary_button_link'] as $col) {
+                    if (Schema::hasColumn('admission_banners', $col)) {
+                        $toDrop[] = $col;
+                    }
+                }
+                if (!empty($toDrop)) {
+                    $table->dropColumn($toDrop);
+                }
+            });
+        }
+    }
+
+    /**
      * Display the Admission Banner section management and live preview.
      */
     public function index()
     {
+        $this->ensureTableExists();
+
         $banners = AdmissionBanner::orderBy('id', 'desc')->get();
         $banner = AdmissionBanner::where('is_active', true)->first() ?? $banners->first();
         $totalCount = $banners->count();
@@ -27,6 +61,8 @@ class AdmissionBannerController extends Controller
      */
     public function create()
     {
+        $this->ensureTableExists();
+
         $banner = new AdmissionBanner();
 
         return view('admin.admission-banner.create', compact('banner'));
@@ -37,6 +73,8 @@ class AdmissionBannerController extends Controller
      */
     public function store(AdmissionBannerRequest $request)
     {
+        $this->ensureTableExists();
+
         $banner = new AdmissionBanner();
 
         return $this->saveBanner($request, $banner);
@@ -55,6 +93,8 @@ class AdmissionBannerController extends Controller
      */
     public function edit($id)
     {
+        $this->ensureTableExists();
+
         $banner = AdmissionBanner::findOrFail($id);
 
         return view('admin.admission-banner.edit', compact('banner'));
@@ -65,6 +105,8 @@ class AdmissionBannerController extends Controller
      */
     public function update(AdmissionBannerRequest $request, $id)
     {
+        $this->ensureTableExists();
+
         $banner = AdmissionBanner::findOrFail($id);
 
         return $this->saveBanner($request, $banner);
@@ -106,11 +148,32 @@ class AdmissionBannerController extends Controller
         $banner->fill($validated)->save();
 
         $message = $isNew
-            ? 'Admission Banner section created successfully!'
-            : 'Admission Banner section updated successfully!';
+            ? 'Successfully created.'
+            : 'Successfully updated.';
         flash()->success($message);
 
         return redirect()->route('admin.admission-banner.index')
             ->with('success', $message);
+    }
+
+    /**
+     * Delete an admission banner.
+     */
+    public function destroy($id)
+    {
+        $this->ensureTableExists();
+
+        $banner = AdmissionBanner::findOrFail($id);
+
+        if ($banner->image_path && Str::startsWith($banner->image_path, 'uploads/admission-banner/') && File::exists(public_path($banner->image_path))) {
+            File::delete(public_path($banner->image_path));
+        }
+
+        $banner->delete();
+
+        flash()->success('Successfully deleted.');
+
+        return redirect()->route('admin.admission-banner.index')
+            ->with('success', 'Successfully deleted.');
     }
 }

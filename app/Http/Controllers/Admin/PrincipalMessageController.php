@@ -23,6 +23,46 @@ class PrincipalMessageController extends Controller
     }
 
     /**
+     * Show form for creating Principal's Message and Academic Leadership card.
+     */
+    public function create()
+    {
+        $principal = new PrincipalMessage();
+        return view('admin.principal.create', compact('principal'));
+    }
+
+    /**
+     * Store new Principal section contents and photo.
+     */
+    public function store(PrincipalMessageRequest $request)
+    {
+        $data = $request->validated();
+
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $uploadDir = public_path('uploads/principal');
+            if (!File::isDirectory($uploadDir)) {
+                File::makeDirectory($uploadDir, 0755, true);
+            }
+
+            $extension = $file->getClientOriginalExtension();
+            $filename = 'principal_' . time() . '_' . Str::random(6) . '.' . $extension;
+            $file->move($uploadDir, $filename);
+
+            $data['image_path'] = 'uploads/principal/' . $filename;
+        }
+
+        $data['is_active'] = $request->has('is_active') ? $request->boolean('is_active') : true;
+
+        PrincipalMessage::create($data);
+
+        flash()->success('Successfully created.');
+
+        return redirect()->route('admin.principal.index')
+            ->with('success', 'Successfully created.');
+    }
+
+    /**
      * Show edit form for Principal's Message and Academic Leadership card.
      */
     public function edit($id)
@@ -72,10 +112,29 @@ class PrincipalMessageController extends Controller
 
         $principal->update($data);
 
-        flash()->success('Principal leadership message updated successfully!');
+        flash()->success('Successfully updated.');
 
         return redirect()->route('admin.principal.index')
-            ->with('success', 'Principal leadership message updated successfully!');
+            ->with('success', 'Successfully updated.');
+    }
+
+    /**
+     * Delete a Principal record.
+     */
+    public function destroy($id)
+    {
+        $principal = PrincipalMessage::findOrFail($id);
+
+        if ($principal->image_path && File::exists(public_path($principal->image_path))) {
+            File::delete(public_path($principal->image_path));
+        }
+
+        $principal->delete();
+
+        flash()->success('Successfully deleted.');
+
+        return redirect()->route('admin.principal.index')
+            ->with('success', 'Successfully deleted.');
     }
 
     /**

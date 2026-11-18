@@ -14,6 +14,7 @@ class ContactSetting extends Model
     protected $fillable = [
         'address',
         'phone',
+        'phone_2',
         'email',
         'map_link',
         'facebook_url',

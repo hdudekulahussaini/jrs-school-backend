@@ -167,7 +167,7 @@ class BreadcrumbBannerController extends Controller
             }
         }
 
-        flash()->success('Breadcrumb banner for "' . $banner->page_name . '" created successfully.', 'Banner Created');
+        flash()->success('Breadcrumb banner for "' . $banner->page_name . '" created successfully.');
 
         return redirect()->route('admin.breadcrumb-banners.index')
             ->with('success', 'Breadcrumb banner for "' . $banner->page_name . '" created successfully.');
@@ -253,7 +253,7 @@ class BreadcrumbBannerController extends Controller
             }
         }
 
-        flash()->success('Breadcrumb banner for "' . $banner->page_name . '" updated successfully.', 'Banner Updated');
+        flash()->success('Breadcrumb banner for "' . $banner->page_name . '" updated successfully.');
 
         return redirect()->route('admin.breadcrumb-banners.index')
             ->with('success', 'Breadcrumb banner for "' . $banner->page_name . '" updated successfully.');
@@ -279,7 +279,7 @@ class BreadcrumbBannerController extends Controller
         $pageName = $banner->page_name;
         $banner->delete();
 
-        flash()->info('Breadcrumb banner for "' . $pageName . '" deleted successfully.', 'Banner Deleted');
+        flash()->success('Breadcrumb banner for "' . $pageName . '" deleted successfully.');
 
         return redirect()->route('admin.breadcrumb-banners.index')
             ->with('success', 'Breadcrumb banner for "' . $pageName . '" deleted successfully.');

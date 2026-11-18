@@ -17,6 +17,7 @@ class ContactSettingSeeder extends Seeder
             [
                 'address'       => 'JRS International School, Narapally, Near Uppal Depot, Hyderabad, Telangana',
                 'phone'         => '+91 915740 43210',
+                'phone_2'       => '+91 915740 43211',
                 'email'         => 'info@jrsinternationalschool.com',
                 'map_link'      => 'https://maps.google.com/?q=JRS+International+School+Narapally+Hyderabad',
                 'facebook_url'  => 'https://www.facebook.com/jrsinternationalschool',

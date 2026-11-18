@@ -13,8 +13,12 @@ class AdmissionEnquiryController extends Controller
      */
     public function index(Request $request)
     {
-        $status = $request->query('status');
-        $search = $request->query('search');
+        $status  = $request->query('status');
+        $search  = $request->query('search');
+        $perPage = (int) $request->query('per_page', 10);
+        if ($perPage < 5 || $perPage > 100) {
+            $perPage = 10;
+        }
 
         $query = AdmissionEnquiry::latest();
 
@@ -31,7 +35,7 @@ class AdmissionEnquiryController extends Controller
             });
         }
 
-        $enquiries = $query->paginate(15)->withQueryString();
+        $enquiries = $query->paginate($perPage)->withQueryString();
 
         $stats = [
             'total'     => AdmissionEnquiry::count(),
@@ -41,7 +45,7 @@ class AdmissionEnquiryController extends Controller
             'closed'    => AdmissionEnquiry::where('status', 'closed')->count(),
         ];
 
-        return view('admin.admission-enquiries.index', compact('enquiries', 'stats', 'status', 'search'));
+        return view('admin.admission-enquiries.index', compact('enquiries', 'stats', 'status', 'search', 'perPage'));
     }
 
     /**
@@ -65,11 +69,11 @@ class AdmissionEnquiryController extends Controller
         $admissionEnquiry->update($validated);
 
         if ($validated['status'] === 'closed') {
-            flash()->warning("Enquiry #{$admissionEnquiry->id} status updated to Closed.", 'Enquiry Closed');
+            flash()->success("Enquiry #{$admissionEnquiry->id} status updated to Closed.");
         } elseif ($validated['status'] === 'admitted') {
-            flash()->success("Enquiry #{$admissionEnquiry->id} marked as Admitted!", 'Student Admitted');
+            flash()->success("Enquiry #{$admissionEnquiry->id} marked as Admitted!");
         } else {
-            flash()->info("Enquiry #{$admissionEnquiry->id} status updated to " . ucfirst($validated['status']) . ".", 'Status Updated');
+            flash()->success("Enquiry #{$admissionEnquiry->id} status updated to " . ucfirst($validated['status']) . ".");
         }
 
         return redirect()->back()->with('success', "Enquiry #{$admissionEnquiry->id} status updated to " . ucfirst($validated['status']) . ".");
@@ -83,8 +87,29 @@ class AdmissionEnquiryController extends Controller
         $id = $admissionEnquiry->id;
         $admissionEnquiry->delete();
 
-        flash()->info("Admission enquiry #{$id} deleted successfully.", 'Enquiry Deleted');
+        flash()->success("Admission enquiry #{$id} deleted successfully.");
 
         return redirect()->back()->with('success', "Admission enquiry #{$id} deleted successfully.");
+    }
+
+    /**
+     * [BULK DELETE] Delete multiple admission enquiries at once.
+     */
+    public function bulkDestroy(Request $request)
+    {
+        $validated = $request->validate([
+            'ids'   => ['required', 'array', 'min:1'],
+            'ids.*' => ['required', 'integer', 'exists:admission_enquiries,id'],
+        ], [
+            'ids.required' => 'Please select at least one enquiry to delete.',
+            'ids.min'      => 'Please select at least one enquiry to delete.',
+            'ids.*.exists' => 'One or more selected enquiries could not be found.',
+        ]);
+
+        $count = AdmissionEnquiry::whereIn('id', $validated['ids'])->delete();
+
+        flash()->success("{$count} admission " . ($count === 1 ? 'enquiry' : 'enquiries') . " deleted successfully.");
+
+        return redirect()->back()->with('success', "{$count} admission " . ($count === 1 ? 'enquiry' : 'enquiries') . " deleted successfully.");
     }
 }

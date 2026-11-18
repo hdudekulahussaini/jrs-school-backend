@@ -43,7 +43,6 @@ class HomeBannerApiController extends Controller
             'data' => $banner ? [
                 'id' => $banner->id,
                 'image_path' => $banner->image_path,
-                'image_full_url' => $banner->image_full_url,
                 'updated_at' => $banner->updated_at,
             ] : null,
         ], 200);

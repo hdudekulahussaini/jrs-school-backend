@@ -19,7 +19,6 @@ class AdmissionCriterionApiController extends Controller
             return [
                 'id'          => $item->id,
                 'step_number' => $item->step_number,
-                'watermark'   => $item->watermark_number,
                 'badge_tag'   => $item->badge_tag,
                 'title'       => $item->title,
                 'description' => $item->description,
@@ -31,13 +30,6 @@ class AdmissionCriterionApiController extends Controller
 
         return response()->json([
             'success' => true,
-            'section' => [
-                'eyebrow'         => 'ADMISSION ARRANGEMENTS & POLICY',
-                'title'           => 'Admission Criteria & Guidelines',
-                'title_prefix'    => 'Admission Criteria &',
-                'title_highlight' => 'Guidelines',
-                'description'     => 'Essential guidelines for parents applying to Nursery and Grades 1 through 12, designed to ensure a fair, supportive, and child-centered enrollment process.',
-            ],
             'count'   => $data->count(),
             'data'    => $data,
         ], 200);

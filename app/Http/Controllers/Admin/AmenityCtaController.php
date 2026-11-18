@@ -24,6 +24,11 @@ class AmenityCtaController extends Controller
     /**
      * Show the form for creating a new Amenities CTA banner.
      */
+    public function show($id)
+    {
+        return redirect()->route('admin.amenities-cta.edit', $id);
+    }
+
     public function create()
     {
         return view('admin.amenities.cta.create');
@@ -37,17 +42,6 @@ class AmenityCtaController extends Controller
         $validated = $request->validate(AmenityCta::validationRules());
         $isActive = $request->has('is_active') ? $request->boolean('is_active') : true;
         $validated['is_active'] = $isActive;
-
-        if ($request->hasFile('image_file')) {
-            $file = $request->file('image_file');
-            $filename = 'amenity_cta_' . time() . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('uploads/amenities'), $filename);
-            $validated['image_path'] = '/uploads/amenities/' . $filename;
-        } else {
-            $validated['image_path'] = '/images/amenities/cta-banner.png';
-        }
-
-        unset($validated['image_file']);
 
         if ($isActive) {
             AmenityCta::where('is_active', true)->update(['is_active' => false]);
@@ -85,15 +79,6 @@ class AmenityCtaController extends Controller
             }
         }
 
-        if ($request->hasFile('image_file')) {
-            $file = $request->file('image_file');
-            $filename = 'amenity_cta_' . time() . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('uploads/amenities'), $filename);
-            $validated['image_path'] = '/uploads/amenities/' . $filename;
-        }
-
-        unset($validated['image_file']);
-
         $cta->update($validated);
         flash()->success('Amenities CTA banner updated successfully.');
 
@@ -108,7 +93,7 @@ class AmenityCtaController extends Controller
     {
         $cta = AmenityCta::findOrFail($id);
         $cta->delete();
-        flash()->info('Amenities CTA banner deleted successfully.');
+        flash()->success('Amenities CTA banner deleted successfully.');
 
         return redirect()->route('admin.amenities-cta.index')
             ->with('success', 'Amenities CTA banner deleted successfully.');
@@ -127,7 +112,7 @@ class AmenityCtaController extends Controller
             flash()->success('Banner activated successfully.');
         } else {
             $cta->is_active = false;
-            flash()->warning('Banner deactivated.');
+            flash()->success('Banner deactivated successfully.');
         }
 
         $cta->save();

@@ -18,7 +18,14 @@ class AdmissionBrochureApiController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Admission brochure retrieved successfully',
-            'data' => $brochure,
+            'data' => $brochure ? [
+                'id' => $brochure->id,
+                'title' => $brochure->title,
+                'pdf_path' => $brochure->pdf_path,
+                'brochure_link' => $brochure->brochure_link,
+                'file_size' => $brochure->file_size,
+                'is_active' => (bool)$brochure->is_active,
+            ] : null,
         ], 200, [], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
     }
 }

@@ -14,14 +14,29 @@ use Illuminate\Support\Str;
 class FacilityApiController extends Controller
 {
     /**
-     * Public endpoint for React frontend: GET /api/facilities, /api/amenities
+     * Public endpoint for React frontend: GET /api/facilities
+     * Returns only the fields configured in the Admin Dashboard.
      */
     public function getActiveFacilities(): JsonResponse
     {
-        $facilities = Facility::where('is_active', true)
-            ->orderBy('sort_order', 'asc')
-            ->orderBy('id', 'asc')
-            ->get();
+        $facilities = Facility::select([
+            'id',
+            'title',
+            'description',
+            'overview_description',
+            'highlights',
+            'gallery_images',
+            'image_path',
+            'icon',
+            'sort_order',
+            'is_active',
+            'created_at',
+            'updated_at',
+        ])
+        ->where('is_active', true)
+        ->orderBy('sort_order', 'asc')
+        ->orderBy('id', 'asc')
+        ->get();
 
         return response()->json([
             'success' => true,
@@ -33,39 +48,23 @@ class FacilityApiController extends Controller
     }
 
     /**
-     * Public endpoint for dedicated Amenities page: GET /api/amenities-page
-     */
-    public function getPageData(): JsonResponse
-    {
-        $amenities = Facility::where('is_active', true)
-            ->orderBy('sort_order', 'asc')
-            ->orderBy('id', 'asc')
-            ->get();
-
-        $cta = AmenityCta::where('is_active', true)->first();
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Campus amenities page data retrieved successfully',
-            'page' => [
-                'badge' => 'OUR CAMPUS',
-                'title' => 'State-Of-The-Art Facilities',
-                'highlight_title' => 'Facilities',
-                'subtitle' => 'The campus boasts of the following unique facilities to make this happen:'
-            ],
-            'count' => $amenities->count(),
-            'total' => $amenities->count(),
-            'data' => $amenities,
-            'cta' => $cta,
-        ], 200);
-    }
-
-    /**
-     * Public endpoint for dedicated Amenities CTA banner: GET /api/amenities-cta, /api/amenities/cta
+     * Public endpoint for dedicated Amenities CTA banner: GET /api/amenities-cta
+     * Returns only the fields configured in the Admin Dashboard.
      */
     public function getCta(): JsonResponse
     {
-        $cta = AmenityCta::where('is_active', true)->first();
+        $cta = AmenityCta::select([
+            'id',
+            'badge',
+            'title',
+            'highlight_text',
+            'description',
+            'is_active',
+            'created_at',
+            'updated_at',
+        ])
+        ->where('is_active', true)
+        ->first();
 
         if (!$cta) {
             return response()->json([

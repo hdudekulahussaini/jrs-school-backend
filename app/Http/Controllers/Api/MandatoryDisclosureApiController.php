@@ -24,6 +24,8 @@ class MandatoryDisclosureApiController extends Controller
                     's_no'  => $item->s_no,
                     'title' => $item->title,
                     'value' => $item->value,
+                    'sort_order' => $item->sort_order,
+                    'is_active' => (bool)$item->is_active,
                 ];
             });
 
@@ -34,10 +36,13 @@ class MandatoryDisclosureApiController extends Controller
             ->get()
             ->map(function ($item) {
                 return [
-                    'id'            => $item->id,
-                    's_no'          => $item->s_no,
-                    'title'         => $item->title,
-                    'download_link' => $item->download_link,
+                    'id'         => $item->id,
+                    's_no'       => $item->s_no,
+                    'title'      => $item->title,
+                    'file_path'  => $item->file_path,
+                    'file_url'   => $item->file_url,
+                    'sort_order' => $item->sort_order,
+                    'is_active'  => (bool)$item->is_active,
                 ];
             });
 
@@ -48,12 +53,15 @@ class MandatoryDisclosureApiController extends Controller
             ->get()
             ->map(function ($item) {
                 return [
-                    'id'            => $item->id,
-                    's_no'          => $item->s_no,
-                    'title'         => $item->title,
-                    'value'         => $item->value,
-                    'button_label'  => $item->button_label,
-                    'download_link' => $item->download_link,
+                    'id'           => $item->id,
+                    's_no'         => $item->s_no,
+                    'title'        => $item->title,
+                    'value'        => $item->value,
+                    'button_label' => $item->button_label,
+                    'file_path'    => $item->file_path,
+                    'file_url'     => $item->file_url,
+                    'sort_order'   => $item->sort_order,
+                    'is_active'    => (bool)$item->is_active,
                 ];
             });
 
@@ -61,7 +69,19 @@ class MandatoryDisclosureApiController extends Controller
             ->where('is_active', true)
             ->orderBy('sort_order', 'asc')
             ->orderBy('id', 'asc')
-            ->get();
+            ->get()
+            ->map(function ($item) {
+                return [
+                    'id'         => $item->id,
+                    's_no'       => $item->s_no,
+                    'title'      => $item->title,
+                    'value'      => $item->value,
+                    'file_path'  => $item->file_path,
+                    'file_url'   => $item->file_url,
+                    'sort_order' => $item->sort_order,
+                    'is_active'  => (bool)$item->is_active,
+                ];
+            });
 
         return response()->json([
             'success' => true,

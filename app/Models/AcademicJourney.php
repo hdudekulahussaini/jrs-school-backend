@@ -31,9 +31,11 @@ class AcademicJourney extends Model
         'highlights' => 'array',
     ];
 
-    protected $appends = [
-        'image_full_url',
+    protected $hidden = [
+        'icon_svg',
     ];
+
+    protected $appends = [];
 
     /**
      * Return the fully qualified asset URL for the journey image.

@@ -30,44 +30,13 @@ class ChairmanMessageApiController extends Controller
             'success' => true,
             'data' => [
                 'id' => $chairman->id,
-                'is_active' => (bool)$chairman->is_active,
-
-                // Section 1: Chairman's Address & Leadership Profile
-                'chairman_address' => [
-                    'badge' => $chairman->section_badge,
-                    'heading' => $chairman->title,
-                    'profile' => [
-                        'badge' => $chairman->profile_badge,
-                        'name' => $chairman->name,
-                        'sub_title' => $chairman->sub_title,
-                        'quote' => $chairman->quote,
-                        'image_url' => $chairman->image_full_url,
-                        'image_path' => $chairman->image_path,
-                    ],
-                    'paragraph' => $chairman->paragraph,
-                    'paragraphs' => $chairman->paragraphs,
-                    'signoff' => [
-                        'note' => $chairman->signoff_note,
-                        'name' => $chairman->signoff_name,
-                        'sub_title' => $chairman->signoff_sub,
-                    ],
-                ],
-
-                // Section 2: Our Strategic Commitment Banner
-                'strategic_commitment' => [
-                    'badge' => $chairman->commitment_badge,
-                    'heading' => $chairman->commitment_title,
-                    'description' => $chairman->commitment_description,
-                ],
-
-                // Flat fields for straightforward binding
                 'section_badge' => $chairman->section_badge,
                 'title' => $chairman->title,
                 'profile_badge' => $chairman->profile_badge,
                 'name' => $chairman->name,
                 'sub_title' => $chairman->sub_title,
                 'quote' => $chairman->quote,
-                'image_url' => $chairman->image_full_url,
+                'image_path' => $chairman->image_path,
                 'paragraph' => $chairman->paragraph,
                 'signoff_note' => $chairman->signoff_note,
                 'signoff_name' => $chairman->signoff_name,
@@ -75,7 +44,7 @@ class ChairmanMessageApiController extends Controller
                 'commitment_badge' => $chairman->commitment_badge,
                 'commitment_title' => $chairman->commitment_title,
                 'commitment_description' => $chairman->commitment_description,
-                'updated_at' => $chairman->updated_at,
+                'is_active' => (bool)$chairman->is_active,
             ],
         ], 200);
     }

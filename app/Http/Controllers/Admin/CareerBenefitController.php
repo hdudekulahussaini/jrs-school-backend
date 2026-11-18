@@ -44,7 +44,7 @@ class CareerBenefitController extends Controller
 
         CareerBenefit::create($validated);
 
-        flash()->success('Work Culture & Benefit item added successfully.', 'Benefit Added');
+        flash()->success('Work Culture & Benefit item added successfully.');
 
         return redirect()->route('admin.careers-benefits.index')
             ->with('success', 'Work Culture & Benefit item added successfully.');
@@ -75,7 +75,7 @@ class CareerBenefitController extends Controller
 
         $careers_benefit->update($validated);
 
-        flash()->success('Work Culture & Benefit item updated successfully.', 'Benefit Updated');
+        flash()->success('Work Culture & Benefit item updated successfully.');
 
         return redirect()->route('admin.careers-benefits.index')
             ->with('success', 'Work Culture & Benefit item updated successfully.');
@@ -88,7 +88,7 @@ class CareerBenefitController extends Controller
     {
         $careers_benefit->delete();
 
-        flash()->info('Work Culture & Benefit item deleted successfully.', 'Benefit Removed');
+        flash()->success('Work Culture & Benefit item deleted successfully.');
 
         return redirect()->route('admin.careers-benefits.index')
             ->with('success', 'Work Culture & Benefit item deleted successfully.');
@@ -104,9 +104,9 @@ class CareerBenefitController extends Controller
         $benefit->save();
 
         if ($benefit->is_active) {
-            flash()->success('Status activated for "' . $benefit->title . '".', 'Status Updated');
+            flash()->success('Status activated for "' . $benefit->title . '".');
         } else {
-            flash()->warning('Status deactivated for "' . $benefit->title . '".', 'Status Inactive');
+            flash()->success('Status deactivated for "' . $benefit->title . '".');
         }
 
         return redirect()->back()->with('success', 'Status updated for "' . $benefit->title . '".');

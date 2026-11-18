@@ -24,11 +24,7 @@ class AdmissionBrochure extends Model
         'is_active' => 'boolean',
     ];
 
-    protected $appends = [
-        'pdf_full_url',
-        'download_url',
-        'has_file',
-    ];
+    protected $appends = [];
 
     /**
      * Compute full URL for the uploaded PDF.

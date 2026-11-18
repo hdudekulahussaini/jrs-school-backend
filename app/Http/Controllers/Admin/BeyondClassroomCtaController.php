@@ -134,7 +134,7 @@ class BeyondClassroomCtaController extends Controller
         }
 
         $cta->delete();
-        flash()->info('Beyond Classroom CTA banner deleted successfully.');
+        flash()->success('Beyond Classroom CTA banner deleted successfully.');
 
         return redirect()->route('admin.beyond-classroom-cta.index')
             ->with('success', 'Beyond Classroom CTA banner deleted successfully.');

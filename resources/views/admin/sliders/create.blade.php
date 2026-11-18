@@ -26,7 +26,7 @@
             <div>
                 <h3 class="text-base font-bold text-slate-900">New Hero Slider Configuration</h3>
                 <p class="text-xs text-slate-500 mt-0.5">
-                    Configure Heading, Action Buttons, Experience Badge, and Rotating Background Photographs.
+                    Configure Action Buttons and Rotating Background Photographs.
                 </p>
             </div>
             <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
@@ -37,16 +37,7 @@
         <form action="{{ route('admin.sliders.store') }}" method="POST" enctype="multipart/form-data" class="p-6 space-y-6">
             @csrf
 
-            <!-- 1. Heading / Title -->
-            <div class="space-y-2">
-                <label for="title" class="block text-xs font-bold text-slate-700 uppercase tracking-wider">
-                    Hero Heading / Title <span class="text-red-500">*</span>
-                </label>
-                <input type="text" name="title" id="title" required value="{{ old('title', 'Empowering Minds, Shaping Future Leaders') }}" placeholder="e.g. Empowering Minds, Shaping Future Leaders" class="w-full px-4 py-2.5 rounded-xl text-sm font-semibold border @error('title') border-red-500 @else border-slate-200 @enderror focus:border-jrs-navy outline-none text-slate-900 shadow-2xs">
-                @error('title') <p class="text-xs text-red-600 font-medium mt-1">{{ $message }}</p> @enderror
-            </div>
-
-            <!-- 2. Action Buttons -->
+            <!-- Action Buttons -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2 border-t border-slate-100">
                 <div class="p-4 rounded-xl bg-slate-50/70 border border-slate-200/80 space-y-3">
                     <span class="text-xs font-bold uppercase tracking-wider text-slate-700 block">Primary Button</span>
@@ -69,23 +60,7 @@
                 </div>
             </div>
 
-            <!-- 3. Experience Badge Image -->
-            <div class="pt-2 border-t border-slate-100 space-y-3">
-                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider">
-                    Experience Badge Image (Top-Right Circular Seal)
-                </label>
-                <div class="flex items-center gap-4 p-4 rounded-xl bg-slate-50 border border-slate-200/80">
-                    <div class="w-16 h-16 rounded-full bg-slate-950 p-1.5 border border-amber-400 shrink-0 flex items-center justify-center shadow-xs">
-                        <img id="badgePreview" src="{{ asset('images/experience-badge-38.svg') }}" alt="Badge Preview" class="w-full h-full object-contain">
-                    </div>
-                    <div class="flex-1 space-y-1">
-                        <input type="file" name="experience_badge_image" id="badgeInput" accept="image/png,image/svg+xml,image/jpeg,image/webp" class="text-xs text-slate-600 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-jrs-navy file:text-white hover:file:bg-slate-800" onchange="previewBadge(this)">
-                        <p class="text-[11px] text-slate-400">Upload custom seal (PNG, SVG, JPG up to 5MB) or leave empty for default 38 Years Experience seal.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 4. Hero Background Images (Multiple) -->
+            <!-- Hero Background Images (Multiple) -->
             <div class="pt-2 border-t border-slate-100 space-y-3">
                 <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider">
                     Hero Background Photographs (Multiple Image Slider)
@@ -97,6 +72,25 @@
                     <p class="text-[11px] text-slate-400 mt-0.5">JPG, PNG, WEBP up to 10MB each</p>
                 </div>
                 <div id="newImagesPreview" class="hidden grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2"></div>
+            </div>
+
+            <!-- Experience Seal / Badge Image (SVG / PNG) -->
+            <div class="pt-2 border-t border-slate-100 space-y-3">
+                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider">
+                    Experience Badge Image (Optional)
+                </label>
+                <div class="flex items-center gap-4 p-4 rounded-xl bg-slate-50/70 border border-slate-200/80">
+                    <div id="badgePreviewContainer" class="w-16 h-16 rounded-xl border border-dashed border-slate-300 bg-white flex items-center justify-center overflow-hidden shrink-0 shadow-2xs">
+                        <img id="badgePreviewImg" src="" class="w-full h-full object-contain hidden" alt="Badge Preview">
+                        <i id="badgePreviewIcon" class="bi bi-award text-2xl text-slate-400"></i>
+                    </div>
+                    <div class="flex-1">
+                        <input type="file" name="experience_badge_image" id="experience_badge_image" accept="image/*,.svg"
+                            class="block w-full text-xs text-slate-500 file:mr-3 file:py-2 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-slate-200 file:text-slate-700 hover:file:bg-slate-300 cursor-pointer"
+                            onchange="previewBadge(this)">
+                        <p class="text-[11px] text-slate-400 mt-1">Circular badge or seal graphic (SVG, PNG, JPG, WebP up to 5MB)</p>
+                    </div>
+                </div>
             </div>
 
             <!-- Submit Button -->
@@ -114,16 +108,6 @@
 </div>
 
 <script>
-function previewBadge(input) {
-    if (input.files && input.files[0]) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            document.getElementById('badgePreview').src = e.target.result;
-        };
-        reader.readAsDataURL(input.files[0]);
-    }
-}
-
 function previewNewImages(input) {
     const container = document.getElementById('newImagesPreview');
     container.innerHTML = '';
@@ -147,6 +131,20 @@ function previewNewImages(input) {
         };
         reader.readAsDataURL(file);
     });
+}
+
+function previewBadge(input) {
+    const previewImg = document.getElementById('badgePreviewImg');
+    const previewIcon = document.getElementById('badgePreviewIcon');
+    if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            previewImg.src = e.target.result;
+            previewImg.classList.remove('hidden');
+            if (previewIcon) previewIcon.classList.add('hidden');
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
 }
 </script>
 @endsection

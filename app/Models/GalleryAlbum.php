@@ -30,9 +30,7 @@ class GalleryAlbum extends Model
         'is_active' => 'boolean',
     ];
 
-    protected $appends = [
-        'cover_full_url',
-    ];
+    protected $appends = [];
 
     /**
      * Relationship: An album has many items.

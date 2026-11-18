@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\AdmissionBanner;
 use App\Http\Requests\AdmissionBannerRequest;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 
@@ -16,9 +15,39 @@ class AdmissionBannerController extends Controller
      */
     public function index()
     {
-        $banner = AdmissionBanner::first();
+        $banners = AdmissionBanner::orderBy('id', 'desc')->get();
+        $banner = AdmissionBanner::where('is_active', true)->first() ?? $banners->first();
+        $totalCount = $banners->count();
 
-        return view('admin.admission-banner.index', compact('banner'));
+        return view('admin.admission-banner.index', compact('banner', 'banners', 'totalCount'));
+    }
+
+    /**
+     * Show the form for creating an admission banner.
+     */
+    public function create()
+    {
+        $banner = new AdmissionBanner();
+
+        return view('admin.admission-banner.create', compact('banner'));
+    }
+
+    /**
+     * Store a new admission banner.
+     */
+    public function store(AdmissionBannerRequest $request)
+    {
+        $banner = new AdmissionBanner();
+
+        return $this->saveBanner($request, $banner);
+    }
+
+    /**
+     * Redirect the resource show action to the editable banner details.
+     */
+    public function show($id)
+    {
+        return redirect()->route('admin.admission-banner.edit', $id);
     }
 
     /**
@@ -27,6 +56,7 @@ class AdmissionBannerController extends Controller
     public function edit($id)
     {
         $banner = AdmissionBanner::findOrFail($id);
+
         return view('admin.admission-banner.edit', compact('banner'));
     }
 
@@ -36,7 +66,18 @@ class AdmissionBannerController extends Controller
     public function update(AdmissionBannerRequest $request, $id)
     {
         $banner = AdmissionBanner::findOrFail($id);
+
+        return $this->saveBanner($request, $banner);
+    }
+
+    /**
+     * Persist validated banner fields and an optional uploaded image.
+     */
+    private function saveBanner(AdmissionBannerRequest $request, AdmissionBanner $banner)
+    {
+        $isNew = !$banner->exists;
         $validated = $request->validated();
+        $validated['is_active'] = $request->has('is_active') ? (bool)$request->is_active : true;
 
         if ($request->hasFile('image')) {
             $file = $request->file('image');
@@ -53,15 +94,23 @@ class AdmissionBannerController extends Controller
             $fileName = 'banner_' . time() . '_' . Str::random(8) . '.' . $file->getClientOriginalExtension();
             $file->move($uploadDir, $fileName);
             $validated['image_path'] = 'uploads/admission-banner/' . $fileName;
-        } else {
+        } elseif (empty($validated['image_path']) && $isNew) {
             unset($validated['image_path']);
         }
 
-        $banner->update($validated);
+        // If newly created or updated is active, deactivate other banners
+        if ($validated['is_active']) {
+            AdmissionBanner::where('id', '!=', $banner->id ?? 0)->where('is_active', true)->update(['is_active' => false]);
+        }
 
-        flash()->success('Admission Banner section updated successfully!', 'Banner Updated');
+        $banner->fill($validated)->save();
+
+        $message = $isNew
+            ? 'Admission Banner section created successfully!'
+            : 'Admission Banner section updated successfully!';
+        flash()->success($message);
 
         return redirect()->route('admin.admission-banner.index')
-            ->with('success', 'Admission Banner section updated successfully!');
+            ->with('success', $message);
     }
 }

@@ -18,6 +18,7 @@ class ContactSettingController extends Controller
         $contact = ContactSetting::first() ?? new ContactSetting([
             'address'       => 'JRS International School, Narapally, Near Uppal Depot, Hyderabad, Telangana',
             'phone'         => '+91 915740 43210',
+            'phone_2'       => null,
             'email'         => 'info@jrsinternationalschool.com',
             'map_link'      => 'https://maps.google.com/?q=JRS+International+School+Narapally+Hyderabad',
             'facebook_url'  => 'https://facebook.com/jrsinternationalschool',
@@ -127,7 +128,7 @@ class ContactSettingController extends Controller
             $contact = ContactSetting::create($data);
         }
 
-        flash()->success('Contact details and social links updated successfully.', 'Settings Saved');
+        flash()->success('Contact details and social links updated successfully.');
 
         return redirect()->route('admin.contact-settings.index')
             ->with('success', 'Contact details and social links updated successfully.');

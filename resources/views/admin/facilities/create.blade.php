@@ -31,7 +31,7 @@
             </p>
         </div>
 
-        <form action="{{ route('admin.facilities.store') }}" method="POST" class="p-6 space-y-6">
+        <form action="{{ route('admin.facilities.store') }}" method="POST" enctype="multipart/form-data" class="p-6 space-y-6">
             @csrf
 
             <!-- Section 1: Facility Title -->
@@ -271,6 +271,19 @@
                 <div id="galleryImagesGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                     <!-- Cards with individual Remove buttons will be dynamically added here -->
                 </div>
+
+                @error('gallery_images')
+                    <p class="text-xs text-red-600 font-medium">{{ $message }}</p>
+                @enderror
+                @if($errors->has('gallery_images.*'))
+                    <div class="rounded-lg bg-red-50 border border-red-200 p-3 text-xs text-red-700 space-y-1">
+                        @foreach($errors->get('gallery_images.*') as $errArray)
+                            @foreach($errArray as $err)
+                                <p class="flex items-center gap-1.5"><svg class="w-3.5 h-3.5 text-red-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>{{ $err }}</p>
+                            @endforeach
+                        @endforeach
+                    </div>
+                @endif
             </div>
 
             <!-- Divider -->

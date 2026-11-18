@@ -27,7 +27,7 @@ class VisionMissionApiController extends Controller
                 'title' => $item->title,
                 'description' => $item->description,
                 'icon' => $item->icon,
-                'image_url' => $item->image_url,
+                'image_path' => $item->image_path,
                 'sort_order' => $item->sort_order,
                 'is_active' => (bool)$item->is_active,
             ];

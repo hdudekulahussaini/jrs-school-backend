@@ -6,14 +6,50 @@ use App\Http\Controllers\Controller;
 use App\Models\NewsTicker;
 use App\Http\Requests\NewsTickerRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Schema;
 
 class NewsTickerController extends Controller
 {
+    /**
+     * Ensure table and columns exist.
+     */
+    protected function ensureTableExists(): void
+    {
+        if (!Schema::hasTable('news_tickers')) {
+            Schema::create('news_tickers', function (\Illuminate\Database\Schema\Blueprint $table) {
+                $table->id();
+                $table->string('title');
+                $table->string('badge_text')->default('NEWS');
+                $table->string('link_url')->nullable();
+                $table->integer('sort_order')->default(0);
+                $table->boolean('is_active')->default(true);
+                $table->timestamps();
+            });
+        } else {
+            Schema::table('news_tickers', function (\Illuminate\Database\Schema\Blueprint $table) {
+                if (!Schema::hasColumn('news_tickers', 'badge_text')) {
+                    $table->string('badge_text')->default('NEWS')->after('title');
+                }
+                if (!Schema::hasColumn('news_tickers', 'link_url')) {
+                    $table->string('link_url')->nullable()->after('badge_text');
+                }
+                if (!Schema::hasColumn('news_tickers', 'sort_order')) {
+                    $table->integer('sort_order')->default(0)->after('link_url');
+                }
+                if (!Schema::hasColumn('news_tickers', 'is_active')) {
+                    $table->boolean('is_active')->default(true)->after('sort_order');
+                }
+            });
+        }
+    }
+
     /**
      * [READ - Index] Listing of all news tickers.
      */
     public function index(Request $request)
     {
+        $this->ensureTableExists();
+
         $query = NewsTicker::query();
 
         // Optional search
@@ -35,6 +71,7 @@ class NewsTickerController extends Controller
      */
     public function create()
     {
+        $this->ensureTableExists();
         $nextOrder = (NewsTicker::max('sort_order') ?? 0) + 1;
         return view('admin.tickers.create', compact('nextOrder'));
     }
@@ -55,7 +92,7 @@ class NewsTickerController extends Controller
 
         $ticker = NewsTicker::create($validated);
 
-        flash()->success('News ticker announcement created successfully.', 'Ticker Created');
+        flash()->success('News ticker announcement created successfully.');
 
         return redirect()->route('admin.tickers.index')
             ->with('success', 'News ticker announcement created successfully.');
@@ -92,7 +129,7 @@ class NewsTickerController extends Controller
 
         $ticker->update($validated);
 
-        flash()->success('News ticker announcement updated successfully.', 'Ticker Updated');
+        flash()->success('News ticker announcement updated successfully.');
 
         return redirect()->route('admin.tickers.index')
             ->with('success', 'News ticker announcement updated successfully.');
@@ -108,9 +145,9 @@ class NewsTickerController extends Controller
         $ticker->save();
 
         if ($ticker->is_active) {
-            flash()->success('Ticker status changed to Active.', 'Status Updated');
+            flash()->success('Ticker status changed to Active.');
         } else {
-            flash()->warning('Ticker status changed to Disabled.', 'Ticker Disabled');
+            flash()->success('Ticker status changed to Disabled.');
         }
 
         return redirect()->back()
@@ -125,7 +162,7 @@ class NewsTickerController extends Controller
         $ticker = NewsTicker::findOrFail($id);
         $ticker->delete();
 
-        flash()->info('News ticker announcement deleted successfully.', 'Ticker Removed');
+        flash()->success('News ticker announcement deleted successfully.');
 
         return redirect()->route('admin.tickers.index')
             ->with('success', 'News ticker announcement deleted successfully.');

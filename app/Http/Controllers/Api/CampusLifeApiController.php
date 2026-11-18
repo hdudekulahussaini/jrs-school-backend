@@ -9,45 +9,87 @@ use Illuminate\Http\JsonResponse;
 class CampusLifeApiController extends Controller
 {
     /**
-     * Public GET endpoint for React frontend: GET /api/campus-tour or /api/campus-life
+     * @OA\Get(
+     *     path="/campus-tour",
+     *     summary="Get active Campus Tour & Life cards",
+     *     description="Returns active campus cards and section details. Cards include their title, icon, full image URL, sort order, and active state.",
+     *     tags={"Campus Tour & Life (Frontend)"},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Campus tour cards retrieved successfully",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="success", type="boolean", example=true),
+     *             @OA\Property(property="section", type="object"),
+     *             @OA\Property(property="count", type="integer", example=1),
+     *             @OA\Property(
+     *                 property="data",
+     *                 type="array",
+     *                 @OA\Items(
+     *                     @OA\Property(property="id", type="integer", example=1),
+     *                     @OA\Property(property="title", type="string", example="Eco-Friendly Campus"),
+     *                     @OA\Property(property="icon", type="string", nullable=true, example="bi bi-tree-fill"),
+     *                     @OA\Property(property="image_url", type="string", nullable=true, example="https://example.test/campus.jpg"),
+     *                     @OA\Property(property="sort_order", type="integer", example=1),
+     *                     @OA\Property(property="is_active", type="boolean", example=true)
+     *                 )
+     *             )
+     *         )
+     *     )
+     * )
+     *
+     * @OA\Get(
+     *     path="/campus-life",
+     *     summary="Alias endpoint for /campus-tour",
+     *     tags={"Campus Tour & Life (Frontend)"},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Campus tour cards retrieved successfully",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="success", type="boolean", example=true),
+     *             @OA\Property(property="section", type="object"),
+     *             @OA\Property(property="count", type="integer", example=1),
+     *             @OA\Property(
+     *                 property="data",
+     *                 type="array",
+     *                 @OA\Items(
+     *                     @OA\Property(property="id", type="integer", example=1),
+     *                     @OA\Property(property="title", type="string", example="Eco-Friendly Campus"),
+     *                     @OA\Property(property="icon", type="string", nullable=true, example="bi bi-tree-fill"),
+     *                     @OA\Property(property="image_url", type="string", nullable=true, example="https://example.test/campus.jpg"),
+     *                     @OA\Property(property="sort_order", type="integer", example=1),
+     *                     @OA\Property(property="is_active", type="boolean", example=true)
+     *                 )
+     *             )
+     *         )
+     *     )
+     * )
+     */
+    /**
+     * Get active Campus Tour & Life cards for frontend.
      */
     public function index(): JsonResponse
     {
-        $items = CampusLife::where('is_active', true)
+        $cards = CampusLife::where('is_active', true)
+            ->select([
+                'id',
+                'title',
+                'icon',
+                'image_path',
+                'sort_order',
+                'is_active',
+                'created_at',
+                'updated_at',
+            ])
             ->orderBy('sort_order', 'asc')
             ->orderBy('id', 'asc')
             ->get();
 
-        $data = $items->map(function ($item) {
-            return [
-                'id' => $item->id,
-                'title' => $item->title,
-                'subtitle' => $item->subtitle,
-                'icon' => $item->icon,
-                'image_url' => $item->image_full_url,
-                'sort_order' => $item->sort_order,
-                'is_active' => (bool)$item->is_active,
-            ];
-        });
-
         return response()->json([
             'success' => true,
-            'section' => [
-                'eyebrow' => 'CAMPUS TOUR & LIFE AT JRS',
-                'title' => 'Experience The Spirit Of JRS International School',
-                'title_highlight' => 'JRS International School',
-                'description' => 'Explore our state-of-the-art campus, modern facilities, and vibrant learning spaces where every student discovers their unique passions and potential.',
-                'cta_primary' => [
-                    'text' => 'Book a Campus Visit',
-                    'url' => 'https://jrs-school.vercel.app/#tour',
-                ],
-                'cta_secondary' => [
-                    'text' => 'Admissions 2026-27',
-                    'url' => 'https://jrs-school.vercel.app/admissions',
-                ],
-            ],
-            'count' => $data->count(),
-            'data' => $data,
+            'message' => 'Active campus tour cards fetched successfully',
+            'count' => $cards->count(),
+            'total' => $cards->count(),
+            'data' => $cards,
         ], 200);
     }
 }

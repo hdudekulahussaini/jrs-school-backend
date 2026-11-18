@@ -47,6 +47,7 @@ return [
             'password' => env('MAIL_PASSWORD'),
             'timeout' => null,
             'local_domain' => env('MAIL_EHLO_DOMAIN', parse_url((string) env('APP_URL', 'http://localhost'), PHP_URL_HOST)),
+            'encryption' => env('MAIL_ENCRYPTION'),
         ],
 
         'ses' => [
@@ -114,5 +115,18 @@ return [
         'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
         'name' => env('MAIL_FROM_NAME', env('APP_NAME', 'Laravel')),
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Enquiry Notification Target Inboxes
+    |--------------------------------------------------------------------------
+    |
+    | Destination emails for automated notifications when new admission or
+    | general contact enquiries are submitted on the school website.
+    |
+    */
+
+    'admission_notification_email' => env('ADMISSION_NOTIFICATION_EMAIL', 'Jrsinternationalschool6@gmail.com'),
+    'contact_notification_email'   => env('CONTACT_NOTIFICATION_EMAIL', 'Jrsinternationalschool6@gmail.com'),
 
 ];

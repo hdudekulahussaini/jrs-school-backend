@@ -23,18 +23,12 @@ class EducationalSocietyApiController extends Controller
                 'designation' => $item->designation,
                 'address' => $item->address,
                 'phone' => $item->phone,
-                'image_url' => $item->image_full_url,
+                'image_path' => $item->image_path,
             ];
         });
 
         return response()->json([
             'success' => true,
-            'section' => [
-                'eyebrow' => 'GOVERNING BODY & LEADERSHIP',
-                'title' => 'Managing Committee',
-                'title_highlight' => 'Committee',
-                'description' => 'Distinguished governing body steering the vision, academic excellence, statutory compliance, and strategic growth of JRS International School.',
-            ],
             'count' => $data->count(),
             'data' => $data,
         ], 200);

@@ -23,18 +23,12 @@ class SchoolManagementCommitteeApiController extends Controller
                 'designation' => $item->designation,
                 'address' => $item->address,
                 'phone' => $item->phone,
-                'image_url' => $item->image_full_url,
+                'image_path' => $item->image_path,
             ];
         });
 
         return response()->json([
             'success' => true,
-            'section' => [
-                'eyebrow' => 'STATUTORY GOVERNANCE & COMPLIANCE',
-                'title' => 'School Management Committee',
-                'title_highlight' => 'Committee',
-                'description' => 'The School Management Committee (SMC) ensures academic integrity, statutory compliance, student welfare, and continuous institutional growth at JRS International School.',
-            ],
             'count' => $data->count(),
             'data' => $data,
         ], 200);

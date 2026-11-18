@@ -17,9 +17,7 @@ class HomeBanner extends Model
         'image_path',
     ];
 
-    protected $appends = [
-        'image_full_url',
-    ];
+    protected $appends = [];
 
     /**
      * Compute full URL for the home banner image.

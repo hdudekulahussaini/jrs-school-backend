@@ -28,9 +28,7 @@ class AcademicProgram extends Model
         'highlights' => 'array',
     ];
 
-    protected $appends = [
-        'image_full_url',
-    ];
+    protected $appends = [];
 
     /**
      * Compute full URL for the program image.

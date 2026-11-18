@@ -72,7 +72,7 @@ class NewsMediaController extends Controller
             }
         }
 
-        flash()->success('News & Media photos saved successfully.', 'Media Saved');
+        flash()->success('News & Media photos saved successfully.');
 
         return redirect()->route('admin.news-media.index')
             ->with('success', 'News & Media photos saved successfully.');
@@ -118,7 +118,7 @@ class NewsMediaController extends Controller
 
         $item->update($validated);
 
-        flash()->success('News & Media article updated successfully.', 'Article Updated');
+        flash()->success('News & Media article updated successfully.');
 
         return redirect()->route('admin.news-media.index')
             ->with('success', 'News & Media article updated successfully.');
@@ -140,7 +140,7 @@ class NewsMediaController extends Controller
 
         $item->delete();
 
-        flash()->info('News & Media article deleted successfully.', 'Article Removed');
+        flash()->success('News & Media article deleted successfully.');
 
         return redirect()->route('admin.news-media.index')
             ->with('success', 'News & Media article deleted successfully.');
@@ -156,9 +156,9 @@ class NewsMediaController extends Controller
         $item->save();
 
         if ($item->is_active) {
-            flash()->success('Article status changed to Active.', 'Status Updated');
+            flash()->success('Article status changed to Active.');
         } else {
-            flash()->warning('Article status changed to Inactive.', 'Status Inactive');
+            flash()->success('Article status changed to Inactive.');
         }
 
         if (request()->wantsJson()) {

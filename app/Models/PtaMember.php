@@ -26,9 +26,7 @@ class PtaMember extends Model
         'sort_order' => 'integer',
     ];
 
-    protected $appends = [
-        'image_full_url',
-    ];
+    protected $appends = [];
 
     /**
      * Compute full URL for avatar/photo.

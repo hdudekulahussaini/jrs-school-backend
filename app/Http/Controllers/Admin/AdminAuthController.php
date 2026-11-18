@@ -39,13 +39,13 @@ class AdminAuthController extends Controller
         if (Auth::attempt($credentials, $remember)) {
             $request->session()->regenerate();
 
-            flash()->success('Welcome back, ' . Auth::user()->name . '!', 'Authentication Successful');
+            flash()->success('Welcome back, ' . Auth::user()->name . '!');
 
-            return redirect()->intended(route('admin.dashboard'))
+            return redirect()->route('admin.dashboard')
                 ->with('success', 'Welcome back, ' . Auth::user()->name . '!');
         }
 
-        flash()->error('The provided credentials do not match our records.', 'Login Failed');
+        flash()->error('The provided credentials do not match our records.');
 
         return back()->withErrors([
             'email' => 'The provided credentials do not match our records.',
@@ -62,7 +62,7 @@ class AdminAuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        flash()->info('You have been successfully logged out.', 'Session Ended');
+        flash()->success('You have been successfully logged out.');
 
         return redirect()->route('login')
             ->with('success', 'You have been successfully logged out.');

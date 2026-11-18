@@ -23,9 +23,7 @@ class BreadcrumbBanner extends Model
 
     protected $casts = [];
 
-    protected $appends = [
-        'background_image_url',
-    ];
+    protected $appends = [];
 
     /**
      * Relationship to dynamic stats cards (e.g. Year of Establishment, CBSE Affiliation No.)

@@ -33,10 +33,7 @@ class NewsMedia extends Model
         'is_active' => 'boolean',
     ];
 
-    protected $appends = [
-        'image_full_url',
-        'formatted_date',
-    ];
+    protected $appends = [];
 
     /**
      * Get the full URL for the newspaper clipping image.

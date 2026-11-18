@@ -67,7 +67,7 @@ class HomeFeatureController extends Controller
 
         HomeFeature::create($validated);
 
-        flash()->success('Key Feature card created successfully.', 'Feature Created');
+        flash()->success('Key Feature card created successfully.');
 
         return redirect()->route('admin.features.index')
             ->with('success', 'Key Feature card created successfully.');
@@ -105,7 +105,7 @@ class HomeFeatureController extends Controller
 
         $feature->update($validated);
 
-        flash()->success('Key Feature card updated successfully.', 'Feature Updated');
+        flash()->success('Key Feature card updated successfully.');
 
         return redirect()->route('admin.features.index')
             ->with('success', 'Key Feature card updated successfully.');
@@ -121,9 +121,9 @@ class HomeFeatureController extends Controller
         $feature->save();
 
         if ($feature->is_active) {
-            flash()->success('Feature status changed to Active.', 'Status Updated');
+            flash()->success('Feature status changed to Active.');
         } else {
-            flash()->warning('Feature status changed to Inactive.', 'Status Inactive');
+            flash()->success('Feature status changed to Inactive.');
         }
 
         if (request()->wantsJson() || request()->ajax()) {
@@ -146,7 +146,7 @@ class HomeFeatureController extends Controller
         $feature = HomeFeature::findOrFail($id);
         $feature->delete();
 
-        flash()->info('Key Feature card deleted successfully.', 'Feature Removed');
+        flash()->success('Key Feature card deleted successfully.');
 
         return redirect()->route('admin.features.index')
             ->with('success', 'Key Feature card deleted successfully.');

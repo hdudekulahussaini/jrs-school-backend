@@ -51,7 +51,7 @@
                     <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider">
                         Upload Image Files (Supports Multi-Select)
                     </label>
-                    <span class="text-[10px] text-slate-400">JPG, PNG, WebP up to 5MB each</span>
+                    <span class="text-[10px] text-slate-400">JPG, PNG, WebP, SVG up to 10MB each</span>
                 </div>
 
                 <div class="border-2 border-dashed border-slate-300 hover:border-jrs-navy rounded-2xl p-6 text-center transition-colors bg-slate-50/50">

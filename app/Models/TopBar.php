@@ -26,9 +26,7 @@ class TopBar extends Model
         'is_active' => 'boolean',
     ];
 
-    protected $appends = [
-        'prospectus_link',
-    ];
+    protected $appends = [];
 
     /**
      * Resolved download/open link for School Prospectus (file or external URL).

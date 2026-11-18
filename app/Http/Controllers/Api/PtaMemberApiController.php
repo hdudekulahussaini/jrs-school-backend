@@ -25,19 +25,14 @@ class PtaMemberApiController extends Controller
                 'designation' => $item->designation,
                 'address' => $item->address,
                 'phone' => $item->phone,
-                'image_url' => $item->image_full_url,
+                'image_path' => $item->image_path,
                 'sort_order' => $item->sort_order,
+                'is_active' => (bool)$item->is_active,
             ];
         });
 
         return response()->json([
             'success' => true,
-            'section' => [
-                'eyebrow' => 'COMMUNITY & COLLABORATION',
-                'title' => 'Parent Teacher Association',
-                'title_highlight' => 'Association',
-                'description' => 'Promoting continuous collaboration between parents and educators to support the holistic development of our students.',
-            ],
             'count' => $data->count(),
             'data' => $data,
         ], 200);

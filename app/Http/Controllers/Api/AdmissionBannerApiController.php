@@ -31,16 +31,12 @@ class AdmissionBannerApiController extends Controller
                 'title' => $banner->title,
                 'title_highlight' => $banner->title_highlight,
                 'description' => $banner->description,
-                'primary_button' => [
-                    'text' => $banner->primary_button_text,
-                    'url' => $banner->primary_button_link,
-                ],
-                'secondary_button' => [
-                    'text' => $banner->secondary_button_text,
-                    'url' => $banner->secondary_button_link,
-                ],
-                'image_url' => $banner->image_full_url,
-                'updated_at' => $banner->updated_at,
+                'primary_button_text' => $banner->primary_button_text,
+                'primary_button_link' => $banner->primary_button_link,
+                'secondary_button_text' => $banner->secondary_button_text,
+                'secondary_button_link' => $banner->secondary_button_link,
+                'image_path' => $banner->image_path,
+                'is_active' => (bool)$banner->is_active,
             ],
         ], 200);
     }

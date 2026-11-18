@@ -85,7 +85,7 @@ class AdmissionCriterionController extends Controller
     {
         $criterion = AdmissionCriterion::findOrFail($id);
         $criterion->delete();
-        flash()->info('Admission criterion card deleted successfully.');
+        flash()->success('Admission criterion card deleted successfully.');
 
         return redirect()->route('admin.admission-criteria.index')
             ->with('success', 'Admission criterion card deleted successfully.');

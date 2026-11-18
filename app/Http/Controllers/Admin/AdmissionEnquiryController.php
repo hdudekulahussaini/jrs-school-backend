@@ -69,11 +69,11 @@ class AdmissionEnquiryController extends Controller
         $admissionEnquiry->update($validated);
 
         if ($validated['status'] === 'closed') {
-            flash()->warning("Enquiry #{$admissionEnquiry->id} status updated to Closed.", 'Enquiry Closed');
+            flash()->success("Enquiry #{$admissionEnquiry->id} status updated to Closed.");
         } elseif ($validated['status'] === 'admitted') {
-            flash()->success("Enquiry #{$admissionEnquiry->id} marked as Admitted!", 'Student Admitted');
+            flash()->success("Enquiry #{$admissionEnquiry->id} marked as Admitted!");
         } else {
-            flash()->info("Enquiry #{$admissionEnquiry->id} status updated to " . ucfirst($validated['status']) . ".", 'Status Updated');
+            flash()->success("Enquiry #{$admissionEnquiry->id} status updated to " . ucfirst($validated['status']) . ".");
         }
 
         return redirect()->back()->with('success', "Enquiry #{$admissionEnquiry->id} status updated to " . ucfirst($validated['status']) . ".");
@@ -87,7 +87,7 @@ class AdmissionEnquiryController extends Controller
         $id = $admissionEnquiry->id;
         $admissionEnquiry->delete();
 
-        flash()->info("Admission enquiry #{$id} deleted successfully.", 'Enquiry Deleted');
+        flash()->success("Admission enquiry #{$id} deleted successfully.");
 
         return redirect()->back()->with('success', "Admission enquiry #{$id} deleted successfully.");
     }
@@ -108,7 +108,7 @@ class AdmissionEnquiryController extends Controller
 
         $count = AdmissionEnquiry::whereIn('id', $validated['ids'])->delete();
 
-        flash()->info("{$count} admission " . ($count === 1 ? 'enquiry' : 'enquiries') . " deleted successfully.", 'Bulk Delete Complete');
+        flash()->success("{$count} admission " . ($count === 1 ? 'enquiry' : 'enquiries') . " deleted successfully.");
 
         return redirect()->back()->with('success', "{$count} admission " . ($count === 1 ? 'enquiry' : 'enquiries') . " deleted successfully.");
     }

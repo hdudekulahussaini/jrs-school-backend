@@ -128,7 +128,7 @@ class CampusLifeController extends Controller
 
         $item->delete();
 
-        flash()->info('Campus Tour & Life card deleted successfully.');
+        flash()->success('Campus Tour & Life card deleted successfully.');
 
         return redirect()->route('admin.campus-life.index')
             ->with('success', 'Campus Tour & Life card deleted successfully.');

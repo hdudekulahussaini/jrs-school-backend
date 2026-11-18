@@ -82,7 +82,7 @@ class AdmissionFaqController extends Controller
     {
         $faq = AdmissionFaq::findOrFail($id);
         $faq->delete();
-        flash()->info('Admission FAQ deleted successfully.');
+        flash()->success('Admission FAQ deleted successfully.');
 
         return redirect()->route('admin.admission-faqs.index')
             ->with('success', 'Admission FAQ deleted successfully.');

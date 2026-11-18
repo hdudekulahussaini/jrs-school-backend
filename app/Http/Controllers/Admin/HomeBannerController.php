@@ -59,14 +59,14 @@ class HomeBannerController extends Controller
             $banner->image_path = 'uploads/home_banners/' . $filename;
             $banner->save();
 
-            flash()->success('Home banner uploaded successfully.', 'Banner Saved');
+            flash()->success('Home banner uploaded successfully.');
         } elseif ($request->filled('image_path')) {
             $banner->image_path = $request->input('image_path');
             $banner->save();
 
-            flash()->success('Home banner updated successfully.', 'Banner Saved');
+            flash()->success('Home banner updated successfully.');
         } else {
-            flash()->warning('Please select an image file to upload.', 'No File Selected');
+            flash()->warning('Please select an image file to upload.');
         }
 
         return redirect()->route('admin.home-banner.index');
@@ -84,7 +84,7 @@ class HomeBannerController extends Controller
         if ($banner) {
             $this->deletePhysicalImage($banner->image_path);
             $banner->delete();
-            flash()->info('Home banner deleted successfully.', 'Banner Removed');
+            flash()->success('Home banner deleted successfully.');
         }
 
         return redirect()->route('admin.home-banner.index');

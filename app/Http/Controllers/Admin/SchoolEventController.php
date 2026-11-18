@@ -94,7 +94,7 @@ class SchoolEventController extends Controller
 
         SchoolEvent::create($validated);
 
-        flash()->success('Latest Event created successfully.', 'Event Created');
+        flash()->success('Latest Event created successfully.');
 
         return redirect()->route('admin.events.index')
             ->with('success', 'Latest Event created successfully.');
@@ -173,7 +173,7 @@ class SchoolEventController extends Controller
 
         $event->update($validated);
 
-        flash()->success('Latest Event updated successfully.', 'Event Updated');
+        flash()->success('Latest Event updated successfully.');
 
         return redirect()->route('admin.events.index')
             ->with('success', 'Latest Event updated successfully.');
@@ -189,9 +189,9 @@ class SchoolEventController extends Controller
         $event->save();
 
         if ($event->is_active) {
-            flash()->success('Event status changed to Active.', 'Status Updated');
+            flash()->success('Event status changed to Active.');
         } else {
-            flash()->warning('Event status changed to Inactive.', 'Status Inactive');
+            flash()->success('Event status changed to Inactive.');
         }
 
         if (request()->wantsJson() || request()->ajax()) {
@@ -222,7 +222,7 @@ class SchoolEventController extends Controller
 
         $event->delete();
 
-        flash()->info('Latest Event deleted successfully.', 'Event Deleted');
+        flash()->success('Latest Event deleted successfully.');
 
         return redirect()->route('admin.events.index')
             ->with('success', 'Latest Event deleted successfully.');

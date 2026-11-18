@@ -101,7 +101,7 @@ class FacilityController extends Controller
 
         Facility::create($validated);
 
-        flash()->success('Facility card created successfully.', 'Facility Created');
+        flash()->success('Facility card created successfully.');
 
         return redirect()->route('admin.facilities.index')
             ->with('success', 'Facility card created successfully.');
@@ -192,7 +192,7 @@ class FacilityController extends Controller
 
         $facility->update($validated);
 
-        flash()->success('Facility card updated successfully.', 'Facility Updated');
+        flash()->success('Facility card updated successfully.');
 
         return redirect()->route('admin.facilities.index')
             ->with('success', 'Facility card updated successfully.');
@@ -208,9 +208,9 @@ class FacilityController extends Controller
         $facility->save();
 
         if ($facility->is_active) {
-            flash()->success('Facility status changed to Active.', 'Status Updated');
+            flash()->success('Facility status changed to Active.');
         } else {
-            flash()->warning('Facility status changed to Disabled.', 'Status Inactive');
+            flash()->success('Facility status changed to Disabled.');
         }
 
         return redirect()->back()
@@ -233,7 +233,7 @@ class FacilityController extends Controller
 
         $facility->delete();
 
-        flash()->info('Facility card deleted successfully.', 'Facility Removed');
+        flash()->success('Facility card deleted successfully.');
 
         return redirect()->route('admin.facilities.index')
             ->with('success', 'Facility card deleted successfully.');

@@ -39,7 +39,7 @@ class HeroSliderController extends Controller
     {
         if (HeroSlider::count() >= 1) {
             $existing = HeroSlider::first();
-            flash()->warning('Maximum limit reached: Only 1 Hero Slider is allowed. You can edit the existing one or delete it first.', [], 'Limit Reached');
+            flash()->warning('Maximum limit reached: Only 1 Hero Slider is allowed. You can edit the existing one or delete it first.');
             return redirect()->route('admin.sliders.edit', $existing->id);
         }
 
@@ -59,7 +59,7 @@ class HeroSliderController extends Controller
     public function store(HeroSliderRequest $request)
     {
         if (HeroSlider::count() >= 1) {
-            flash()->error('Only 1 Hero Slider configuration is allowed. Please edit or delete the existing one.', [], 'Action Not Allowed');
+            flash()->error('Only 1 Hero Slider configuration is allowed. Please edit or delete the existing one.');
             return redirect()->route('admin.sliders.index');
         }
         $validated = $request->validated();
@@ -119,7 +119,7 @@ class HeroSliderController extends Controller
 
         $slider = HeroSlider::create($validated);
 
-        flash()->success('Hero slider created successfully.', [], 'Hero Slider Created');
+        flash()->success('Hero slider created successfully.');
 
         return redirect()->route('admin.sliders.index')
             ->with('success', 'Hero slider created successfully.');
@@ -217,7 +217,7 @@ class HeroSliderController extends Controller
         $slider->fill($validated);
         $slider->save();
 
-        flash()->success('Hero slider updated successfully.', [], 'Hero Slider Saved');
+        flash()->success('Hero slider updated successfully.');
 
         return redirect()->route('admin.sliders.index')
             ->with('success', 'Hero slider updated successfully.');
@@ -278,7 +278,7 @@ class HeroSliderController extends Controller
         $this->deletePhysicalImage($slider->experience_badge_image);
         $slider->delete();
 
-        flash()->info('Hero slider deleted successfully.', [], 'Hero Slider Deleted');
+        flash()->success('Hero slider deleted successfully.');
 
         return redirect()->route('admin.sliders.index')
             ->with('success', 'Hero slider deleted successfully.');

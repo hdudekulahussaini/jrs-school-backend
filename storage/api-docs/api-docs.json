@@ -31,7 +31,7 @@
                     },
                     "title": {
                         "type": "string",
-                        "example": "\u2605 Admissions Open for Academic Year 2027\u20132028 (Nursery to Grade XII) \u2014 Enroll Today!"
+                        "example": "★ Admissions Open for Academic Year 2027–2028 (Nursery to Grade XII) — Enroll Today!"
                     },
                     "pdf_url": {
                         "type": "string",
@@ -542,7 +542,7 @@
                                         "phone": "+91 92814 09674",
                                         "phone_2": "+91 92814 09675",
                                         "email": "admissions@jrs.ac.in",
-                                        "cbse_affiliation_text": "CBSE AFFILIATION: 3630478 \u2022 SCHOOL CODE: 56725",
+                                        "cbse_affiliation_text": "CBSE AFFILIATION: 3630478 • SCHOOL CODE: 56725",
                                         "prospectus_title": "School Prospectus 2027-28",
                                         "prospectus_url": "https://example.com/prospectus.pdf",
                                         "prospectus_file": "uploads/top-bar/prospectus.pdf",
@@ -714,32 +714,32 @@
                                     "data": [
                                         {
                                             "id": 1,
-                                            "title": "\u2605 Admissions Open for Academic Year 2027\u20132028 (Nursery to Grade XII) \u2014 Enroll Today!",
+                                            "title": "★ Admissions Open for Academic Year 2027–2028 (Nursery to Grade XII) — Enroll Today!",
                                             "pdf_url": null
                                         },
                                         {
                                             "id": 2,
-                                            "title": "\u2605 Admissions Open for 11th & 12th Standard Also \u2014 Enroll Today!",
+                                            "title": "★ Admissions Open for 11th & 12th Standard Also — Enroll Today!",
                                             "pdf_url": null
                                         },
                                         {
                                             "id": 3,
-                                            "title": "\u2605 CBSE Curriculum with State-of-the-Art STEM, Robotics & AI Labs",
+                                            "title": "★ CBSE Curriculum with State-of-the-Art STEM, Robotics & AI Labs",
                                             "pdf_url": null
                                         },
                                         {
                                             "id": 4,
-                                            "title": "\u2605 Download Official School Prospectus & Admission Guidelines (PDF)",
+                                            "title": "★ Download Official School Prospectus & Admission Guidelines (PDF)",
                                             "pdf_url": null
                                         },
                                         {
                                             "id": 5,
-                                            "title": "\u2605 Campus Tours & Personalized Counseling Sessions Available at Narapally Campus",
+                                            "title": "★ Campus Tours & Personalized Counseling Sessions Available at Narapally Campus",
                                             "pdf_url": null
                                         },
                                         {
                                             "id": 6,
-                                            "title": "\u2605 Admissions Helpline: +91 92814 09674, +91 92814 09672 | Email: Jrsinternationalschool6@gmail.com",
+                                            "title": "★ Admissions Helpline: +91 92814 09674, +91 92814 09672 | Email: Jrsinternationalschool6@gmail.com",
                                             "pdf_url": null
                                         }
                                     ]
@@ -3115,8 +3115,8 @@
                                         "title": "Empowering Young Minds For A Changing World",
                                         "profile_badge": "FOUNDING LEADERSHIP",
                                         "name": "Chairman Of JRS",
-                                        "sub_title": "JRS International School \u2022 Hyderabad",
-                                        "quote": "\u201cNurturing Tomorrow\u2019s Leaders with Global Competence & Indian Values\u201d",
+                                        "sub_title": "JRS International School • Hyderabad",
+                                        "quote": "“Nurturing Tomorrow’s Leaders with Global Competence & Indian Values”",
                                         "image_path": "uploads/chairman/chairman.jpg",
                                         "paragraph": "Education is not merely about accumulating knowledge; it is about awakening the intellect and instilling moral character.",
                                         "signoff_note": "WITH WARM WISHES & COMMITMENT,",
@@ -3193,7 +3193,7 @@
                                         "sub_title": "Principal & Head of School",
                                         "image_path": "uploads/principal/principal.jpg",
                                         "paragraph": "Welcome to JRS International School. Our educational paradigm integrates rigorous academic inquiry with ethical and emotional growth.",
-                                        "quote": "\u201cEvery child possesses a spark of genius; our sacred duty is to ignite it.\u201d",
+                                        "quote": "“Every child possesses a spark of genius; our sacred duty is to ignite it.”",
                                         "signoff_note": "WITH WARM REGARDS & COMMITMENT,",
                                         "signoff_signature": "Principal",
                                         "signoff_name": "Principal",
@@ -3569,7 +3569,7 @@
                                     "data": [
                                         {
                                             "id": 1,
-                                            "title": "\u0c1c\u0c47\u0c06\u0c30\u0c4d\u0c0e\u0c38\u0c4d \u0c2a\u0c3e\u0c20\u0c36\u0c3e\u0c32\u0c32\u0c4b \u0c18\u0c28\u0c02\u0c17\u0c3e \u0c38\u0c48\u0c28\u0c4d\u0c38\u0c4d \u0c2b\u0c47\u0c30\u0c4d",
+                                            "title": "జేఆర్ఎస్ పాఠశాలలో ఘనంగా సైన్స్ ఫేర్",
                                             "english_title": "Science Fair Celebrated with Grandeur at JRS",
                                             "newspaper_name": "Eenadu Hyderabad",
                                             "location": "Hyderabad",
@@ -3833,10 +3833,10 @@
                                     "success": true,
                                     "data": {
                                         "id": 1,
-                                        "location_tag": "HYDERABAD \u2022 CB-SE AFFILIATED",
+                                        "location_tag": "HYDERABAD • CB-SE AFFILIATED",
                                         "title": "Admissions Open for Academic Year",
-                                        "academic_year": "2027 \u2013 2028",
-                                        "description": "Shape your child\u2019s educational voyage with academic excellence, values, and holistic development.",
+                                        "academic_year": "2027 – 2028",
+                                        "description": "Shape your child’s educational voyage with academic excellence, values, and holistic development.",
                                         "phone": "+91 92814 09674",
                                         "email": "admissions@jrs.ac.in",
                                         "features": [
@@ -4407,8 +4407,8 @@
                 "tags": [
                     "Admissions (Frontend)"
                 ],
-                "summary": "Get admission popup image",
-                "description": "Returns the uploaded admission popup image URL. Returns HTTP 404 when no image is configured.",
+                "summary": "Get admission popup configuration",
+                "description": "Returns the uploaded admission popup image URL and active status. Returns HTTP 404 when no popup is configured.",
                 "responses": {
                     "200": {
                         "description": "Admission popup image URL",
@@ -4419,21 +4419,7 @@
                                     "data": {
                                         "id": 1,
                                         "is_active": true,
-                                        "image_path": "uploads/admission-popup/popup.jpg",
-                                        "badge_text": "ADMISSIONS OPEN",
-                                        "cbse_affiliation_text": "CBSE AFFILIATION: 3630478 \u2022 SCHOOL CODE: 56725",
-                                        "school_name": "JRS International School",
-                                        "school_location": "Narapally, Near Uppal, Hyderabad",
-                                        "academic_year_badge": "Academic Year 2027 \u2013 2028",
-                                        "title_prefix": "Admissions Open For",
-                                        "academic_year_highlight": "2027 \u2013 2028",
-                                        "description": "Enrolling students from Nursery to Grade XII with world-class facilities and CBSE curriculum.",
-                                        "features": [
-                                            "CBSE Curriculum with experiential, inquiry-based learning",
-                                            "STEM, Robotics & Cognospace innovation labs",
-                                            "World-Class Sports & Co-curricular clubs"
-                                        ],
-                                        "phone_number": "+91 92814 09674"
+                                        "image_path": "uploads/admission-popup/popup.jpg"
                                     }
                                 },
                                 "schema": {
@@ -4445,14 +4431,20 @@
                                         "data": {
                                             "type": "object",
                                             "properties": {
-                                                "image_url": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "is_active": {
+                                                    "type": "boolean",
+                                                    "example": true
+                                                },
+                                                "image_path": {
                                                     "type": "string",
-                                                    "format": "uri"
+                                                    "nullable": true,
+                                                    "example": "uploads/admission-popup/popup.jpg"
                                                 }
-                                            },
-                                            "required": [
-                                                "image_url"
-                                            ]
+                                            }
                                         }
                                     },
                                     "required": [

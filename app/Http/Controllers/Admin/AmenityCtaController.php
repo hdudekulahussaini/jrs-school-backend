@@ -93,7 +93,7 @@ class AmenityCtaController extends Controller
     {
         $cta = AmenityCta::findOrFail($id);
         $cta->delete();
-        flash()->info('Amenities CTA banner deleted successfully.');
+        flash()->success('Amenities CTA banner deleted successfully.');
 
         return redirect()->route('admin.amenities-cta.index')
             ->with('success', 'Amenities CTA banner deleted successfully.');
@@ -112,7 +112,7 @@ class AmenityCtaController extends Controller
             flash()->success('Banner activated successfully.');
         } else {
             $cta->is_active = false;
-            flash()->warning('Banner deactivated.');
+            flash()->success('Banner deactivated successfully.');
         }
 
         $cta->save();

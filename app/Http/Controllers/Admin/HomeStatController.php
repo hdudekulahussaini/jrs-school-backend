@@ -69,7 +69,7 @@ class HomeStatController extends Controller
 
         HomeStat::create($validated);
 
-        flash()->success('Stat card created successfully.', 'Stat Created');
+        flash()->success('Stat card created successfully.');
 
         return redirect()->route('admin.stats.index')
             ->with('success', 'Stat card created successfully.');
@@ -109,7 +109,7 @@ class HomeStatController extends Controller
 
         $stat->update($validated);
 
-        flash()->success('Stat card updated successfully.', 'Stat Updated');
+        flash()->success('Stat card updated successfully.');
 
         return redirect()->route('admin.stats.index')
             ->with('success', 'Stat card updated successfully.');
@@ -125,9 +125,9 @@ class HomeStatController extends Controller
         $stat->save();
 
         if ($stat->is_active) {
-            flash()->success('Stat status changed to Active.', 'Status Updated');
+            flash()->success('Stat status changed to Active.');
         } else {
-            flash()->warning('Stat status changed to Inactive.', 'Status Inactive');
+            flash()->success('Stat status changed to Inactive.');
         }
 
         if (request()->wantsJson() || request()->ajax()) {
@@ -150,7 +150,7 @@ class HomeStatController extends Controller
         $stat = HomeStat::findOrFail($id);
         $stat->delete();
 
-        flash()->info('Stat card deleted successfully.', 'Stat Removed');
+        flash()->success('Stat card deleted successfully.');
 
         return redirect()->route('admin.stats.index')
             ->with('success', 'Stat card deleted successfully.');

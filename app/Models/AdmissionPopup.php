@@ -14,21 +14,10 @@ class AdmissionPopup extends Model
     protected $fillable = [
         'is_active',
         'image_path',
-        'badge_text',
-        'cbse_affiliation_text',
-        'school_name',
-        'school_location',
-        'academic_year_badge',
-        'title_prefix',
-        'academic_year_highlight',
-        'description',
-        'features',
-        'phone_number',
     ];
 
     protected $casts = [
         'is_active' => 'boolean',
-        'features'  => 'array',
     ];
 
     protected $appends = [];

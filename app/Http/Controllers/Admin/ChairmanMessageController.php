@@ -71,7 +71,7 @@ class ChairmanMessageController extends Controller
 
         $chairman->update($validated);
 
-        flash()->success('Chairman Leadership page sections updated successfully!', 'Leadership Updated');
+        flash()->success('Chairman Leadership page sections updated successfully!');
 
         return redirect()->route('admin.chairman.index')
             ->with('success', 'Chairman Leadership page sections updated successfully!');
@@ -89,9 +89,9 @@ class ChairmanMessageController extends Controller
         $status = $chairman->is_active ? 'activated' : 'deactivated';
 
         if ($chairman->is_active) {
-            flash()->success('Chairman sections successfully activated.', 'Section Activated');
+            flash()->success('Chairman sections successfully activated.');
         } else {
-            flash()->warning('Chairman sections successfully deactivated.', 'Section Deactivated');
+            flash()->success('Chairman sections successfully deactivated.');
         }
 
         return redirect()->back()->with('success', "Chairman sections successfully {$status}.");

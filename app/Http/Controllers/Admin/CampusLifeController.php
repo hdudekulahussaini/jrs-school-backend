@@ -74,6 +74,14 @@ class CampusLifeController extends Controller
     }
 
     /**
+     * Redirect show action to edit.
+     */
+    public function show($id)
+    {
+        return redirect()->route('admin.campus-life.edit', $id);
+    }
+
+    /**
      * [UPDATE - Form] Display edit form.
      */
     public function edit($id)

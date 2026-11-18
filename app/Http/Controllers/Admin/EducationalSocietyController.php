@@ -77,6 +77,14 @@ class EducationalSocietyController extends Controller
     }
 
     /**
+     * Redirect show action to edit.
+     */
+    public function show($id)
+    {
+        return redirect()->route('admin.educational-society.edit', $id);
+    }
+
+    /**
      * [UPDATE - Form] Display edit form.
      */
     public function edit($id)

@@ -51,6 +51,14 @@ class CareerBenefitController extends Controller
     }
 
     /**
+     * Redirect show action to edit.
+     */
+    public function show(CareerBenefit $careers_benefit)
+    {
+        return redirect()->route('admin.careers-benefits.edit', $careers_benefit);
+    }
+
+    /**
      * Show the form for editing the specified benefit.
      */
     public function edit(CareerBenefit $careers_benefit)

@@ -148,6 +148,14 @@ class GalleryItemController extends Controller
     }
 
     /**
+     * Redirect show action to edit.
+     */
+    public function show(string $id)
+    {
+        return redirect()->route('admin.gallery-items.edit', $id);
+    }
+
+    /**
      * Show form to edit a single media item.
      */
     public function edit(string $id)

@@ -20,9 +20,12 @@ class CareerSection extends Model
         'image_path',
         'apply_email',
         'apply_phone',
+        'is_active',
     ];
 
-    protected $casts = [];
+    protected $casts = [
+        'is_active' => 'boolean',
+    ];
 
     protected $appends = [];
 

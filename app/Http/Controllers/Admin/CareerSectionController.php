@@ -6,14 +6,46 @@ use App\Http\Controllers\Controller;
 use App\Models\CareerSection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
 
 class CareerSectionController extends Controller
 {
+    /**
+     * Ensure table and columns exist.
+     */
+    protected function ensureTableExists(): void
+    {
+        if (!Schema::hasTable('career_sections')) {
+            Schema::create('career_sections', function (Blueprint $table) {
+                $table->id();
+                $table->string('badge')->default('TEACHING AT JRS');
+                $table->string('title')->default('Grow. Teach. Inspire. Make A Difference.');
+                $table->string('highlight_1')->nullable()->default('Inspire.');
+                $table->string('highlight_2')->nullable()->default('Difference.');
+                $table->text('description');
+                $table->string('image_path')->nullable();
+                $table->string('apply_email')->nullable()->default('careers@jrsschool.com');
+                $table->string('apply_phone')->nullable()->default('+91 98765 43210');
+                $table->boolean('is_active')->default(true);
+                $table->timestamps();
+            });
+        } else {
+            Schema::table('career_sections', function (Blueprint $table) {
+                if (!Schema::hasColumn('career_sections', 'is_active')) {
+                    $table->boolean('is_active')->default(true)->after('apply_phone');
+                }
+            });
+        }
+    }
+
     /**
      * Display a listing of Career section overviews.
      */
     public function index()
     {
+        $this->ensureTableExists();
+
         $sections = CareerSection::orderBy('id', 'desc')->paginate(10);
         $activeSection = CareerSection::where('is_active', true)->first();
         $totalCount = CareerSection::count();
@@ -26,6 +58,8 @@ class CareerSectionController extends Controller
      */
     public function create()
     {
+        $this->ensureTableExists();
+
         return view('admin.careers.teaching.create');
     }
 
@@ -34,6 +68,8 @@ class CareerSectionController extends Controller
      */
     public function store(Request $request)
     {
+        $this->ensureTableExists();
+
         $validated = $request->validate(CareerSection::validationRules());
         $validated['is_active'] = $request->has('is_active') ? (bool)$request->is_active : true;
 
@@ -54,10 +90,10 @@ class CareerSectionController extends Controller
 
         CareerSection::create($validated);
 
-        flash()->success('Teaching at JRS section created successfully.');
+        flash()->success('Successfully created.');
 
         return redirect()->route('admin.careers-teaching.index')
-            ->with('success', 'Teaching at JRS section created successfully.');
+            ->with('success', 'Successfully created.');
     }
 
     /**
@@ -65,6 +101,8 @@ class CareerSectionController extends Controller
      */
     public function show($id)
     {
+        $this->ensureTableExists();
+
         $section = CareerSection::findOrFail($id);
         return view('admin.careers.teaching.show', compact('section'));
     }
@@ -74,6 +112,8 @@ class CareerSectionController extends Controller
      */
     public function edit($id)
     {
+        $this->ensureTableExists();
+
         $section = CareerSection::findOrFail($id);
         return view('admin.careers.teaching.edit', compact('section'));
     }
@@ -83,6 +123,8 @@ class CareerSectionController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->ensureTableExists();
+
         $section = CareerSection::findOrFail($id);
         $validated = $request->validate(CareerSection::validationRules());
 
@@ -112,10 +154,10 @@ class CareerSectionController extends Controller
 
         $section->update($validated);
 
-        flash()->success('Teaching at JRS section updated successfully.');
+        flash()->success('Successfully updated.');
 
         return redirect()->route('admin.careers-teaching.index')
-            ->with('success', 'Teaching at JRS section updated successfully.');
+            ->with('success', 'Successfully updated.');
     }
 
     /**
@@ -123,6 +165,8 @@ class CareerSectionController extends Controller
      */
     public function destroy($id)
     {
+        $this->ensureTableExists();
+
         $section = CareerSection::findOrFail($id);
 
         if ($section->image_path && str_starts_with($section->image_path, '/uploads/')) {
@@ -134,10 +178,10 @@ class CareerSectionController extends Controller
 
         $section->delete();
 
-        flash()->success('Teaching at JRS section deleted successfully.');
+        flash()->success('Successfully deleted.');
 
         return redirect()->route('admin.careers-teaching.index')
-            ->with('success', 'Teaching at JRS section deleted.');
+            ->with('success', 'Successfully deleted.');
     }
 
     /**
@@ -145,6 +189,8 @@ class CareerSectionController extends Controller
      */
     public function toggle($id)
     {
+        $this->ensureTableExists();
+
         $section = CareerSection::findOrFail($id);
         $newStatus = !$section->is_active;
 
@@ -154,6 +200,12 @@ class CareerSectionController extends Controller
 
         $section->is_active = $newStatus;
         $section->save();
+
+        if ($section->is_active) {
+            flash()->success('Successfully activated.');
+        } else {
+            flash()->success('Successfully deactivated.');
+        }
 
         return response()->json([
             'success' => true,

@@ -79,6 +79,14 @@ class NewsMediaController extends Controller
     }
 
     /**
+     * Redirect show action to index.
+     */
+    public function show(string $id)
+    {
+        return redirect()->route('admin.news-media.index');
+    }
+
+    /**
      * Show form to edit news/media article.
      */
     public function edit(string $id)

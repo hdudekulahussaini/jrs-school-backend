@@ -13,6 +13,11 @@ class NewsTickerApiController extends Controller
     /**
      * Public endpoint for React frontend ticker: GET /api/news-ticker
      */
+    public function getTickers(): JsonResponse
+    {
+        return $this->getActiveTickers();
+    }
+
     public function getActiveTickers(): JsonResponse
     {
 

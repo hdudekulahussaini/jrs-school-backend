@@ -72,6 +72,14 @@ class VisionMissionController extends Controller
     }
 
     /**
+     * Redirect show action to edit.
+     */
+    public function show($id)
+    {
+        return redirect()->route('admin.vision-mission.edit', $id);
+    }
+
+    /**
      * [UPDATE - Form] Edit existing card.
      */
     public function edit($id)

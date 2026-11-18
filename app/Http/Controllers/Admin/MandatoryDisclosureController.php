@@ -146,6 +146,14 @@ class MandatoryDisclosureController extends Controller
     }
 
     /**
+     * Redirect show action to edit.
+     */
+    public function show(string $id)
+    {
+        return redirect()->route('admin.mandatory-disclosure.edit', $id);
+    }
+
+    /**
      * Show form to edit mandatory disclosure record.
      */
     public function edit(string $id)

@@ -78,6 +78,14 @@ class CareerOpportunityController extends Controller
     }
 
     /**
+     * Redirect show action to edit.
+     */
+    public function show(CareerOpportunity $careers_opportunity)
+    {
+        return redirect()->route('admin.careers-opportunities.edit', $careers_opportunity);
+    }
+
+    /**
      * Show the form for editing the specified section.
      */
     public function edit(CareerOpportunity $careers_opportunity)

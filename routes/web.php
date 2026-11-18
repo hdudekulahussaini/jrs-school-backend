@@ -94,7 +94,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::get('/home-banner', [HomeBannerController::class, 'index'])->name('admin.home-banner.index');
     Route::post('/home-banner', [HomeBannerController::class, 'store'])->name('admin.home-banner.store');
     Route::delete('/home-banner/{id?}', [HomeBannerController::class, 'destroy'])->name('admin.home-banner.destroy');
-    Route::resource('/home-banners', HomeBannerController::class)->names('admin.home-banners');
+    Route::resource('/home-banners', HomeBannerController::class)->only(['index', 'store', 'destroy'])->names('admin.home-banners');
 
     // Key Features Full CRUD Resource
     Route::resource('/features', HomeFeatureController::class)->names('admin.features');

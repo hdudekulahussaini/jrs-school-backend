@@ -99,6 +99,14 @@ class GalleryAlbumController extends Controller
     }
 
     /**
+     * Redirect show action to edit.
+     */
+    public function show(string $id)
+    {
+        return redirect()->route('admin.gallery-albums.edit', $id);
+    }
+
+    /**
      * Show form to edit an album.
      */
     public function edit(string $id)
